@@ -1,0 +1,3234 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"inv_mems_secondary_transport.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.inv_read_secondary,"ax",%progbits
+  18              		.align	1
+  19              		.global	inv_read_secondary
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	inv_read_secondary, %function
+  23              	inv_read_secondary:
+  24              	.LFB1:
+  25              		.file 1 ".\\20648_driver\\drivers\\inv_mems_secondary_transport.c"
+   1:.\20648_driver\drivers/inv_mems_secondary_transport.c **** /*
+   2:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * _________________________________________________________________________________________________
+   3:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * Copyright © 2014-2015 InvenSense Inc. Portions Copyright © 2014-2015 Movea. All rights reserved.
+   4:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * This software, related documentation and any modifications thereto (collectively “Software”) is s
+   5:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * to InvenSense and its licensors' intellectual property rights under U.S. and international copyri
+   6:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * other intellectual property rights laws.
+   7:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * InvenSense and its licensors retain all intellectual property and proprietary rights in and to th
+   8:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * and any use, reproduction, disclosure or distribution of the Software without an express license
+   9:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * agreement from InvenSense is strictly prohibited.
+  10:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * _________________________________________________________________________________________________
+  11:.\20648_driver\drivers/inv_mems_secondary_transport.c **** */
+  12:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  13:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include ".\20648_driver\drivers\inv_mems_transport.h"
+  14:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  15:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include ".\20648_driver\common\inv_mems_drv_hook.h"
+  16:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include ".\20648_driver\drivers\inv_mems_defines.h"
+  17:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #ifndef MEMS_20609
+  18:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include ".\20648_driver\drivers\inv_mems_base_driver.h"
+  19:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #else
+  20:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include "driver/inv_mems_base_driver_20609.h"
+  21:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #endif
+  22:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include ".\20648_driver\invn\invn_types.h"
+  23:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  24:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #include ".\20648_driver\drivers\inv_mems_secondary_transport.h"
+  25:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  26:.\20648_driver\drivers/inv_mems_secondary_transport.c **** /**
+  27:.\20648_driver\drivers/inv_mems_secondary_transport.c ****  *  struct inv_secondary_reg - secondary registers data structure.
+  28:.\20648_driver\drivers/inv_mems_secondary_transport.c ****  *  @addr:       address of the slave.
+  29:.\20648_driver\drivers/inv_mems_secondary_transport.c ****  *  @reg: register address of slave.
+  30:.\20648_driver\drivers/inv_mems_secondary_transport.c ****  *  @ctrl: control register.
+  31:.\20648_driver\drivers/inv_mems_secondary_transport.c ****  *  @d0: data out register.
+  32:.\20648_driver\drivers/inv_mems_secondary_transport.c ****  */
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 2
+
+
+  33:.\20648_driver\drivers/inv_mems_secondary_transport.c **** struct inv_secondary_reg {
+  34:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	unsigned short addr;
+  35:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	unsigned short reg;
+  36:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	unsigned short ctrl;
+  37:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	unsigned short d0;
+  38:.\20648_driver\drivers/inv_mems_secondary_transport.c **** };
+  39:.\20648_driver\drivers/inv_mems_secondary_transport.c **** static struct inv_secondary_reg slv_reg[4];
+  40:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  41:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #if (MEMS_CHIP != HW_ICM20609)
+  42:.\20648_driver\drivers/inv_mems_secondary_transport.c **** static unsigned char sSavedI2cOdr;
+  43:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #endif
+  44:.\20648_driver\drivers/inv_mems_secondary_transport.c **** void inv_init_secondary(void)
+  45:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+  46:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].addr = REG_I2C_SLV0_ADDR;
+  47:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].reg  = REG_I2C_SLV0_REG;
+  48:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].ctrl = REG_I2C_SLV0_CTRL;
+  49:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].d0   = REG_I2C_SLV0_DO;
+  50:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+  51:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     slv_reg[1].addr = REG_I2C_SLV1_ADDR;
+  52:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[1].reg  = REG_I2C_SLV1_REG;
+  53:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[1].ctrl = REG_I2C_SLV1_CTRL;
+  54:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[1].d0   = REG_I2C_SLV1_DO;
+  55:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+  56:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     slv_reg[2].addr = REG_I2C_SLV2_ADDR;
+  57:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[2].reg  = REG_I2C_SLV2_REG;
+  58:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[2].ctrl = REG_I2C_SLV2_CTRL;
+  59:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[2].d0   = REG_I2C_SLV2_DO;
+  60:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #if (MEMS_CHIP != HW_ICM20609)   
+  61:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[3].addr = REG_I2C_SLV3_ADDR;
+  62:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[3].reg  = REG_I2C_SLV3_REG;
+  63:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[3].ctrl = REG_I2C_SLV3_CTRL;
+  64:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[3].d0   = REG_I2C_SLV3_DO;
+  65:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #endif	
+  66:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	/* Make sure that by default all channels are disabled 
+  67:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	To not inherit from a previous configuration from a previous run*/
+  68:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(0);
+  69:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(1);
+  70:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(2);
+  71:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(3);
+  72:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+  73:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  74:.\20648_driver\drivers/inv_mems_secondary_transport.c **** /* the following functions are used for configuring the secondary devices */
+  75:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  76:.\20648_driver\drivers/inv_mems_secondary_transport.c **** /*
+  77:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * inv_configure_secondary_read(): set secondary registers for reading.
+  78:.\20648_driver\drivers/inv_mems_secondary_transport.c **** The chip must be set as bank 3 before calling.
+  79:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * This is derived from inv_read_secondary in linux...
+  80:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * for now, uses a very simple data struct for the registers
+  81:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * 
+  82:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * index gives the mapping to the particular SLVx registers
+  83:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * addr is the physical address of the device to be accessed
+  84:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * reg is the device register we wish to access
+  85:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * len is the number of bytes to be read
+  86:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * 
+  87:.\20648_driver\drivers/inv_mems_secondary_transport.c **** */
+  88:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_read_secondary(int index, inv_i2c_addr_t addr, unsigned char reg, char len)
+  89:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 3
+
+
+  26              		.loc 1 89 0
+  27              		.cfi_startproc
+  28              	.LVL0:
+  29 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  30              		.cfi_def_cfa_offset 20
+  31              		.cfi_offset 4, -20
+  32              		.cfi_offset 5, -16
+  33              		.cfi_offset 6, -12
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  90:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+  91:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     unsigned char data;
+  92:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  93:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = INV_MPU_BIT_I2C_READ | addr;
+  36              		.loc 1 93 0
+  37 0002 8027     		mov	r7, #128
+  89:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+  38              		.loc 1 89 0
+  39 0004 87B0     		sub	sp, sp, #28
+  40              		.cfi_def_cfa_offset 48
+  94:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].addr, 1, &data);
+  41              		.loc 1 94 0
+  42 0006 124E     		ldr	r6, .L2
+  89:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+  43              		.loc 1 89 0
+  44 0008 0393     		str	r3, [sp, #12]
+  93:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].addr, 1, &data);
+  45              		.loc 1 93 0
+  46 000a 7F42     		neg	r7, r7
+  47 000c 04AB     		add	r3, sp, #16
+  48              	.LVL1:
+  49 000e DD1D     		add	r5, r3, #7
+  50 0010 3943     		orr	r1, r7
+  51              	.LVL2:
+  52              		.loc 1 94 0
+  53 0012 C400     		lsl	r4, r0, #3
+  89:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+  54              		.loc 1 89 0
+  55 0014 0292     		str	r2, [sp, #8]
+  93:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].addr, 1, &data);
+  56              		.loc 1 93 0
+  57 0016 D971     		strb	r1, [r3, #7]
+  58              		.loc 1 94 0
+  59 0018 A05B     		ldrh	r0, [r4, r6]
+  60              	.LVL3:
+  61 001a 2A1C     		mov	r2, r5
+  62              	.LVL4:
+  63 001c 0121     		mov	r1, #1
+  64 001e FFF7FEFF 		bl	inv_write_mems_reg
+  65              	.LVL5:
+  95:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  96:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = reg;
+  66              		.loc 1 96 0
+  67 0022 6B46     		mov	r3, sp
+  68 0024 1B7A     		ldrb	r3, [r3, #8]
+  97:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].reg, 1, &data);
+  69              		.loc 1 97 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 4
+
+
+  70 0026 3419     		add	r4, r6, r4
+  96:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].reg, 1, &data);
+  71              		.loc 1 96 0
+  72 0028 2B70     		strb	r3, [r5]
+  94:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+  73              		.loc 1 94 0
+  74 002a 0190     		str	r0, [sp, #4]
+  75              	.LVL6:
+  76              		.loc 1 97 0
+  77 002c 2A1C     		mov	r2, r5
+  78 002e 6088     		ldrh	r0, [r4, #2]
+  79              	.LVL7:
+  80 0030 0121     		mov	r1, #1
+  81 0032 FFF7FEFF 		bl	inv_write_mems_reg
+  82              	.LVL8:
+  98:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+  99:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = INV_MPU_BIT_SLV_EN | len;
+  83              		.loc 1 99 0
+  84 0036 039B     		ldr	r3, [sp, #12]
+  97:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+  85              		.loc 1 97 0
+  86 0038 019E     		ldr	r6, [sp, #4]
+  87              		.loc 1 99 0
+  88 003a 3B43     		orr	r3, r7
+  89 003c 2B70     		strb	r3, [r5]
+  97:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+  90              		.loc 1 97 0
+  91 003e 0643     		orr	r6, r0
+  92              	.LVL9:
+ 100:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].ctrl, 1, &data);
+  93              		.loc 1 100 0
+  94 0040 0121     		mov	r1, #1
+  95 0042 A088     		ldrh	r0, [r4, #4]
+  96 0044 2A1C     		mov	r2, r5
+  97 0046 FFF7FEFF 		bl	inv_write_mems_reg
+  98              	.LVL10:
+  99 004a 3043     		orr	r0, r6
+ 100              	.LVL11:
+ 101:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 102:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return result;
+ 103:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 101              		.loc 1 103 0
+ 102 004c 07B0     		add	sp, sp, #28
+ 103              		@ sp needed
+ 104 004e F0BD     		pop	{r4, r5, r6, r7, pc}
+ 105              	.L3:
+ 106              		.align	2
+ 107              	.L2:
+ 108 0050 00000000 		.word	.LANCHOR0
+ 109              		.cfi_endproc
+ 110              	.LFE1:
+ 111              		.size	inv_read_secondary, .-inv_read_secondary
+ 112              		.section	.text.inv_write_secondary,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	inv_write_secondary
+ 115              		.code	16
+ 116              		.thumb_func
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 5
+
+
+ 117              		.type	inv_write_secondary, %function
+ 118              	inv_write_secondary:
+ 119              	.LFB3:
+ 104:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 105:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_execute_read_secondary(int index, inv_i2c_addr_t addr, int reg, int len, uint8_t *d
+ 106:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 107:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 108:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 109:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_read_secondary(index, addr, reg, len);
+ 110:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 111:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_mems_secondary_enable_i2c();
+ 112:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 113:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_sleep(SECONDARY_INIT_WAIT);
+ 114:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 115:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_mems_secondary_disable_i2c();
+ 116:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 117:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     result |= inv_read_mems_reg(REG_EXT_SLV_SENS_DATA_00, len, d); 
+ 118:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 119:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_mems_secondary_stop_channel(index);
+ 120:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 121:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return result;
+ 122:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 123:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 124:.\20648_driver\drivers/inv_mems_secondary_transport.c **** /*
+ 125:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * inv_write_secondary(): set secondary registers for writing?.
+ 126:.\20648_driver\drivers/inv_mems_secondary_transport.c **** The chip must be set as bank 3 before calling.
+ 127:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * This is derived from inv_write_secondary in linux...
+ 128:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * for now, uses a very simple data struct for the registers
+ 129:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * 
+ 130:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * index gives the mapping to the particular SLVx registers
+ 131:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * addr is the physical address of the device to be accessed
+ 132:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * reg is the device register we wish to access
+ 133:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * len is the number of bytes to be read
+ 134:.\20648_driver\drivers/inv_mems_secondary_transport.c **** * 
+ 135:.\20648_driver\drivers/inv_mems_secondary_transport.c **** */
+ 136:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_write_secondary(int index, inv_i2c_addr_t addr, unsigned char reg, char v)
+ 137:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 120              		.loc 1 137 0
+ 121              		.cfi_startproc
+ 122              	.LVL12:
+ 123 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 124              		.cfi_def_cfa_offset 20
+ 125              		.cfi_offset 4, -20
+ 126              		.cfi_offset 5, -16
+ 127              		.cfi_offset 6, -12
+ 128              		.cfi_offset 7, -8
+ 129              		.cfi_offset 14, -4
+ 130 0002 85B0     		sub	sp, sp, #20
+ 131              		.cfi_def_cfa_offset 40
+ 138:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 139:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     unsigned char data;
+ 140:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 141:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = (unsigned char)addr;
+ 142:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].addr, 1, &data);
+ 132              		.loc 1 142 0
+ 133 0004 144E     		ldr	r6, .L5
+ 137:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 6
+
+
+ 134              		.loc 1 137 0
+ 135 0006 0193     		str	r3, [sp, #4]
+ 141:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].addr, 1, &data);
+ 136              		.loc 1 141 0
+ 137 0008 02AB     		add	r3, sp, #8
+ 138              	.LVL13:
+ 139 000a DC1D     		add	r4, r3, #7
+ 140              		.loc 1 142 0
+ 141 000c C500     		lsl	r5, r0, #3
+ 141:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].addr, 1, &data);
+ 142              		.loc 1 141 0
+ 143 000e D971     		strb	r1, [r3, #7]
+ 137:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 144              		.loc 1 137 0
+ 145 0010 171C     		mov	r7, r2
+ 146              		.loc 1 142 0
+ 147 0012 A85B     		ldrh	r0, [r5, r6]
+ 148              	.LVL14:
+ 149 0014 221C     		mov	r2, r4
+ 150              	.LVL15:
+ 151 0016 0121     		mov	r1, #1
+ 152              	.LVL16:
+ 153 0018 FFF7FEFF 		bl	inv_write_mems_reg
+ 154              	.LVL17:
+ 143:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 144:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = reg;
+ 145:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].reg, 1, &data);
+ 155              		.loc 1 145 0
+ 156 001c 7519     		add	r5, r6, r5
+ 142:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 157              		.loc 1 142 0
+ 158 001e 0090     		str	r0, [sp]
+ 159              	.LVL18:
+ 144:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].reg, 1, &data);
+ 160              		.loc 1 144 0
+ 161 0020 2770     		strb	r7, [r4]
+ 162              		.loc 1 145 0
+ 163 0022 221C     		mov	r2, r4
+ 164 0024 6888     		ldrh	r0, [r5, #2]
+ 165              	.LVL19:
+ 166 0026 0121     		mov	r1, #1
+ 167 0028 FFF7FEFF 		bl	inv_write_mems_reg
+ 168              	.LVL20:
+ 146:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 147:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = v;
+ 169              		.loc 1 147 0
+ 170 002c 6B46     		mov	r3, sp
+ 171 002e 1B79     		ldrb	r3, [r3, #4]
+ 145:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 172              		.loc 1 145 0
+ 173 0030 009E     		ldr	r6, [sp]
+ 174              		.loc 1 147 0
+ 175 0032 2370     		strb	r3, [r4]
+ 148:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     result |= inv_write_mems_reg(slv_reg[index].d0, 1, &data);
+ 176              		.loc 1 148 0
+ 177 0034 221C     		mov	r2, r4
+ 145:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 7
+
+
+ 178              		.loc 1 145 0
+ 179 0036 0643     		orr	r6, r0
+ 180              	.LVL21:
+ 181              		.loc 1 148 0
+ 182 0038 0121     		mov	r1, #1
+ 183 003a E888     		ldrh	r0, [r5, #6]
+ 184 003c FFF7FEFF 		bl	inv_write_mems_reg
+ 185              	.LVL22:
+ 149:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 150:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     data = INV_MPU_BIT_SLV_EN | 1;
+ 186              		.loc 1 150 0
+ 187 0040 8123     		mov	r3, #129
+ 188 0042 2370     		strb	r3, [r4]
+ 148:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     result |= inv_write_mems_reg(slv_reg[index].d0, 1, &data);
+ 189              		.loc 1 148 0
+ 190 0044 0643     		orr	r6, r0
+ 191              	.LVL23:
+ 151:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_mems_reg(slv_reg[index].ctrl, 1, &data);
+ 192              		.loc 1 151 0
+ 193 0046 0121     		mov	r1, #1
+ 194 0048 A888     		ldrh	r0, [r5, #4]
+ 195 004a 221C     		mov	r2, r4
+ 196 004c FFF7FEFF 		bl	inv_write_mems_reg
+ 197              	.LVL24:
+ 198 0050 3043     		orr	r0, r6
+ 199              	.LVL25:
+ 152:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 153:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     return result;
+ 154:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 200              		.loc 1 154 0
+ 201 0052 05B0     		add	sp, sp, #20
+ 202              		@ sp needed
+ 203 0054 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 204              	.L6:
+ 205 0056 C046     		.align	2
+ 206              	.L5:
+ 207 0058 00000000 		.word	.LANCHOR0
+ 208              		.cfi_endproc
+ 209              	.LFE3:
+ 210              		.size	inv_write_secondary, .-inv_write_secondary
+ 211              		.section	.text.inv_mems_secondary_saveI2cOdr,"ax",%progbits
+ 212              		.align	1
+ 213              		.global	inv_mems_secondary_saveI2cOdr
+ 214              		.code	16
+ 215              		.thumb_func
+ 216              		.type	inv_mems_secondary_saveI2cOdr, %function
+ 217              	inv_mems_secondary_saveI2cOdr:
+ 218              	.LFB5:
+ 155:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 156:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_execute_write_secondary(int index, inv_i2c_addr_t addr, int reg, uint8_t v)
+ 157:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 158:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 159:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 160:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_write_secondary(index, addr, reg, v);
+ 161:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 162:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_mems_secondary_enable_i2c();
+ 163:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 8
+
+
+ 164:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_sleep(SECONDARY_INIT_WAIT);
+ 165:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 166:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_mems_secondary_disable_i2c();
+ 167:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 168:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	result |= inv_mems_secondary_stop_channel(index);
+ 169:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 170:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return result;
+ 171:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 172:.\20648_driver\drivers/inv_mems_secondary_transport.c **** void inv_mems_secondary_saveI2cOdr(void)
+ 173:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 219              		.loc 1 173 0
+ 220              		.cfi_startproc
+ 174:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #if (MEMS_CHIP != HW_ICM20609)	
+ 175:.\20648_driver\drivers/inv_mems_secondary_transport.c ****         inv_read_mems_reg(REG_I2C_MST_ODR_CONFIG,1,&sSavedI2cOdr);
+ 176:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #else
+ 177:.\20648_driver\drivers/inv_mems_secondary_transport.c ****         return;
+ 178:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #endif
+ 179:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 221              		.loc 1 179 0
+ 222              		@ sp needed
+ 223 0000 7047     		bx	lr
+ 224              		.cfi_endproc
+ 225              	.LFE5:
+ 226              		.size	inv_mems_secondary_saveI2cOdr, .-inv_mems_secondary_saveI2cOdr
+ 227              		.section	.text.inv_mems_secondary_restoreI2cOdr,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	inv_mems_secondary_restoreI2cOdr
+ 230              		.code	16
+ 231              		.thumb_func
+ 232              		.type	inv_mems_secondary_restoreI2cOdr, %function
+ 233              	inv_mems_secondary_restoreI2cOdr:
+ 234              	.LFB6:
+ 180:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 181:.\20648_driver\drivers/inv_mems_secondary_transport.c **** void inv_mems_secondary_restoreI2cOdr(void)
+ 182:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 235              		.loc 1 182 0
+ 236              		.cfi_startproc
+ 183:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #if (MEMS_CHIP != HW_ICM20609)
+ 184:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_write_single_mems_reg(REG_I2C_MST_ODR_CONFIG,sSavedI2cOdr);
+ 185:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #else
+ 186:.\20648_driver\drivers/inv_mems_secondary_transport.c ****         return;
+ 187:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #endif
+ 188:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 237              		.loc 1 188 0
+ 238              		@ sp needed
+ 239 0000 7047     		bx	lr
+ 240              		.cfi_endproc
+ 241              	.LFE6:
+ 242              		.size	inv_mems_secondary_restoreI2cOdr, .-inv_mems_secondary_restoreI2cOdr
+ 243              		.section	.text.inv_mems_secondary_stop_channel,"ax",%progbits
+ 244              		.align	1
+ 245              		.global	inv_mems_secondary_stop_channel
+ 246              		.code	16
+ 247              		.thumb_func
+ 248              		.type	inv_mems_secondary_stop_channel, %function
+ 249              	inv_mems_secondary_stop_channel:
+ 250              	.LFB7:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 9
+
+
+ 189:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 190:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_mems_secondary_stop_channel(int index)
+ 191:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 251              		.loc 1 191 0
+ 252              		.cfi_startproc
+ 253              	.LVL26:
+ 254 0000 08B5     		push	{r3, lr}
+ 255              		.cfi_def_cfa_offset 8
+ 256              		.cfi_offset 3, -8
+ 257              		.cfi_offset 14, -4
+ 192:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(slv_reg[index].ctrl, 0);
+ 258              		.loc 1 192 0
+ 259 0002 044B     		ldr	r3, .L10
+ 260 0004 C000     		lsl	r0, r0, #3
+ 261              	.LVL27:
+ 262 0006 1818     		add	r0, r3, r0
+ 263 0008 8088     		ldrh	r0, [r0, #4]
+ 264 000a 0021     		mov	r1, #0
+ 265 000c FFF7FEFF 		bl	inv_write_single_mems_reg
+ 266              	.LVL28:
+ 193:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 267              		.loc 1 193 0
+ 268              		@ sp needed
+ 269 0010 08BD     		pop	{r3, pc}
+ 270              	.L11:
+ 271 0012 C046     		.align	2
+ 272              	.L10:
+ 273 0014 00000000 		.word	.LANCHOR0
+ 274              		.cfi_endproc
+ 275              	.LFE7:
+ 276              		.size	inv_mems_secondary_stop_channel, .-inv_mems_secondary_stop_channel
+ 277              		.section	.text.inv_init_secondary,"ax",%progbits
+ 278              		.align	1
+ 279              		.global	inv_init_secondary
+ 280              		.code	16
+ 281              		.thumb_func
+ 282              		.type	inv_init_secondary, %function
+ 283              	inv_init_secondary:
+ 284              	.LFB0:
+  45:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].addr = REG_I2C_SLV0_ADDR;
+ 285              		.loc 1 45 0
+ 286              		.cfi_startproc
+  46:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].reg  = REG_I2C_SLV0_REG;
+ 287              		.loc 1 46 0
+ 288 0000 8422     		mov	r2, #132
+  45:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].addr = REG_I2C_SLV0_ADDR;
+ 289              		.loc 1 45 0
+ 290 0002 08B5     		push	{r3, lr}
+ 291              		.cfi_def_cfa_offset 8
+ 292              		.cfi_offset 3, -8
+ 293              		.cfi_offset 14, -4
+  46:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].reg  = REG_I2C_SLV0_REG;
+ 294              		.loc 1 46 0
+ 295 0004 154B     		ldr	r3, .L13
+ 296 0006 FF32     		add	r2, r2, #255
+ 297 0008 1A80     		strh	r2, [r3]
+  47:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].ctrl = REG_I2C_SLV0_CTRL;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 10
+
+
+ 298              		.loc 1 47 0
+ 299 000a 0132     		add	r2, r2, #1
+ 300 000c 5A80     		strh	r2, [r3, #2]
+  48:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[0].d0   = REG_I2C_SLV0_DO;
+ 301              		.loc 1 48 0
+ 302 000e 8622     		mov	r2, #134
+ 303 0010 FF32     		add	r2, r2, #255
+ 304 0012 9A80     		strh	r2, [r3, #4]
+  49:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 305              		.loc 1 49 0
+ 306 0014 0132     		add	r2, r2, #1
+ 307 0016 DA80     		strh	r2, [r3, #6]
+  51:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[1].reg  = REG_I2C_SLV1_REG;
+ 308              		.loc 1 51 0
+ 309 0018 8822     		mov	r2, #136
+ 310 001a FF32     		add	r2, r2, #255
+ 311 001c 1A81     		strh	r2, [r3, #8]
+  52:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[1].ctrl = REG_I2C_SLV1_CTRL;
+ 312              		.loc 1 52 0
+ 313 001e 0132     		add	r2, r2, #1
+ 314 0020 5A81     		strh	r2, [r3, #10]
+  53:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[1].d0   = REG_I2C_SLV1_DO;
+ 315              		.loc 1 53 0
+ 316 0022 8A22     		mov	r2, #138
+ 317 0024 FF32     		add	r2, r2, #255
+ 318 0026 9A81     		strh	r2, [r3, #12]
+  54:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 319              		.loc 1 54 0
+ 320 0028 0132     		add	r2, r2, #1
+ 321 002a DA81     		strh	r2, [r3, #14]
+  56:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[2].reg  = REG_I2C_SLV2_REG;
+ 322              		.loc 1 56 0
+ 323 002c 8C22     		mov	r2, #140
+ 324 002e FF32     		add	r2, r2, #255
+ 325 0030 1A82     		strh	r2, [r3, #16]
+  57:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[2].ctrl = REG_I2C_SLV2_CTRL;
+ 326              		.loc 1 57 0
+ 327 0032 0132     		add	r2, r2, #1
+ 328 0034 5A82     		strh	r2, [r3, #18]
+  58:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	slv_reg[2].d0   = REG_I2C_SLV2_DO;
+ 329              		.loc 1 58 0
+ 330 0036 8E22     		mov	r2, #142
+ 331 0038 FF32     		add	r2, r2, #255
+ 332 003a 9A82     		strh	r2, [r3, #20]
+  59:.\20648_driver\drivers/inv_mems_secondary_transport.c **** #if (MEMS_CHIP != HW_ICM20609)   
+ 333              		.loc 1 59 0
+ 334 003c 0132     		add	r2, r2, #1
+ 335 003e DA82     		strh	r2, [r3, #22]
+  68:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(1);
+ 336              		.loc 1 68 0
+ 337 0040 0020     		mov	r0, #0
+ 338 0042 FFF7FEFF 		bl	inv_mems_secondary_stop_channel
+ 339              	.LVL29:
+  69:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(2);
+ 340              		.loc 1 69 0
+ 341 0046 0120     		mov	r0, #1
+ 342 0048 FFF7FEFF 		bl	inv_mems_secondary_stop_channel
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 11
+
+
+ 343              	.LVL30:
+  70:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_mems_secondary_stop_channel(3);
+ 344              		.loc 1 70 0
+ 345 004c 0220     		mov	r0, #2
+ 346 004e FFF7FEFF 		bl	inv_mems_secondary_stop_channel
+ 347              	.LVL31:
+  71:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 348              		.loc 1 71 0
+ 349 0052 0320     		mov	r0, #3
+ 350 0054 FFF7FEFF 		bl	inv_mems_secondary_stop_channel
+ 351              	.LVL32:
+  72:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 352              		.loc 1 72 0
+ 353              		@ sp needed
+ 354 0058 08BD     		pop	{r3, pc}
+ 355              	.L14:
+ 356 005a C046     		.align	2
+ 357              	.L13:
+ 358 005c 00000000 		.word	.LANCHOR0
+ 359              		.cfi_endproc
+ 360              	.LFE0:
+ 361              		.size	inv_init_secondary, .-inv_init_secondary
+ 362              		.section	.text.inv_mems_secondary_enable_i2c,"ax",%progbits
+ 363              		.align	1
+ 364              		.global	inv_mems_secondary_enable_i2c
+ 365              		.code	16
+ 366              		.thumb_func
+ 367              		.type	inv_mems_secondary_enable_i2c, %function
+ 368              	inv_mems_secondary_enable_i2c:
+ 369              	.LFB8:
+ 194:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 195:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_mems_secondary_enable_i2c(void)
+ 196:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 370              		.loc 1 196 0
+ 371              		.cfi_startproc
+ 197:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	base_state.user_ctrl |= BIT_I2C_MST_EN;
+ 372              		.loc 1 197 0
+ 373 0000 2021     		mov	r1, #32
+ 196:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	base_state.user_ctrl |= BIT_I2C_MST_EN;
+ 374              		.loc 1 196 0
+ 375 0002 08B5     		push	{r3, lr}
+ 376              		.cfi_def_cfa_offset 8
+ 377              		.cfi_offset 3, -8
+ 378              		.cfi_offset 14, -4
+ 379              		.loc 1 197 0
+ 380 0004 034A     		ldr	r2, .L16
+ 198:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl); 
+ 381              		.loc 1 198 0
+ 382 0006 0320     		mov	r0, #3
+ 197:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	base_state.user_ctrl |= BIT_I2C_MST_EN;
+ 383              		.loc 1 197 0
+ 384 0008 D378     		ldrb	r3, [r2, #3]
+ 199:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 385              		.loc 1 199 0
+ 386              		@ sp needed
+ 197:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl); 
+ 387              		.loc 1 197 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 12
+
+
+ 388 000a 1943     		orr	r1, r3
+ 389 000c D170     		strb	r1, [r2, #3]
+ 198:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl); 
+ 390              		.loc 1 198 0
+ 391 000e FFF7FEFF 		bl	inv_write_single_mems_reg
+ 392              	.LVL33:
+ 393              		.loc 1 199 0
+ 394 0012 08BD     		pop	{r3, pc}
+ 395              	.L17:
+ 396              		.align	2
+ 397              	.L16:
+ 398 0014 00000000 		.word	base_state
+ 399              		.cfi_endproc
+ 400              	.LFE8:
+ 401              		.size	inv_mems_secondary_enable_i2c, .-inv_mems_secondary_enable_i2c
+ 402              		.section	.text.inv_mems_secondary_disable_i2c,"ax",%progbits
+ 403              		.align	1
+ 404              		.global	inv_mems_secondary_disable_i2c
+ 405              		.code	16
+ 406              		.thumb_func
+ 407              		.type	inv_mems_secondary_disable_i2c, %function
+ 408              	inv_mems_secondary_disable_i2c:
+ 409              	.LFB9:
+ 200:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 201:.\20648_driver\drivers/inv_mems_secondary_transport.c **** inv_error_t inv_mems_secondary_disable_i2c(void)
+ 202:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 410              		.loc 1 202 0
+ 411              		.cfi_startproc
+ 203:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	base_state.user_ctrl &= ~BIT_I2C_MST_EN;
+ 412              		.loc 1 203 0
+ 413 0000 2022     		mov	r2, #32
+ 202:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	base_state.user_ctrl &= ~BIT_I2C_MST_EN;
+ 414              		.loc 1 202 0
+ 415 0002 08B5     		push	{r3, lr}
+ 416              		.cfi_def_cfa_offset 8
+ 417              		.cfi_offset 3, -8
+ 418              		.cfi_offset 14, -4
+ 419              		.loc 1 203 0
+ 420 0004 034B     		ldr	r3, .L19
+ 204:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl); 
+ 421              		.loc 1 204 0
+ 422 0006 0320     		mov	r0, #3
+ 203:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	base_state.user_ctrl &= ~BIT_I2C_MST_EN;
+ 423              		.loc 1 203 0
+ 424 0008 D978     		ldrb	r1, [r3, #3]
+ 205:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 425              		.loc 1 205 0
+ 426              		@ sp needed
+ 203:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl); 
+ 427              		.loc 1 203 0
+ 428 000a 9143     		bic	r1, r2
+ 429 000c D970     		strb	r1, [r3, #3]
+ 204:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl); 
+ 430              		.loc 1 204 0
+ 431 000e FFF7FEFF 		bl	inv_write_single_mems_reg
+ 432              	.LVL34:
+ 433              		.loc 1 205 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 13
+
+
+ 434 0012 08BD     		pop	{r3, pc}
+ 435              	.L20:
+ 436              		.align	2
+ 437              	.L19:
+ 438 0014 00000000 		.word	base_state
+ 439              		.cfi_endproc
+ 440              	.LFE9:
+ 441              		.size	inv_mems_secondary_disable_i2c, .-inv_mems_secondary_disable_i2c
+ 442              		.section	.text.inv_execute_read_secondary,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	inv_execute_read_secondary
+ 445              		.code	16
+ 446              		.thumb_func
+ 447              		.type	inv_execute_read_secondary, %function
+ 448              	inv_execute_read_secondary:
+ 449              	.LFB2:
+ 106:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 450              		.loc 1 106 0
+ 451              		.cfi_startproc
+ 452              	.LVL35:
+ 453 0000 70B5     		push	{r4, r5, r6, lr}
+ 454              		.cfi_def_cfa_offset 16
+ 455              		.cfi_offset 4, -16
+ 456              		.cfi_offset 5, -12
+ 457              		.cfi_offset 6, -8
+ 458              		.cfi_offset 14, -4
+ 109:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 459              		.loc 1 109 0
+ 460 0002 D2B2     		uxtb	r2, r2
+ 461              	.LVL36:
+ 106:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 462              		.loc 1 106 0
+ 463 0004 1E1C     		mov	r6, r3
+ 109:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 464              		.loc 1 109 0
+ 465 0006 DBB2     		uxtb	r3, r3
+ 466              	.LVL37:
+ 106:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 467              		.loc 1 106 0
+ 468 0008 051C     		mov	r5, r0
+ 109:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 469              		.loc 1 109 0
+ 470 000a FFF7FEFF 		bl	inv_read_secondary
+ 471              	.LVL38:
+ 472 000e 041C     		mov	r4, r0
+ 473              	.LVL39:
+ 111:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 474              		.loc 1 111 0
+ 475 0010 FFF7FEFF 		bl	inv_mems_secondary_enable_i2c
+ 476              	.LVL40:
+ 477 0014 0443     		orr	r4, r0
+ 478              	.LVL41:
+ 113:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 479              		.loc 1 113 0
+ 480 0016 3C20     		mov	r0, #60
+ 481 0018 FFF7FEFF 		bl	inv_sleep
+ 482              	.LVL42:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 14
+
+
+ 115:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 483              		.loc 1 115 0
+ 484 001c FFF7FEFF 		bl	inv_mems_secondary_disable_i2c
+ 485              	.LVL43:
+ 117:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 486              		.loc 1 117 0
+ 487 0020 311C     		mov	r1, r6
+ 488 0022 049A     		ldr	r2, [sp, #16]
+ 115:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 489              		.loc 1 115 0
+ 490 0024 0443     		orr	r4, r0
+ 491              	.LVL44:
+ 117:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 492              		.loc 1 117 0
+ 493 0026 3B20     		mov	r0, #59
+ 494 0028 FFF7FEFF 		bl	inv_read_mems_reg
+ 495              	.LVL45:
+ 496 002c 0443     		orr	r4, r0
+ 497              	.LVL46:
+ 119:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 498              		.loc 1 119 0
+ 499 002e 281C     		mov	r0, r5
+ 500 0030 FFF7FEFF 		bl	inv_mems_secondary_stop_channel
+ 501              	.LVL47:
+ 122:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 502              		.loc 1 122 0
+ 503              		@ sp needed
+ 119:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 504              		.loc 1 119 0
+ 505 0034 2043     		orr	r0, r4
+ 506              	.LVL48:
+ 507              	.LVL49:
+ 508              	.LVL50:
+ 122:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 509              		.loc 1 122 0
+ 510 0036 70BD     		pop	{r4, r5, r6, pc}
+ 511              		.cfi_endproc
+ 512              	.LFE2:
+ 513              		.size	inv_execute_read_secondary, .-inv_execute_read_secondary
+ 514              		.section	.text.inv_execute_write_secondary,"ax",%progbits
+ 515              		.align	1
+ 516              		.global	inv_execute_write_secondary
+ 517              		.code	16
+ 518              		.thumb_func
+ 519              		.type	inv_execute_write_secondary, %function
+ 520              	inv_execute_write_secondary:
+ 521              	.LFB4:
+ 157:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 522              		.loc 1 157 0
+ 523              		.cfi_startproc
+ 524              	.LVL51:
+ 525 0000 38B5     		push	{r3, r4, r5, lr}
+ 526              		.cfi_def_cfa_offset 16
+ 527              		.cfi_offset 3, -16
+ 528              		.cfi_offset 4, -12
+ 529              		.cfi_offset 5, -8
+ 530              		.cfi_offset 14, -4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 15
+
+
+ 160:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 531              		.loc 1 160 0
+ 532 0002 D2B2     		uxtb	r2, r2
+ 533              	.LVL52:
+ 157:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	inv_error_t result = 0;
+ 534              		.loc 1 157 0
+ 535 0004 051C     		mov	r5, r0
+ 160:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	
+ 536              		.loc 1 160 0
+ 537 0006 FFF7FEFF 		bl	inv_write_secondary
+ 538              	.LVL53:
+ 539 000a 041C     		mov	r4, r0
+ 540              	.LVL54:
+ 162:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 541              		.loc 1 162 0
+ 542 000c FFF7FEFF 		bl	inv_mems_secondary_enable_i2c
+ 543              	.LVL55:
+ 544 0010 0443     		orr	r4, r0
+ 545              	.LVL56:
+ 164:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 546              		.loc 1 164 0
+ 547 0012 3C20     		mov	r0, #60
+ 548 0014 FFF7FEFF 		bl	inv_sleep
+ 549              	.LVL57:
+ 166:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 550              		.loc 1 166 0
+ 551 0018 FFF7FEFF 		bl	inv_mems_secondary_disable_i2c
+ 552              	.LVL58:
+ 553 001c 0443     		orr	r4, r0
+ 554              	.LVL59:
+ 168:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 555              		.loc 1 168 0
+ 556 001e 281C     		mov	r0, r5
+ 557 0020 FFF7FEFF 		bl	inv_mems_secondary_stop_channel
+ 558              	.LVL60:
+ 171:.\20648_driver\drivers/inv_mems_secondary_transport.c **** void inv_mems_secondary_saveI2cOdr(void)
+ 559              		.loc 1 171 0
+ 560              		@ sp needed
+ 168:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 561              		.loc 1 168 0
+ 562 0024 2043     		orr	r0, r4
+ 563              	.LVL61:
+ 564              	.LVL62:
+ 171:.\20648_driver\drivers/inv_mems_secondary_transport.c **** void inv_mems_secondary_saveI2cOdr(void)
+ 565              		.loc 1 171 0
+ 566 0026 38BD     		pop	{r3, r4, r5, pc}
+ 567              		.cfi_endproc
+ 568              	.LFE4:
+ 569              		.size	inv_execute_write_secondary, .-inv_execute_write_secondary
+ 570              		.section	.text.inv_mems_secondary_set_odr,"ax",%progbits
+ 571              		.align	1
+ 572              		.global	inv_mems_secondary_set_odr
+ 573              		.code	16
+ 574              		.thumb_func
+ 575              		.type	inv_mems_secondary_set_odr, %function
+ 576              	inv_mems_secondary_set_odr:
+ 577              	.LFB10:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 16
+
+
+ 206:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 207:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 208:.\20648_driver\drivers/inv_mems_secondary_transport.c **** int inv_mems_secondary_set_odr(int divider, unsigned int* effectiveDivider)
+ 209:.\20648_driver\drivers/inv_mems_secondary_transport.c **** {
+ 578              		.loc 1 209 0
+ 579              		.cfi_startproc
+ 580              	.LVL63:
+ 581 0000 08B5     		push	{r3, lr}
+ 582              		.cfi_def_cfa_offset 8
+ 583              		.cfi_offset 3, -8
+ 584              		.cfi_offset 14, -4
+ 210:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	int mst_odr_config = 0;
+ 585              		.loc 1 210 0
+ 586 0002 0023     		mov	r3, #0
+ 587              	.LVL64:
+ 588              	.L24:
+ 211:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 212:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     // find 2^x = divider to fit BASE_SAMPLE_RATE/2^REG_I2C_MST_ODR_CONFIG
+ 213:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     do
+ 214:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     {
+ 215:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 		divider>>=1;
+ 589              		.loc 1 215 0 discriminator 1
+ 590 0004 4010     		asr	r0, r0, #1
+ 591              	.LVL65:
+ 216:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 		mst_odr_config++;
+ 592              		.loc 1 216 0 discriminator 1
+ 593 0006 0133     		add	r3, r3, #1
+ 594              	.LVL66:
+ 217:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     } while(divider>>1);
+ 595              		.loc 1 217 0 discriminator 1
+ 596 0008 4210     		asr	r2, r0, #1
+ 597 000a FBD1     		bne	.L24
+ 218:.\20648_driver\drivers/inv_mems_secondary_transport.c ****     
+ 219:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	if (mst_odr_config < MIN_MST_ODR_CONFIG)
+ 598              		.loc 1 219 0
+ 599 000c 032B     		cmp	r3, #3
+ 600 000e 00DC     		bgt	.L25
+ 220:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 		mst_odr_config = MIN_MST_ODR_CONFIG;
+ 601              		.loc 1 220 0
+ 602 0010 0423     		mov	r3, #4
+ 603              	.LVL67:
+ 604              	.L25:
+ 221:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 222:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	*effectiveDivider = 1<<mst_odr_config;
+ 605              		.loc 1 222 0
+ 606 0012 0122     		mov	r2, #1
+ 607 0014 9A40     		lsl	r2, r2, r3
+ 223:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 224:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 	return	inv_set_secondary_divider((unsigned char)mst_odr_config);
+ 608              		.loc 1 224 0
+ 609 0016 D8B2     		uxtb	r0, r3
+ 610              	.LVL68:
+ 222:.\20648_driver\drivers/inv_mems_secondary_transport.c **** 
+ 611              		.loc 1 222 0
+ 612 0018 0A60     		str	r2, [r1]
+ 613              		.loc 1 224 0
+ 614 001a FFF7FEFF 		bl	inv_set_secondary_divider
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 17
+
+
+ 615              	.LVL69:
+ 225:.\20648_driver\drivers/inv_mems_secondary_transport.c **** }
+ 616              		.loc 1 225 0
+ 617              		@ sp needed
+ 618 001e 08BD     		pop	{r3, pc}
+ 619              		.cfi_endproc
+ 620              	.LFE10:
+ 621              		.size	inv_mems_secondary_set_odr, .-inv_mems_secondary_set_odr
+ 622              		.bss
+ 623              		.align	1
+ 624              		.set	.LANCHOR0,. + 0
+ 625              		.type	slv_reg, %object
+ 626              		.size	slv_reg, 32
+ 627              	slv_reg:
+ 628 0000 00000000 		.space	32
+ 628      00000000 
+ 628      00000000 
+ 628      00000000 
+ 628      00000000 
+ 629              		.text
+ 630              	.Letext0:
+ 631              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 632              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 633              		.file 4 "./.\\20648_driver\\common\\mltypes.h"
+ 634              		.file 5 "./.\\20648_driver\\drivers\\inv_mems_base_driver.h"
+ 635              		.file 6 "./.\\20648_driver\\invn\\invn_types.h"
+ 636              		.file 7 "./.\\20648_driver\\drivers\\inv_mems_transport.h"
+ 637              		.file 8 "./.\\20648_driver\\common\\inv_mems_drv_hook.h"
+ 638              		.section	.debug_info,"",%progbits
+ 639              	.Ldebug_info0:
+ 640 0000 00070000 		.4byte	0x700
+ 641 0004 0400     		.2byte	0x4
+ 642 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 643 000a 04       		.byte	0x4
+ 644 000b 01       		.uleb128 0x1
+ 645 000c 81000000 		.4byte	.LASF58
+ 646 0010 01       		.byte	0x1
+ 647 0011 32000000 		.4byte	.LASF59
+ 648 0015 F9010000 		.4byte	.LASF60
+ 649 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 650 001d 00000000 		.4byte	0
+ 651 0021 00000000 		.4byte	.Ldebug_line0
+ 652 0025 02       		.uleb128 0x2
+ 653 0026 04       		.byte	0x4
+ 654 0027 05       		.byte	0x5
+ 655 0028 696E7400 		.ascii	"int\000"
+ 656 002c 03       		.uleb128 0x3
+ 657 002d 04       		.byte	0x4
+ 658 002e 07       		.byte	0x7
+ 659 002f D8020000 		.4byte	.LASF0
+ 660 0033 03       		.uleb128 0x3
+ 661 0034 01       		.byte	0x1
+ 662 0035 06       		.byte	0x6
+ 663 0036 A4010000 		.4byte	.LASF1
+ 664 003a 04       		.uleb128 0x4
+ 665 003b A1040000 		.4byte	.LASF4
+ 666 003f 02       		.byte	0x2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 18
+
+
+ 667 0040 1D       		.byte	0x1d
+ 668 0041 45000000 		.4byte	0x45
+ 669 0045 03       		.uleb128 0x3
+ 670 0046 01       		.byte	0x1
+ 671 0047 08       		.byte	0x8
+ 672 0048 7F020000 		.4byte	.LASF2
+ 673 004c 03       		.uleb128 0x3
+ 674 004d 02       		.byte	0x2
+ 675 004e 05       		.byte	0x5
+ 676 004f 77000000 		.4byte	.LASF3
+ 677 0053 04       		.uleb128 0x4
+ 678 0054 4F010000 		.4byte	.LASF5
+ 679 0058 02       		.byte	0x2
+ 680 0059 2B       		.byte	0x2b
+ 681 005a 5E000000 		.4byte	0x5e
+ 682 005e 03       		.uleb128 0x3
+ 683 005f 02       		.byte	0x2
+ 684 0060 07       		.byte	0x7
+ 685 0061 5A030000 		.4byte	.LASF6
+ 686 0065 03       		.uleb128 0x3
+ 687 0066 04       		.byte	0x4
+ 688 0067 05       		.byte	0x5
+ 689 0068 51030000 		.4byte	.LASF7
+ 690 006c 03       		.uleb128 0x3
+ 691 006d 04       		.byte	0x4
+ 692 006e 07       		.byte	0x7
+ 693 006f A4030000 		.4byte	.LASF8
+ 694 0073 03       		.uleb128 0x3
+ 695 0074 08       		.byte	0x8
+ 696 0075 05       		.byte	0x5
+ 697 0076 B0010000 		.4byte	.LASF9
+ 698 007a 03       		.uleb128 0x3
+ 699 007b 08       		.byte	0x8
+ 700 007c 07       		.byte	0x7
+ 701 007d C1020000 		.4byte	.LASF10
+ 702 0081 03       		.uleb128 0x3
+ 703 0082 04       		.byte	0x4
+ 704 0083 07       		.byte	0x7
+ 705 0084 0F010000 		.4byte	.LASF11
+ 706 0088 05       		.uleb128 0x5
+ 707 0089 04       		.byte	0x4
+ 708 008a 45000000 		.4byte	0x45
+ 709 008e 03       		.uleb128 0x3
+ 710 008f 01       		.byte	0x1
+ 711 0090 08       		.byte	0x8
+ 712 0091 4C030000 		.4byte	.LASF12
+ 713 0095 04       		.uleb128 0x4
+ 714 0096 22040000 		.4byte	.LASF13
+ 715 009a 03       		.byte	0x3
+ 716 009b 15       		.byte	0x15
+ 717 009c 3A000000 		.4byte	0x3a
+ 718 00a0 04       		.uleb128 0x4
+ 719 00a1 E5020000 		.4byte	.LASF14
+ 720 00a5 03       		.byte	0x3
+ 721 00a6 21       		.byte	0x21
+ 722 00a7 53000000 		.4byte	0x53
+ 723 00ab 04       		.uleb128 0x4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 19
+
+
+ 724 00ac 6A040000 		.4byte	.LASF15
+ 725 00b0 04       		.byte	0x4
+ 726 00b1 24       		.byte	0x24
+ 727 00b2 25000000 		.4byte	0x25
+ 728 00b6 06       		.uleb128 0x6
+ 729 00b7 41010000 		.4byte	.LASF32
+ 730 00bb 12       		.byte	0x12
+ 731 00bc 05       		.byte	0x5
+ 732 00bd 1D       		.byte	0x1d
+ 733 00be 7D010000 		.4byte	0x17d
+ 734 00c2 07       		.uleb128 0x7
+ 735 00c3 62020000 		.4byte	.LASF16
+ 736 00c7 05       		.byte	0x5
+ 737 00c8 1F       		.byte	0x1f
+ 738 00c9 45000000 		.4byte	0x45
+ 739 00cd 00       		.byte	0
+ 740 00ce 07       		.uleb128 0x7
+ 741 00cf DE010000 		.4byte	.LASF17
+ 742 00d3 05       		.byte	0x5
+ 743 00d4 20       		.byte	0x20
+ 744 00d5 45000000 		.4byte	0x45
+ 745 00d9 01       		.byte	0x1
+ 746 00da 07       		.uleb128 0x7
+ 747 00db 76040000 		.4byte	.LASF18
+ 748 00df 05       		.byte	0x5
+ 749 00e0 21       		.byte	0x21
+ 750 00e1 45000000 		.4byte	0x45
+ 751 00e5 02       		.byte	0x2
+ 752 00e6 07       		.uleb128 0x7
+ 753 00e7 8F010000 		.4byte	.LASF19
+ 754 00eb 05       		.byte	0x5
+ 755 00ec 22       		.byte	0x22
+ 756 00ed 45000000 		.4byte	0x45
+ 757 00f1 03       		.byte	0x3
+ 758 00f2 07       		.uleb128 0x7
+ 759 00f3 52040000 		.4byte	.LASF20
+ 760 00f7 05       		.byte	0x5
+ 761 00f8 23       		.byte	0x23
+ 762 00f9 45000000 		.4byte	0x45
+ 763 00fd 04       		.byte	0x4
+ 764 00fe 07       		.uleb128 0x7
+ 765 00ff 54020000 		.4byte	.LASF21
+ 766 0103 05       		.byte	0x5
+ 767 0104 24       		.byte	0x24
+ 768 0105 5E000000 		.4byte	0x5e
+ 769 0109 06       		.byte	0x6
+ 770 010a 07       		.uleb128 0x7
+ 771 010b EE020000 		.4byte	.LASF22
+ 772 010f 05       		.byte	0x5
+ 773 0110 25       		.byte	0x25
+ 774 0111 4C000000 		.4byte	0x4c
+ 775 0115 08       		.byte	0x8
+ 776 0116 07       		.uleb128 0x7
+ 777 0117 68000000 		.4byte	.LASF23
+ 778 011b 05       		.byte	0x5
+ 779 011c 26       		.byte	0x26
+ 780 011d 45000000 		.4byte	0x45
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 20
+
+
+ 781 0121 0A       		.byte	0xa
+ 782 0122 07       		.uleb128 0x7
+ 783 0123 F8020000 		.4byte	.LASF24
+ 784 0127 05       		.byte	0x5
+ 785 0128 27       		.byte	0x27
+ 786 0129 45000000 		.4byte	0x45
+ 787 012d 0B       		.byte	0xb
+ 788 012e 07       		.uleb128 0x7
+ 789 012f 5B040000 		.4byte	.LASF25
+ 790 0133 05       		.byte	0x5
+ 791 0134 28       		.byte	0x28
+ 792 0135 95000000 		.4byte	0x95
+ 793 0139 0C       		.byte	0xc
+ 794 013a 07       		.uleb128 0x7
+ 795 013b E9010000 		.4byte	.LASF26
+ 796 013f 05       		.byte	0x5
+ 797 0140 29       		.byte	0x29
+ 798 0141 95000000 		.4byte	0x95
+ 799 0145 0D       		.byte	0xd
+ 800 0146 08       		.uleb128 0x8
+ 801 0147 18010000 		.4byte	.LASF27
+ 802 014b 05       		.byte	0x5
+ 803 014c 2A       		.byte	0x2a
+ 804 014d 95000000 		.4byte	0x95
+ 805 0151 01       		.byte	0x1
+ 806 0152 01       		.byte	0x1
+ 807 0153 07       		.byte	0x7
+ 808 0154 0E       		.byte	0xe
+ 809 0155 08       		.uleb128 0x8
+ 810 0156 22000000 		.4byte	.LASF28
+ 811 015a 05       		.byte	0x5
+ 812 015b 2B       		.byte	0x2b
+ 813 015c 95000000 		.4byte	0x95
+ 814 0160 01       		.byte	0x1
+ 815 0161 01       		.byte	0x1
+ 816 0162 06       		.byte	0x6
+ 817 0163 0E       		.byte	0xe
+ 818 0164 07       		.uleb128 0x7
+ 819 0165 9C020000 		.4byte	.LASF29
+ 820 0169 05       		.byte	0x5
+ 821 016a 2C       		.byte	0x2c
+ 822 016b 95000000 		.4byte	0x95
+ 823 016f 0F       		.byte	0xf
+ 824 0170 07       		.uleb128 0x7
+ 825 0171 81040000 		.4byte	.LASF30
+ 826 0175 05       		.byte	0x5
+ 827 0176 2D       		.byte	0x2d
+ 828 0177 95000000 		.4byte	0x95
+ 829 017b 10       		.byte	0x10
+ 830 017c 00       		.byte	0
+ 831 017d 04       		.uleb128 0x4
+ 832 017e 8D020000 		.4byte	.LASF31
+ 833 0182 06       		.byte	0x6
+ 834 0183 33       		.byte	0x33
+ 835 0184 45000000 		.4byte	0x45
+ 836 0188 06       		.uleb128 0x6
+ 837 0189 6D020000 		.4byte	.LASF33
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 21
+
+
+ 838 018d 08       		.byte	0x8
+ 839 018e 01       		.byte	0x1
+ 840 018f 21       		.byte	0x21
+ 841 0190 C4010000 		.4byte	0x1c4
+ 842 0194 07       		.uleb128 0x7
+ 843 0195 D9010000 		.4byte	.LASF34
+ 844 0199 01       		.byte	0x1
+ 845 019a 22       		.byte	0x22
+ 846 019b 5E000000 		.4byte	0x5e
+ 847 019f 00       		.byte	0
+ 848 01a0 09       		.uleb128 0x9
+ 849 01a1 72656700 		.ascii	"reg\000"
+ 850 01a5 01       		.byte	0x1
+ 851 01a6 23       		.byte	0x23
+ 852 01a7 5E000000 		.4byte	0x5e
+ 853 01ab 02       		.byte	0x2
+ 854 01ac 07       		.uleb128 0x7
+ 855 01ad B6030000 		.4byte	.LASF35
+ 856 01b1 01       		.byte	0x1
+ 857 01b2 24       		.byte	0x24
+ 858 01b3 5E000000 		.4byte	0x5e
+ 859 01b7 04       		.byte	0x4
+ 860 01b8 09       		.uleb128 0x9
+ 861 01b9 643000   		.ascii	"d0\000"
+ 862 01bc 01       		.byte	0x1
+ 863 01bd 25       		.byte	0x25
+ 864 01be 5E000000 		.4byte	0x5e
+ 865 01c2 06       		.byte	0x6
+ 866 01c3 00       		.byte	0
+ 867 01c4 0A       		.uleb128 0xa
+ 868 01c5 C6010000 		.4byte	.LASF39
+ 869 01c9 01       		.byte	0x1
+ 870 01ca 58       		.byte	0x58
+ 871 01cb AB000000 		.4byte	0xab
+ 872 01cf 00000000 		.4byte	.LFB1
+ 873 01d3 54000000 		.4byte	.LFE1-.LFB1
+ 874 01d7 01       		.uleb128 0x1
+ 875 01d8 9C       		.byte	0x9c
+ 876 01d9 7E020000 		.4byte	0x27e
+ 877 01dd 0B       		.uleb128 0xb
+ 878 01de 89010000 		.4byte	.LASF36
+ 879 01e2 01       		.byte	0x1
+ 880 01e3 58       		.byte	0x58
+ 881 01e4 25000000 		.4byte	0x25
+ 882 01e8 00000000 		.4byte	.LLST0
+ 883 01ec 0B       		.uleb128 0xb
+ 884 01ed D9010000 		.4byte	.LASF34
+ 885 01f1 01       		.byte	0x1
+ 886 01f2 58       		.byte	0x58
+ 887 01f3 7D010000 		.4byte	0x17d
+ 888 01f7 21000000 		.4byte	.LLST1
+ 889 01fb 0C       		.uleb128 0xc
+ 890 01fc 72656700 		.ascii	"reg\000"
+ 891 0200 01       		.byte	0x1
+ 892 0201 58       		.byte	0x58
+ 893 0202 45000000 		.4byte	0x45
+ 894 0206 42000000 		.4byte	.LLST2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 22
+
+
+ 895 020a 0C       		.uleb128 0xc
+ 896 020b 6C656E00 		.ascii	"len\000"
+ 897 020f 01       		.byte	0x1
+ 898 0210 58       		.byte	0x58
+ 899 0211 8E000000 		.4byte	0x8e
+ 900 0215 63000000 		.4byte	.LLST3
+ 901 0219 0D       		.uleb128 0xd
+ 902 021a 00000000 		.4byte	.LASF37
+ 903 021e 01       		.byte	0x1
+ 904 021f 5A       		.byte	0x5a
+ 905 0220 AB000000 		.4byte	0xab
+ 906 0224 84000000 		.4byte	.LLST4
+ 907 0228 0E       		.uleb128 0xe
+ 908 0229 6D030000 		.4byte	.LASF38
+ 909 022d 01       		.byte	0x1
+ 910 022e 5B       		.byte	0x5b
+ 911 022f 45000000 		.4byte	0x45
+ 912 0233 02       		.uleb128 0x2
+ 913 0234 91       		.byte	0x91
+ 914 0235 67       		.sleb128 -25
+ 915 0236 0F       		.uleb128 0xf
+ 916 0237 22000000 		.4byte	.LVL5
+ 917 023b 7E060000 		.4byte	0x67e
+ 918 023f 4F020000 		.4byte	0x24f
+ 919 0243 10       		.uleb128 0x10
+ 920 0244 01       		.uleb128 0x1
+ 921 0245 52       		.byte	0x52
+ 922 0246 02       		.uleb128 0x2
+ 923 0247 75       		.byte	0x75
+ 924 0248 00       		.sleb128 0
+ 925 0249 10       		.uleb128 0x10
+ 926 024a 01       		.uleb128 0x1
+ 927 024b 51       		.byte	0x51
+ 928 024c 01       		.uleb128 0x1
+ 929 024d 31       		.byte	0x31
+ 930 024e 00       		.byte	0
+ 931 024f 0F       		.uleb128 0xf
+ 932 0250 36000000 		.4byte	.LVL8
+ 933 0254 7E060000 		.4byte	0x67e
+ 934 0258 68020000 		.4byte	0x268
+ 935 025c 10       		.uleb128 0x10
+ 936 025d 01       		.uleb128 0x1
+ 937 025e 52       		.byte	0x52
+ 938 025f 02       		.uleb128 0x2
+ 939 0260 75       		.byte	0x75
+ 940 0261 00       		.sleb128 0
+ 941 0262 10       		.uleb128 0x10
+ 942 0263 01       		.uleb128 0x1
+ 943 0264 51       		.byte	0x51
+ 944 0265 01       		.uleb128 0x1
+ 945 0266 31       		.byte	0x31
+ 946 0267 00       		.byte	0
+ 947 0268 11       		.uleb128 0x11
+ 948 0269 4A000000 		.4byte	.LVL10
+ 949 026d 7E060000 		.4byte	0x67e
+ 950 0271 10       		.uleb128 0x10
+ 951 0272 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 23
+
+
+ 952 0273 52       		.byte	0x52
+ 953 0274 02       		.uleb128 0x2
+ 954 0275 75       		.byte	0x75
+ 955 0276 00       		.sleb128 0
+ 956 0277 10       		.uleb128 0x10
+ 957 0278 01       		.uleb128 0x1
+ 958 0279 51       		.byte	0x51
+ 959 027a 01       		.uleb128 0x1
+ 960 027b 31       		.byte	0x31
+ 961 027c 00       		.byte	0
+ 962 027d 00       		.byte	0
+ 963 027e 0A       		.uleb128 0xa
+ 964 027f AD020000 		.4byte	.LASF40
+ 965 0283 01       		.byte	0x1
+ 966 0284 88       		.byte	0x88
+ 967 0285 AB000000 		.4byte	0xab
+ 968 0289 00000000 		.4byte	.LFB3
+ 969 028d 5C000000 		.4byte	.LFE3-.LFB3
+ 970 0291 01       		.uleb128 0x1
+ 971 0292 9C       		.byte	0x9c
+ 972 0293 4F030000 		.4byte	0x34f
+ 973 0297 0B       		.uleb128 0xb
+ 974 0298 89010000 		.4byte	.LASF36
+ 975 029c 01       		.byte	0x1
+ 976 029d 88       		.byte	0x88
+ 977 029e 25000000 		.4byte	0x25
+ 978 02a2 D5000000 		.4byte	.LLST5
+ 979 02a6 0B       		.uleb128 0xb
+ 980 02a7 D9010000 		.4byte	.LASF34
+ 981 02ab 01       		.byte	0x1
+ 982 02ac 88       		.byte	0x88
+ 983 02ad 7D010000 		.4byte	0x17d
+ 984 02b1 F6000000 		.4byte	.LLST6
+ 985 02b5 0C       		.uleb128 0xc
+ 986 02b6 72656700 		.ascii	"reg\000"
+ 987 02ba 01       		.byte	0x1
+ 988 02bb 88       		.byte	0x88
+ 989 02bc 45000000 		.4byte	0x45
+ 990 02c0 23010000 		.4byte	.LLST7
+ 991 02c4 0C       		.uleb128 0xc
+ 992 02c5 7600     		.ascii	"v\000"
+ 993 02c7 01       		.byte	0x1
+ 994 02c8 88       		.byte	0x88
+ 995 02c9 8E000000 		.4byte	0x8e
+ 996 02cd 44010000 		.4byte	.LLST8
+ 997 02d1 0D       		.uleb128 0xd
+ 998 02d2 00000000 		.4byte	.LASF37
+ 999 02d6 01       		.byte	0x1
+ 1000 02d7 8A       		.byte	0x8a
+ 1001 02d8 AB000000 		.4byte	0xab
+ 1002 02dc 65010000 		.4byte	.LLST9
+ 1003 02e0 0E       		.uleb128 0xe
+ 1004 02e1 6D030000 		.4byte	.LASF38
+ 1005 02e5 01       		.byte	0x1
+ 1006 02e6 8B       		.byte	0x8b
+ 1007 02e7 45000000 		.4byte	0x45
+ 1008 02eb 02       		.uleb128 0x2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 24
+
+
+ 1009 02ec 91       		.byte	0x91
+ 1010 02ed 67       		.sleb128 -25
+ 1011 02ee 0F       		.uleb128 0xf
+ 1012 02ef 1C000000 		.4byte	.LVL17
+ 1013 02f3 7E060000 		.4byte	0x67e
+ 1014 02f7 07030000 		.4byte	0x307
+ 1015 02fb 10       		.uleb128 0x10
+ 1016 02fc 01       		.uleb128 0x1
+ 1017 02fd 52       		.byte	0x52
+ 1018 02fe 02       		.uleb128 0x2
+ 1019 02ff 74       		.byte	0x74
+ 1020 0300 00       		.sleb128 0
+ 1021 0301 10       		.uleb128 0x10
+ 1022 0302 01       		.uleb128 0x1
+ 1023 0303 51       		.byte	0x51
+ 1024 0304 01       		.uleb128 0x1
+ 1025 0305 31       		.byte	0x31
+ 1026 0306 00       		.byte	0
+ 1027 0307 0F       		.uleb128 0xf
+ 1028 0308 2C000000 		.4byte	.LVL20
+ 1029 030c 7E060000 		.4byte	0x67e
+ 1030 0310 20030000 		.4byte	0x320
+ 1031 0314 10       		.uleb128 0x10
+ 1032 0315 01       		.uleb128 0x1
+ 1033 0316 52       		.byte	0x52
+ 1034 0317 02       		.uleb128 0x2
+ 1035 0318 74       		.byte	0x74
+ 1036 0319 00       		.sleb128 0
+ 1037 031a 10       		.uleb128 0x10
+ 1038 031b 01       		.uleb128 0x1
+ 1039 031c 51       		.byte	0x51
+ 1040 031d 01       		.uleb128 0x1
+ 1041 031e 31       		.byte	0x31
+ 1042 031f 00       		.byte	0
+ 1043 0320 0F       		.uleb128 0xf
+ 1044 0321 40000000 		.4byte	.LVL22
+ 1045 0325 7E060000 		.4byte	0x67e
+ 1046 0329 39030000 		.4byte	0x339
+ 1047 032d 10       		.uleb128 0x10
+ 1048 032e 01       		.uleb128 0x1
+ 1049 032f 52       		.byte	0x52
+ 1050 0330 02       		.uleb128 0x2
+ 1051 0331 74       		.byte	0x74
+ 1052 0332 00       		.sleb128 0
+ 1053 0333 10       		.uleb128 0x10
+ 1054 0334 01       		.uleb128 0x1
+ 1055 0335 51       		.byte	0x51
+ 1056 0336 01       		.uleb128 0x1
+ 1057 0337 31       		.byte	0x31
+ 1058 0338 00       		.byte	0
+ 1059 0339 11       		.uleb128 0x11
+ 1060 033a 50000000 		.4byte	.LVL24
+ 1061 033e 7E060000 		.4byte	0x67e
+ 1062 0342 10       		.uleb128 0x10
+ 1063 0343 01       		.uleb128 0x1
+ 1064 0344 52       		.byte	0x52
+ 1065 0345 02       		.uleb128 0x2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 25
+
+
+ 1066 0346 74       		.byte	0x74
+ 1067 0347 00       		.sleb128 0
+ 1068 0348 10       		.uleb128 0x10
+ 1069 0349 01       		.uleb128 0x1
+ 1070 034a 51       		.byte	0x51
+ 1071 034b 01       		.uleb128 0x1
+ 1072 034c 31       		.byte	0x31
+ 1073 034d 00       		.byte	0
+ 1074 034e 00       		.byte	0
+ 1075 034f 12       		.uleb128 0x12
+ 1076 0350 F1030000 		.4byte	.LASF41
+ 1077 0354 01       		.byte	0x1
+ 1078 0355 AC       		.byte	0xac
+ 1079 0356 00000000 		.4byte	.LFB5
+ 1080 035a 02000000 		.4byte	.LFE5-.LFB5
+ 1081 035e 01       		.uleb128 0x1
+ 1082 035f 9C       		.byte	0x9c
+ 1083 0360 12       		.uleb128 0x12
+ 1084 0361 83030000 		.4byte	.LASF42
+ 1085 0365 01       		.byte	0x1
+ 1086 0366 B5       		.byte	0xb5
+ 1087 0367 00000000 		.4byte	.LFB6
+ 1088 036b 02000000 		.4byte	.LFE6-.LFB6
+ 1089 036f 01       		.uleb128 0x1
+ 1090 0370 9C       		.byte	0x9c
+ 1091 0371 0A       		.uleb128 0xa
+ 1092 0372 69010000 		.4byte	.LASF43
+ 1093 0376 01       		.byte	0x1
+ 1094 0377 BE       		.byte	0xbe
+ 1095 0378 AB000000 		.4byte	0xab
+ 1096 037c 00000000 		.4byte	.LFB7
+ 1097 0380 18000000 		.4byte	.LFE7-.LFB7
+ 1098 0384 01       		.uleb128 0x1
+ 1099 0385 9C       		.byte	0x9c
+ 1100 0386 A9030000 		.4byte	0x3a9
+ 1101 038a 0B       		.uleb128 0xb
+ 1102 038b 89010000 		.4byte	.LASF36
+ 1103 038f 01       		.byte	0x1
+ 1104 0390 BE       		.byte	0xbe
+ 1105 0391 25000000 		.4byte	0x25
+ 1106 0395 B6010000 		.4byte	.LLST10
+ 1107 0399 11       		.uleb128 0x11
+ 1108 039a 10000000 		.4byte	.LVL28
+ 1109 039e A8060000 		.4byte	0x6a8
+ 1110 03a2 10       		.uleb128 0x10
+ 1111 03a3 01       		.uleb128 0x1
+ 1112 03a4 51       		.byte	0x51
+ 1113 03a5 01       		.uleb128 0x1
+ 1114 03a6 30       		.byte	0x30
+ 1115 03a7 00       		.byte	0
+ 1116 03a8 00       		.byte	0
+ 1117 03a9 13       		.uleb128 0x13
+ 1118 03aa 39030000 		.4byte	.LASF61
+ 1119 03ae 01       		.byte	0x1
+ 1120 03af 2C       		.byte	0x2c
+ 1121 03b0 00000000 		.4byte	.LFB0
+ 1122 03b4 60000000 		.4byte	.LFE0-.LFB0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 26
+
+
+ 1123 03b8 01       		.uleb128 0x1
+ 1124 03b9 9C       		.byte	0x9c
+ 1125 03ba 07040000 		.4byte	0x407
+ 1126 03be 0F       		.uleb128 0xf
+ 1127 03bf 46000000 		.4byte	.LVL29
+ 1128 03c3 71030000 		.4byte	0x371
+ 1129 03c7 D1030000 		.4byte	0x3d1
+ 1130 03cb 10       		.uleb128 0x10
+ 1131 03cc 01       		.uleb128 0x1
+ 1132 03cd 50       		.byte	0x50
+ 1133 03ce 01       		.uleb128 0x1
+ 1134 03cf 30       		.byte	0x30
+ 1135 03d0 00       		.byte	0
+ 1136 03d1 0F       		.uleb128 0xf
+ 1137 03d2 4C000000 		.4byte	.LVL30
+ 1138 03d6 71030000 		.4byte	0x371
+ 1139 03da E4030000 		.4byte	0x3e4
+ 1140 03de 10       		.uleb128 0x10
+ 1141 03df 01       		.uleb128 0x1
+ 1142 03e0 50       		.byte	0x50
+ 1143 03e1 01       		.uleb128 0x1
+ 1144 03e2 31       		.byte	0x31
+ 1145 03e3 00       		.byte	0
+ 1146 03e4 0F       		.uleb128 0xf
+ 1147 03e5 52000000 		.4byte	.LVL31
+ 1148 03e9 71030000 		.4byte	0x371
+ 1149 03ed F7030000 		.4byte	0x3f7
+ 1150 03f1 10       		.uleb128 0x10
+ 1151 03f2 01       		.uleb128 0x1
+ 1152 03f3 50       		.byte	0x50
+ 1153 03f4 01       		.uleb128 0x1
+ 1154 03f5 32       		.byte	0x32
+ 1155 03f6 00       		.byte	0
+ 1156 03f7 11       		.uleb128 0x11
+ 1157 03f8 58000000 		.4byte	.LVL32
+ 1158 03fc 71030000 		.4byte	0x371
+ 1159 0400 10       		.uleb128 0x10
+ 1160 0401 01       		.uleb128 0x1
+ 1161 0402 50       		.byte	0x50
+ 1162 0403 01       		.uleb128 0x1
+ 1163 0404 33       		.byte	0x33
+ 1164 0405 00       		.byte	0
+ 1165 0406 00       		.byte	0
+ 1166 0407 0A       		.uleb128 0xa
+ 1167 0408 2A040000 		.4byte	.LASF44
+ 1168 040c 01       		.byte	0x1
+ 1169 040d C3       		.byte	0xc3
+ 1170 040e AB000000 		.4byte	0xab
+ 1171 0412 00000000 		.4byte	.LFB8
+ 1172 0416 18000000 		.4byte	.LFE8-.LFB8
+ 1173 041a 01       		.uleb128 0x1
+ 1174 041b 9C       		.byte	0x9c
+ 1175 041c 30040000 		.4byte	0x430
+ 1176 0420 11       		.uleb128 0x11
+ 1177 0421 12000000 		.4byte	.LVL33
+ 1178 0425 A8060000 		.4byte	0x6a8
+ 1179 0429 10       		.uleb128 0x10
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 27
+
+
+ 1180 042a 01       		.uleb128 0x1
+ 1181 042b 50       		.byte	0x50
+ 1182 042c 01       		.uleb128 0x1
+ 1183 042d 33       		.byte	0x33
+ 1184 042e 00       		.byte	0
+ 1185 042f 00       		.byte	0
+ 1186 0430 0A       		.uleb128 0xa
+ 1187 0431 08030000 		.4byte	.LASF45
+ 1188 0435 01       		.byte	0x1
+ 1189 0436 C9       		.byte	0xc9
+ 1190 0437 AB000000 		.4byte	0xab
+ 1191 043b 00000000 		.4byte	.LFB9
+ 1192 043f 18000000 		.4byte	.LFE9-.LFB9
+ 1193 0443 01       		.uleb128 0x1
+ 1194 0444 9C       		.byte	0x9c
+ 1195 0445 59040000 		.4byte	0x459
+ 1196 0449 11       		.uleb128 0x11
+ 1197 044a 12000000 		.4byte	.LVL34
+ 1198 044e A8060000 		.4byte	0x6a8
+ 1199 0452 10       		.uleb128 0x10
+ 1200 0453 01       		.uleb128 0x1
+ 1201 0454 50       		.byte	0x50
+ 1202 0455 01       		.uleb128 0x1
+ 1203 0456 33       		.byte	0x33
+ 1204 0457 00       		.byte	0
+ 1205 0458 00       		.byte	0
+ 1206 0459 0A       		.uleb128 0xa
+ 1207 045a 07000000 		.4byte	.LASF46
+ 1208 045e 01       		.byte	0x1
+ 1209 045f 69       		.byte	0x69
+ 1210 0460 AB000000 		.4byte	0xab
+ 1211 0464 00000000 		.4byte	.LFB2
+ 1212 0468 38000000 		.4byte	.LFE2-.LFB2
+ 1213 046c 01       		.uleb128 0x1
+ 1214 046d 9C       		.byte	0x9c
+ 1215 046e 42050000 		.4byte	0x542
+ 1216 0472 0B       		.uleb128 0xb
+ 1217 0473 89010000 		.4byte	.LASF36
+ 1218 0477 01       		.byte	0x1
+ 1219 0478 69       		.byte	0x69
+ 1220 0479 25000000 		.4byte	0x25
+ 1221 047d D7010000 		.4byte	.LLST11
+ 1222 0481 0B       		.uleb128 0xb
+ 1223 0482 D9010000 		.4byte	.LASF34
+ 1224 0486 01       		.byte	0x1
+ 1225 0487 69       		.byte	0x69
+ 1226 0488 7D010000 		.4byte	0x17d
+ 1227 048c 03020000 		.4byte	.LLST12
+ 1228 0490 0C       		.uleb128 0xc
+ 1229 0491 72656700 		.ascii	"reg\000"
+ 1230 0495 01       		.byte	0x1
+ 1231 0496 69       		.byte	0x69
+ 1232 0497 25000000 		.4byte	0x25
+ 1233 049b 24020000 		.4byte	.LLST13
+ 1234 049f 0C       		.uleb128 0xc
+ 1235 04a0 6C656E00 		.ascii	"len\000"
+ 1236 04a4 01       		.byte	0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 28
+
+
+ 1237 04a5 69       		.byte	0x69
+ 1238 04a6 25000000 		.4byte	0x25
+ 1239 04aa 45020000 		.4byte	.LLST14
+ 1240 04ae 14       		.uleb128 0x14
+ 1241 04af 6400     		.ascii	"d\000"
+ 1242 04b1 01       		.byte	0x1
+ 1243 04b2 69       		.byte	0x69
+ 1244 04b3 42050000 		.4byte	0x542
+ 1245 04b7 02       		.uleb128 0x2
+ 1246 04b8 91       		.byte	0x91
+ 1247 04b9 00       		.sleb128 0
+ 1248 04ba 0D       		.uleb128 0xd
+ 1249 04bb 00000000 		.4byte	.LASF37
+ 1250 04bf 01       		.byte	0x1
+ 1251 04c0 6B       		.byte	0x6b
+ 1252 04c1 AB000000 		.4byte	0xab
+ 1253 04c5 71020000 		.4byte	.LLST15
+ 1254 04c9 0F       		.uleb128 0xf
+ 1255 04ca 0E000000 		.4byte	.LVL38
+ 1256 04ce C4010000 		.4byte	0x1c4
+ 1257 04d2 EA040000 		.4byte	0x4ea
+ 1258 04d6 10       		.uleb128 0x10
+ 1259 04d7 01       		.uleb128 0x1
+ 1260 04d8 53       		.byte	0x53
+ 1261 04d9 02       		.uleb128 0x2
+ 1262 04da 76       		.byte	0x76
+ 1263 04db 00       		.sleb128 0
+ 1264 04dc 10       		.uleb128 0x10
+ 1265 04dd 01       		.uleb128 0x1
+ 1266 04de 52       		.byte	0x52
+ 1267 04df 03       		.uleb128 0x3
+ 1268 04e0 F3       		.byte	0xf3
+ 1269 04e1 01       		.uleb128 0x1
+ 1270 04e2 52       		.byte	0x52
+ 1271 04e3 10       		.uleb128 0x10
+ 1272 04e4 01       		.uleb128 0x1
+ 1273 04e5 50       		.byte	0x50
+ 1274 04e6 02       		.uleb128 0x2
+ 1275 04e7 75       		.byte	0x75
+ 1276 04e8 00       		.sleb128 0
+ 1277 04e9 00       		.byte	0
+ 1278 04ea 15       		.uleb128 0x15
+ 1279 04eb 14000000 		.4byte	.LVL40
+ 1280 04ef 07040000 		.4byte	0x407
+ 1281 04f3 0F       		.uleb128 0xf
+ 1282 04f4 1C000000 		.4byte	.LVL42
+ 1283 04f8 C2060000 		.4byte	0x6c2
+ 1284 04fc 07050000 		.4byte	0x507
+ 1285 0500 10       		.uleb128 0x10
+ 1286 0501 01       		.uleb128 0x1
+ 1287 0502 50       		.byte	0x50
+ 1288 0503 02       		.uleb128 0x2
+ 1289 0504 08       		.byte	0x8
+ 1290 0505 3C       		.byte	0x3c
+ 1291 0506 00       		.byte	0
+ 1292 0507 15       		.uleb128 0x15
+ 1293 0508 20000000 		.4byte	.LVL43
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 29
+
+
+ 1294 050c 30040000 		.4byte	0x430
+ 1295 0510 0F       		.uleb128 0xf
+ 1296 0511 2C000000 		.4byte	.LVL45
+ 1297 0515 D3060000 		.4byte	0x6d3
+ 1298 0519 31050000 		.4byte	0x531
+ 1299 051d 10       		.uleb128 0x10
+ 1300 051e 01       		.uleb128 0x1
+ 1301 051f 52       		.byte	0x52
+ 1302 0520 03       		.uleb128 0x3
+ 1303 0521 91       		.byte	0x91
+ 1304 0522 00       		.sleb128 0
+ 1305 0523 06       		.byte	0x6
+ 1306 0524 10       		.uleb128 0x10
+ 1307 0525 01       		.uleb128 0x1
+ 1308 0526 51       		.byte	0x51
+ 1309 0527 02       		.uleb128 0x2
+ 1310 0528 76       		.byte	0x76
+ 1311 0529 00       		.sleb128 0
+ 1312 052a 10       		.uleb128 0x10
+ 1313 052b 01       		.uleb128 0x1
+ 1314 052c 50       		.byte	0x50
+ 1315 052d 02       		.uleb128 0x2
+ 1316 052e 08       		.byte	0x8
+ 1317 052f 3B       		.byte	0x3b
+ 1318 0530 00       		.byte	0
+ 1319 0531 11       		.uleb128 0x11
+ 1320 0532 34000000 		.4byte	.LVL47
+ 1321 0536 71030000 		.4byte	0x371
+ 1322 053a 10       		.uleb128 0x10
+ 1323 053b 01       		.uleb128 0x1
+ 1324 053c 50       		.byte	0x50
+ 1325 053d 02       		.uleb128 0x2
+ 1326 053e 75       		.byte	0x75
+ 1327 053f 00       		.sleb128 0
+ 1328 0540 00       		.byte	0
+ 1329 0541 00       		.byte	0
+ 1330 0542 05       		.uleb128 0x5
+ 1331 0543 04       		.byte	0x4
+ 1332 0544 95000000 		.4byte	0x95
+ 1333 0548 0A       		.uleb128 0xa
+ 1334 0549 D5030000 		.4byte	.LASF47
+ 1335 054d 01       		.byte	0x1
+ 1336 054e 9C       		.byte	0x9c
+ 1337 054f AB000000 		.4byte	0xab
+ 1338 0553 00000000 		.4byte	.LFB4
+ 1339 0557 28000000 		.4byte	.LFE4-.LFB4
+ 1340 055b 01       		.uleb128 0x1
+ 1341 055c 9C       		.byte	0x9c
+ 1342 055d FC050000 		.4byte	0x5fc
+ 1343 0561 0B       		.uleb128 0xb
+ 1344 0562 89010000 		.4byte	.LASF36
+ 1345 0566 01       		.byte	0x1
+ 1346 0567 9C       		.byte	0x9c
+ 1347 0568 25000000 		.4byte	0x25
+ 1348 056c B6020000 		.4byte	.LLST16
+ 1349 0570 0B       		.uleb128 0xb
+ 1350 0571 D9010000 		.4byte	.LASF34
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 30
+
+
+ 1351 0575 01       		.byte	0x1
+ 1352 0576 9C       		.byte	0x9c
+ 1353 0577 7D010000 		.4byte	0x17d
+ 1354 057b E2020000 		.4byte	.LLST17
+ 1355 057f 0C       		.uleb128 0xc
+ 1356 0580 72656700 		.ascii	"reg\000"
+ 1357 0584 01       		.byte	0x1
+ 1358 0585 9C       		.byte	0x9c
+ 1359 0586 25000000 		.4byte	0x25
+ 1360 058a 03030000 		.4byte	.LLST18
+ 1361 058e 0C       		.uleb128 0xc
+ 1362 058f 7600     		.ascii	"v\000"
+ 1363 0591 01       		.byte	0x1
+ 1364 0592 9C       		.byte	0x9c
+ 1365 0593 95000000 		.4byte	0x95
+ 1366 0597 24030000 		.4byte	.LLST19
+ 1367 059b 0D       		.uleb128 0xd
+ 1368 059c 00000000 		.4byte	.LASF37
+ 1369 05a0 01       		.byte	0x1
+ 1370 05a1 9E       		.byte	0x9e
+ 1371 05a2 AB000000 		.4byte	0xab
+ 1372 05a6 45030000 		.4byte	.LLST20
+ 1373 05aa 0F       		.uleb128 0xf
+ 1374 05ab 0A000000 		.4byte	.LVL53
+ 1375 05af 7E020000 		.4byte	0x27e
+ 1376 05b3 C5050000 		.4byte	0x5c5
+ 1377 05b7 10       		.uleb128 0x10
+ 1378 05b8 01       		.uleb128 0x1
+ 1379 05b9 52       		.byte	0x52
+ 1380 05ba 03       		.uleb128 0x3
+ 1381 05bb F3       		.byte	0xf3
+ 1382 05bc 01       		.uleb128 0x1
+ 1383 05bd 52       		.byte	0x52
+ 1384 05be 10       		.uleb128 0x10
+ 1385 05bf 01       		.uleb128 0x1
+ 1386 05c0 50       		.byte	0x50
+ 1387 05c1 02       		.uleb128 0x2
+ 1388 05c2 75       		.byte	0x75
+ 1389 05c3 00       		.sleb128 0
+ 1390 05c4 00       		.byte	0
+ 1391 05c5 15       		.uleb128 0x15
+ 1392 05c6 10000000 		.4byte	.LVL55
+ 1393 05ca 07040000 		.4byte	0x407
+ 1394 05ce 0F       		.uleb128 0xf
+ 1395 05cf 18000000 		.4byte	.LVL57
+ 1396 05d3 C2060000 		.4byte	0x6c2
+ 1397 05d7 E2050000 		.4byte	0x5e2
+ 1398 05db 10       		.uleb128 0x10
+ 1399 05dc 01       		.uleb128 0x1
+ 1400 05dd 50       		.byte	0x50
+ 1401 05de 02       		.uleb128 0x2
+ 1402 05df 08       		.byte	0x8
+ 1403 05e0 3C       		.byte	0x3c
+ 1404 05e1 00       		.byte	0
+ 1405 05e2 15       		.uleb128 0x15
+ 1406 05e3 1C000000 		.4byte	.LVL58
+ 1407 05e7 30040000 		.4byte	0x430
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 31
+
+
+ 1408 05eb 11       		.uleb128 0x11
+ 1409 05ec 24000000 		.4byte	.LVL60
+ 1410 05f0 71030000 		.4byte	0x371
+ 1411 05f4 10       		.uleb128 0x10
+ 1412 05f5 01       		.uleb128 0x1
+ 1413 05f6 50       		.byte	0x50
+ 1414 05f7 02       		.uleb128 0x2
+ 1415 05f8 75       		.byte	0x75
+ 1416 05f9 00       		.sleb128 0
+ 1417 05fa 00       		.byte	0
+ 1418 05fb 00       		.byte	0
+ 1419 05fc 0A       		.uleb128 0xa
+ 1420 05fd 26010000 		.4byte	.LASF48
+ 1421 0601 01       		.byte	0x1
+ 1422 0602 D0       		.byte	0xd0
+ 1423 0603 25000000 		.4byte	0x25
+ 1424 0607 00000000 		.4byte	.LFB10
+ 1425 060b 20000000 		.4byte	.LFE10-.LFB10
+ 1426 060f 01       		.uleb128 0x1
+ 1427 0610 9C       		.byte	0x9c
+ 1428 0611 4C060000 		.4byte	0x64c
+ 1429 0615 0B       		.uleb128 0xb
+ 1430 0616 99040000 		.4byte	.LASF49
+ 1431 061a 01       		.byte	0x1
+ 1432 061b D0       		.byte	0xd0
+ 1433 061c 25000000 		.4byte	0x25
+ 1434 0620 8A030000 		.4byte	.LLST21
+ 1435 0624 0B       		.uleb128 0xb
+ 1436 0625 72030000 		.4byte	.LASF50
+ 1437 0629 01       		.byte	0x1
+ 1438 062a D0       		.byte	0xd0
+ 1439 062b 4C060000 		.4byte	0x64c
+ 1440 062f A8030000 		.4byte	.LLST22
+ 1441 0633 0D       		.uleb128 0xd
+ 1442 0634 5A010000 		.4byte	.LASF51
+ 1443 0638 01       		.byte	0x1
+ 1444 0639 D2       		.byte	0xd2
+ 1445 063a 25000000 		.4byte	0x25
+ 1446 063e C9030000 		.4byte	.LLST23
+ 1447 0642 15       		.uleb128 0x15
+ 1448 0643 1E000000 		.4byte	.LVL69
+ 1449 0647 F2060000 		.4byte	0x6f2
+ 1450 064b 00       		.byte	0
+ 1451 064c 05       		.uleb128 0x5
+ 1452 064d 04       		.byte	0x4
+ 1453 064e 2C000000 		.4byte	0x2c
+ 1454 0652 16       		.uleb128 0x16
+ 1455 0653 88010000 		.4byte	0x188
+ 1456 0657 62060000 		.4byte	0x662
+ 1457 065b 17       		.uleb128 0x17
+ 1458 065c 81000000 		.4byte	0x81
+ 1459 0660 03       		.byte	0x3
+ 1460 0661 00       		.byte	0
+ 1461 0662 0E       		.uleb128 0xe
+ 1462 0663 BE010000 		.4byte	.LASF52
+ 1463 0667 01       		.byte	0x1
+ 1464 0668 27       		.byte	0x27
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 32
+
+
+ 1465 0669 52060000 		.4byte	0x652
+ 1466 066d 05       		.uleb128 0x5
+ 1467 066e 03       		.byte	0x3
+ 1468 066f 00000000 		.4byte	slv_reg
+ 1469 0673 18       		.uleb128 0x18
+ 1470 0674 99010000 		.4byte	.LASF62
+ 1471 0678 05       		.byte	0x5
+ 1472 0679 31       		.byte	0x31
+ 1473 067a B6000000 		.4byte	0xb6
+ 1474 067e 19       		.uleb128 0x19
+ 1475 067f 0F040000 		.4byte	.LASF53
+ 1476 0683 07       		.byte	0x7
+ 1477 0684 31       		.byte	0x31
+ 1478 0685 AB000000 		.4byte	0xab
+ 1479 0689 9D060000 		.4byte	0x69d
+ 1480 068d 1A       		.uleb128 0x1a
+ 1481 068e A0000000 		.4byte	0xa0
+ 1482 0692 1A       		.uleb128 0x1a
+ 1483 0693 2C000000 		.4byte	0x2c
+ 1484 0697 1A       		.uleb128 0x1a
+ 1485 0698 9D060000 		.4byte	0x69d
+ 1486 069c 00       		.byte	0
+ 1487 069d 05       		.uleb128 0x5
+ 1488 069e 04       		.byte	0x4
+ 1489 069f A3060000 		.4byte	0x6a3
+ 1490 06a3 1B       		.uleb128 0x1b
+ 1491 06a4 45000000 		.4byte	0x45
+ 1492 06a8 19       		.uleb128 0x19
+ 1493 06a9 BB030000 		.4byte	.LASF54
+ 1494 06ad 07       		.byte	0x7
+ 1495 06ae 38       		.byte	0x38
+ 1496 06af AB000000 		.4byte	0xab
+ 1497 06b3 C2060000 		.4byte	0x6c2
+ 1498 06b7 1A       		.uleb128 0x1a
+ 1499 06b8 A0000000 		.4byte	0xa0
+ 1500 06bc 1A       		.uleb128 0x1a
+ 1501 06bd A3060000 		.4byte	0x6a3
+ 1502 06c1 00       		.byte	0
+ 1503 06c2 1C       		.uleb128 0x1c
+ 1504 06c3 48040000 		.4byte	.LASF56
+ 1505 06c7 08       		.byte	0x8
+ 1506 06c8 2D       		.byte	0x2d
+ 1507 06c9 D3060000 		.4byte	0x6d3
+ 1508 06cd 1A       		.uleb128 0x1a
+ 1509 06ce 6C000000 		.4byte	0x6c
+ 1510 06d2 00       		.byte	0
+ 1511 06d3 19       		.uleb128 0x19
+ 1512 06d4 27030000 		.4byte	.LASF55
+ 1513 06d8 07       		.byte	0x7
+ 1514 06d9 40       		.byte	0x40
+ 1515 06da AB000000 		.4byte	0xab
+ 1516 06de F2060000 		.4byte	0x6f2
+ 1517 06e2 1A       		.uleb128 0x1a
+ 1518 06e3 A0000000 		.4byte	0xa0
+ 1519 06e7 1A       		.uleb128 0x1a
+ 1520 06e8 2C000000 		.4byte	0x2c
+ 1521 06ec 1A       		.uleb128 0x1a
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 33
+
+
+ 1522 06ed 88000000 		.4byte	0x88
+ 1523 06f1 00       		.byte	0
+ 1524 06f2 1D       		.uleb128 0x1d
+ 1525 06f3 AB040000 		.4byte	.LASF57
+ 1526 06f7 05       		.byte	0x5
+ 1527 06f8 A1       		.byte	0xa1
+ 1528 06f9 AB000000 		.4byte	0xab
+ 1529 06fd 1A       		.uleb128 0x1a
+ 1530 06fe 45000000 		.4byte	0x45
+ 1531 0702 00       		.byte	0
+ 1532 0703 00       		.byte	0
+ 1533              		.section	.debug_abbrev,"",%progbits
+ 1534              	.Ldebug_abbrev0:
+ 1535 0000 01       		.uleb128 0x1
+ 1536 0001 11       		.uleb128 0x11
+ 1537 0002 01       		.byte	0x1
+ 1538 0003 25       		.uleb128 0x25
+ 1539 0004 0E       		.uleb128 0xe
+ 1540 0005 13       		.uleb128 0x13
+ 1541 0006 0B       		.uleb128 0xb
+ 1542 0007 03       		.uleb128 0x3
+ 1543 0008 0E       		.uleb128 0xe
+ 1544 0009 1B       		.uleb128 0x1b
+ 1545 000a 0E       		.uleb128 0xe
+ 1546 000b 55       		.uleb128 0x55
+ 1547 000c 17       		.uleb128 0x17
+ 1548 000d 11       		.uleb128 0x11
+ 1549 000e 01       		.uleb128 0x1
+ 1550 000f 10       		.uleb128 0x10
+ 1551 0010 17       		.uleb128 0x17
+ 1552 0011 00       		.byte	0
+ 1553 0012 00       		.byte	0
+ 1554 0013 02       		.uleb128 0x2
+ 1555 0014 24       		.uleb128 0x24
+ 1556 0015 00       		.byte	0
+ 1557 0016 0B       		.uleb128 0xb
+ 1558 0017 0B       		.uleb128 0xb
+ 1559 0018 3E       		.uleb128 0x3e
+ 1560 0019 0B       		.uleb128 0xb
+ 1561 001a 03       		.uleb128 0x3
+ 1562 001b 08       		.uleb128 0x8
+ 1563 001c 00       		.byte	0
+ 1564 001d 00       		.byte	0
+ 1565 001e 03       		.uleb128 0x3
+ 1566 001f 24       		.uleb128 0x24
+ 1567 0020 00       		.byte	0
+ 1568 0021 0B       		.uleb128 0xb
+ 1569 0022 0B       		.uleb128 0xb
+ 1570 0023 3E       		.uleb128 0x3e
+ 1571 0024 0B       		.uleb128 0xb
+ 1572 0025 03       		.uleb128 0x3
+ 1573 0026 0E       		.uleb128 0xe
+ 1574 0027 00       		.byte	0
+ 1575 0028 00       		.byte	0
+ 1576 0029 04       		.uleb128 0x4
+ 1577 002a 16       		.uleb128 0x16
+ 1578 002b 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 34
+
+
+ 1579 002c 03       		.uleb128 0x3
+ 1580 002d 0E       		.uleb128 0xe
+ 1581 002e 3A       		.uleb128 0x3a
+ 1582 002f 0B       		.uleb128 0xb
+ 1583 0030 3B       		.uleb128 0x3b
+ 1584 0031 0B       		.uleb128 0xb
+ 1585 0032 49       		.uleb128 0x49
+ 1586 0033 13       		.uleb128 0x13
+ 1587 0034 00       		.byte	0
+ 1588 0035 00       		.byte	0
+ 1589 0036 05       		.uleb128 0x5
+ 1590 0037 0F       		.uleb128 0xf
+ 1591 0038 00       		.byte	0
+ 1592 0039 0B       		.uleb128 0xb
+ 1593 003a 0B       		.uleb128 0xb
+ 1594 003b 49       		.uleb128 0x49
+ 1595 003c 13       		.uleb128 0x13
+ 1596 003d 00       		.byte	0
+ 1597 003e 00       		.byte	0
+ 1598 003f 06       		.uleb128 0x6
+ 1599 0040 13       		.uleb128 0x13
+ 1600 0041 01       		.byte	0x1
+ 1601 0042 03       		.uleb128 0x3
+ 1602 0043 0E       		.uleb128 0xe
+ 1603 0044 0B       		.uleb128 0xb
+ 1604 0045 0B       		.uleb128 0xb
+ 1605 0046 3A       		.uleb128 0x3a
+ 1606 0047 0B       		.uleb128 0xb
+ 1607 0048 3B       		.uleb128 0x3b
+ 1608 0049 0B       		.uleb128 0xb
+ 1609 004a 01       		.uleb128 0x1
+ 1610 004b 13       		.uleb128 0x13
+ 1611 004c 00       		.byte	0
+ 1612 004d 00       		.byte	0
+ 1613 004e 07       		.uleb128 0x7
+ 1614 004f 0D       		.uleb128 0xd
+ 1615 0050 00       		.byte	0
+ 1616 0051 03       		.uleb128 0x3
+ 1617 0052 0E       		.uleb128 0xe
+ 1618 0053 3A       		.uleb128 0x3a
+ 1619 0054 0B       		.uleb128 0xb
+ 1620 0055 3B       		.uleb128 0x3b
+ 1621 0056 0B       		.uleb128 0xb
+ 1622 0057 49       		.uleb128 0x49
+ 1623 0058 13       		.uleb128 0x13
+ 1624 0059 38       		.uleb128 0x38
+ 1625 005a 0B       		.uleb128 0xb
+ 1626 005b 00       		.byte	0
+ 1627 005c 00       		.byte	0
+ 1628 005d 08       		.uleb128 0x8
+ 1629 005e 0D       		.uleb128 0xd
+ 1630 005f 00       		.byte	0
+ 1631 0060 03       		.uleb128 0x3
+ 1632 0061 0E       		.uleb128 0xe
+ 1633 0062 3A       		.uleb128 0x3a
+ 1634 0063 0B       		.uleb128 0xb
+ 1635 0064 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 35
+
+
+ 1636 0065 0B       		.uleb128 0xb
+ 1637 0066 49       		.uleb128 0x49
+ 1638 0067 13       		.uleb128 0x13
+ 1639 0068 0B       		.uleb128 0xb
+ 1640 0069 0B       		.uleb128 0xb
+ 1641 006a 0D       		.uleb128 0xd
+ 1642 006b 0B       		.uleb128 0xb
+ 1643 006c 0C       		.uleb128 0xc
+ 1644 006d 0B       		.uleb128 0xb
+ 1645 006e 38       		.uleb128 0x38
+ 1646 006f 0B       		.uleb128 0xb
+ 1647 0070 00       		.byte	0
+ 1648 0071 00       		.byte	0
+ 1649 0072 09       		.uleb128 0x9
+ 1650 0073 0D       		.uleb128 0xd
+ 1651 0074 00       		.byte	0
+ 1652 0075 03       		.uleb128 0x3
+ 1653 0076 08       		.uleb128 0x8
+ 1654 0077 3A       		.uleb128 0x3a
+ 1655 0078 0B       		.uleb128 0xb
+ 1656 0079 3B       		.uleb128 0x3b
+ 1657 007a 0B       		.uleb128 0xb
+ 1658 007b 49       		.uleb128 0x49
+ 1659 007c 13       		.uleb128 0x13
+ 1660 007d 38       		.uleb128 0x38
+ 1661 007e 0B       		.uleb128 0xb
+ 1662 007f 00       		.byte	0
+ 1663 0080 00       		.byte	0
+ 1664 0081 0A       		.uleb128 0xa
+ 1665 0082 2E       		.uleb128 0x2e
+ 1666 0083 01       		.byte	0x1
+ 1667 0084 3F       		.uleb128 0x3f
+ 1668 0085 19       		.uleb128 0x19
+ 1669 0086 03       		.uleb128 0x3
+ 1670 0087 0E       		.uleb128 0xe
+ 1671 0088 3A       		.uleb128 0x3a
+ 1672 0089 0B       		.uleb128 0xb
+ 1673 008a 3B       		.uleb128 0x3b
+ 1674 008b 0B       		.uleb128 0xb
+ 1675 008c 27       		.uleb128 0x27
+ 1676 008d 19       		.uleb128 0x19
+ 1677 008e 49       		.uleb128 0x49
+ 1678 008f 13       		.uleb128 0x13
+ 1679 0090 11       		.uleb128 0x11
+ 1680 0091 01       		.uleb128 0x1
+ 1681 0092 12       		.uleb128 0x12
+ 1682 0093 06       		.uleb128 0x6
+ 1683 0094 40       		.uleb128 0x40
+ 1684 0095 18       		.uleb128 0x18
+ 1685 0096 9742     		.uleb128 0x2117
+ 1686 0098 19       		.uleb128 0x19
+ 1687 0099 01       		.uleb128 0x1
+ 1688 009a 13       		.uleb128 0x13
+ 1689 009b 00       		.byte	0
+ 1690 009c 00       		.byte	0
+ 1691 009d 0B       		.uleb128 0xb
+ 1692 009e 05       		.uleb128 0x5
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 36
+
+
+ 1693 009f 00       		.byte	0
+ 1694 00a0 03       		.uleb128 0x3
+ 1695 00a1 0E       		.uleb128 0xe
+ 1696 00a2 3A       		.uleb128 0x3a
+ 1697 00a3 0B       		.uleb128 0xb
+ 1698 00a4 3B       		.uleb128 0x3b
+ 1699 00a5 0B       		.uleb128 0xb
+ 1700 00a6 49       		.uleb128 0x49
+ 1701 00a7 13       		.uleb128 0x13
+ 1702 00a8 02       		.uleb128 0x2
+ 1703 00a9 17       		.uleb128 0x17
+ 1704 00aa 00       		.byte	0
+ 1705 00ab 00       		.byte	0
+ 1706 00ac 0C       		.uleb128 0xc
+ 1707 00ad 05       		.uleb128 0x5
+ 1708 00ae 00       		.byte	0
+ 1709 00af 03       		.uleb128 0x3
+ 1710 00b0 08       		.uleb128 0x8
+ 1711 00b1 3A       		.uleb128 0x3a
+ 1712 00b2 0B       		.uleb128 0xb
+ 1713 00b3 3B       		.uleb128 0x3b
+ 1714 00b4 0B       		.uleb128 0xb
+ 1715 00b5 49       		.uleb128 0x49
+ 1716 00b6 13       		.uleb128 0x13
+ 1717 00b7 02       		.uleb128 0x2
+ 1718 00b8 17       		.uleb128 0x17
+ 1719 00b9 00       		.byte	0
+ 1720 00ba 00       		.byte	0
+ 1721 00bb 0D       		.uleb128 0xd
+ 1722 00bc 34       		.uleb128 0x34
+ 1723 00bd 00       		.byte	0
+ 1724 00be 03       		.uleb128 0x3
+ 1725 00bf 0E       		.uleb128 0xe
+ 1726 00c0 3A       		.uleb128 0x3a
+ 1727 00c1 0B       		.uleb128 0xb
+ 1728 00c2 3B       		.uleb128 0x3b
+ 1729 00c3 0B       		.uleb128 0xb
+ 1730 00c4 49       		.uleb128 0x49
+ 1731 00c5 13       		.uleb128 0x13
+ 1732 00c6 02       		.uleb128 0x2
+ 1733 00c7 17       		.uleb128 0x17
+ 1734 00c8 00       		.byte	0
+ 1735 00c9 00       		.byte	0
+ 1736 00ca 0E       		.uleb128 0xe
+ 1737 00cb 34       		.uleb128 0x34
+ 1738 00cc 00       		.byte	0
+ 1739 00cd 03       		.uleb128 0x3
+ 1740 00ce 0E       		.uleb128 0xe
+ 1741 00cf 3A       		.uleb128 0x3a
+ 1742 00d0 0B       		.uleb128 0xb
+ 1743 00d1 3B       		.uleb128 0x3b
+ 1744 00d2 0B       		.uleb128 0xb
+ 1745 00d3 49       		.uleb128 0x49
+ 1746 00d4 13       		.uleb128 0x13
+ 1747 00d5 02       		.uleb128 0x2
+ 1748 00d6 18       		.uleb128 0x18
+ 1749 00d7 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 37
+
+
+ 1750 00d8 00       		.byte	0
+ 1751 00d9 0F       		.uleb128 0xf
+ 1752 00da 898201   		.uleb128 0x4109
+ 1753 00dd 01       		.byte	0x1
+ 1754 00de 11       		.uleb128 0x11
+ 1755 00df 01       		.uleb128 0x1
+ 1756 00e0 31       		.uleb128 0x31
+ 1757 00e1 13       		.uleb128 0x13
+ 1758 00e2 01       		.uleb128 0x1
+ 1759 00e3 13       		.uleb128 0x13
+ 1760 00e4 00       		.byte	0
+ 1761 00e5 00       		.byte	0
+ 1762 00e6 10       		.uleb128 0x10
+ 1763 00e7 8A8201   		.uleb128 0x410a
+ 1764 00ea 00       		.byte	0
+ 1765 00eb 02       		.uleb128 0x2
+ 1766 00ec 18       		.uleb128 0x18
+ 1767 00ed 9142     		.uleb128 0x2111
+ 1768 00ef 18       		.uleb128 0x18
+ 1769 00f0 00       		.byte	0
+ 1770 00f1 00       		.byte	0
+ 1771 00f2 11       		.uleb128 0x11
+ 1772 00f3 898201   		.uleb128 0x4109
+ 1773 00f6 01       		.byte	0x1
+ 1774 00f7 11       		.uleb128 0x11
+ 1775 00f8 01       		.uleb128 0x1
+ 1776 00f9 31       		.uleb128 0x31
+ 1777 00fa 13       		.uleb128 0x13
+ 1778 00fb 00       		.byte	0
+ 1779 00fc 00       		.byte	0
+ 1780 00fd 12       		.uleb128 0x12
+ 1781 00fe 2E       		.uleb128 0x2e
+ 1782 00ff 00       		.byte	0
+ 1783 0100 3F       		.uleb128 0x3f
+ 1784 0101 19       		.uleb128 0x19
+ 1785 0102 03       		.uleb128 0x3
+ 1786 0103 0E       		.uleb128 0xe
+ 1787 0104 3A       		.uleb128 0x3a
+ 1788 0105 0B       		.uleb128 0xb
+ 1789 0106 3B       		.uleb128 0x3b
+ 1790 0107 0B       		.uleb128 0xb
+ 1791 0108 27       		.uleb128 0x27
+ 1792 0109 19       		.uleb128 0x19
+ 1793 010a 11       		.uleb128 0x11
+ 1794 010b 01       		.uleb128 0x1
+ 1795 010c 12       		.uleb128 0x12
+ 1796 010d 06       		.uleb128 0x6
+ 1797 010e 40       		.uleb128 0x40
+ 1798 010f 18       		.uleb128 0x18
+ 1799 0110 9742     		.uleb128 0x2117
+ 1800 0112 19       		.uleb128 0x19
+ 1801 0113 00       		.byte	0
+ 1802 0114 00       		.byte	0
+ 1803 0115 13       		.uleb128 0x13
+ 1804 0116 2E       		.uleb128 0x2e
+ 1805 0117 01       		.byte	0x1
+ 1806 0118 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 38
+
+
+ 1807 0119 19       		.uleb128 0x19
+ 1808 011a 03       		.uleb128 0x3
+ 1809 011b 0E       		.uleb128 0xe
+ 1810 011c 3A       		.uleb128 0x3a
+ 1811 011d 0B       		.uleb128 0xb
+ 1812 011e 3B       		.uleb128 0x3b
+ 1813 011f 0B       		.uleb128 0xb
+ 1814 0120 27       		.uleb128 0x27
+ 1815 0121 19       		.uleb128 0x19
+ 1816 0122 11       		.uleb128 0x11
+ 1817 0123 01       		.uleb128 0x1
+ 1818 0124 12       		.uleb128 0x12
+ 1819 0125 06       		.uleb128 0x6
+ 1820 0126 40       		.uleb128 0x40
+ 1821 0127 18       		.uleb128 0x18
+ 1822 0128 9742     		.uleb128 0x2117
+ 1823 012a 19       		.uleb128 0x19
+ 1824 012b 01       		.uleb128 0x1
+ 1825 012c 13       		.uleb128 0x13
+ 1826 012d 00       		.byte	0
+ 1827 012e 00       		.byte	0
+ 1828 012f 14       		.uleb128 0x14
+ 1829 0130 05       		.uleb128 0x5
+ 1830 0131 00       		.byte	0
+ 1831 0132 03       		.uleb128 0x3
+ 1832 0133 08       		.uleb128 0x8
+ 1833 0134 3A       		.uleb128 0x3a
+ 1834 0135 0B       		.uleb128 0xb
+ 1835 0136 3B       		.uleb128 0x3b
+ 1836 0137 0B       		.uleb128 0xb
+ 1837 0138 49       		.uleb128 0x49
+ 1838 0139 13       		.uleb128 0x13
+ 1839 013a 02       		.uleb128 0x2
+ 1840 013b 18       		.uleb128 0x18
+ 1841 013c 00       		.byte	0
+ 1842 013d 00       		.byte	0
+ 1843 013e 15       		.uleb128 0x15
+ 1844 013f 898201   		.uleb128 0x4109
+ 1845 0142 00       		.byte	0
+ 1846 0143 11       		.uleb128 0x11
+ 1847 0144 01       		.uleb128 0x1
+ 1848 0145 31       		.uleb128 0x31
+ 1849 0146 13       		.uleb128 0x13
+ 1850 0147 00       		.byte	0
+ 1851 0148 00       		.byte	0
+ 1852 0149 16       		.uleb128 0x16
+ 1853 014a 01       		.uleb128 0x1
+ 1854 014b 01       		.byte	0x1
+ 1855 014c 49       		.uleb128 0x49
+ 1856 014d 13       		.uleb128 0x13
+ 1857 014e 01       		.uleb128 0x1
+ 1858 014f 13       		.uleb128 0x13
+ 1859 0150 00       		.byte	0
+ 1860 0151 00       		.byte	0
+ 1861 0152 17       		.uleb128 0x17
+ 1862 0153 21       		.uleb128 0x21
+ 1863 0154 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 39
+
+
+ 1864 0155 49       		.uleb128 0x49
+ 1865 0156 13       		.uleb128 0x13
+ 1866 0157 2F       		.uleb128 0x2f
+ 1867 0158 0B       		.uleb128 0xb
+ 1868 0159 00       		.byte	0
+ 1869 015a 00       		.byte	0
+ 1870 015b 18       		.uleb128 0x18
+ 1871 015c 34       		.uleb128 0x34
+ 1872 015d 00       		.byte	0
+ 1873 015e 03       		.uleb128 0x3
+ 1874 015f 0E       		.uleb128 0xe
+ 1875 0160 3A       		.uleb128 0x3a
+ 1876 0161 0B       		.uleb128 0xb
+ 1877 0162 3B       		.uleb128 0x3b
+ 1878 0163 0B       		.uleb128 0xb
+ 1879 0164 49       		.uleb128 0x49
+ 1880 0165 13       		.uleb128 0x13
+ 1881 0166 3F       		.uleb128 0x3f
+ 1882 0167 19       		.uleb128 0x19
+ 1883 0168 3C       		.uleb128 0x3c
+ 1884 0169 19       		.uleb128 0x19
+ 1885 016a 00       		.byte	0
+ 1886 016b 00       		.byte	0
+ 1887 016c 19       		.uleb128 0x19
+ 1888 016d 2E       		.uleb128 0x2e
+ 1889 016e 01       		.byte	0x1
+ 1890 016f 3F       		.uleb128 0x3f
+ 1891 0170 19       		.uleb128 0x19
+ 1892 0171 03       		.uleb128 0x3
+ 1893 0172 0E       		.uleb128 0xe
+ 1894 0173 3A       		.uleb128 0x3a
+ 1895 0174 0B       		.uleb128 0xb
+ 1896 0175 3B       		.uleb128 0x3b
+ 1897 0176 0B       		.uleb128 0xb
+ 1898 0177 27       		.uleb128 0x27
+ 1899 0178 19       		.uleb128 0x19
+ 1900 0179 49       		.uleb128 0x49
+ 1901 017a 13       		.uleb128 0x13
+ 1902 017b 3C       		.uleb128 0x3c
+ 1903 017c 19       		.uleb128 0x19
+ 1904 017d 01       		.uleb128 0x1
+ 1905 017e 13       		.uleb128 0x13
+ 1906 017f 00       		.byte	0
+ 1907 0180 00       		.byte	0
+ 1908 0181 1A       		.uleb128 0x1a
+ 1909 0182 05       		.uleb128 0x5
+ 1910 0183 00       		.byte	0
+ 1911 0184 49       		.uleb128 0x49
+ 1912 0185 13       		.uleb128 0x13
+ 1913 0186 00       		.byte	0
+ 1914 0187 00       		.byte	0
+ 1915 0188 1B       		.uleb128 0x1b
+ 1916 0189 26       		.uleb128 0x26
+ 1917 018a 00       		.byte	0
+ 1918 018b 49       		.uleb128 0x49
+ 1919 018c 13       		.uleb128 0x13
+ 1920 018d 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 40
+
+
+ 1921 018e 00       		.byte	0
+ 1922 018f 1C       		.uleb128 0x1c
+ 1923 0190 2E       		.uleb128 0x2e
+ 1924 0191 01       		.byte	0x1
+ 1925 0192 3F       		.uleb128 0x3f
+ 1926 0193 19       		.uleb128 0x19
+ 1927 0194 03       		.uleb128 0x3
+ 1928 0195 0E       		.uleb128 0xe
+ 1929 0196 3A       		.uleb128 0x3a
+ 1930 0197 0B       		.uleb128 0xb
+ 1931 0198 3B       		.uleb128 0x3b
+ 1932 0199 0B       		.uleb128 0xb
+ 1933 019a 27       		.uleb128 0x27
+ 1934 019b 19       		.uleb128 0x19
+ 1935 019c 3C       		.uleb128 0x3c
+ 1936 019d 19       		.uleb128 0x19
+ 1937 019e 01       		.uleb128 0x1
+ 1938 019f 13       		.uleb128 0x13
+ 1939 01a0 00       		.byte	0
+ 1940 01a1 00       		.byte	0
+ 1941 01a2 1D       		.uleb128 0x1d
+ 1942 01a3 2E       		.uleb128 0x2e
+ 1943 01a4 01       		.byte	0x1
+ 1944 01a5 3F       		.uleb128 0x3f
+ 1945 01a6 19       		.uleb128 0x19
+ 1946 01a7 03       		.uleb128 0x3
+ 1947 01a8 0E       		.uleb128 0xe
+ 1948 01a9 3A       		.uleb128 0x3a
+ 1949 01aa 0B       		.uleb128 0xb
+ 1950 01ab 3B       		.uleb128 0x3b
+ 1951 01ac 0B       		.uleb128 0xb
+ 1952 01ad 27       		.uleb128 0x27
+ 1953 01ae 19       		.uleb128 0x19
+ 1954 01af 49       		.uleb128 0x49
+ 1955 01b0 13       		.uleb128 0x13
+ 1956 01b1 3C       		.uleb128 0x3c
+ 1957 01b2 19       		.uleb128 0x19
+ 1958 01b3 00       		.byte	0
+ 1959 01b4 00       		.byte	0
+ 1960 01b5 00       		.byte	0
+ 1961              		.section	.debug_loc,"",%progbits
+ 1962              	.Ldebug_loc0:
+ 1963              	.LLST0:
+ 1964 0000 00000000 		.4byte	.LVL0
+ 1965 0004 1A000000 		.4byte	.LVL3
+ 1966 0008 0100     		.2byte	0x1
+ 1967 000a 50       		.byte	0x50
+ 1968 000b 1A000000 		.4byte	.LVL3
+ 1969 000f 54000000 		.4byte	.LFE1
+ 1970 0013 0400     		.2byte	0x4
+ 1971 0015 F3       		.byte	0xf3
+ 1972 0016 01       		.uleb128 0x1
+ 1973 0017 50       		.byte	0x50
+ 1974 0018 9F       		.byte	0x9f
+ 1975 0019 00000000 		.4byte	0
+ 1976 001d 00000000 		.4byte	0
+ 1977              	.LLST1:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 41
+
+
+ 1978 0021 00000000 		.4byte	.LVL0
+ 1979 0025 12000000 		.4byte	.LVL2
+ 1980 0029 0100     		.2byte	0x1
+ 1981 002b 51       		.byte	0x51
+ 1982 002c 12000000 		.4byte	.LVL2
+ 1983 0030 54000000 		.4byte	.LFE1
+ 1984 0034 0400     		.2byte	0x4
+ 1985 0036 F3       		.byte	0xf3
+ 1986 0037 01       		.uleb128 0x1
+ 1987 0038 51       		.byte	0x51
+ 1988 0039 9F       		.byte	0x9f
+ 1989 003a 00000000 		.4byte	0
+ 1990 003e 00000000 		.4byte	0
+ 1991              	.LLST2:
+ 1992 0042 00000000 		.4byte	.LVL0
+ 1993 0046 1C000000 		.4byte	.LVL4
+ 1994 004a 0100     		.2byte	0x1
+ 1995 004c 52       		.byte	0x52
+ 1996 004d 1C000000 		.4byte	.LVL4
+ 1997 0051 54000000 		.4byte	.LFE1
+ 1998 0055 0400     		.2byte	0x4
+ 1999 0057 F3       		.byte	0xf3
+ 2000 0058 01       		.uleb128 0x1
+ 2001 0059 52       		.byte	0x52
+ 2002 005a 9F       		.byte	0x9f
+ 2003 005b 00000000 		.4byte	0
+ 2004 005f 00000000 		.4byte	0
+ 2005              	.LLST3:
+ 2006 0063 00000000 		.4byte	.LVL0
+ 2007 0067 0E000000 		.4byte	.LVL1
+ 2008 006b 0100     		.2byte	0x1
+ 2009 006d 53       		.byte	0x53
+ 2010 006e 0E000000 		.4byte	.LVL1
+ 2011 0072 54000000 		.4byte	.LFE1
+ 2012 0076 0400     		.2byte	0x4
+ 2013 0078 F3       		.byte	0xf3
+ 2014 0079 01       		.uleb128 0x1
+ 2015 007a 53       		.byte	0x53
+ 2016 007b 9F       		.byte	0x9f
+ 2017 007c 00000000 		.4byte	0
+ 2018 0080 00000000 		.4byte	0
+ 2019              	.LLST4:
+ 2020 0084 00000000 		.4byte	.LVL0
+ 2021 0088 2C000000 		.4byte	.LVL6
+ 2022 008c 0200     		.2byte	0x2
+ 2023 008e 30       		.byte	0x30
+ 2024 008f 9F       		.byte	0x9f
+ 2025 0090 2C000000 		.4byte	.LVL6
+ 2026 0094 30000000 		.4byte	.LVL7
+ 2027 0098 0100     		.2byte	0x1
+ 2028 009a 50       		.byte	0x50
+ 2029 009b 30000000 		.4byte	.LVL7
+ 2030 009f 40000000 		.4byte	.LVL9
+ 2031 00a3 0200     		.2byte	0x2
+ 2032 00a5 91       		.byte	0x91
+ 2033 00a6 54       		.sleb128 -44
+ 2034 00a7 40000000 		.4byte	.LVL9
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 42
+
+
+ 2035 00ab 4A000000 		.4byte	.LVL10
+ 2036 00af 0100     		.2byte	0x1
+ 2037 00b1 56       		.byte	0x56
+ 2038 00b2 4A000000 		.4byte	.LVL10
+ 2039 00b6 4C000000 		.4byte	.LVL11
+ 2040 00ba 0600     		.2byte	0x6
+ 2041 00bc 76       		.byte	0x76
+ 2042 00bd 00       		.sleb128 0
+ 2043 00be 70       		.byte	0x70
+ 2044 00bf 00       		.sleb128 0
+ 2045 00c0 21       		.byte	0x21
+ 2046 00c1 9F       		.byte	0x9f
+ 2047 00c2 4C000000 		.4byte	.LVL11
+ 2048 00c6 54000000 		.4byte	.LFE1
+ 2049 00ca 0100     		.2byte	0x1
+ 2050 00cc 50       		.byte	0x50
+ 2051 00cd 00000000 		.4byte	0
+ 2052 00d1 00000000 		.4byte	0
+ 2053              	.LLST5:
+ 2054 00d5 00000000 		.4byte	.LVL12
+ 2055 00d9 14000000 		.4byte	.LVL14
+ 2056 00dd 0100     		.2byte	0x1
+ 2057 00df 50       		.byte	0x50
+ 2058 00e0 14000000 		.4byte	.LVL14
+ 2059 00e4 5C000000 		.4byte	.LFE3
+ 2060 00e8 0400     		.2byte	0x4
+ 2061 00ea F3       		.byte	0xf3
+ 2062 00eb 01       		.uleb128 0x1
+ 2063 00ec 50       		.byte	0x50
+ 2064 00ed 9F       		.byte	0x9f
+ 2065 00ee 00000000 		.4byte	0
+ 2066 00f2 00000000 		.4byte	0
+ 2067              	.LLST6:
+ 2068 00f6 00000000 		.4byte	.LVL12
+ 2069 00fa 18000000 		.4byte	.LVL16
+ 2070 00fe 0100     		.2byte	0x1
+ 2071 0100 51       		.byte	0x51
+ 2072 0101 18000000 		.4byte	.LVL16
+ 2073 0105 1B000000 		.4byte	.LVL17-1
+ 2074 0109 0200     		.2byte	0x2
+ 2075 010b 72       		.byte	0x72
+ 2076 010c 00       		.sleb128 0
+ 2077 010d 1B000000 		.4byte	.LVL17-1
+ 2078 0111 5C000000 		.4byte	.LFE3
+ 2079 0115 0400     		.2byte	0x4
+ 2080 0117 F3       		.byte	0xf3
+ 2081 0118 01       		.uleb128 0x1
+ 2082 0119 51       		.byte	0x51
+ 2083 011a 9F       		.byte	0x9f
+ 2084 011b 00000000 		.4byte	0
+ 2085 011f 00000000 		.4byte	0
+ 2086              	.LLST7:
+ 2087 0123 00000000 		.4byte	.LVL12
+ 2088 0127 16000000 		.4byte	.LVL15
+ 2089 012b 0100     		.2byte	0x1
+ 2090 012d 52       		.byte	0x52
+ 2091 012e 16000000 		.4byte	.LVL15
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 43
+
+
+ 2092 0132 5C000000 		.4byte	.LFE3
+ 2093 0136 0400     		.2byte	0x4
+ 2094 0138 F3       		.byte	0xf3
+ 2095 0139 01       		.uleb128 0x1
+ 2096 013a 52       		.byte	0x52
+ 2097 013b 9F       		.byte	0x9f
+ 2098 013c 00000000 		.4byte	0
+ 2099 0140 00000000 		.4byte	0
+ 2100              	.LLST8:
+ 2101 0144 00000000 		.4byte	.LVL12
+ 2102 0148 0A000000 		.4byte	.LVL13
+ 2103 014c 0100     		.2byte	0x1
+ 2104 014e 53       		.byte	0x53
+ 2105 014f 0A000000 		.4byte	.LVL13
+ 2106 0153 5C000000 		.4byte	.LFE3
+ 2107 0157 0400     		.2byte	0x4
+ 2108 0159 F3       		.byte	0xf3
+ 2109 015a 01       		.uleb128 0x1
+ 2110 015b 53       		.byte	0x53
+ 2111 015c 9F       		.byte	0x9f
+ 2112 015d 00000000 		.4byte	0
+ 2113 0161 00000000 		.4byte	0
+ 2114              	.LLST9:
+ 2115 0165 00000000 		.4byte	.LVL12
+ 2116 0169 20000000 		.4byte	.LVL18
+ 2117 016d 0200     		.2byte	0x2
+ 2118 016f 30       		.byte	0x30
+ 2119 0170 9F       		.byte	0x9f
+ 2120 0171 20000000 		.4byte	.LVL18
+ 2121 0175 26000000 		.4byte	.LVL19
+ 2122 0179 0100     		.2byte	0x1
+ 2123 017b 50       		.byte	0x50
+ 2124 017c 26000000 		.4byte	.LVL19
+ 2125 0180 38000000 		.4byte	.LVL21
+ 2126 0184 0200     		.2byte	0x2
+ 2127 0186 7D       		.byte	0x7d
+ 2128 0187 00       		.sleb128 0
+ 2129 0188 38000000 		.4byte	.LVL21
+ 2130 018c 50000000 		.4byte	.LVL24
+ 2131 0190 0100     		.2byte	0x1
+ 2132 0192 56       		.byte	0x56
+ 2133 0193 50000000 		.4byte	.LVL24
+ 2134 0197 52000000 		.4byte	.LVL25
+ 2135 019b 0600     		.2byte	0x6
+ 2136 019d 76       		.byte	0x76
+ 2137 019e 00       		.sleb128 0
+ 2138 019f 70       		.byte	0x70
+ 2139 01a0 00       		.sleb128 0
+ 2140 01a1 21       		.byte	0x21
+ 2141 01a2 9F       		.byte	0x9f
+ 2142 01a3 52000000 		.4byte	.LVL25
+ 2143 01a7 5C000000 		.4byte	.LFE3
+ 2144 01ab 0100     		.2byte	0x1
+ 2145 01ad 50       		.byte	0x50
+ 2146 01ae 00000000 		.4byte	0
+ 2147 01b2 00000000 		.4byte	0
+ 2148              	.LLST10:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 44
+
+
+ 2149 01b6 00000000 		.4byte	.LVL26
+ 2150 01ba 06000000 		.4byte	.LVL27
+ 2151 01be 0100     		.2byte	0x1
+ 2152 01c0 50       		.byte	0x50
+ 2153 01c1 06000000 		.4byte	.LVL27
+ 2154 01c5 18000000 		.4byte	.LFE7
+ 2155 01c9 0400     		.2byte	0x4
+ 2156 01cb F3       		.byte	0xf3
+ 2157 01cc 01       		.uleb128 0x1
+ 2158 01cd 50       		.byte	0x50
+ 2159 01ce 9F       		.byte	0x9f
+ 2160 01cf 00000000 		.4byte	0
+ 2161 01d3 00000000 		.4byte	0
+ 2162              	.LLST11:
+ 2163 01d7 00000000 		.4byte	.LVL35
+ 2164 01db 0D000000 		.4byte	.LVL38-1
+ 2165 01df 0100     		.2byte	0x1
+ 2166 01e1 50       		.byte	0x50
+ 2167 01e2 0D000000 		.4byte	.LVL38-1
+ 2168 01e6 36000000 		.4byte	.LVL49
+ 2169 01ea 0100     		.2byte	0x1
+ 2170 01ec 55       		.byte	0x55
+ 2171 01ed 36000000 		.4byte	.LVL49
+ 2172 01f1 38000000 		.4byte	.LFE2
+ 2173 01f5 0400     		.2byte	0x4
+ 2174 01f7 F3       		.byte	0xf3
+ 2175 01f8 01       		.uleb128 0x1
+ 2176 01f9 50       		.byte	0x50
+ 2177 01fa 9F       		.byte	0x9f
+ 2178 01fb 00000000 		.4byte	0
+ 2179 01ff 00000000 		.4byte	0
+ 2180              	.LLST12:
+ 2181 0203 00000000 		.4byte	.LVL35
+ 2182 0207 0D000000 		.4byte	.LVL38-1
+ 2183 020b 0100     		.2byte	0x1
+ 2184 020d 51       		.byte	0x51
+ 2185 020e 0D000000 		.4byte	.LVL38-1
+ 2186 0212 38000000 		.4byte	.LFE2
+ 2187 0216 0400     		.2byte	0x4
+ 2188 0218 F3       		.byte	0xf3
+ 2189 0219 01       		.uleb128 0x1
+ 2190 021a 51       		.byte	0x51
+ 2191 021b 9F       		.byte	0x9f
+ 2192 021c 00000000 		.4byte	0
+ 2193 0220 00000000 		.4byte	0
+ 2194              	.LLST13:
+ 2195 0224 00000000 		.4byte	.LVL35
+ 2196 0228 04000000 		.4byte	.LVL36
+ 2197 022c 0100     		.2byte	0x1
+ 2198 022e 52       		.byte	0x52
+ 2199 022f 04000000 		.4byte	.LVL36
+ 2200 0233 38000000 		.4byte	.LFE2
+ 2201 0237 0400     		.2byte	0x4
+ 2202 0239 F3       		.byte	0xf3
+ 2203 023a 01       		.uleb128 0x1
+ 2204 023b 52       		.byte	0x52
+ 2205 023c 9F       		.byte	0x9f
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 45
+
+
+ 2206 023d 00000000 		.4byte	0
+ 2207 0241 00000000 		.4byte	0
+ 2208              	.LLST14:
+ 2209 0245 00000000 		.4byte	.LVL35
+ 2210 0249 08000000 		.4byte	.LVL37
+ 2211 024d 0100     		.2byte	0x1
+ 2212 024f 53       		.byte	0x53
+ 2213 0250 08000000 		.4byte	.LVL37
+ 2214 0254 36000000 		.4byte	.LVL50
+ 2215 0258 0100     		.2byte	0x1
+ 2216 025a 56       		.byte	0x56
+ 2217 025b 36000000 		.4byte	.LVL50
+ 2218 025f 38000000 		.4byte	.LFE2
+ 2219 0263 0400     		.2byte	0x4
+ 2220 0265 F3       		.byte	0xf3
+ 2221 0266 01       		.uleb128 0x1
+ 2222 0267 53       		.byte	0x53
+ 2223 0268 9F       		.byte	0x9f
+ 2224 0269 00000000 		.4byte	0
+ 2225 026d 00000000 		.4byte	0
+ 2226              	.LLST15:
+ 2227 0271 00000000 		.4byte	.LVL35
+ 2228 0275 10000000 		.4byte	.LVL39
+ 2229 0279 0200     		.2byte	0x2
+ 2230 027b 30       		.byte	0x30
+ 2231 027c 9F       		.byte	0x9f
+ 2232 027d 10000000 		.4byte	.LVL39
+ 2233 0281 13000000 		.4byte	.LVL40-1
+ 2234 0285 0100     		.2byte	0x1
+ 2235 0287 50       		.byte	0x50
+ 2236 0288 13000000 		.4byte	.LVL40-1
+ 2237 028c 34000000 		.4byte	.LVL47
+ 2238 0290 0100     		.2byte	0x1
+ 2239 0292 54       		.byte	0x54
+ 2240 0293 34000000 		.4byte	.LVL47
+ 2241 0297 36000000 		.4byte	.LVL48
+ 2242 029b 0600     		.2byte	0x6
+ 2243 029d 74       		.byte	0x74
+ 2244 029e 00       		.sleb128 0
+ 2245 029f 70       		.byte	0x70
+ 2246 02a0 00       		.sleb128 0
+ 2247 02a1 21       		.byte	0x21
+ 2248 02a2 9F       		.byte	0x9f
+ 2249 02a3 36000000 		.4byte	.LVL48
+ 2250 02a7 38000000 		.4byte	.LFE2
+ 2251 02ab 0100     		.2byte	0x1
+ 2252 02ad 50       		.byte	0x50
+ 2253 02ae 00000000 		.4byte	0
+ 2254 02b2 00000000 		.4byte	0
+ 2255              	.LLST16:
+ 2256 02b6 00000000 		.4byte	.LVL51
+ 2257 02ba 09000000 		.4byte	.LVL53-1
+ 2258 02be 0100     		.2byte	0x1
+ 2259 02c0 50       		.byte	0x50
+ 2260 02c1 09000000 		.4byte	.LVL53-1
+ 2261 02c5 26000000 		.4byte	.LVL62
+ 2262 02c9 0100     		.2byte	0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 46
+
+
+ 2263 02cb 55       		.byte	0x55
+ 2264 02cc 26000000 		.4byte	.LVL62
+ 2265 02d0 28000000 		.4byte	.LFE4
+ 2266 02d4 0400     		.2byte	0x4
+ 2267 02d6 F3       		.byte	0xf3
+ 2268 02d7 01       		.uleb128 0x1
+ 2269 02d8 50       		.byte	0x50
+ 2270 02d9 9F       		.byte	0x9f
+ 2271 02da 00000000 		.4byte	0
+ 2272 02de 00000000 		.4byte	0
+ 2273              	.LLST17:
+ 2274 02e2 00000000 		.4byte	.LVL51
+ 2275 02e6 09000000 		.4byte	.LVL53-1
+ 2276 02ea 0100     		.2byte	0x1
+ 2277 02ec 51       		.byte	0x51
+ 2278 02ed 09000000 		.4byte	.LVL53-1
+ 2279 02f1 28000000 		.4byte	.LFE4
+ 2280 02f5 0400     		.2byte	0x4
+ 2281 02f7 F3       		.byte	0xf3
+ 2282 02f8 01       		.uleb128 0x1
+ 2283 02f9 51       		.byte	0x51
+ 2284 02fa 9F       		.byte	0x9f
+ 2285 02fb 00000000 		.4byte	0
+ 2286 02ff 00000000 		.4byte	0
+ 2287              	.LLST18:
+ 2288 0303 00000000 		.4byte	.LVL51
+ 2289 0307 04000000 		.4byte	.LVL52
+ 2290 030b 0100     		.2byte	0x1
+ 2291 030d 52       		.byte	0x52
+ 2292 030e 04000000 		.4byte	.LVL52
+ 2293 0312 28000000 		.4byte	.LFE4
+ 2294 0316 0400     		.2byte	0x4
+ 2295 0318 F3       		.byte	0xf3
+ 2296 0319 01       		.uleb128 0x1
+ 2297 031a 52       		.byte	0x52
+ 2298 031b 9F       		.byte	0x9f
+ 2299 031c 00000000 		.4byte	0
+ 2300 0320 00000000 		.4byte	0
+ 2301              	.LLST19:
+ 2302 0324 00000000 		.4byte	.LVL51
+ 2303 0328 09000000 		.4byte	.LVL53-1
+ 2304 032c 0100     		.2byte	0x1
+ 2305 032e 53       		.byte	0x53
+ 2306 032f 09000000 		.4byte	.LVL53-1
+ 2307 0333 28000000 		.4byte	.LFE4
+ 2308 0337 0400     		.2byte	0x4
+ 2309 0339 F3       		.byte	0xf3
+ 2310 033a 01       		.uleb128 0x1
+ 2311 033b 53       		.byte	0x53
+ 2312 033c 9F       		.byte	0x9f
+ 2313 033d 00000000 		.4byte	0
+ 2314 0341 00000000 		.4byte	0
+ 2315              	.LLST20:
+ 2316 0345 00000000 		.4byte	.LVL51
+ 2317 0349 0C000000 		.4byte	.LVL54
+ 2318 034d 0200     		.2byte	0x2
+ 2319 034f 30       		.byte	0x30
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 47
+
+
+ 2320 0350 9F       		.byte	0x9f
+ 2321 0351 0C000000 		.4byte	.LVL54
+ 2322 0355 0F000000 		.4byte	.LVL55-1
+ 2323 0359 0100     		.2byte	0x1
+ 2324 035b 50       		.byte	0x50
+ 2325 035c 0F000000 		.4byte	.LVL55-1
+ 2326 0360 24000000 		.4byte	.LVL60
+ 2327 0364 0100     		.2byte	0x1
+ 2328 0366 54       		.byte	0x54
+ 2329 0367 24000000 		.4byte	.LVL60
+ 2330 036b 26000000 		.4byte	.LVL61
+ 2331 036f 0600     		.2byte	0x6
+ 2332 0371 74       		.byte	0x74
+ 2333 0372 00       		.sleb128 0
+ 2334 0373 70       		.byte	0x70
+ 2335 0374 00       		.sleb128 0
+ 2336 0375 21       		.byte	0x21
+ 2337 0376 9F       		.byte	0x9f
+ 2338 0377 26000000 		.4byte	.LVL61
+ 2339 037b 28000000 		.4byte	.LFE4
+ 2340 037f 0100     		.2byte	0x1
+ 2341 0381 50       		.byte	0x50
+ 2342 0382 00000000 		.4byte	0
+ 2343 0386 00000000 		.4byte	0
+ 2344              	.LLST21:
+ 2345 038a 00000000 		.4byte	.LVL63
+ 2346 038e 06000000 		.4byte	.LVL65
+ 2347 0392 0100     		.2byte	0x1
+ 2348 0394 50       		.byte	0x50
+ 2349 0395 06000000 		.4byte	.LVL65
+ 2350 0399 18000000 		.4byte	.LVL68
+ 2351 039d 0100     		.2byte	0x1
+ 2352 039f 50       		.byte	0x50
+ 2353 03a0 00000000 		.4byte	0
+ 2354 03a4 00000000 		.4byte	0
+ 2355              	.LLST22:
+ 2356 03a8 00000000 		.4byte	.LVL63
+ 2357 03ac 1D000000 		.4byte	.LVL69-1
+ 2358 03b0 0100     		.2byte	0x1
+ 2359 03b2 51       		.byte	0x51
+ 2360 03b3 1D000000 		.4byte	.LVL69-1
+ 2361 03b7 20000000 		.4byte	.LFE10
+ 2362 03bb 0400     		.2byte	0x4
+ 2363 03bd F3       		.byte	0xf3
+ 2364 03be 01       		.uleb128 0x1
+ 2365 03bf 51       		.byte	0x51
+ 2366 03c0 9F       		.byte	0x9f
+ 2367 03c1 00000000 		.4byte	0
+ 2368 03c5 00000000 		.4byte	0
+ 2369              	.LLST23:
+ 2370 03c9 00000000 		.4byte	.LVL63
+ 2371 03cd 04000000 		.4byte	.LVL64
+ 2372 03d1 0200     		.2byte	0x2
+ 2373 03d3 30       		.byte	0x30
+ 2374 03d4 9F       		.byte	0x9f
+ 2375 03d5 04000000 		.4byte	.LVL64
+ 2376 03d9 1D000000 		.4byte	.LVL69-1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 48
+
+
+ 2377 03dd 0100     		.2byte	0x1
+ 2378 03df 53       		.byte	0x53
+ 2379 03e0 00000000 		.4byte	0
+ 2380 03e4 00000000 		.4byte	0
+ 2381              		.section	.debug_aranges,"",%progbits
+ 2382 0000 6C000000 		.4byte	0x6c
+ 2383 0004 0200     		.2byte	0x2
+ 2384 0006 00000000 		.4byte	.Ldebug_info0
+ 2385 000a 04       		.byte	0x4
+ 2386 000b 00       		.byte	0
+ 2387 000c 0000     		.2byte	0
+ 2388 000e 0000     		.2byte	0
+ 2389 0010 00000000 		.4byte	.LFB1
+ 2390 0014 54000000 		.4byte	.LFE1-.LFB1
+ 2391 0018 00000000 		.4byte	.LFB3
+ 2392 001c 5C000000 		.4byte	.LFE3-.LFB3
+ 2393 0020 00000000 		.4byte	.LFB5
+ 2394 0024 02000000 		.4byte	.LFE5-.LFB5
+ 2395 0028 00000000 		.4byte	.LFB6
+ 2396 002c 02000000 		.4byte	.LFE6-.LFB6
+ 2397 0030 00000000 		.4byte	.LFB7
+ 2398 0034 18000000 		.4byte	.LFE7-.LFB7
+ 2399 0038 00000000 		.4byte	.LFB0
+ 2400 003c 60000000 		.4byte	.LFE0-.LFB0
+ 2401 0040 00000000 		.4byte	.LFB8
+ 2402 0044 18000000 		.4byte	.LFE8-.LFB8
+ 2403 0048 00000000 		.4byte	.LFB9
+ 2404 004c 18000000 		.4byte	.LFE9-.LFB9
+ 2405 0050 00000000 		.4byte	.LFB2
+ 2406 0054 38000000 		.4byte	.LFE2-.LFB2
+ 2407 0058 00000000 		.4byte	.LFB4
+ 2408 005c 28000000 		.4byte	.LFE4-.LFB4
+ 2409 0060 00000000 		.4byte	.LFB10
+ 2410 0064 20000000 		.4byte	.LFE10-.LFB10
+ 2411 0068 00000000 		.4byte	0
+ 2412 006c 00000000 		.4byte	0
+ 2413              		.section	.debug_ranges,"",%progbits
+ 2414              	.Ldebug_ranges0:
+ 2415 0000 00000000 		.4byte	.LFB1
+ 2416 0004 54000000 		.4byte	.LFE1
+ 2417 0008 00000000 		.4byte	.LFB3
+ 2418 000c 5C000000 		.4byte	.LFE3
+ 2419 0010 00000000 		.4byte	.LFB5
+ 2420 0014 02000000 		.4byte	.LFE5
+ 2421 0018 00000000 		.4byte	.LFB6
+ 2422 001c 02000000 		.4byte	.LFE6
+ 2423 0020 00000000 		.4byte	.LFB7
+ 2424 0024 18000000 		.4byte	.LFE7
+ 2425 0028 00000000 		.4byte	.LFB0
+ 2426 002c 60000000 		.4byte	.LFE0
+ 2427 0030 00000000 		.4byte	.LFB8
+ 2428 0034 18000000 		.4byte	.LFE8
+ 2429 0038 00000000 		.4byte	.LFB9
+ 2430 003c 18000000 		.4byte	.LFE9
+ 2431 0040 00000000 		.4byte	.LFB2
+ 2432 0044 38000000 		.4byte	.LFE2
+ 2433 0048 00000000 		.4byte	.LFB4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 49
+
+
+ 2434 004c 28000000 		.4byte	.LFE4
+ 2435 0050 00000000 		.4byte	.LFB10
+ 2436 0054 20000000 		.4byte	.LFE10
+ 2437 0058 00000000 		.4byte	0
+ 2438 005c 00000000 		.4byte	0
+ 2439              		.section	.debug_line,"",%progbits
+ 2440              	.Ldebug_line0:
+ 2441 0000 2A030000 		.section	.debug_str,"MS",%progbits,1
+ 2441      0200F101 
+ 2441      00000201 
+ 2441      FB0E0D00 
+ 2441      01010101 
+ 2442              	.LASF37:
+ 2443 0000 72657375 		.ascii	"result\000"
+ 2443      6C7400
+ 2444              	.LASF46:
+ 2445 0007 696E765F 		.ascii	"inv_execute_read_secondary\000"
+ 2445      65786563 
+ 2445      7574655F 
+ 2445      72656164 
+ 2445      5F736563 
+ 2446              	.LASF28:
+ 2447 0022 6669726D 		.ascii	"firmware_loaded\000"
+ 2447      77617265 
+ 2447      5F6C6F61 
+ 2447      64656400 
+ 2448              	.LASF59:
+ 2449 0032 2E5C3230 		.ascii	".\\20648_driver\\drivers\\inv_mems_secondary_transp"
+ 2449      3634385F 
+ 2449      64726976 
+ 2449      65725C64 
+ 2449      72697665 
+ 2450 0062 6F72742E 		.ascii	"ort.c\000"
+ 2450      6300
+ 2451              	.LASF23:
+ 2452 0068 6779726F 		.ascii	"gyro_averaging\000"
+ 2452      5F617665 
+ 2452      72616769 
+ 2452      6E6700
+ 2453              	.LASF3:
+ 2454 0077 73686F72 		.ascii	"short int\000"
+ 2454      7420696E 
+ 2454      7400
+ 2455              	.LASF58:
+ 2456 0081 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2456      4320342E 
+ 2456      392E3320 
+ 2456      32303135 
+ 2456      30333033 
+ 2457 00b4 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 2457      20726576 
+ 2457      6973696F 
+ 2457      6E203232 
+ 2457      31323230 
+ 2458 00e7 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 2458      66756E63 
+ 2458      74696F6E 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 50
+
+
+ 2458      2D736563 
+ 2458      74696F6E 
+ 2459              	.LASF11:
+ 2460 010f 73697A65 		.ascii	"sizetype\000"
+ 2460      74797065 
+ 2460      00
+ 2461              	.LASF27:
+ 2462 0118 6C705F65 		.ascii	"lp_en_support\000"
+ 2462      6E5F7375 
+ 2462      70706F72 
+ 2462      7400
+ 2463              	.LASF48:
+ 2464 0126 696E765F 		.ascii	"inv_mems_secondary_set_odr\000"
+ 2464      6D656D73 
+ 2464      5F736563 
+ 2464      6F6E6461 
+ 2464      72795F73 
+ 2465              	.LASF32:
+ 2466 0141 62617365 		.ascii	"base_driver_t\000"
+ 2466      5F647269 
+ 2466      7665725F 
+ 2466      7400
+ 2467              	.LASF5:
+ 2468 014f 5F5F7569 		.ascii	"__uint16_t\000"
+ 2468      6E743136 
+ 2468      5F7400
+ 2469              	.LASF51:
+ 2470 015a 6D73745F 		.ascii	"mst_odr_config\000"
+ 2470      6F64725F 
+ 2470      636F6E66 
+ 2470      696700
+ 2471              	.LASF43:
+ 2472 0169 696E765F 		.ascii	"inv_mems_secondary_stop_channel\000"
+ 2472      6D656D73 
+ 2472      5F736563 
+ 2472      6F6E6461 
+ 2472      72795F73 
+ 2473              	.LASF36:
+ 2474 0189 696E6465 		.ascii	"index\000"
+ 2474      7800
+ 2475              	.LASF19:
+ 2476 018f 75736572 		.ascii	"user_ctrl\000"
+ 2476      5F637472 
+ 2476      6C00
+ 2477              	.LASF62:
+ 2478 0199 62617365 		.ascii	"base_state\000"
+ 2478      5F737461 
+ 2478      746500
+ 2479              	.LASF1:
+ 2480 01a4 7369676E 		.ascii	"signed char\000"
+ 2480      65642063 
+ 2480      68617200 
+ 2481              	.LASF9:
+ 2482 01b0 6C6F6E67 		.ascii	"long long int\000"
+ 2482      206C6F6E 
+ 2482      6720696E 
+ 2482      7400
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 51
+
+
+ 2483              	.LASF52:
+ 2484 01be 736C765F 		.ascii	"slv_reg\000"
+ 2484      72656700 
+ 2485              	.LASF39:
+ 2486 01c6 696E765F 		.ascii	"inv_read_secondary\000"
+ 2486      72656164 
+ 2486      5F736563 
+ 2486      6F6E6461 
+ 2486      727900
+ 2487              	.LASF34:
+ 2488 01d9 61646472 		.ascii	"addr\000"
+ 2488      00
+ 2489              	.LASF17:
+ 2490 01de 7077725F 		.ascii	"pwr_mgmt_1\000"
+ 2490      6D676D74 
+ 2490      5F3100
+ 2491              	.LASF26:
+ 2492 01e9 61636365 		.ascii	"accel_fullscale\000"
+ 2492      6C5F6675 
+ 2492      6C6C7363 
+ 2492      616C6500 
+ 2493              	.LASF60:
+ 2494 01f9 433A5C44 		.ascii	"C:\\Dropbox\\Projects\\George Posture Correction Pr"
+ 2494      726F7062 
+ 2494      6F785C50 
+ 2494      726F6A65 
+ 2494      6374735C 
+ 2495 0229 6F6A6563 		.ascii	"oject\\BackBone\\BackBone_Bootloadable.cydsn\000"
+ 2495      745C4261 
+ 2495      636B426F 
+ 2495      6E655C42 
+ 2495      61636B42 
+ 2496              	.LASF21:
+ 2497 0254 7365636F 		.ascii	"secondary_div\000"
+ 2497      6E646172 
+ 2497      795F6469 
+ 2497      7600
+ 2498              	.LASF16:
+ 2499 0262 77616B65 		.ascii	"wake_state\000"
+ 2499      5F737461 
+ 2499      746500
+ 2500              	.LASF33:
+ 2501 026d 696E765F 		.ascii	"inv_secondary_reg\000"
+ 2501      7365636F 
+ 2501      6E646172 
+ 2501      795F7265 
+ 2501      6700
+ 2502              	.LASF2:
+ 2503 027f 756E7369 		.ascii	"unsigned char\000"
+ 2503      676E6564 
+ 2503      20636861 
+ 2503      7200
+ 2504              	.LASF31:
+ 2505 028d 696E765F 		.ascii	"inv_i2c_addr_t\000"
+ 2505      6932635F 
+ 2505      61646472 
+ 2505      5F7400
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 52
+
+
+ 2506              	.LASF29:
+ 2507 029c 73657269 		.ascii	"serial_interface\000"
+ 2507      616C5F69 
+ 2507      6E746572 
+ 2507      66616365 
+ 2507      00
+ 2508              	.LASF40:
+ 2509 02ad 696E765F 		.ascii	"inv_write_secondary\000"
+ 2509      77726974 
+ 2509      655F7365 
+ 2509      636F6E64 
+ 2509      61727900 
+ 2510              	.LASF10:
+ 2511 02c1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2511      206C6F6E 
+ 2511      6720756E 
+ 2511      7369676E 
+ 2511      65642069 
+ 2512              	.LASF0:
+ 2513 02d8 756E7369 		.ascii	"unsigned int\000"
+ 2513      676E6564 
+ 2513      20696E74 
+ 2513      00
+ 2514              	.LASF14:
+ 2515 02e5 75696E74 		.ascii	"uint16_t\000"
+ 2515      31365F74 
+ 2515      00
+ 2516              	.LASF22:
+ 2517 02ee 61636365 		.ascii	"accel_div\000"
+ 2517      6C5F6469 
+ 2517      7600
+ 2518              	.LASF24:
+ 2519 02f8 61636365 		.ascii	"accel_averaging\000"
+ 2519      6C5F6176 
+ 2519      65726167 
+ 2519      696E6700 
+ 2520              	.LASF45:
+ 2521 0308 696E765F 		.ascii	"inv_mems_secondary_disable_i2c\000"
+ 2521      6D656D73 
+ 2521      5F736563 
+ 2521      6F6E6461 
+ 2521      72795F64 
+ 2522              	.LASF55:
+ 2523 0327 696E765F 		.ascii	"inv_read_mems_reg\000"
+ 2523      72656164 
+ 2523      5F6D656D 
+ 2523      735F7265 
+ 2523      6700
+ 2524              	.LASF61:
+ 2525 0339 696E765F 		.ascii	"inv_init_secondary\000"
+ 2525      696E6974 
+ 2525      5F736563 
+ 2525      6F6E6461 
+ 2525      727900
+ 2526              	.LASF12:
+ 2527 034c 63686172 		.ascii	"char\000"
+ 2527      00
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 53
+
+
+ 2528              	.LASF7:
+ 2529 0351 6C6F6E67 		.ascii	"long int\000"
+ 2529      20696E74 
+ 2529      00
+ 2530              	.LASF6:
+ 2531 035a 73686F72 		.ascii	"short unsigned int\000"
+ 2531      7420756E 
+ 2531      7369676E 
+ 2531      65642069 
+ 2531      6E7400
+ 2532              	.LASF38:
+ 2533 036d 64617461 		.ascii	"data\000"
+ 2533      00
+ 2534              	.LASF50:
+ 2535 0372 65666665 		.ascii	"effectiveDivider\000"
+ 2535      63746976 
+ 2535      65446976 
+ 2535      69646572 
+ 2535      00
+ 2536              	.LASF42:
+ 2537 0383 696E765F 		.ascii	"inv_mems_secondary_restoreI2cOdr\000"
+ 2537      6D656D73 
+ 2537      5F736563 
+ 2537      6F6E6461 
+ 2537      72795F72 
+ 2538              	.LASF8:
+ 2539 03a4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2539      20756E73 
+ 2539      69676E65 
+ 2539      6420696E 
+ 2539      7400
+ 2540              	.LASF35:
+ 2541 03b6 6374726C 		.ascii	"ctrl\000"
+ 2541      00
+ 2542              	.LASF54:
+ 2543 03bb 696E765F 		.ascii	"inv_write_single_mems_reg\000"
+ 2543      77726974 
+ 2543      655F7369 
+ 2543      6E676C65 
+ 2543      5F6D656D 
+ 2544              	.LASF47:
+ 2545 03d5 696E765F 		.ascii	"inv_execute_write_secondary\000"
+ 2545      65786563 
+ 2545      7574655F 
+ 2545      77726974 
+ 2545      655F7365 
+ 2546              	.LASF41:
+ 2547 03f1 696E765F 		.ascii	"inv_mems_secondary_saveI2cOdr\000"
+ 2547      6D656D73 
+ 2547      5F736563 
+ 2547      6F6E6461 
+ 2547      72795F73 
+ 2548              	.LASF53:
+ 2549 040f 696E765F 		.ascii	"inv_write_mems_reg\000"
+ 2549      77726974 
+ 2549      655F6D65 
+ 2549      6D735F72 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc1yWs65.s 			page 54
+
+
+ 2549      656700
+ 2550              	.LASF13:
+ 2551 0422 75696E74 		.ascii	"uint8_t\000"
+ 2551      385F7400 
+ 2552              	.LASF44:
+ 2553 042a 696E765F 		.ascii	"inv_mems_secondary_enable_i2c\000"
+ 2553      6D656D73 
+ 2553      5F736563 
+ 2553      6F6E6461 
+ 2553      72795F65 
+ 2554              	.LASF56:
+ 2555 0448 696E765F 		.ascii	"inv_sleep\000"
+ 2555      736C6565 
+ 2555      7000
+ 2556              	.LASF20:
+ 2557 0452 6779726F 		.ascii	"gyro_div\000"
+ 2557      5F646976 
+ 2557      00
+ 2558              	.LASF25:
+ 2559 045b 6779726F 		.ascii	"gyro_fullscale\000"
+ 2559      5F66756C 
+ 2559      6C736361 
+ 2559      6C6500
+ 2560              	.LASF15:
+ 2561 046a 696E765F 		.ascii	"inv_error_t\000"
+ 2561      6572726F 
+ 2561      725F7400 
+ 2562              	.LASF18:
+ 2563 0476 7077725F 		.ascii	"pwr_mgmt_2\000"
+ 2563      6D676D74 
+ 2563      5F3200
+ 2564              	.LASF30:
+ 2565 0481 74696D65 		.ascii	"timebase_correction_pll\000"
+ 2565      62617365 
+ 2565      5F636F72 
+ 2565      72656374 
+ 2565      696F6E5F 
+ 2566              	.LASF49:
+ 2567 0499 64697669 		.ascii	"divider\000"
+ 2567      64657200 
+ 2568              	.LASF4:
+ 2569 04a1 5F5F7569 		.ascii	"__uint8_t\000"
+ 2569      6E74385F 
+ 2569      7400
+ 2570              	.LASF57:
+ 2571 04ab 696E765F 		.ascii	"inv_set_secondary_divider\000"
+ 2571      7365745F 
+ 2571      7365636F 
+ 2571      6E646172 
+ 2571      795F6469 
+ 2572              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

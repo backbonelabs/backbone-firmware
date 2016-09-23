@@ -1,0 +1,118 @@
+--------------- Rebuild Started: 09/15/2016 21:04:39 Project: BackBone_Bootloadable, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\main.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\bas.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\debug.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\i2c_comm.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\timeout.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BLEApplications.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BackBone.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_drv_hook.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_interface_mapping.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\dmp3Default_20608D.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\dmp3Default_20648.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_augmented_sensors.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_base_control.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_base_control_20609.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_base_driver.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_base_driver_20609.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_data_converter.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_load_firmware.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_mpu_fifo_control.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_mpu_selftest.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_secondary_transport.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_slave_compass.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_slave_pressure.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\inv_mems_transport.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\ml_math_func.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\mlmath.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyfitter_cfg.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cymetadata.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\ADC.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\ADC_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\ADC_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Disconnect_LED.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Disconnect_LED_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\SW2.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\SW2_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\LowPower_LED.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\LowPower_LED_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Advertising_LED.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Advertising_LED_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\ADC_IRQ.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\ADC_intClock.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Cm0Start.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBootAsmGnu.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyFlash.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyLib.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyPm.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyutils.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyLFClk.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\VIN.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\VIN_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\MOTOR.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\MOTOR_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\MotorPWM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\MotorPWM_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Clock_1.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Clock_5.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_I2C_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_I2C.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_I2C_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_I2C_MASTER.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_SCBCLK.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_sda.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_sda_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_scl.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_scl_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\I2C_SCB_IRQ.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\INVN_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\INVN_INT_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\isr_INVN_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Timer1ms.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Timer1ms_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\isr_Timer1ms.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BackBone_Bootloadable.hex"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BackBone_Bootloadable.elf"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BackBone_Bootloadable.map"
+Deleting file ".\BackBone_Bootloadable.cycdx"
+Deleting file ".\BackBone_Bootloadable.svd"
+Deleting file ".\BackBone_Bootloadable.rpt"
+Deleting file ".\BackBone_Bootloadable_timing.html"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\C_FILE.P"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\ARM_C_FILE.P"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\GNU_ARM_ASM_FILE.P"
+cydsfit.exe -.appdatapath "C:\Users\Administrator\AppData\Local\Cypress Semiconductor\PSoC Creator\3.3" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p "C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj" -d CYBLE-022001-00 -s "C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\Generated_Source\PSoC4" -- -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+HDL Generation ...
+Synthesis ...
+Place and Route ...
+Tech mapping ...
+Analog Placement ...
+Analog Routing ...
+Analog Code Generation ...
+Digital Placement ...
+Digital Routing ...
+Bitstream Generation ...
+Static timing analysis ...
+API Generation ...
+Dependency Generation ...
+Clean Temporary Files ...
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/main.lst -g -D DEBUG -D MEMS_20648 -Wall -ffunction-sections -Os -ffat-lto-objects -c .\main.c -o .\CortexM0\ARM_GCC_493\Debug\main.o
+In file included from .\main.c:23:0:
+.\common.h:45:16: error: unknown type name 'CYBLE_GATT_VALUE_T'
+ void ShowValue(CYBLE_GATT_VALUE_T *value);
+                ^
+.\common.h:63:8: error: unknown type name 'CYBLE_CONN_HANDLE_T'
+ extern CYBLE_CONN_HANDLE_T connHandle;
+        ^
+In file included from .\main.c:29:0:
+./OTAMandatory.h:3225:24: fatal error: CyBle_gatt.h: No such file or directory
+ #include "CyBle_gatt.h"
+                        ^
+compilation terminated.
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Rebuild Failed: 09/15/2016 21:04:53 ---------------

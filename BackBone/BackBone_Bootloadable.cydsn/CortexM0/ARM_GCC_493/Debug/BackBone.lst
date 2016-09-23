@@ -1,0 +1,2013 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"BackBone.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.BackBone_SetConfigData,"ax",%progbits
+  18              		.align	1
+  19              		.global	BackBone_SetConfigData
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	BackBone_SetConfigData, %function
+  23              	BackBone_SetConfigData:
+  24              	.LFB37:
+  25              		.file 1 ".\\BackBone.c"
+   1:.\BackBone.c  **** /* ========================================
+   2:.\BackBone.c  ****  *
+   3:.\BackBone.c  ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\BackBone.c  ****  * All Rights Reserved
+   5:.\BackBone.c  ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\BackBone.c  ****  *
+   7:.\BackBone.c  ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\BackBone.c  ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\BackBone.c  ****  *
+  10:.\BackBone.c  ****  * ========================================
+  11:.\BackBone.c  **** */
+  12:.\BackBone.c  **** 
+  13:.\BackBone.c  **** #include <project.h>
+  14:.\BackBone.c  **** #include <BackBone.h>
+  15:.\BackBone.c  **** #include <BLEApplications.h>
+  16:.\BackBone.c  **** 
+  17:.\BackBone.c  **** ACCELEROMETER Accelerometer = {0};
+  18:.\BackBone.c  **** GYROSCOPE Gyroscope = {0};
+  19:.\BackBone.c  **** CONFIG_DATA ConfigData = {0};
+  20:.\BackBone.c  **** PEDOMETER Pedometer = {0};
+  21:.\BackBone.c  **** 
+  22:.\BackBone.c  **** uint8 BackBoneFlags;
+  23:.\BackBone.c  **** 
+  24:.\BackBone.c  **** void BackBone_SetConfigData(uint8* SourceBuffer, uint8 Length)
+  25:.\BackBone.c  **** {
+  26              		.loc 1 25 0
+  27              		.cfi_startproc
+  28              	.LVL0:
+  26:.\BackBone.c  **** 	uint8* pointer = SourceBuffer;
+  27:.\BackBone.c  **** 	uint8 i;
+  28:.\BackBone.c  **** 	
+  29:.\BackBone.c  **** 	for (i=0; i<Length; i++)
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 2
+
+
+  29              		.loc 1 29 0
+  30 0000 0023     		mov	r3, #0
+  25:.\BackBone.c  **** 	uint8* pointer = SourceBuffer;
+  31              		.loc 1 25 0
+  32 0002 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36              	.LVL1:
+  37              	.L2:
+  38              		.loc 1 29 0 discriminator 1
+  39 0004 DAB2     		uxtb	r2, r3
+  40 0006 8A42     		cmp	r2, r1
+  41 0008 04D2     		bcs	.L5
+  30:.\BackBone.c  **** 	{
+  31:.\BackBone.c  **** 		ConfigData.RawData[i] = *pointer;
+  42              		.loc 1 31 0 discriminator 3
+  43 000a C45C     		ldrb	r4, [r0, r3]
+  44 000c 024A     		ldr	r2, .L6
+  45 000e 9C54     		strb	r4, [r3, r2]
+  46              	.LVL2:
+  47 0010 0133     		add	r3, r3, #1
+  48              	.LVL3:
+  49 0012 F7E7     		b	.L2
+  50              	.LVL4:
+  51              	.L5:
+  32:.\BackBone.c  **** 		pointer++;
+  33:.\BackBone.c  **** 	}
+  34:.\BackBone.c  **** }
+  52              		.loc 1 34 0
+  53              		@ sp needed
+  54 0014 10BD     		pop	{r4, pc}
+  55              	.L7:
+  56 0016 C046     		.align	2
+  57              	.L6:
+  58 0018 00000000 		.word	.LANCHOR0
+  59              		.cfi_endproc
+  60              	.LFE37:
+  61              		.size	BackBone_SetConfigData, .-BackBone_SetConfigData
+  62              		.section	.text.BackBone_GetAccelerometerData,"ax",%progbits
+  63              		.align	1
+  64              		.global	BackBone_GetAccelerometerData
+  65              		.code	16
+  66              		.thumb_func
+  67              		.type	BackBone_GetAccelerometerData, %function
+  68              	BackBone_GetAccelerometerData:
+  69              	.LFB38:
+  35:.\BackBone.c  **** 
+  36:.\BackBone.c  **** void BackBone_GetAccelerometerData(uint8* DestinationBuffer, uint8 Length)
+  37:.\BackBone.c  **** {
+  70              		.loc 1 37 0
+  71              		.cfi_startproc
+  72              	.LVL5:
+  38:.\BackBone.c  **** 	uint8* pointer = DestinationBuffer;
+  39:.\BackBone.c  **** 	uint8 i;
+  40:.\BackBone.c  **** 	
+  41:.\BackBone.c  **** 	for (i=0; i<Length; i++)
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 3
+
+
+  73              		.loc 1 41 0
+  74 0000 0023     		mov	r3, #0
+  75              	.LVL6:
+  76              	.L9:
+  77              		.loc 1 41 0 is_stmt 0 discriminator 1
+  78 0002 DAB2     		uxtb	r2, r3
+  79 0004 8A42     		cmp	r2, r1
+  80 0006 05D2     		bcs	.L11
+  42:.\BackBone.c  **** 	{
+  43:.\BackBone.c  **** 		*pointer = Accelerometer.RawData[i];
+  81              		.loc 1 43 0 is_stmt 1 discriminator 3
+  82 0008 034A     		ldr	r2, .L12
+  83 000a 1432     		add	r2, r2, #20
+  84 000c 9A5C     		ldrb	r2, [r3, r2]
+  85 000e C254     		strb	r2, [r0, r3]
+  86              	.LVL7:
+  87 0010 0133     		add	r3, r3, #1
+  88              	.LVL8:
+  89 0012 F6E7     		b	.L9
+  90              	.LVL9:
+  91              	.L11:
+  44:.\BackBone.c  **** 		pointer++;
+  45:.\BackBone.c  **** 	}
+  46:.\BackBone.c  **** }
+  92              		.loc 1 46 0
+  93              		@ sp needed
+  94 0014 7047     		bx	lr
+  95              	.L13:
+  96 0016 C046     		.align	2
+  97              	.L12:
+  98 0018 00000000 		.word	.LANCHOR0
+  99              		.cfi_endproc
+ 100              	.LFE38:
+ 101              		.size	BackBone_GetAccelerometerData, .-BackBone_GetAccelerometerData
+ 102              		.section	.text.BackBone_GetGyroscopeData,"ax",%progbits
+ 103              		.align	1
+ 104              		.global	BackBone_GetGyroscopeData
+ 105              		.code	16
+ 106              		.thumb_func
+ 107              		.type	BackBone_GetGyroscopeData, %function
+ 108              	BackBone_GetGyroscopeData:
+ 109              	.LFB39:
+  47:.\BackBone.c  **** 
+  48:.\BackBone.c  **** void BackBone_GetGyroscopeData(uint8* DestinationBuffer, uint8 Length)
+  49:.\BackBone.c  **** {
+ 110              		.loc 1 49 0
+ 111              		.cfi_startproc
+ 112              	.LVL10:
+  50:.\BackBone.c  **** 	uint8* pointer = DestinationBuffer;
+  51:.\BackBone.c  **** 	uint8 i;
+  52:.\BackBone.c  **** 	
+  53:.\BackBone.c  **** 	for (i=0; i<Length; i++)
+ 113              		.loc 1 53 0
+ 114 0000 0023     		mov	r3, #0
+ 115              	.LVL11:
+ 116              	.L15:
+ 117              		.loc 1 53 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 4
+
+
+ 118 0002 DAB2     		uxtb	r2, r3
+ 119 0004 8A42     		cmp	r2, r1
+ 120 0006 05D2     		bcs	.L17
+  54:.\BackBone.c  **** 	{
+  55:.\BackBone.c  **** 		*pointer = Gyroscope.RawData[i];
+ 121              		.loc 1 55 0 is_stmt 1 discriminator 3
+ 122 0008 034A     		ldr	r2, .L18
+ 123 000a 2432     		add	r2, r2, #36
+ 124 000c 9A5C     		ldrb	r2, [r3, r2]
+ 125 000e C254     		strb	r2, [r0, r3]
+ 126              	.LVL12:
+ 127 0010 0133     		add	r3, r3, #1
+ 128              	.LVL13:
+ 129 0012 F6E7     		b	.L15
+ 130              	.LVL14:
+ 131              	.L17:
+  56:.\BackBone.c  **** 		pointer++;
+  57:.\BackBone.c  **** 	}
+  58:.\BackBone.c  **** }
+ 132              		.loc 1 58 0
+ 133              		@ sp needed
+ 134 0014 7047     		bx	lr
+ 135              	.L19:
+ 136 0016 C046     		.align	2
+ 137              	.L18:
+ 138 0018 00000000 		.word	.LANCHOR0
+ 139              		.cfi_endproc
+ 140              	.LFE39:
+ 141              		.size	BackBone_GetGyroscopeData, .-BackBone_GetGyroscopeData
+ 142              		.section	.text.BackBone_SetAccelerometerData,"ax",%progbits
+ 143              		.align	1
+ 144              		.global	BackBone_SetAccelerometerData
+ 145              		.code	16
+ 146              		.thumb_func
+ 147              		.type	BackBone_SetAccelerometerData, %function
+ 148              	BackBone_SetAccelerometerData:
+ 149              	.LFB40:
+  59:.\BackBone.c  **** 
+  60:.\BackBone.c  **** void BackBone_SetAccelerometerData(float XAxis, float YAxis, float ZAxis, float RMS)
+  61:.\BackBone.c  **** {
+ 150              		.loc 1 61 0
+ 151              		.cfi_startproc
+ 152              	.LVL15:
+ 153 0000 10B5     		push	{r4, lr}
+ 154              		.cfi_def_cfa_offset 8
+ 155              		.cfi_offset 4, -8
+ 156              		.cfi_offset 14, -4
+  62:.\BackBone.c  **** 	Accelerometer.AccelerometerData[0] = XAxis;	
+ 157              		.loc 1 62 0
+ 158 0002 054C     		ldr	r4, .L21
+  63:.\BackBone.c  **** 	Accelerometer.AccelerometerData[1] = YAxis;	
+  64:.\BackBone.c  **** 	Accelerometer.AccelerometerData[2] = ZAxis;	
+  65:.\BackBone.c  **** 	Accelerometer.AccelerometerData[3] = RMS;
+  66:.\BackBone.c  **** 	
+  67:.\BackBone.c  **** 	BackBoneFlags |= ACCEL_DATA_NEW;
+  68:.\BackBone.c  **** }
+ 159              		.loc 1 68 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 5
+
+
+ 160              		@ sp needed
+  63:.\BackBone.c  **** 	Accelerometer.AccelerometerData[1] = YAxis;	
+ 161              		.loc 1 63 0
+ 162 0004 A161     		str	r1, [r4, #24]
+  67:.\BackBone.c  **** }
+ 163              		.loc 1 67 0
+ 164 0006 0121     		mov	r1, #1
+ 165              	.LVL16:
+  64:.\BackBone.c  **** 	Accelerometer.AccelerometerData[3] = RMS;
+ 166              		.loc 1 64 0
+ 167 0008 E261     		str	r2, [r4, #28]
+  67:.\BackBone.c  **** }
+ 168              		.loc 1 67 0
+ 169 000a 044A     		ldr	r2, .L21+4
+ 170              	.LVL17:
+  65:.\BackBone.c  **** 	
+ 171              		.loc 1 65 0
+ 172 000c 2362     		str	r3, [r4, #32]
+  67:.\BackBone.c  **** }
+ 173              		.loc 1 67 0
+ 174 000e 1378     		ldrb	r3, [r2]
+ 175              	.LVL18:
+  62:.\BackBone.c  **** 	Accelerometer.AccelerometerData[1] = YAxis;	
+ 176              		.loc 1 62 0
+ 177 0010 6061     		str	r0, [r4, #20]
+  67:.\BackBone.c  **** }
+ 178              		.loc 1 67 0
+ 179 0012 0B43     		orr	r3, r1
+ 180 0014 1370     		strb	r3, [r2]
+ 181              	.LVL19:
+ 182              		.loc 1 68 0
+ 183 0016 10BD     		pop	{r4, pc}
+ 184              	.L22:
+ 185              		.align	2
+ 186              	.L21:
+ 187 0018 00000000 		.word	.LANCHOR0
+ 188 001c 00000000 		.word	BackBoneFlags
+ 189              		.cfi_endproc
+ 190              	.LFE40:
+ 191              		.size	BackBone_SetAccelerometerData, .-BackBone_SetAccelerometerData
+ 192              		.section	.text.BackBone_SetGyroscopeData,"ax",%progbits
+ 193              		.align	1
+ 194              		.global	BackBone_SetGyroscopeData
+ 195              		.code	16
+ 196              		.thumb_func
+ 197              		.type	BackBone_SetGyroscopeData, %function
+ 198              	BackBone_SetGyroscopeData:
+ 199              	.LFB41:
+  69:.\BackBone.c  **** 
+  70:.\BackBone.c  **** void BackBone_SetGyroscopeData(float XAxis, float YAxis, float ZAxis)
+  71:.\BackBone.c  **** {
+ 200              		.loc 1 71 0
+ 201              		.cfi_startproc
+ 202              	.LVL20:
+  72:.\BackBone.c  **** 	Gyroscope.GyroscopeData[0] = XAxis;
+ 203              		.loc 1 72 0
+ 204 0000 044B     		ldr	r3, .L24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 6
+
+
+  73:.\BackBone.c  **** 	Gyroscope.GyroscopeData[1] = YAxis;
+  74:.\BackBone.c  **** 	Gyroscope.GyroscopeData[2] = ZAxis;
+  75:.\BackBone.c  **** 	
+  76:.\BackBone.c  **** 	BackBoneFlags |= GYRO_DATA_NEW;
+  77:.\BackBone.c  **** }
+ 205              		.loc 1 77 0
+ 206              		@ sp needed
+  73:.\BackBone.c  **** 	Gyroscope.GyroscopeData[1] = YAxis;
+ 207              		.loc 1 73 0
+ 208 0002 9962     		str	r1, [r3, #40]
+  76:.\BackBone.c  **** }
+ 209              		.loc 1 76 0
+ 210 0004 0221     		mov	r1, #2
+ 211              	.LVL21:
+  74:.\BackBone.c  **** 	
+ 212              		.loc 1 74 0
+ 213 0006 DA62     		str	r2, [r3, #44]
+  76:.\BackBone.c  **** }
+ 214              		.loc 1 76 0
+ 215 0008 034A     		ldr	r2, .L24+4
+ 216              	.LVL22:
+  72:.\BackBone.c  **** 	Gyroscope.GyroscopeData[1] = YAxis;
+ 217              		.loc 1 72 0
+ 218 000a 5862     		str	r0, [r3, #36]
+  76:.\BackBone.c  **** }
+ 219              		.loc 1 76 0
+ 220 000c 1378     		ldrb	r3, [r2]
+ 221              	.LVL23:
+ 222 000e 0B43     		orr	r3, r1
+ 223 0010 1370     		strb	r3, [r2]
+ 224              		.loc 1 77 0
+ 225 0012 7047     		bx	lr
+ 226              	.L25:
+ 227              		.align	2
+ 228              	.L24:
+ 229 0014 00000000 		.word	.LANCHOR0
+ 230 0018 00000000 		.word	BackBoneFlags
+ 231              		.cfi_endproc
+ 232              	.LFE41:
+ 233              		.size	BackBone_SetGyroscopeData, .-BackBone_SetGyroscopeData
+ 234              		.section	.text.BackBone_GetStepCount,"ax",%progbits
+ 235              		.align	1
+ 236              		.global	BackBone_GetStepCount
+ 237              		.code	16
+ 238              		.thumb_func
+ 239              		.type	BackBone_GetStepCount, %function
+ 240              	BackBone_GetStepCount:
+ 241              	.LFB42:
+  78:.\BackBone.c  **** 
+  79:.\BackBone.c  **** uint32 BackBone_GetStepCount(void)
+  80:.\BackBone.c  **** {
+ 242              		.loc 1 80 0
+ 243              		.cfi_startproc
+  81:.\BackBone.c  **** 	return Pedometer.StepCount;
+ 244              		.loc 1 81 0
+ 245 0000 014B     		ldr	r3, .L27
+  82:.\BackBone.c  **** }	
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 7
+
+
+ 246              		.loc 1 82 0
+ 247              		@ sp needed
+  81:.\BackBone.c  **** 	return Pedometer.StepCount;
+ 248              		.loc 1 81 0
+ 249 0002 186B     		ldr	r0, [r3, #48]
+ 250              		.loc 1 82 0
+ 251 0004 7047     		bx	lr
+ 252              	.L28:
+ 253 0006 C046     		.align	2
+ 254              	.L27:
+ 255 0008 00000000 		.word	.LANCHOR0
+ 256              		.cfi_endproc
+ 257              	.LFE42:
+ 258              		.size	BackBone_GetStepCount, .-BackBone_GetStepCount
+ 259              		.section	.text.BackBone_SetStepCount,"ax",%progbits
+ 260              		.align	1
+ 261              		.global	BackBone_SetStepCount
+ 262              		.code	16
+ 263              		.thumb_func
+ 264              		.type	BackBone_SetStepCount, %function
+ 265              	BackBone_SetStepCount:
+ 266              	.LFB43:
+  83:.\BackBone.c  **** 
+  84:.\BackBone.c  **** void BackBone_SetStepCount(uint32 Count)
+  85:.\BackBone.c  **** {
+ 267              		.loc 1 85 0
+ 268              		.cfi_startproc
+ 269              	.LVL24:
+  86:.\BackBone.c  **** 	Pedometer.StepCount = Count;
+  87:.\BackBone.c  **** 	BackBoneFlags |= PEDO_DATA_NEW;
+ 270              		.loc 1 87 0
+ 271 0000 0421     		mov	r1, #4
+  86:.\BackBone.c  **** 	Pedometer.StepCount = Count;
+ 272              		.loc 1 86 0
+ 273 0002 034B     		ldr	r3, .L30
+ 274              		.loc 1 87 0
+ 275 0004 034A     		ldr	r2, .L30+4
+  86:.\BackBone.c  **** 	Pedometer.StepCount = Count;
+ 276              		.loc 1 86 0
+ 277 0006 1863     		str	r0, [r3, #48]
+ 278              		.loc 1 87 0
+ 279 0008 1378     		ldrb	r3, [r2]
+  88:.\BackBone.c  **** }
+ 280              		.loc 1 88 0
+ 281              		@ sp needed
+  87:.\BackBone.c  **** }
+ 282              		.loc 1 87 0
+ 283 000a 0B43     		orr	r3, r1
+ 284 000c 1370     		strb	r3, [r2]
+ 285              		.loc 1 88 0
+ 286 000e 7047     		bx	lr
+ 287              	.L31:
+ 288              		.align	2
+ 289              	.L30:
+ 290 0010 00000000 		.word	.LANCHOR0
+ 291 0014 00000000 		.word	BackBoneFlags
+ 292              		.cfi_endproc
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 8
+
+
+ 293              	.LFE43:
+ 294              		.size	BackBone_SetStepCount, .-BackBone_SetStepCount
+ 295              		.section	.text.BackBone_Task,"ax",%progbits
+ 296              		.align	1
+ 297              		.global	BackBone_Task
+ 298              		.code	16
+ 299              		.thumb_func
+ 300              		.type	BackBone_Task, %function
+ 301              	BackBone_Task:
+ 302              	.LFB44:
+  89:.\BackBone.c  **** 
+  90:.\BackBone.c  **** void BackBone_Task(void)
+  91:.\BackBone.c  **** {
+ 303              		.loc 1 91 0
+ 304              		.cfi_startproc
+ 305 0000 08B5     		push	{r3, lr}
+ 306              		.cfi_def_cfa_offset 8
+ 307              		.cfi_offset 3, -8
+ 308              		.cfi_offset 14, -4
+  92:.\BackBone.c  **** 	SendAllNotifications();
+ 309              		.loc 1 92 0
+ 310 0002 FFF7FEFF 		bl	SendAllNotifications
+ 311              	.LVL25:
+  93:.\BackBone.c  **** }
+ 312              		.loc 1 93 0
+ 313              		@ sp needed
+ 314 0006 08BD     		pop	{r3, pc}
+ 315              		.cfi_endproc
+ 316              	.LFE44:
+ 317              		.size	BackBone_Task, .-BackBone_Task
+ 318              		.comm	BackBoneFlags,1,1
+ 319              		.global	Pedometer
+ 320              		.global	ConfigData
+ 321              		.global	Gyroscope
+ 322              		.global	Accelerometer
+ 323              		.bss
+ 324              		.align	2
+ 325              		.set	.LANCHOR0,. + 0
+ 326              		.type	ConfigData, %object
+ 327              		.size	ConfigData, 20
+ 328              	ConfigData:
+ 329 0000 00000000 		.space	20
+ 329      00000000 
+ 329      00000000 
+ 329      00000000 
+ 329      00000000 
+ 330              		.type	Accelerometer, %object
+ 331              		.size	Accelerometer, 16
+ 332              	Accelerometer:
+ 333 0014 00000000 		.space	16
+ 333      00000000 
+ 333      00000000 
+ 333      00000000 
+ 334              		.type	Gyroscope, %object
+ 335              		.size	Gyroscope, 12
+ 336              	Gyroscope:
+ 337 0024 00000000 		.space	12
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 9
+
+
+ 337      00000000 
+ 337      00000000 
+ 338              		.type	Pedometer, %object
+ 339              		.size	Pedometer, 4
+ 340              	Pedometer:
+ 341 0030 00000000 		.space	4
+ 342              		.text
+ 343              	.Letext0:
+ 344              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 345              		.file 3 "./BackBone.h"
+ 346              		.file 4 "./BLEApplications.h"
+ 347              		.section	.debug_info,"",%progbits
+ 348              	.Ldebug_info0:
+ 349 0000 47040000 		.4byte	0x447
+ 350 0004 0400     		.2byte	0x4
+ 351 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 352 000a 04       		.byte	0x4
+ 353 000b 01       		.uleb128 0x1
+ 354 000c 3C000000 		.4byte	.LASF53
+ 355 0010 01       		.byte	0x1
+ 356 0011 44030000 		.4byte	.LASF54
+ 357 0015 84030000 		.4byte	.LASF55
+ 358 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 359 001d 00000000 		.4byte	0
+ 360 0021 00000000 		.4byte	.Ldebug_line0
+ 361 0025 02       		.uleb128 0x2
+ 362 0026 01       		.byte	0x1
+ 363 0027 06       		.byte	0x6
+ 364 0028 ED030000 		.4byte	.LASF0
+ 365 002c 02       		.uleb128 0x2
+ 366 002d 01       		.byte	0x1
+ 367 002e 08       		.byte	0x8
+ 368 002f 4A010000 		.4byte	.LASF1
+ 369 0033 02       		.uleb128 0x2
+ 370 0034 02       		.byte	0x2
+ 371 0035 05       		.byte	0x5
+ 372 0036 1F020000 		.4byte	.LASF2
+ 373 003a 02       		.uleb128 0x2
+ 374 003b 02       		.byte	0x2
+ 375 003c 07       		.byte	0x7
+ 376 003d D9000000 		.4byte	.LASF3
+ 377 0041 02       		.uleb128 0x2
+ 378 0042 04       		.byte	0x4
+ 379 0043 05       		.byte	0x5
+ 380 0044 DF030000 		.4byte	.LASF4
+ 381 0048 02       		.uleb128 0x2
+ 382 0049 04       		.byte	0x4
+ 383 004a 07       		.byte	0x7
+ 384 004b 90010000 		.4byte	.LASF5
+ 385 004f 02       		.uleb128 0x2
+ 386 0050 08       		.byte	0x8
+ 387 0051 05       		.byte	0x5
+ 388 0052 21030000 		.4byte	.LASF6
+ 389 0056 02       		.uleb128 0x2
+ 390 0057 08       		.byte	0x8
+ 391 0058 07       		.byte	0x7
+ 392 0059 B4020000 		.4byte	.LASF7
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 10
+
+
+ 393 005d 03       		.uleb128 0x3
+ 394 005e 04       		.byte	0x4
+ 395 005f 05       		.byte	0x5
+ 396 0060 696E7400 		.ascii	"int\000"
+ 397 0064 02       		.uleb128 0x2
+ 398 0065 04       		.byte	0x4
+ 399 0066 07       		.byte	0x7
+ 400 0067 65020000 		.4byte	.LASF8
+ 401 006b 04       		.uleb128 0x4
+ 402 006c A2010000 		.4byte	.LASF9
+ 403 0070 02       		.byte	0x2
+ 404 0071 9801     		.2byte	0x198
+ 405 0073 2C000000 		.4byte	0x2c
+ 406 0077 04       		.uleb128 0x4
+ 407 0078 36020000 		.4byte	.LASF10
+ 408 007c 02       		.byte	0x2
+ 409 007d 9901     		.2byte	0x199
+ 410 007f 3A000000 		.4byte	0x3a
+ 411 0083 04       		.uleb128 0x4
+ 412 0084 5E020000 		.4byte	.LASF11
+ 413 0088 02       		.byte	0x2
+ 414 0089 9A01     		.2byte	0x19a
+ 415 008b 48000000 		.4byte	0x48
+ 416 008f 02       		.uleb128 0x2
+ 417 0090 04       		.byte	0x4
+ 418 0091 04       		.byte	0x4
+ 419 0092 2A010000 		.4byte	.LASF12
+ 420 0096 02       		.uleb128 0x2
+ 421 0097 08       		.byte	0x8
+ 422 0098 04       		.byte	0x4
+ 423 0099 FA000000 		.4byte	.LASF13
+ 424 009d 02       		.uleb128 0x2
+ 425 009e 01       		.byte	0x1
+ 426 009f 08       		.byte	0x8
+ 427 00a0 E8030000 		.4byte	.LASF14
+ 428 00a4 02       		.uleb128 0x2
+ 429 00a5 04       		.byte	0x4
+ 430 00a6 07       		.byte	0x7
+ 431 00a7 FA020000 		.4byte	.LASF15
+ 432 00ab 05       		.uleb128 0x5
+ 433 00ac 10       		.byte	0x10
+ 434 00ad 03       		.byte	0x3
+ 435 00ae 12       		.byte	0x12
+ 436 00af CA000000 		.4byte	0xca
+ 437 00b3 06       		.uleb128 0x6
+ 438 00b4 90020000 		.4byte	.LASF16
+ 439 00b8 03       		.byte	0x3
+ 440 00b9 14       		.byte	0x14
+ 441 00ba CA000000 		.4byte	0xca
+ 442 00be 06       		.uleb128 0x6
+ 443 00bf CA000000 		.4byte	.LASF17
+ 444 00c3 03       		.byte	0x3
+ 445 00c4 15       		.byte	0x15
+ 446 00c5 DA000000 		.4byte	0xda
+ 447 00c9 00       		.byte	0
+ 448 00ca 07       		.uleb128 0x7
+ 449 00cb 8F000000 		.4byte	0x8f
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 11
+
+
+ 450 00cf DA000000 		.4byte	0xda
+ 451 00d3 08       		.uleb128 0x8
+ 452 00d4 A4000000 		.4byte	0xa4
+ 453 00d8 03       		.byte	0x3
+ 454 00d9 00       		.byte	0
+ 455 00da 07       		.uleb128 0x7
+ 456 00db 6B000000 		.4byte	0x6b
+ 457 00df EA000000 		.4byte	0xea
+ 458 00e3 08       		.uleb128 0x8
+ 459 00e4 A4000000 		.4byte	0xa4
+ 460 00e8 0F       		.byte	0xf
+ 461 00e9 00       		.byte	0
+ 462 00ea 09       		.uleb128 0x9
+ 463 00eb 58010000 		.4byte	.LASF18
+ 464 00ef 03       		.byte	0x3
+ 465 00f0 16       		.byte	0x16
+ 466 00f1 AB000000 		.4byte	0xab
+ 467 00f5 05       		.uleb128 0x5
+ 468 00f6 0C       		.byte	0xc
+ 469 00f7 03       		.byte	0x3
+ 470 00f8 18       		.byte	0x18
+ 471 00f9 14010000 		.4byte	0x114
+ 472 00fd 06       		.uleb128 0x6
+ 473 00fe BB010000 		.4byte	.LASF19
+ 474 0102 03       		.byte	0x3
+ 475 0103 1A       		.byte	0x1a
+ 476 0104 14010000 		.4byte	0x114
+ 477 0108 06       		.uleb128 0x6
+ 478 0109 CA000000 		.4byte	.LASF17
+ 479 010d 03       		.byte	0x3
+ 480 010e 1B       		.byte	0x1b
+ 481 010f 24010000 		.4byte	0x124
+ 482 0113 00       		.byte	0
+ 483 0114 07       		.uleb128 0x7
+ 484 0115 8F000000 		.4byte	0x8f
+ 485 0119 24010000 		.4byte	0x124
+ 486 011d 08       		.uleb128 0x8
+ 487 011e A4000000 		.4byte	0xa4
+ 488 0122 02       		.byte	0x2
+ 489 0123 00       		.byte	0
+ 490 0124 07       		.uleb128 0x7
+ 491 0125 6B000000 		.4byte	0x6b
+ 492 0129 34010000 		.4byte	0x134
+ 493 012d 08       		.uleb128 0x8
+ 494 012e A4000000 		.4byte	0xa4
+ 495 0132 0B       		.byte	0xb
+ 496 0133 00       		.byte	0
+ 497 0134 09       		.uleb128 0x9
+ 498 0135 00000000 		.4byte	.LASF20
+ 499 0139 03       		.byte	0x3
+ 500 013a 1C       		.byte	0x1c
+ 501 013b F5000000 		.4byte	0xf5
+ 502 013f 05       		.uleb128 0x5
+ 503 0140 04       		.byte	0x4
+ 504 0141 03       		.byte	0x3
+ 505 0142 1E       		.byte	0x1e
+ 506 0143 5E010000 		.4byte	0x15e
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 12
+
+
+ 507 0147 06       		.uleb128 0x6
+ 508 0148 32000000 		.4byte	.LASF21
+ 509 014c 03       		.byte	0x3
+ 510 014d 20       		.byte	0x20
+ 511 014e 83000000 		.4byte	0x83
+ 512 0152 06       		.uleb128 0x6
+ 513 0153 CA000000 		.4byte	.LASF17
+ 514 0157 03       		.byte	0x3
+ 515 0158 21       		.byte	0x21
+ 516 0159 5E010000 		.4byte	0x15e
+ 517 015d 00       		.byte	0
+ 518 015e 07       		.uleb128 0x7
+ 519 015f 6B000000 		.4byte	0x6b
+ 520 0163 6E010000 		.4byte	0x16e
+ 521 0167 08       		.uleb128 0x8
+ 522 0168 A4000000 		.4byte	0xa4
+ 523 016c 03       		.byte	0x3
+ 524 016d 00       		.byte	0
+ 525 016e 09       		.uleb128 0x9
+ 526 016f 86010000 		.4byte	.LASF22
+ 527 0173 03       		.byte	0x3
+ 528 0174 22       		.byte	0x22
+ 529 0175 3F010000 		.4byte	0x13f
+ 530 0179 0A       		.uleb128 0xa
+ 531 017a 14       		.byte	0x14
+ 532 017b 03       		.byte	0x3
+ 533 017c 28       		.byte	0x28
+ 534 017d E2010000 		.4byte	0x1e2
+ 535 0181 0B       		.uleb128 0xb
+ 536 0182 51030000 		.4byte	.LASF23
+ 537 0186 03       		.byte	0x3
+ 538 0187 2A       		.byte	0x2a
+ 539 0188 77000000 		.4byte	0x77
+ 540 018c 00       		.byte	0
+ 541 018d 0B       		.uleb128 0xb
+ 542 018e EC000000 		.4byte	.LASF24
+ 543 0192 03       		.byte	0x3
+ 544 0193 2B       		.byte	0x2b
+ 545 0194 77000000 		.4byte	0x77
+ 546 0198 02       		.byte	0x2
+ 547 0199 0B       		.uleb128 0xb
+ 548 019a 03030000 		.4byte	.LASF25
+ 549 019e 03       		.byte	0x3
+ 550 019f 2C       		.byte	0x2c
+ 551 01a0 77000000 		.4byte	0x77
+ 552 01a4 04       		.byte	0x4
+ 553 01a5 0B       		.uleb128 0xb
+ 554 01a6 18000000 		.4byte	.LASF26
+ 555 01aa 03       		.byte	0x3
+ 556 01ab 2D       		.byte	0x2d
+ 557 01ac 77000000 		.4byte	0x77
+ 558 01b0 06       		.byte	0x6
+ 559 01b1 0B       		.uleb128 0xb
+ 560 01b2 4D020000 		.4byte	.LASF27
+ 561 01b6 03       		.byte	0x3
+ 562 01b7 2E       		.byte	0x2e
+ 563 01b8 8F000000 		.4byte	0x8f
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 13
+
+
+ 564 01bc 08       		.byte	0x8
+ 565 01bd 0B       		.uleb128 0xb
+ 566 01be D7020000 		.4byte	.LASF28
+ 567 01c2 03       		.byte	0x3
+ 568 01c3 2F       		.byte	0x2f
+ 569 01c4 77000000 		.4byte	0x77
+ 570 01c8 0C       		.byte	0xc
+ 571 01c9 0B       		.uleb128 0xb
+ 572 01ca A8010000 		.4byte	.LASF29
+ 573 01ce 03       		.byte	0x3
+ 574 01cf 30       		.byte	0x30
+ 575 01d0 77000000 		.4byte	0x77
+ 576 01d4 0E       		.byte	0xe
+ 577 01d5 0B       		.uleb128 0xb
+ 578 01d6 0F010000 		.4byte	.LASF30
+ 579 01da 03       		.byte	0x3
+ 580 01db 31       		.byte	0x31
+ 581 01dc 77000000 		.4byte	0x77
+ 582 01e0 10       		.byte	0x10
+ 583 01e1 00       		.byte	0
+ 584 01e2 05       		.uleb128 0x5
+ 585 01e3 14       		.byte	0x14
+ 586 01e4 03       		.byte	0x3
+ 587 01e5 26       		.byte	0x26
+ 588 01e6 01020000 		.4byte	0x201
+ 589 01ea 06       		.uleb128 0x6
+ 590 01eb 43020000 		.4byte	.LASF31
+ 591 01ef 03       		.byte	0x3
+ 592 01f0 32       		.byte	0x32
+ 593 01f1 79010000 		.4byte	0x179
+ 594 01f5 06       		.uleb128 0x6
+ 595 01f6 CA000000 		.4byte	.LASF17
+ 596 01fa 03       		.byte	0x3
+ 597 01fb 33       		.byte	0x33
+ 598 01fc 01020000 		.4byte	0x201
+ 599 0200 00       		.byte	0
+ 600 0201 07       		.uleb128 0x7
+ 601 0202 6B000000 		.4byte	0x6b
+ 602 0206 11020000 		.4byte	0x211
+ 603 020a 08       		.uleb128 0x8
+ 604 020b A4000000 		.4byte	0xa4
+ 605 020f 11       		.byte	0x11
+ 606 0210 00       		.byte	0
+ 607 0211 09       		.uleb128 0x9
+ 608 0212 CB020000 		.4byte	.LASF32
+ 609 0216 03       		.byte	0x3
+ 610 0217 34       		.byte	0x34
+ 611 0218 E2010000 		.4byte	0x1e2
+ 612 021c 0C       		.uleb128 0xc
+ 613 021d 57030000 		.4byte	.LASF36
+ 614 0221 01       		.byte	0x1
+ 615 0222 18       		.byte	0x18
+ 616 0223 00000000 		.4byte	.LFB37
+ 617 0227 1C000000 		.4byte	.LFE37-.LFB37
+ 618 022b 01       		.uleb128 0x1
+ 619 022c 9C       		.byte	0x9c
+ 620 022d 68020000 		.4byte	0x268
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 14
+
+
+ 621 0231 0D       		.uleb128 0xd
+ 622 0232 29020000 		.4byte	.LASF33
+ 623 0236 01       		.byte	0x1
+ 624 0237 18       		.byte	0x18
+ 625 0238 68020000 		.4byte	0x268
+ 626 023c 01       		.uleb128 0x1
+ 627 023d 50       		.byte	0x50
+ 628 023e 0D       		.uleb128 0xd
+ 629 023f D2000000 		.4byte	.LASF34
+ 630 0243 01       		.byte	0x1
+ 631 0244 18       		.byte	0x18
+ 632 0245 6B000000 		.4byte	0x6b
+ 633 0249 01       		.uleb128 0x1
+ 634 024a 51       		.byte	0x51
+ 635 024b 0E       		.uleb128 0xe
+ 636 024c E7010000 		.4byte	.LASF35
+ 637 0250 01       		.byte	0x1
+ 638 0251 1A       		.byte	0x1a
+ 639 0252 68020000 		.4byte	0x268
+ 640 0256 00000000 		.4byte	.LLST0
+ 641 025a 0F       		.uleb128 0xf
+ 642 025b 6900     		.ascii	"i\000"
+ 643 025d 01       		.byte	0x1
+ 644 025e 1B       		.byte	0x1b
+ 645 025f 6B000000 		.4byte	0x6b
+ 646 0263 45000000 		.4byte	.LLST1
+ 647 0267 00       		.byte	0
+ 648 0268 10       		.uleb128 0x10
+ 649 0269 04       		.byte	0x4
+ 650 026a 6B000000 		.4byte	0x6b
+ 651 026e 0C       		.uleb128 0xc
+ 652 026f 72020000 		.4byte	.LASF37
+ 653 0273 01       		.byte	0x1
+ 654 0274 24       		.byte	0x24
+ 655 0275 00000000 		.4byte	.LFB38
+ 656 0279 1C000000 		.4byte	.LFE38-.LFB38
+ 657 027d 01       		.uleb128 0x1
+ 658 027e 9C       		.byte	0x9c
+ 659 027f BA020000 		.4byte	0x2ba
+ 660 0283 0D       		.uleb128 0xd
+ 661 0284 A2020000 		.4byte	.LASF38
+ 662 0288 01       		.byte	0x1
+ 663 0289 24       		.byte	0x24
+ 664 028a 68020000 		.4byte	0x268
+ 665 028e 01       		.uleb128 0x1
+ 666 028f 50       		.byte	0x50
+ 667 0290 0D       		.uleb128 0xd
+ 668 0291 D2000000 		.4byte	.LASF34
+ 669 0295 01       		.byte	0x1
+ 670 0296 24       		.byte	0x24
+ 671 0297 6B000000 		.4byte	0x6b
+ 672 029b 01       		.uleb128 0x1
+ 673 029c 51       		.byte	0x51
+ 674 029d 0E       		.uleb128 0xe
+ 675 029e E7010000 		.4byte	.LASF35
+ 676 02a2 01       		.byte	0x1
+ 677 02a3 26       		.byte	0x26
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 15
+
+
+ 678 02a4 68020000 		.4byte	0x268
+ 679 02a8 7C000000 		.4byte	.LLST2
+ 680 02ac 0F       		.uleb128 0xf
+ 681 02ad 6900     		.ascii	"i\000"
+ 682 02af 01       		.byte	0x1
+ 683 02b0 27       		.byte	0x27
+ 684 02b1 6B000000 		.4byte	0x6b
+ 685 02b5 C1000000 		.4byte	.LLST3
+ 686 02b9 00       		.byte	0
+ 687 02ba 0C       		.uleb128 0xc
+ 688 02bb EF010000 		.4byte	.LASF39
+ 689 02bf 01       		.byte	0x1
+ 690 02c0 30       		.byte	0x30
+ 691 02c1 00000000 		.4byte	.LFB39
+ 692 02c5 1C000000 		.4byte	.LFE39-.LFB39
+ 693 02c9 01       		.uleb128 0x1
+ 694 02ca 9C       		.byte	0x9c
+ 695 02cb 06030000 		.4byte	0x306
+ 696 02cf 0D       		.uleb128 0xd
+ 697 02d0 A2020000 		.4byte	.LASF38
+ 698 02d4 01       		.byte	0x1
+ 699 02d5 30       		.byte	0x30
+ 700 02d6 68020000 		.4byte	0x268
+ 701 02da 01       		.uleb128 0x1
+ 702 02db 50       		.byte	0x50
+ 703 02dc 0D       		.uleb128 0xd
+ 704 02dd D2000000 		.4byte	.LASF34
+ 705 02e1 01       		.byte	0x1
+ 706 02e2 30       		.byte	0x30
+ 707 02e3 6B000000 		.4byte	0x6b
+ 708 02e7 01       		.uleb128 0x1
+ 709 02e8 51       		.byte	0x51
+ 710 02e9 0E       		.uleb128 0xe
+ 711 02ea E7010000 		.4byte	.LASF35
+ 712 02ee 01       		.byte	0x1
+ 713 02ef 32       		.byte	0x32
+ 714 02f0 68020000 		.4byte	0x268
+ 715 02f4 F8000000 		.4byte	.LLST4
+ 716 02f8 0F       		.uleb128 0xf
+ 717 02f9 6900     		.ascii	"i\000"
+ 718 02fb 01       		.byte	0x1
+ 719 02fc 33       		.byte	0x33
+ 720 02fd 6B000000 		.4byte	0x6b
+ 721 0301 3D010000 		.4byte	.LLST5
+ 722 0305 00       		.byte	0
+ 723 0306 0C       		.uleb128 0xc
+ 724 0307 C9010000 		.4byte	.LASF40
+ 725 030b 01       		.byte	0x1
+ 726 030c 3C       		.byte	0x3c
+ 727 030d 00000000 		.4byte	.LFB40
+ 728 0311 20000000 		.4byte	.LFE40-.LFB40
+ 729 0315 01       		.uleb128 0x1
+ 730 0316 9C       		.byte	0x9c
+ 731 0317 56030000 		.4byte	0x356
+ 732 031b 0D       		.uleb128 0xd
+ 733 031c 80010000 		.4byte	.LASF41
+ 734 0320 01       		.byte	0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 16
+
+
+ 735 0321 3C       		.byte	0x3c
+ 736 0322 8F000000 		.4byte	0x8f
+ 737 0326 01       		.uleb128 0x1
+ 738 0327 50       		.byte	0x50
+ 739 0328 11       		.uleb128 0x11
+ 740 0329 3E010000 		.4byte	.LASF42
+ 741 032d 01       		.byte	0x1
+ 742 032e 3C       		.byte	0x3c
+ 743 032f 8F000000 		.4byte	0x8f
+ 744 0333 74010000 		.4byte	.LLST6
+ 745 0337 11       		.uleb128 0x11
+ 746 0338 3D020000 		.4byte	.LASF43
+ 747 033c 01       		.byte	0x1
+ 748 033d 3C       		.byte	0x3c
+ 749 033e 8F000000 		.4byte	0x8f
+ 750 0342 A2010000 		.4byte	.LLST7
+ 751 0346 12       		.uleb128 0x12
+ 752 0347 524D5300 		.ascii	"RMS\000"
+ 753 034b 01       		.byte	0x1
+ 754 034c 3C       		.byte	0x3c
+ 755 034d 8F000000 		.4byte	0x8f
+ 756 0351 D0010000 		.4byte	.LLST8
+ 757 0355 00       		.byte	0
+ 758 0356 0C       		.uleb128 0xc
+ 759 0357 66010000 		.4byte	.LASF44
+ 760 035b 01       		.byte	0x1
+ 761 035c 46       		.byte	0x46
+ 762 035d 00000000 		.4byte	.LFB41
+ 763 0361 1C000000 		.4byte	.LFE41-.LFB41
+ 764 0365 01       		.uleb128 0x1
+ 765 0366 9C       		.byte	0x9c
+ 766 0367 97030000 		.4byte	0x397
+ 767 036b 0D       		.uleb128 0xd
+ 768 036c 80010000 		.4byte	.LASF41
+ 769 0370 01       		.byte	0x1
+ 770 0371 46       		.byte	0x46
+ 771 0372 8F000000 		.4byte	0x8f
+ 772 0376 01       		.uleb128 0x1
+ 773 0377 50       		.byte	0x50
+ 774 0378 11       		.uleb128 0x11
+ 775 0379 3E010000 		.4byte	.LASF42
+ 776 037d 01       		.byte	0x1
+ 777 037e 46       		.byte	0x46
+ 778 037f 8F000000 		.4byte	0x8f
+ 779 0383 FE010000 		.4byte	.LLST9
+ 780 0387 11       		.uleb128 0x11
+ 781 0388 3D020000 		.4byte	.LASF43
+ 782 038c 01       		.byte	0x1
+ 783 038d 46       		.byte	0x46
+ 784 038e 8F000000 		.4byte	0x8f
+ 785 0392 2C020000 		.4byte	.LLST10
+ 786 0396 00       		.byte	0
+ 787 0397 13       		.uleb128 0x13
+ 788 0398 6E030000 		.4byte	.LASF56
+ 789 039c 01       		.byte	0x1
+ 790 039d 4F       		.byte	0x4f
+ 791 039e 83000000 		.4byte	0x83
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 17
+
+
+ 792 03a2 00000000 		.4byte	.LFB42
+ 793 03a6 0C000000 		.4byte	.LFE42-.LFB42
+ 794 03aa 01       		.uleb128 0x1
+ 795 03ab 9C       		.byte	0x9c
+ 796 03ac 0C       		.uleb128 0xc
+ 797 03ad 09020000 		.4byte	.LASF45
+ 798 03b1 01       		.byte	0x1
+ 799 03b2 54       		.byte	0x54
+ 800 03b3 00000000 		.4byte	.LFB43
+ 801 03b7 18000000 		.4byte	.LFE43-.LFB43
+ 802 03bb 01       		.uleb128 0x1
+ 803 03bc 9C       		.byte	0x9c
+ 804 03bd CF030000 		.4byte	0x3cf
+ 805 03c1 0D       		.uleb128 0xd
+ 806 03c2 44010000 		.4byte	.LASF46
+ 807 03c6 01       		.byte	0x1
+ 808 03c7 54       		.byte	0x54
+ 809 03c8 83000000 		.4byte	0x83
+ 810 03cc 01       		.uleb128 0x1
+ 811 03cd 50       		.byte	0x50
+ 812 03ce 00       		.byte	0
+ 813 03cf 0C       		.uleb128 0xc
+ 814 03d0 30010000 		.4byte	.LASF47
+ 815 03d4 01       		.byte	0x1
+ 816 03d5 5A       		.byte	0x5a
+ 817 03d6 00000000 		.4byte	.LFB44
+ 818 03da 08000000 		.4byte	.LFE44-.LFB44
+ 819 03de 01       		.uleb128 0x1
+ 820 03df 9C       		.byte	0x9c
+ 821 03e0 EE030000 		.4byte	0x3ee
+ 822 03e4 14       		.uleb128 0x14
+ 823 03e5 06000000 		.4byte	.LVL25
+ 824 03e9 43040000 		.4byte	0x443
+ 825 03ed 00       		.byte	0
+ 826 03ee 15       		.uleb128 0x15
+ 827 03ef 0A000000 		.4byte	.LASF48
+ 828 03f3 01       		.byte	0x1
+ 829 03f4 16       		.byte	0x16
+ 830 03f5 6B000000 		.4byte	0x6b
+ 831 03f9 05       		.uleb128 0x5
+ 832 03fa 03       		.byte	0x3
+ 833 03fb 00000000 		.4byte	BackBoneFlags
+ 834 03ff 15       		.uleb128 0x15
+ 835 0400 01010000 		.4byte	.LASF49
+ 836 0404 01       		.byte	0x1
+ 837 0405 11       		.byte	0x11
+ 838 0406 EA000000 		.4byte	0xea
+ 839 040a 05       		.uleb128 0x5
+ 840 040b 03       		.byte	0x3
+ 841 040c 00000000 		.4byte	Accelerometer
+ 842 0410 15       		.uleb128 0x15
+ 843 0411 03040000 		.4byte	.LASF50
+ 844 0415 01       		.byte	0x1
+ 845 0416 12       		.byte	0x12
+ 846 0417 34010000 		.4byte	0x134
+ 847 041b 05       		.uleb128 0x5
+ 848 041c 03       		.byte	0x3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 18
+
+
+ 849 041d 00000000 		.4byte	Gyroscope
+ 850 0421 15       		.uleb128 0x15
+ 851 0422 EF020000 		.4byte	.LASF51
+ 852 0426 01       		.byte	0x1
+ 853 0427 13       		.byte	0x13
+ 854 0428 11020000 		.4byte	0x211
+ 855 042c 05       		.uleb128 0x5
+ 856 042d 03       		.byte	0x3
+ 857 042e 00000000 		.4byte	ConfigData
+ 858 0432 15       		.uleb128 0x15
+ 859 0433 F9030000 		.4byte	.LASF52
+ 860 0437 01       		.byte	0x1
+ 861 0438 14       		.byte	0x14
+ 862 0439 6E010000 		.4byte	0x16e
+ 863 043d 05       		.uleb128 0x5
+ 864 043e 03       		.byte	0x3
+ 865 043f 00000000 		.4byte	Pedometer
+ 866 0443 16       		.uleb128 0x16
+ 867 0444 2F030000 		.4byte	.LASF57
+ 868 0448 04       		.byte	0x4
+ 869 0449 46       		.byte	0x46
+ 870 044a 00       		.byte	0
+ 871              		.section	.debug_abbrev,"",%progbits
+ 872              	.Ldebug_abbrev0:
+ 873 0000 01       		.uleb128 0x1
+ 874 0001 11       		.uleb128 0x11
+ 875 0002 01       		.byte	0x1
+ 876 0003 25       		.uleb128 0x25
+ 877 0004 0E       		.uleb128 0xe
+ 878 0005 13       		.uleb128 0x13
+ 879 0006 0B       		.uleb128 0xb
+ 880 0007 03       		.uleb128 0x3
+ 881 0008 0E       		.uleb128 0xe
+ 882 0009 1B       		.uleb128 0x1b
+ 883 000a 0E       		.uleb128 0xe
+ 884 000b 55       		.uleb128 0x55
+ 885 000c 17       		.uleb128 0x17
+ 886 000d 11       		.uleb128 0x11
+ 887 000e 01       		.uleb128 0x1
+ 888 000f 10       		.uleb128 0x10
+ 889 0010 17       		.uleb128 0x17
+ 890 0011 00       		.byte	0
+ 891 0012 00       		.byte	0
+ 892 0013 02       		.uleb128 0x2
+ 893 0014 24       		.uleb128 0x24
+ 894 0015 00       		.byte	0
+ 895 0016 0B       		.uleb128 0xb
+ 896 0017 0B       		.uleb128 0xb
+ 897 0018 3E       		.uleb128 0x3e
+ 898 0019 0B       		.uleb128 0xb
+ 899 001a 03       		.uleb128 0x3
+ 900 001b 0E       		.uleb128 0xe
+ 901 001c 00       		.byte	0
+ 902 001d 00       		.byte	0
+ 903 001e 03       		.uleb128 0x3
+ 904 001f 24       		.uleb128 0x24
+ 905 0020 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 19
+
+
+ 906 0021 0B       		.uleb128 0xb
+ 907 0022 0B       		.uleb128 0xb
+ 908 0023 3E       		.uleb128 0x3e
+ 909 0024 0B       		.uleb128 0xb
+ 910 0025 03       		.uleb128 0x3
+ 911 0026 08       		.uleb128 0x8
+ 912 0027 00       		.byte	0
+ 913 0028 00       		.byte	0
+ 914 0029 04       		.uleb128 0x4
+ 915 002a 16       		.uleb128 0x16
+ 916 002b 00       		.byte	0
+ 917 002c 03       		.uleb128 0x3
+ 918 002d 0E       		.uleb128 0xe
+ 919 002e 3A       		.uleb128 0x3a
+ 920 002f 0B       		.uleb128 0xb
+ 921 0030 3B       		.uleb128 0x3b
+ 922 0031 05       		.uleb128 0x5
+ 923 0032 49       		.uleb128 0x49
+ 924 0033 13       		.uleb128 0x13
+ 925 0034 00       		.byte	0
+ 926 0035 00       		.byte	0
+ 927 0036 05       		.uleb128 0x5
+ 928 0037 17       		.uleb128 0x17
+ 929 0038 01       		.byte	0x1
+ 930 0039 0B       		.uleb128 0xb
+ 931 003a 0B       		.uleb128 0xb
+ 932 003b 3A       		.uleb128 0x3a
+ 933 003c 0B       		.uleb128 0xb
+ 934 003d 3B       		.uleb128 0x3b
+ 935 003e 0B       		.uleb128 0xb
+ 936 003f 01       		.uleb128 0x1
+ 937 0040 13       		.uleb128 0x13
+ 938 0041 00       		.byte	0
+ 939 0042 00       		.byte	0
+ 940 0043 06       		.uleb128 0x6
+ 941 0044 0D       		.uleb128 0xd
+ 942 0045 00       		.byte	0
+ 943 0046 03       		.uleb128 0x3
+ 944 0047 0E       		.uleb128 0xe
+ 945 0048 3A       		.uleb128 0x3a
+ 946 0049 0B       		.uleb128 0xb
+ 947 004a 3B       		.uleb128 0x3b
+ 948 004b 0B       		.uleb128 0xb
+ 949 004c 49       		.uleb128 0x49
+ 950 004d 13       		.uleb128 0x13
+ 951 004e 00       		.byte	0
+ 952 004f 00       		.byte	0
+ 953 0050 07       		.uleb128 0x7
+ 954 0051 01       		.uleb128 0x1
+ 955 0052 01       		.byte	0x1
+ 956 0053 49       		.uleb128 0x49
+ 957 0054 13       		.uleb128 0x13
+ 958 0055 01       		.uleb128 0x1
+ 959 0056 13       		.uleb128 0x13
+ 960 0057 00       		.byte	0
+ 961 0058 00       		.byte	0
+ 962 0059 08       		.uleb128 0x8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 20
+
+
+ 963 005a 21       		.uleb128 0x21
+ 964 005b 00       		.byte	0
+ 965 005c 49       		.uleb128 0x49
+ 966 005d 13       		.uleb128 0x13
+ 967 005e 2F       		.uleb128 0x2f
+ 968 005f 0B       		.uleb128 0xb
+ 969 0060 00       		.byte	0
+ 970 0061 00       		.byte	0
+ 971 0062 09       		.uleb128 0x9
+ 972 0063 16       		.uleb128 0x16
+ 973 0064 00       		.byte	0
+ 974 0065 03       		.uleb128 0x3
+ 975 0066 0E       		.uleb128 0xe
+ 976 0067 3A       		.uleb128 0x3a
+ 977 0068 0B       		.uleb128 0xb
+ 978 0069 3B       		.uleb128 0x3b
+ 979 006a 0B       		.uleb128 0xb
+ 980 006b 49       		.uleb128 0x49
+ 981 006c 13       		.uleb128 0x13
+ 982 006d 00       		.byte	0
+ 983 006e 00       		.byte	0
+ 984 006f 0A       		.uleb128 0xa
+ 985 0070 13       		.uleb128 0x13
+ 986 0071 01       		.byte	0x1
+ 987 0072 0B       		.uleb128 0xb
+ 988 0073 0B       		.uleb128 0xb
+ 989 0074 3A       		.uleb128 0x3a
+ 990 0075 0B       		.uleb128 0xb
+ 991 0076 3B       		.uleb128 0x3b
+ 992 0077 0B       		.uleb128 0xb
+ 993 0078 01       		.uleb128 0x1
+ 994 0079 13       		.uleb128 0x13
+ 995 007a 00       		.byte	0
+ 996 007b 00       		.byte	0
+ 997 007c 0B       		.uleb128 0xb
+ 998 007d 0D       		.uleb128 0xd
+ 999 007e 00       		.byte	0
+ 1000 007f 03       		.uleb128 0x3
+ 1001 0080 0E       		.uleb128 0xe
+ 1002 0081 3A       		.uleb128 0x3a
+ 1003 0082 0B       		.uleb128 0xb
+ 1004 0083 3B       		.uleb128 0x3b
+ 1005 0084 0B       		.uleb128 0xb
+ 1006 0085 49       		.uleb128 0x49
+ 1007 0086 13       		.uleb128 0x13
+ 1008 0087 38       		.uleb128 0x38
+ 1009 0088 0B       		.uleb128 0xb
+ 1010 0089 00       		.byte	0
+ 1011 008a 00       		.byte	0
+ 1012 008b 0C       		.uleb128 0xc
+ 1013 008c 2E       		.uleb128 0x2e
+ 1014 008d 01       		.byte	0x1
+ 1015 008e 3F       		.uleb128 0x3f
+ 1016 008f 19       		.uleb128 0x19
+ 1017 0090 03       		.uleb128 0x3
+ 1018 0091 0E       		.uleb128 0xe
+ 1019 0092 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 21
+
+
+ 1020 0093 0B       		.uleb128 0xb
+ 1021 0094 3B       		.uleb128 0x3b
+ 1022 0095 0B       		.uleb128 0xb
+ 1023 0096 27       		.uleb128 0x27
+ 1024 0097 19       		.uleb128 0x19
+ 1025 0098 11       		.uleb128 0x11
+ 1026 0099 01       		.uleb128 0x1
+ 1027 009a 12       		.uleb128 0x12
+ 1028 009b 06       		.uleb128 0x6
+ 1029 009c 40       		.uleb128 0x40
+ 1030 009d 18       		.uleb128 0x18
+ 1031 009e 9742     		.uleb128 0x2117
+ 1032 00a0 19       		.uleb128 0x19
+ 1033 00a1 01       		.uleb128 0x1
+ 1034 00a2 13       		.uleb128 0x13
+ 1035 00a3 00       		.byte	0
+ 1036 00a4 00       		.byte	0
+ 1037 00a5 0D       		.uleb128 0xd
+ 1038 00a6 05       		.uleb128 0x5
+ 1039 00a7 00       		.byte	0
+ 1040 00a8 03       		.uleb128 0x3
+ 1041 00a9 0E       		.uleb128 0xe
+ 1042 00aa 3A       		.uleb128 0x3a
+ 1043 00ab 0B       		.uleb128 0xb
+ 1044 00ac 3B       		.uleb128 0x3b
+ 1045 00ad 0B       		.uleb128 0xb
+ 1046 00ae 49       		.uleb128 0x49
+ 1047 00af 13       		.uleb128 0x13
+ 1048 00b0 02       		.uleb128 0x2
+ 1049 00b1 18       		.uleb128 0x18
+ 1050 00b2 00       		.byte	0
+ 1051 00b3 00       		.byte	0
+ 1052 00b4 0E       		.uleb128 0xe
+ 1053 00b5 34       		.uleb128 0x34
+ 1054 00b6 00       		.byte	0
+ 1055 00b7 03       		.uleb128 0x3
+ 1056 00b8 0E       		.uleb128 0xe
+ 1057 00b9 3A       		.uleb128 0x3a
+ 1058 00ba 0B       		.uleb128 0xb
+ 1059 00bb 3B       		.uleb128 0x3b
+ 1060 00bc 0B       		.uleb128 0xb
+ 1061 00bd 49       		.uleb128 0x49
+ 1062 00be 13       		.uleb128 0x13
+ 1063 00bf 02       		.uleb128 0x2
+ 1064 00c0 17       		.uleb128 0x17
+ 1065 00c1 00       		.byte	0
+ 1066 00c2 00       		.byte	0
+ 1067 00c3 0F       		.uleb128 0xf
+ 1068 00c4 34       		.uleb128 0x34
+ 1069 00c5 00       		.byte	0
+ 1070 00c6 03       		.uleb128 0x3
+ 1071 00c7 08       		.uleb128 0x8
+ 1072 00c8 3A       		.uleb128 0x3a
+ 1073 00c9 0B       		.uleb128 0xb
+ 1074 00ca 3B       		.uleb128 0x3b
+ 1075 00cb 0B       		.uleb128 0xb
+ 1076 00cc 49       		.uleb128 0x49
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 22
+
+
+ 1077 00cd 13       		.uleb128 0x13
+ 1078 00ce 02       		.uleb128 0x2
+ 1079 00cf 17       		.uleb128 0x17
+ 1080 00d0 00       		.byte	0
+ 1081 00d1 00       		.byte	0
+ 1082 00d2 10       		.uleb128 0x10
+ 1083 00d3 0F       		.uleb128 0xf
+ 1084 00d4 00       		.byte	0
+ 1085 00d5 0B       		.uleb128 0xb
+ 1086 00d6 0B       		.uleb128 0xb
+ 1087 00d7 49       		.uleb128 0x49
+ 1088 00d8 13       		.uleb128 0x13
+ 1089 00d9 00       		.byte	0
+ 1090 00da 00       		.byte	0
+ 1091 00db 11       		.uleb128 0x11
+ 1092 00dc 05       		.uleb128 0x5
+ 1093 00dd 00       		.byte	0
+ 1094 00de 03       		.uleb128 0x3
+ 1095 00df 0E       		.uleb128 0xe
+ 1096 00e0 3A       		.uleb128 0x3a
+ 1097 00e1 0B       		.uleb128 0xb
+ 1098 00e2 3B       		.uleb128 0x3b
+ 1099 00e3 0B       		.uleb128 0xb
+ 1100 00e4 49       		.uleb128 0x49
+ 1101 00e5 13       		.uleb128 0x13
+ 1102 00e6 02       		.uleb128 0x2
+ 1103 00e7 17       		.uleb128 0x17
+ 1104 00e8 00       		.byte	0
+ 1105 00e9 00       		.byte	0
+ 1106 00ea 12       		.uleb128 0x12
+ 1107 00eb 05       		.uleb128 0x5
+ 1108 00ec 00       		.byte	0
+ 1109 00ed 03       		.uleb128 0x3
+ 1110 00ee 08       		.uleb128 0x8
+ 1111 00ef 3A       		.uleb128 0x3a
+ 1112 00f0 0B       		.uleb128 0xb
+ 1113 00f1 3B       		.uleb128 0x3b
+ 1114 00f2 0B       		.uleb128 0xb
+ 1115 00f3 49       		.uleb128 0x49
+ 1116 00f4 13       		.uleb128 0x13
+ 1117 00f5 02       		.uleb128 0x2
+ 1118 00f6 17       		.uleb128 0x17
+ 1119 00f7 00       		.byte	0
+ 1120 00f8 00       		.byte	0
+ 1121 00f9 13       		.uleb128 0x13
+ 1122 00fa 2E       		.uleb128 0x2e
+ 1123 00fb 00       		.byte	0
+ 1124 00fc 3F       		.uleb128 0x3f
+ 1125 00fd 19       		.uleb128 0x19
+ 1126 00fe 03       		.uleb128 0x3
+ 1127 00ff 0E       		.uleb128 0xe
+ 1128 0100 3A       		.uleb128 0x3a
+ 1129 0101 0B       		.uleb128 0xb
+ 1130 0102 3B       		.uleb128 0x3b
+ 1131 0103 0B       		.uleb128 0xb
+ 1132 0104 27       		.uleb128 0x27
+ 1133 0105 19       		.uleb128 0x19
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 23
+
+
+ 1134 0106 49       		.uleb128 0x49
+ 1135 0107 13       		.uleb128 0x13
+ 1136 0108 11       		.uleb128 0x11
+ 1137 0109 01       		.uleb128 0x1
+ 1138 010a 12       		.uleb128 0x12
+ 1139 010b 06       		.uleb128 0x6
+ 1140 010c 40       		.uleb128 0x40
+ 1141 010d 18       		.uleb128 0x18
+ 1142 010e 9742     		.uleb128 0x2117
+ 1143 0110 19       		.uleb128 0x19
+ 1144 0111 00       		.byte	0
+ 1145 0112 00       		.byte	0
+ 1146 0113 14       		.uleb128 0x14
+ 1147 0114 898201   		.uleb128 0x4109
+ 1148 0117 00       		.byte	0
+ 1149 0118 11       		.uleb128 0x11
+ 1150 0119 01       		.uleb128 0x1
+ 1151 011a 31       		.uleb128 0x31
+ 1152 011b 13       		.uleb128 0x13
+ 1153 011c 00       		.byte	0
+ 1154 011d 00       		.byte	0
+ 1155 011e 15       		.uleb128 0x15
+ 1156 011f 34       		.uleb128 0x34
+ 1157 0120 00       		.byte	0
+ 1158 0121 03       		.uleb128 0x3
+ 1159 0122 0E       		.uleb128 0xe
+ 1160 0123 3A       		.uleb128 0x3a
+ 1161 0124 0B       		.uleb128 0xb
+ 1162 0125 3B       		.uleb128 0x3b
+ 1163 0126 0B       		.uleb128 0xb
+ 1164 0127 49       		.uleb128 0x49
+ 1165 0128 13       		.uleb128 0x13
+ 1166 0129 3F       		.uleb128 0x3f
+ 1167 012a 19       		.uleb128 0x19
+ 1168 012b 02       		.uleb128 0x2
+ 1169 012c 18       		.uleb128 0x18
+ 1170 012d 00       		.byte	0
+ 1171 012e 00       		.byte	0
+ 1172 012f 16       		.uleb128 0x16
+ 1173 0130 2E       		.uleb128 0x2e
+ 1174 0131 00       		.byte	0
+ 1175 0132 3F       		.uleb128 0x3f
+ 1176 0133 19       		.uleb128 0x19
+ 1177 0134 03       		.uleb128 0x3
+ 1178 0135 0E       		.uleb128 0xe
+ 1179 0136 3A       		.uleb128 0x3a
+ 1180 0137 0B       		.uleb128 0xb
+ 1181 0138 3B       		.uleb128 0x3b
+ 1182 0139 0B       		.uleb128 0xb
+ 1183 013a 27       		.uleb128 0x27
+ 1184 013b 19       		.uleb128 0x19
+ 1185 013c 3C       		.uleb128 0x3c
+ 1186 013d 19       		.uleb128 0x19
+ 1187 013e 00       		.byte	0
+ 1188 013f 00       		.byte	0
+ 1189 0140 00       		.byte	0
+ 1190              		.section	.debug_loc,"",%progbits
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 24
+
+
+ 1191              	.Ldebug_loc0:
+ 1192              	.LLST0:
+ 1193 0000 00000000 		.4byte	.LVL0
+ 1194 0004 04000000 		.4byte	.LVL1
+ 1195 0008 0100     		.2byte	0x1
+ 1196 000a 50       		.byte	0x50
+ 1197 000b 04000000 		.4byte	.LVL1
+ 1198 000f 10000000 		.4byte	.LVL2
+ 1199 0013 0600     		.2byte	0x6
+ 1200 0015 70       		.byte	0x70
+ 1201 0016 00       		.sleb128 0
+ 1202 0017 73       		.byte	0x73
+ 1203 0018 00       		.sleb128 0
+ 1204 0019 22       		.byte	0x22
+ 1205 001a 9F       		.byte	0x9f
+ 1206 001b 10000000 		.4byte	.LVL2
+ 1207 001f 12000000 		.4byte	.LVL3
+ 1208 0023 0800     		.2byte	0x8
+ 1209 0025 70       		.byte	0x70
+ 1210 0026 00       		.sleb128 0
+ 1211 0027 73       		.byte	0x73
+ 1212 0028 00       		.sleb128 0
+ 1213 0029 22       		.byte	0x22
+ 1214 002a 23       		.byte	0x23
+ 1215 002b 01       		.uleb128 0x1
+ 1216 002c 9F       		.byte	0x9f
+ 1217 002d 12000000 		.4byte	.LVL3
+ 1218 0031 1C000000 		.4byte	.LFE37
+ 1219 0035 0600     		.2byte	0x6
+ 1220 0037 70       		.byte	0x70
+ 1221 0038 00       		.sleb128 0
+ 1222 0039 73       		.byte	0x73
+ 1223 003a 00       		.sleb128 0
+ 1224 003b 22       		.byte	0x22
+ 1225 003c 9F       		.byte	0x9f
+ 1226 003d 00000000 		.4byte	0
+ 1227 0041 00000000 		.4byte	0
+ 1228              	.LLST1:
+ 1229 0045 00000000 		.4byte	.LVL0
+ 1230 0049 04000000 		.4byte	.LVL1
+ 1231 004d 0200     		.2byte	0x2
+ 1232 004f 30       		.byte	0x30
+ 1233 0050 9F       		.byte	0x9f
+ 1234 0051 04000000 		.4byte	.LVL1
+ 1235 0055 10000000 		.4byte	.LVL2
+ 1236 0059 0100     		.2byte	0x1
+ 1237 005b 53       		.byte	0x53
+ 1238 005c 10000000 		.4byte	.LVL2
+ 1239 0060 12000000 		.4byte	.LVL3
+ 1240 0064 0300     		.2byte	0x3
+ 1241 0066 73       		.byte	0x73
+ 1242 0067 01       		.sleb128 1
+ 1243 0068 9F       		.byte	0x9f
+ 1244 0069 14000000 		.4byte	.LVL4
+ 1245 006d 1C000000 		.4byte	.LFE37
+ 1246 0071 0100     		.2byte	0x1
+ 1247 0073 53       		.byte	0x53
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 25
+
+
+ 1248 0074 00000000 		.4byte	0
+ 1249 0078 00000000 		.4byte	0
+ 1250              	.LLST2:
+ 1251 007c 00000000 		.4byte	.LVL5
+ 1252 0080 02000000 		.4byte	.LVL6
+ 1253 0084 0100     		.2byte	0x1
+ 1254 0086 50       		.byte	0x50
+ 1255 0087 02000000 		.4byte	.LVL6
+ 1256 008b 10000000 		.4byte	.LVL7
+ 1257 008f 0600     		.2byte	0x6
+ 1258 0091 70       		.byte	0x70
+ 1259 0092 00       		.sleb128 0
+ 1260 0093 73       		.byte	0x73
+ 1261 0094 00       		.sleb128 0
+ 1262 0095 22       		.byte	0x22
+ 1263 0096 9F       		.byte	0x9f
+ 1264 0097 10000000 		.4byte	.LVL7
+ 1265 009b 12000000 		.4byte	.LVL8
+ 1266 009f 0800     		.2byte	0x8
+ 1267 00a1 70       		.byte	0x70
+ 1268 00a2 00       		.sleb128 0
+ 1269 00a3 73       		.byte	0x73
+ 1270 00a4 00       		.sleb128 0
+ 1271 00a5 22       		.byte	0x22
+ 1272 00a6 23       		.byte	0x23
+ 1273 00a7 01       		.uleb128 0x1
+ 1274 00a8 9F       		.byte	0x9f
+ 1275 00a9 12000000 		.4byte	.LVL8
+ 1276 00ad 1C000000 		.4byte	.LFE38
+ 1277 00b1 0600     		.2byte	0x6
+ 1278 00b3 70       		.byte	0x70
+ 1279 00b4 00       		.sleb128 0
+ 1280 00b5 73       		.byte	0x73
+ 1281 00b6 00       		.sleb128 0
+ 1282 00b7 22       		.byte	0x22
+ 1283 00b8 9F       		.byte	0x9f
+ 1284 00b9 00000000 		.4byte	0
+ 1285 00bd 00000000 		.4byte	0
+ 1286              	.LLST3:
+ 1287 00c1 00000000 		.4byte	.LVL5
+ 1288 00c5 02000000 		.4byte	.LVL6
+ 1289 00c9 0200     		.2byte	0x2
+ 1290 00cb 30       		.byte	0x30
+ 1291 00cc 9F       		.byte	0x9f
+ 1292 00cd 02000000 		.4byte	.LVL6
+ 1293 00d1 10000000 		.4byte	.LVL7
+ 1294 00d5 0100     		.2byte	0x1
+ 1295 00d7 53       		.byte	0x53
+ 1296 00d8 10000000 		.4byte	.LVL7
+ 1297 00dc 12000000 		.4byte	.LVL8
+ 1298 00e0 0300     		.2byte	0x3
+ 1299 00e2 73       		.byte	0x73
+ 1300 00e3 01       		.sleb128 1
+ 1301 00e4 9F       		.byte	0x9f
+ 1302 00e5 14000000 		.4byte	.LVL9
+ 1303 00e9 1C000000 		.4byte	.LFE38
+ 1304 00ed 0100     		.2byte	0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 26
+
+
+ 1305 00ef 53       		.byte	0x53
+ 1306 00f0 00000000 		.4byte	0
+ 1307 00f4 00000000 		.4byte	0
+ 1308              	.LLST4:
+ 1309 00f8 00000000 		.4byte	.LVL10
+ 1310 00fc 02000000 		.4byte	.LVL11
+ 1311 0100 0100     		.2byte	0x1
+ 1312 0102 50       		.byte	0x50
+ 1313 0103 02000000 		.4byte	.LVL11
+ 1314 0107 10000000 		.4byte	.LVL12
+ 1315 010b 0600     		.2byte	0x6
+ 1316 010d 70       		.byte	0x70
+ 1317 010e 00       		.sleb128 0
+ 1318 010f 73       		.byte	0x73
+ 1319 0110 00       		.sleb128 0
+ 1320 0111 22       		.byte	0x22
+ 1321 0112 9F       		.byte	0x9f
+ 1322 0113 10000000 		.4byte	.LVL12
+ 1323 0117 12000000 		.4byte	.LVL13
+ 1324 011b 0800     		.2byte	0x8
+ 1325 011d 70       		.byte	0x70
+ 1326 011e 00       		.sleb128 0
+ 1327 011f 73       		.byte	0x73
+ 1328 0120 00       		.sleb128 0
+ 1329 0121 22       		.byte	0x22
+ 1330 0122 23       		.byte	0x23
+ 1331 0123 01       		.uleb128 0x1
+ 1332 0124 9F       		.byte	0x9f
+ 1333 0125 12000000 		.4byte	.LVL13
+ 1334 0129 1C000000 		.4byte	.LFE39
+ 1335 012d 0600     		.2byte	0x6
+ 1336 012f 70       		.byte	0x70
+ 1337 0130 00       		.sleb128 0
+ 1338 0131 73       		.byte	0x73
+ 1339 0132 00       		.sleb128 0
+ 1340 0133 22       		.byte	0x22
+ 1341 0134 9F       		.byte	0x9f
+ 1342 0135 00000000 		.4byte	0
+ 1343 0139 00000000 		.4byte	0
+ 1344              	.LLST5:
+ 1345 013d 00000000 		.4byte	.LVL10
+ 1346 0141 02000000 		.4byte	.LVL11
+ 1347 0145 0200     		.2byte	0x2
+ 1348 0147 30       		.byte	0x30
+ 1349 0148 9F       		.byte	0x9f
+ 1350 0149 02000000 		.4byte	.LVL11
+ 1351 014d 10000000 		.4byte	.LVL12
+ 1352 0151 0100     		.2byte	0x1
+ 1353 0153 53       		.byte	0x53
+ 1354 0154 10000000 		.4byte	.LVL12
+ 1355 0158 12000000 		.4byte	.LVL13
+ 1356 015c 0300     		.2byte	0x3
+ 1357 015e 73       		.byte	0x73
+ 1358 015f 01       		.sleb128 1
+ 1359 0160 9F       		.byte	0x9f
+ 1360 0161 14000000 		.4byte	.LVL14
+ 1361 0165 1C000000 		.4byte	.LFE39
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 27
+
+
+ 1362 0169 0100     		.2byte	0x1
+ 1363 016b 53       		.byte	0x53
+ 1364 016c 00000000 		.4byte	0
+ 1365 0170 00000000 		.4byte	0
+ 1366              	.LLST6:
+ 1367 0174 00000000 		.4byte	.LVL15
+ 1368 0178 08000000 		.4byte	.LVL16
+ 1369 017c 0100     		.2byte	0x1
+ 1370 017e 51       		.byte	0x51
+ 1371 017f 08000000 		.4byte	.LVL16
+ 1372 0183 16000000 		.4byte	.LVL19
+ 1373 0187 0200     		.2byte	0x2
+ 1374 0189 74       		.byte	0x74
+ 1375 018a 18       		.sleb128 24
+ 1376 018b 16000000 		.4byte	.LVL19
+ 1377 018f 20000000 		.4byte	.LFE40
+ 1378 0193 0500     		.2byte	0x5
+ 1379 0195 03       		.byte	0x3
+ 1380 0196 18000000 		.4byte	.LANCHOR0+24
+ 1381 019a 00000000 		.4byte	0
+ 1382 019e 00000000 		.4byte	0
+ 1383              	.LLST7:
+ 1384 01a2 00000000 		.4byte	.LVL15
+ 1385 01a6 0C000000 		.4byte	.LVL17
+ 1386 01aa 0100     		.2byte	0x1
+ 1387 01ac 52       		.byte	0x52
+ 1388 01ad 0C000000 		.4byte	.LVL17
+ 1389 01b1 16000000 		.4byte	.LVL19
+ 1390 01b5 0200     		.2byte	0x2
+ 1391 01b7 74       		.byte	0x74
+ 1392 01b8 1C       		.sleb128 28
+ 1393 01b9 16000000 		.4byte	.LVL19
+ 1394 01bd 20000000 		.4byte	.LFE40
+ 1395 01c1 0500     		.2byte	0x5
+ 1396 01c3 03       		.byte	0x3
+ 1397 01c4 1C000000 		.4byte	.LANCHOR0+28
+ 1398 01c8 00000000 		.4byte	0
+ 1399 01cc 00000000 		.4byte	0
+ 1400              	.LLST8:
+ 1401 01d0 00000000 		.4byte	.LVL15
+ 1402 01d4 10000000 		.4byte	.LVL18
+ 1403 01d8 0100     		.2byte	0x1
+ 1404 01da 53       		.byte	0x53
+ 1405 01db 10000000 		.4byte	.LVL18
+ 1406 01df 16000000 		.4byte	.LVL19
+ 1407 01e3 0200     		.2byte	0x2
+ 1408 01e5 74       		.byte	0x74
+ 1409 01e6 20       		.sleb128 32
+ 1410 01e7 16000000 		.4byte	.LVL19
+ 1411 01eb 20000000 		.4byte	.LFE40
+ 1412 01ef 0500     		.2byte	0x5
+ 1413 01f1 03       		.byte	0x3
+ 1414 01f2 20000000 		.4byte	.LANCHOR0+32
+ 1415 01f6 00000000 		.4byte	0
+ 1416 01fa 00000000 		.4byte	0
+ 1417              	.LLST9:
+ 1418 01fe 00000000 		.4byte	.LVL20
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 28
+
+
+ 1419 0202 06000000 		.4byte	.LVL21
+ 1420 0206 0100     		.2byte	0x1
+ 1421 0208 51       		.byte	0x51
+ 1422 0209 06000000 		.4byte	.LVL21
+ 1423 020d 0E000000 		.4byte	.LVL23
+ 1424 0211 0200     		.2byte	0x2
+ 1425 0213 73       		.byte	0x73
+ 1426 0214 28       		.sleb128 40
+ 1427 0215 0E000000 		.4byte	.LVL23
+ 1428 0219 1C000000 		.4byte	.LFE41
+ 1429 021d 0500     		.2byte	0x5
+ 1430 021f 03       		.byte	0x3
+ 1431 0220 28000000 		.4byte	.LANCHOR0+40
+ 1432 0224 00000000 		.4byte	0
+ 1433 0228 00000000 		.4byte	0
+ 1434              	.LLST10:
+ 1435 022c 00000000 		.4byte	.LVL20
+ 1436 0230 0A000000 		.4byte	.LVL22
+ 1437 0234 0100     		.2byte	0x1
+ 1438 0236 52       		.byte	0x52
+ 1439 0237 0A000000 		.4byte	.LVL22
+ 1440 023b 0E000000 		.4byte	.LVL23
+ 1441 023f 0200     		.2byte	0x2
+ 1442 0241 73       		.byte	0x73
+ 1443 0242 2C       		.sleb128 44
+ 1444 0243 0E000000 		.4byte	.LVL23
+ 1445 0247 1C000000 		.4byte	.LFE41
+ 1446 024b 0500     		.2byte	0x5
+ 1447 024d 03       		.byte	0x3
+ 1448 024e 2C000000 		.4byte	.LANCHOR0+44
+ 1449 0252 00000000 		.4byte	0
+ 1450 0256 00000000 		.4byte	0
+ 1451              		.section	.debug_aranges,"",%progbits
+ 1452 0000 54000000 		.4byte	0x54
+ 1453 0004 0200     		.2byte	0x2
+ 1454 0006 00000000 		.4byte	.Ldebug_info0
+ 1455 000a 04       		.byte	0x4
+ 1456 000b 00       		.byte	0
+ 1457 000c 0000     		.2byte	0
+ 1458 000e 0000     		.2byte	0
+ 1459 0010 00000000 		.4byte	.LFB37
+ 1460 0014 1C000000 		.4byte	.LFE37-.LFB37
+ 1461 0018 00000000 		.4byte	.LFB38
+ 1462 001c 1C000000 		.4byte	.LFE38-.LFB38
+ 1463 0020 00000000 		.4byte	.LFB39
+ 1464 0024 1C000000 		.4byte	.LFE39-.LFB39
+ 1465 0028 00000000 		.4byte	.LFB40
+ 1466 002c 20000000 		.4byte	.LFE40-.LFB40
+ 1467 0030 00000000 		.4byte	.LFB41
+ 1468 0034 1C000000 		.4byte	.LFE41-.LFB41
+ 1469 0038 00000000 		.4byte	.LFB42
+ 1470 003c 0C000000 		.4byte	.LFE42-.LFB42
+ 1471 0040 00000000 		.4byte	.LFB43
+ 1472 0044 18000000 		.4byte	.LFE43-.LFB43
+ 1473 0048 00000000 		.4byte	.LFB44
+ 1474 004c 08000000 		.4byte	.LFE44-.LFB44
+ 1475 0050 00000000 		.4byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 29
+
+
+ 1476 0054 00000000 		.4byte	0
+ 1477              		.section	.debug_ranges,"",%progbits
+ 1478              	.Ldebug_ranges0:
+ 1479 0000 00000000 		.4byte	.LFB37
+ 1480 0004 1C000000 		.4byte	.LFE37
+ 1481 0008 00000000 		.4byte	.LFB38
+ 1482 000c 1C000000 		.4byte	.LFE38
+ 1483 0010 00000000 		.4byte	.LFB39
+ 1484 0014 1C000000 		.4byte	.LFE39
+ 1485 0018 00000000 		.4byte	.LFB40
+ 1486 001c 20000000 		.4byte	.LFE40
+ 1487 0020 00000000 		.4byte	.LFB41
+ 1488 0024 1C000000 		.4byte	.LFE41
+ 1489 0028 00000000 		.4byte	.LFB42
+ 1490 002c 0C000000 		.4byte	.LFE42
+ 1491 0030 00000000 		.4byte	.LFB43
+ 1492 0034 18000000 		.4byte	.LFE43
+ 1493 0038 00000000 		.4byte	.LFB44
+ 1494 003c 08000000 		.4byte	.LFE44
+ 1495 0040 00000000 		.4byte	0
+ 1496 0044 00000000 		.4byte	0
+ 1497              		.section	.debug_line,"",%progbits
+ 1498              	.Ldebug_line0:
+ 1499 0000 3B010000 		.section	.debug_str,"MS",%progbits,1
+ 1499      02006E00 
+ 1499      00000201 
+ 1499      FB0E0D00 
+ 1499      01010101 
+ 1500              	.LASF20:
+ 1501 0000 4759524F 		.ascii	"GYROSCOPE\000"
+ 1501      53434F50 
+ 1501      4500
+ 1502              	.LASF48:
+ 1503 000a 4261636B 		.ascii	"BackBoneFlags\000"
+ 1503      426F6E65 
+ 1503      466C6167 
+ 1503      7300
+ 1504              	.LASF26:
+ 1505 0018 4779726F 		.ascii	"GyroscopeTransmissionRate\000"
+ 1505      73636F70 
+ 1505      65547261 
+ 1505      6E736D69 
+ 1505      7373696F 
+ 1506              	.LASF21:
+ 1507 0032 53746570 		.ascii	"StepCount\000"
+ 1507      436F756E 
+ 1507      7400
+ 1508              	.LASF53:
+ 1509 003c 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1509      4320342E 
+ 1509      392E3320 
+ 1509      32303135 
+ 1509      30333033 
+ 1510 006f 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1510      20726576 
+ 1510      6973696F 
+ 1510      6E203232 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 30
+
+
+ 1510      31323230 
+ 1511 00a2 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1511      66756E63 
+ 1511      74696F6E 
+ 1511      2D736563 
+ 1511      74696F6E 
+ 1512              	.LASF17:
+ 1513 00ca 52617744 		.ascii	"RawData\000"
+ 1513      61746100 
+ 1514              	.LASF34:
+ 1515 00d2 4C656E67 		.ascii	"Length\000"
+ 1515      746800
+ 1516              	.LASF3:
+ 1517 00d9 73686F72 		.ascii	"short unsigned int\000"
+ 1517      7420756E 
+ 1517      7369676E 
+ 1517      65642069 
+ 1517      6E7400
+ 1518              	.LASF24:
+ 1519 00ec 4D6F746F 		.ascii	"MotorStrength\000"
+ 1519      72537472 
+ 1519      656E6774 
+ 1519      6800
+ 1520              	.LASF13:
+ 1521 00fa 646F7562 		.ascii	"double\000"
+ 1521      6C6500
+ 1522              	.LASF49:
+ 1523 0101 41636365 		.ascii	"Accelerometer\000"
+ 1523      6C65726F 
+ 1523      6D657465 
+ 1523      7200
+ 1524              	.LASF30:
+ 1525 010f 496E6163 		.ascii	"InactivityReminderInterval\000"
+ 1525      74697669 
+ 1525      74795265 
+ 1525      6D696E64 
+ 1525      6572496E 
+ 1526              	.LASF12:
+ 1527 012a 666C6F61 		.ascii	"float\000"
+ 1527      7400
+ 1528              	.LASF47:
+ 1529 0130 4261636B 		.ascii	"BackBone_Task\000"
+ 1529      426F6E65 
+ 1529      5F546173 
+ 1529      6B00
+ 1530              	.LASF42:
+ 1531 013e 59417869 		.ascii	"YAxis\000"
+ 1531      7300
+ 1532              	.LASF46:
+ 1533 0144 436F756E 		.ascii	"Count\000"
+ 1533      7400
+ 1534              	.LASF1:
+ 1535 014a 756E7369 		.ascii	"unsigned char\000"
+ 1535      676E6564 
+ 1535      20636861 
+ 1535      7200
+ 1536              	.LASF18:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 31
+
+
+ 1537 0158 41434345 		.ascii	"ACCELEROMETER\000"
+ 1537      4C45524F 
+ 1537      4D455445 
+ 1537      5200
+ 1538              	.LASF44:
+ 1539 0166 4261636B 		.ascii	"BackBone_SetGyroscopeData\000"
+ 1539      426F6E65 
+ 1539      5F536574 
+ 1539      4779726F 
+ 1539      73636F70 
+ 1540              	.LASF41:
+ 1541 0180 58417869 		.ascii	"XAxis\000"
+ 1541      7300
+ 1542              	.LASF22:
+ 1543 0186 5045444F 		.ascii	"PEDOMETER\000"
+ 1543      4D455445 
+ 1543      5200
+ 1544              	.LASF5:
+ 1545 0190 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1545      20756E73 
+ 1545      69676E65 
+ 1545      6420696E 
+ 1545      7400
+ 1546              	.LASF9:
+ 1547 01a2 75696E74 		.ascii	"uint8\000"
+ 1547      3800
+ 1548              	.LASF29:
+ 1549 01a8 496E6163 		.ascii	"InactivityDuration\000"
+ 1549      74697669 
+ 1549      74794475 
+ 1549      72617469 
+ 1549      6F6E00
+ 1550              	.LASF19:
+ 1551 01bb 4779726F 		.ascii	"GyroscopeData\000"
+ 1551      73636F70 
+ 1551      65446174 
+ 1551      6100
+ 1552              	.LASF40:
+ 1553 01c9 4261636B 		.ascii	"BackBone_SetAccelerometerData\000"
+ 1553      426F6E65 
+ 1553      5F536574 
+ 1553      41636365 
+ 1553      6C65726F 
+ 1554              	.LASF35:
+ 1555 01e7 706F696E 		.ascii	"pointer\000"
+ 1555      74657200 
+ 1556              	.LASF39:
+ 1557 01ef 4261636B 		.ascii	"BackBone_GetGyroscopeData\000"
+ 1557      426F6E65 
+ 1557      5F476574 
+ 1557      4779726F 
+ 1557      73636F70 
+ 1558              	.LASF45:
+ 1559 0209 4261636B 		.ascii	"BackBone_SetStepCount\000"
+ 1559      426F6E65 
+ 1559      5F536574 
+ 1559      53746570 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 32
+
+
+ 1559      436F756E 
+ 1560              	.LASF2:
+ 1561 021f 73686F72 		.ascii	"short int\000"
+ 1561      7420696E 
+ 1561      7400
+ 1562              	.LASF33:
+ 1563 0229 536F7572 		.ascii	"SourceBuffer\000"
+ 1563      63654275 
+ 1563      66666572 
+ 1563      00
+ 1564              	.LASF10:
+ 1565 0236 75696E74 		.ascii	"uint16\000"
+ 1565      313600
+ 1566              	.LASF43:
+ 1567 023d 5A417869 		.ascii	"ZAxis\000"
+ 1567      7300
+ 1568              	.LASF31:
+ 1569 0243 50617261 		.ascii	"Parameter\000"
+ 1569      6D657465 
+ 1569      7200
+ 1570              	.LASF27:
+ 1571 024d 506F7374 		.ascii	"PostureThreshold\000"
+ 1571      75726554 
+ 1571      68726573 
+ 1571      686F6C64 
+ 1571      00
+ 1572              	.LASF11:
+ 1573 025e 75696E74 		.ascii	"uint32\000"
+ 1573      333200
+ 1574              	.LASF8:
+ 1575 0265 756E7369 		.ascii	"unsigned int\000"
+ 1575      676E6564 
+ 1575      20696E74 
+ 1575      00
+ 1576              	.LASF37:
+ 1577 0272 4261636B 		.ascii	"BackBone_GetAccelerometerData\000"
+ 1577      426F6E65 
+ 1577      5F476574 
+ 1577      41636365 
+ 1577      6C65726F 
+ 1578              	.LASF16:
+ 1579 0290 41636365 		.ascii	"AccelerometerData\000"
+ 1579      6C65726F 
+ 1579      6D657465 
+ 1579      72446174 
+ 1579      6100
+ 1580              	.LASF38:
+ 1581 02a2 44657374 		.ascii	"DestinationBuffer\000"
+ 1581      696E6174 
+ 1581      696F6E42 
+ 1581      75666665 
+ 1581      7200
+ 1582              	.LASF7:
+ 1583 02b4 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1583      206C6F6E 
+ 1583      6720756E 
+ 1583      7369676E 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 33
+
+
+ 1583      65642069 
+ 1584              	.LASF32:
+ 1585 02cb 434F4E46 		.ascii	"CONFIG_DATA\000"
+ 1585      49475F44 
+ 1585      41544100 
+ 1586              	.LASF28:
+ 1587 02d7 506F7374 		.ascii	"PostureReminderInterval\000"
+ 1587      75726552 
+ 1587      656D696E 
+ 1587      64657249 
+ 1587      6E746572 
+ 1588              	.LASF51:
+ 1589 02ef 436F6E66 		.ascii	"ConfigData\000"
+ 1589      69674461 
+ 1589      746100
+ 1590              	.LASF15:
+ 1591 02fa 73697A65 		.ascii	"sizetype\000"
+ 1591      74797065 
+ 1591      00
+ 1592              	.LASF25:
+ 1593 0303 41636365 		.ascii	"AccelerometerTransmissionRate\000"
+ 1593      6C65726F 
+ 1593      6D657465 
+ 1593      72547261 
+ 1593      6E736D69 
+ 1594              	.LASF6:
+ 1595 0321 6C6F6E67 		.ascii	"long long int\000"
+ 1595      206C6F6E 
+ 1595      6720696E 
+ 1595      7400
+ 1596              	.LASF57:
+ 1597 032f 53656E64 		.ascii	"SendAllNotifications\000"
+ 1597      416C6C4E 
+ 1597      6F746966 
+ 1597      69636174 
+ 1597      696F6E73 
+ 1598              	.LASF54:
+ 1599 0344 2E5C4261 		.ascii	".\\BackBone.c\000"
+ 1599      636B426F 
+ 1599      6E652E63 
+ 1599      00
+ 1600              	.LASF23:
+ 1601 0351 466C6167 		.ascii	"Flags\000"
+ 1601      7300
+ 1602              	.LASF36:
+ 1603 0357 4261636B 		.ascii	"BackBone_SetConfigData\000"
+ 1603      426F6E65 
+ 1603      5F536574 
+ 1603      436F6E66 
+ 1603      69674461 
+ 1604              	.LASF56:
+ 1605 036e 4261636B 		.ascii	"BackBone_GetStepCount\000"
+ 1605      426F6E65 
+ 1605      5F476574 
+ 1605      53746570 
+ 1605      436F756E 
+ 1606              	.LASF55:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjzDKl9.s 			page 34
+
+
+ 1607 0384 433A5C44 		.ascii	"C:\\Dropbox\\Projects\\George Posture Correction Pr"
+ 1607      726F7062 
+ 1607      6F785C50 
+ 1607      726F6A65 
+ 1607      6374735C 
+ 1608 03b4 6F6A6563 		.ascii	"oject\\BackBone\\BackBone_Bootloadable.cydsn\000"
+ 1608      745C4261 
+ 1608      636B426F 
+ 1608      6E655C42 
+ 1608      61636B42 
+ 1609              	.LASF4:
+ 1610 03df 6C6F6E67 		.ascii	"long int\000"
+ 1610      20696E74 
+ 1610      00
+ 1611              	.LASF14:
+ 1612 03e8 63686172 		.ascii	"char\000"
+ 1612      00
+ 1613              	.LASF0:
+ 1614 03ed 7369676E 		.ascii	"signed char\000"
+ 1614      65642063 
+ 1614      68617200 
+ 1615              	.LASF52:
+ 1616 03f9 5065646F 		.ascii	"Pedometer\000"
+ 1616      6D657465 
+ 1616      7200
+ 1617              	.LASF50:
+ 1618 0403 4779726F 		.ascii	"Gyroscope\000"
+ 1618      73636F70 
+ 1618      6500
+ 1619              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

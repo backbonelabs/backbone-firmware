@@ -1,0 +1,109 @@
+--------------- Rebuild Started: 09/15/2016 20:08:30 Project: BLE_OTA_FixedStack_Bootloader01, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\main.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Debug.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\OTAMandatory.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\OTAOptional.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyfitter_cfg.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cymetadata.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Advertising_LED_2.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Advertising_LED_2_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\WDT_Interrupt.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Wakeup_Interrupt.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Bootloader_Service_Activation.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Bootloader_Service_Activation_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Advertising_LED_1.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Advertising_LED_1_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Bootloading_LED.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Bootloading_LED_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Bootloader.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\UART_AsmGnu.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\UART.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_bas.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_gatt.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_eventHandler.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_hids.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_HAL_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_HAL_PVT.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_scps.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_dis.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_bts.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBle_bless_isr.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\Cm0Start.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyBootAsmGnu.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyFlash.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyLib.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyPm.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\cyutils.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\CyLFClk.o"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.hex"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.elf"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.map"
+Deleting file ".\BLE_OTA_FixedStack_Bootloader01.cycdx"
+Deleting file ".\BLE_OTA_FixedStack_Bootloader01.rpt"
+Deleting file ".\BLE_OTA_FixedStack_Bootloader01_timing.html"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\C_FILE.P"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\ARM_C_FILE.P"
+Deleting file ".\CortexM0\ARM_GCC_493\Debug\.deps\GNU_ARM_ASM_FILE.P"
+cydsfit.exe -.appdatapath "C:\Users\Administrator\AppData\Local\Cypress Semiconductor\PSoC Creator\3.3" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p "C:\Dropbox\Projects\George Posture Correction Project\BackBone\BLE_OTA_FixedStack_Bootloader01.cydsn\BLE_OTA_FixedStack_Bootloader01.cyprj" -d CYBLE-022001-00 -s "C:\Dropbox\Projects\George Posture Correction Project\BackBone\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4" -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+HDL Generation ...
+Synthesis ...
+Place and Route ...
+Tech mapping ...
+ADD: pft.M0040: information: The following 2 pin(s) will be assigned a location by the fitter: Bootloader_Service_Activation(0), Bootloading_LED(0)
+Analog Placement ...
+Analog Routing ...
+Analog Code Generation ...
+Digital Placement ...
+Digital Routing ...
+Bitstream Generation ...
+Static timing analysis ...
+API Generation ...
+Dependency Generation ...
+Clean Temporary Files ...
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\main.c -o .\CortexM0\ARM_GCC_493\Debug\main.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Debug.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Debug.c -o .\CortexM0\ARM_GCC_493\Debug\Debug.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/OTAMandatory.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\OTAMandatory.c -o .\CortexM0\ARM_GCC_493\Debug\OTAMandatory.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/OTAOptional.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\OTAOptional.c -o .\CortexM0\ARM_GCC_493\Debug\OTAOptional.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/cyfitter_cfg.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\cyfitter_cfg.c -o .\CortexM0\ARM_GCC_493\Debug\cyfitter_cfg.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/cymetadata.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\cymetadata.c -o .\CortexM0\ARM_GCC_493\Debug\cymetadata.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Advertising_LED_2.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Advertising_LED_2.c -o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_2.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Advertising_LED_2_PM.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Advertising_LED_2_PM.c -o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_2_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/WDT_Interrupt.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\WDT_Interrupt.c -o .\CortexM0\ARM_GCC_493\Debug\WDT_Interrupt.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Wakeup_Interrupt.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Wakeup_Interrupt.c -o .\CortexM0\ARM_GCC_493\Debug\Wakeup_Interrupt.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Bootloader_Service_Activation.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Bootloader_Service_Activation.c -o .\CortexM0\ARM_GCC_493\Debug\Bootloader_Service_Activation.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Bootloader_Service_Activation_PM.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Bootloader_Service_Activation_PM.c -o .\CortexM0\ARM_GCC_493\Debug\Bootloader_Service_Activation_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Advertising_LED_1.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Advertising_LED_1.c -o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_1.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Advertising_LED_1_PM.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Advertising_LED_1_PM.c -o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_1_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Bootloading_LED.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Bootloading_LED.c -o .\CortexM0\ARM_GCC_493\Debug\Bootloading_LED.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Bootloading_LED_PM.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Bootloading_LED_PM.c -o .\CortexM0\ARM_GCC_493\Debug\Bootloading_LED_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Bootloader.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Bootloader.c -o .\CortexM0\ARM_GCC_493\Debug\Bootloader.o
+arm-none-eabi-as.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -alh=.\CortexM0\ARM_GCC_493\Debug/UART_AsmGnu.lst -g -W -o .\CortexM0\ARM_GCC_493\Debug\UART_AsmGnu.o .\Generated_Source\PSoC4\UART_AsmGnu.s
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/UART.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\UART.c -o .\CortexM0\ARM_GCC_493\Debug\UART.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_bas.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_bas.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_bas.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_gatt.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_gatt.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_gatt.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_eventHandler.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_eventHandler.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_eventHandler.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_hids.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_hids.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_hids.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_HAL_INT.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_HAL_INT.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_HAL_INT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_HAL_PVT.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_HAL_PVT.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_HAL_PVT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_scps.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_scps.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_scps.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_dis.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_dis.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_dis.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_bts.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_bts.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_bts.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyBle_bless_isr.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyBle_bless_isr.c -o .\CortexM0\ARM_GCC_493\Debug\CyBle_bless_isr.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/Cm0Start.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\Cm0Start.c -o .\CortexM0\ARM_GCC_493\Debug\Cm0Start.o
+arm-none-eabi-as.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -alh=.\CortexM0\ARM_GCC_493\Debug/CyBootAsmGnu.lst -g -W -o .\CortexM0\ARM_GCC_493\Debug\CyBootAsmGnu.o .\Generated_Source\PSoC4\CyBootAsmGnu.s
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyFlash.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyFlash.c -o .\CortexM0\ARM_GCC_493\Debug\CyFlash.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyLib.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyLib.c -o .\CortexM0\ARM_GCC_493\Debug\CyLib.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/cyPm.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\cyPm.c -o .\CortexM0\ARM_GCC_493\Debug\cyPm.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/cyutils.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\cyutils.c -o .\CortexM0\ARM_GCC_493\Debug\cyutils.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/CyLFClk.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\Generated_Source\PSoC4\CyLFClk.c -o .\CortexM0\ARM_GCC_493\Debug\CyLFClk.o
+arm-none-eabi-ar.exe -rs .\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.a .\CortexM0\ARM_GCC_493\Debug\cyfitter_cfg.o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_2.o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_2_PM.o .\CortexM0\ARM_GCC_493\Debug\WDT_Interrupt.o .\CortexM0\ARM_GCC_493\Debug\Wakeup_Interrupt.o .\CortexM0\ARM_GCC_493\Debug\Bootloader_Service_Activation.o .\CortexM0\ARM_GCC_493\Debug\Bootloader_Service_Activation_PM.o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_1.o .\CortexM0\ARM_GCC_493\Debug\Advertising_LED_1_PM.o .\CortexM0\ARM_GCC_493\Debug\Bootloading_LED.o .\CortexM0\ARM_GCC_493\Debug\Bootloading_LED_PM.o .\CortexM0\ARM_GCC_493\Debug\Bootloader.o .\CortexM0\ARM_GCC_493\Debug\UART_AsmGnu.o .\CortexM0\ARM_GCC_493\Debug\UART.o .\CortexM0\ARM_GCC_493\Debug\CyBle_bas.o .\CortexM0\ARM_GCC_493\Debug\CyBle.o .\CortexM0\ARM_GCC_493\Debug\CyBle_gatt.o .\CortexM0\ARM_GCC_493\Debug\CyBle_eventHandler.o .\CortexM0\ARM_GCC_493\Debug\CyBle_hids.o .\CortexM0\ARM_GCC_493\Debug\CyBle_HAL_INT.o .\CortexM0\ARM_GCC_493\Debug\CyBle_HAL_PVT.o .\CortexM0\ARM_GCC_493\Debug\CyBle_scps.o .\CortexM0\ARM_GCC_493\Debug\CyBle_dis.o .\CortexM0\ARM_GCC_493\Debug\CyBle_bts.o .\CortexM0\ARM_GCC_493\Debug\CyBle_bless_isr.o .\CortexM0\ARM_GCC_493\Debug\CyBootAsmGnu.o .\CortexM0\ARM_GCC_493\Debug\CyFlash.o .\CortexM0\ARM_GCC_493\Debug\CyLib.o .\CortexM0\ARM_GCC_493\Debug\cyPm.o .\CortexM0\ARM_GCC_493\Debug\cyutils.o .\CortexM0\ARM_GCC_493\Debug\CyLFClk.o
+arm-none-eabi-ar.exe: creating .\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o .\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.elf .\CortexM0\ARM_GCC_493\Debug\main.o .\CortexM0\ARM_GCC_493\Debug\Debug.o .\CortexM0\ARM_GCC_493\Debug\OTAMandatory.o .\CortexM0\ARM_GCC_493\Debug\OTAOptional.o .\CortexM0\ARM_GCC_493\Debug\cymetadata.o .\CortexM0\ARM_GCC_493\Debug\Cm0Start.o .\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.a "C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\BLE_v3_10\Library\gccCyBLEStack_BLE_SOC_PERIPHERAL.a" "C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM0\ARM_GCC_493\Debug\CyComponentLibrary.a" -mcpu=cortex-m0 -mthumb -g -ffunction-sections -Og -ffat-lto-objects -L Generated_Source\PSoC4 -Wl,-Map,.\CortexM0\ARM_GCC_493\Debug/BLE_OTA_FixedStack_Bootloader01.map -T .\cm0gcc.ld -specs=nano.specs -Wl,--gc-sections -Wl,--end-group
+cyelftool.exe -P "C:\Dropbox\Projects\George Posture Correction Project\BackBone\BLE_OTA_FixedStack_Bootloader01.cydsn\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.elf" --flash_row_size 128 --flash_size 131072 --size_var_name Bootloader_SizeBytes --checksum_var_name Bootloader_Checksum --ignore 0xC0
+cyelftool.exe -S "C:\Dropbox\Projects\George Posture Correction Project\BackBone\BLE_OTA_FixedStack_Bootloader01.cydsn\CortexM0\ARM_GCC_493\Debug\BLE_OTA_FixedStack_Bootloader01.elf"
+Flash used: 97792 of 131072 bytes (74.6 %).
+SRAM used: 12684 of 16384 bytes (77.4 %). Stack: 2048 bytes. Heap: 1024 bytes.
+--------------- Rebuild Succeeded: 09/15/2016 20:08:48 ---------------

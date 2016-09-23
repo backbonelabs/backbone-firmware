@@ -1,0 +1,2473 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"Cm0Start.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.IntDefaultHandler,"ax",%progbits
+  18              		.align	1
+  19              		.global	IntDefaultHandler
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	IntDefaultHandler, %function
+  23              	IntDefaultHandler:
+  24              	.LFB2:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\Cm0Start.c"
+   1:.\Generated_Source\PSoC4/Cm0Start.c **** /***************************************************************************//**
+   2:.\Generated_Source\PSoC4/Cm0Start.c **** * \file Cm0Start.c
+   3:.\Generated_Source\PSoC4/Cm0Start.c **** * \version 5.40
+   4:.\Generated_Source\PSoC4/Cm0Start.c **** *
+   5:.\Generated_Source\PSoC4/Cm0Start.c **** * \brief Startup code for the ARM CM0.
+   6:.\Generated_Source\PSoC4/Cm0Start.c **** *
+   7:.\Generated_Source\PSoC4/Cm0Start.c **** ********************************************************************************
+   8:.\Generated_Source\PSoC4/Cm0Start.c **** * \copyright
+   9:.\Generated_Source\PSoC4/Cm0Start.c **** * Copyright 2010-2016, Cypress Semiconductor Corporation.  All rights reserved.
+  10:.\Generated_Source\PSoC4/Cm0Start.c **** * You may use this file only in accordance with the license, terms, conditions,
+  11:.\Generated_Source\PSoC4/Cm0Start.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  12:.\Generated_Source\PSoC4/Cm0Start.c **** * the software package with which this file was provided.
+  13:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+  14:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  15:.\Generated_Source\PSoC4/Cm0Start.c **** #include <limits.h>
+  16:.\Generated_Source\PSoC4/Cm0Start.c **** #include "cydevice_trm.h"
+  17:.\Generated_Source\PSoC4/Cm0Start.c **** #include "cytypes.h"
+  18:.\Generated_Source\PSoC4/Cm0Start.c **** #include "cyfitter_cfg.h"
+  19:.\Generated_Source\PSoC4/Cm0Start.c **** #include "CyLib.h"
+  20:.\Generated_Source\PSoC4/Cm0Start.c **** #include "cyfitter.h"
+  21:.\Generated_Source\PSoC4/Cm0Start.c **** #include "cyapicallbacks.h"
+  22:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  23:.\Generated_Source\PSoC4/Cm0Start.c **** #define CY_NUM_VECTORS              (CY_INT_IRQ_BASE + CY_NUM_INTERRUPTS)
+  24:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  25:.\Generated_Source\PSoC4/Cm0Start.c **** #if (CY_IP_CPUSS_CM0)
+  26:.\Generated_Source\PSoC4/Cm0Start.c ****     #define CY_CPUSS_CONFIG_VECT_IN_RAM (( uint32 ) 0x01)
+  27:.\Generated_Source\PSoC4/Cm0Start.c **** #endif /* (CY_IP_CPUSS_CM0) */
+  28:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  29:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  30:.\Generated_Source\PSoC4/Cm0Start.c **** #if (CY_IP_CPUSS_CM0)
+  31:.\Generated_Source\PSoC4/Cm0Start.c ****     /* CPUSS Configuration register */
+  32:.\Generated_Source\PSoC4/Cm0Start.c ****     #define CY_CPUSS_CONFIG_REG         (*(reg32 *) CYREG_CPUSS_CONFIG)
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/Cm0Start.c ****     #define CY_CPUSS_CONFIG_PTR         ( (reg32 *) CYREG_CPUSS_CONFIG)
+  34:.\Generated_Source\PSoC4/Cm0Start.c **** #endif /* (CY_IP_CPUSS_CM0) */
+  35:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  36:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  37:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined (__ICCARM__)
+  38:.\Generated_Source\PSoC4/Cm0Start.c ****     #define CY_NUM_ROM_VECTORS      (CY_NUM_VECTORS)
+  39:.\Generated_Source\PSoC4/Cm0Start.c **** #else
+  40:.\Generated_Source\PSoC4/Cm0Start.c ****     #define CY_NUM_ROM_VECTORS      (4u)
+  41:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined (__ICCARM__) */
+  42:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  43:.\Generated_Source\PSoC4/Cm0Start.c **** /* Vector table address in SRAM */
+  44:.\Generated_Source\PSoC4/Cm0Start.c **** #define CY_CPUSS_CONFIG_VECT_ADDR_IN_RAM    (0x20000000u)
+  45:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  46:.\Generated_Source\PSoC4/Cm0Start.c **** #ifndef CY_SYS_INITIAL_STACK_POINTER
+  47:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  48:.\Generated_Source\PSoC4/Cm0Start.c ****     #if defined(__ARMCC_VERSION)
+  49:.\Generated_Source\PSoC4/Cm0Start.c ****         #define CY_SYS_INITIAL_STACK_POINTER ((cyisraddress)(uint32)&Image$$ARM_LIB_STACK$$ZI$$Limi
+  50:.\Generated_Source\PSoC4/Cm0Start.c ****     #elif defined (__GNUC__)
+  51:.\Generated_Source\PSoC4/Cm0Start.c ****         #define CY_SYS_INITIAL_STACK_POINTER (&__cy_stack)
+  52:.\Generated_Source\PSoC4/Cm0Start.c ****     #elif defined (__ICCARM__)
+  53:.\Generated_Source\PSoC4/Cm0Start.c ****         #pragma language=extended
+  54:.\Generated_Source\PSoC4/Cm0Start.c ****         #pragma segment="CSTACK"
+  55:.\Generated_Source\PSoC4/Cm0Start.c ****         #define CY_SYS_INITIAL_STACK_POINTER  { .__ptr = __sfe( "CSTACK" ) }
+  56:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  57:.\Generated_Source\PSoC4/Cm0Start.c ****         extern void __iar_program_start( void );
+  58:.\Generated_Source\PSoC4/Cm0Start.c ****         extern void __iar_data_init3 (void);
+  59:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* (__ARMCC_VERSION) */
+  60:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  61:.\Generated_Source\PSoC4/Cm0Start.c **** #endif /* CY_SYS_INITIAL_STACK_POINTER */
+  62:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  63:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  64:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined(__GNUC__)
+  65:.\Generated_Source\PSoC4/Cm0Start.c ****     #include <errno.h>
+  66:.\Generated_Source\PSoC4/Cm0Start.c ****     extern int  errno;
+  67:.\Generated_Source\PSoC4/Cm0Start.c ****     extern int  end;
+  68:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined(__GNUC__) */
+  69:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  70:.\Generated_Source\PSoC4/Cm0Start.c **** /* Extern functions */
+  71:.\Generated_Source\PSoC4/Cm0Start.c **** extern void CyBtldr_CheckLaunch(void);
+  72:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  73:.\Generated_Source\PSoC4/Cm0Start.c **** /* Function prototypes */
+  74:.\Generated_Source\PSoC4/Cm0Start.c **** void initialize_psoc(void);
+  75:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  76:.\Generated_Source\PSoC4/Cm0Start.c **** /* Global variables */
+  77:.\Generated_Source\PSoC4/Cm0Start.c **** #if !defined (__ICCARM__)
+  78:.\Generated_Source\PSoC4/Cm0Start.c ****     CY_NOINIT static uint32 cySysNoInitDataValid;
+  79:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* !defined (__ICCARM__) */
+  80:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  81:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  82:.\Generated_Source\PSoC4/Cm0Start.c **** #if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_STANDARD)
+  83:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  84:.\Generated_Source\PSoC4/Cm0Start.c ****     /*******************************************************************************
+  85:.\Generated_Source\PSoC4/Cm0Start.c ****     This variable is used by the Bootloader/Bootloadable components to schedule
+  86:.\Generated_Source\PSoC4/Cm0Start.c ****     what application will be started after a software reset.
+  87:.\Generated_Source\PSoC4/Cm0Start.c ****     *******************************************************************************/
+  88:.\Generated_Source\PSoC4/Cm0Start.c ****     #if (__ARMCC_VERSION)
+  89:.\Generated_Source\PSoC4/Cm0Start.c ****         __attribute__ ((section(".bootloaderruntype"), zero_init))
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 3
+
+
+  90:.\Generated_Source\PSoC4/Cm0Start.c ****     #elif defined (__GNUC__)
+  91:.\Generated_Source\PSoC4/Cm0Start.c ****         __attribute__ ((section(".bootloaderruntype")))
+  92:.\Generated_Source\PSoC4/Cm0Start.c ****     #elif defined (__ICCARM__)
+  93:.\Generated_Source\PSoC4/Cm0Start.c ****         #pragma location=".bootloaderruntype"
+  94:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* (__ARMCC_VERSION) */
+  95:.\Generated_Source\PSoC4/Cm0Start.c ****     volatile uint32 cyBtldrRunType;
+  96:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  97:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_STANDARD) */
+  98:.\Generated_Source\PSoC4/Cm0Start.c **** 
+  99:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 100:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 101:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: IntDefaultHandler
+ 102:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 103:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 104:.\Generated_Source\PSoC4/Cm0Start.c **** *  This function is called for all interrupts, other than a reset that is called
+ 105:.\Generated_Source\PSoC4/Cm0Start.c **** *  before the system is setup.
+ 106:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 107:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 108:.\Generated_Source\PSoC4/Cm0Start.c **** CY_NORETURN
+ 109:.\Generated_Source\PSoC4/Cm0Start.c **** CY_ISR(IntDefaultHandler)
+ 110:.\Generated_Source\PSoC4/Cm0Start.c **** {
+  26              		.loc 1 110 0
+  27              		.cfi_startproc
+  28              	.L2:
+ 111:.\Generated_Source\PSoC4/Cm0Start.c ****     /***************************************************************************
+ 112:.\Generated_Source\PSoC4/Cm0Start.c ****     * We must not get here. If we do, a serious problem occurs, so go into
+ 113:.\Generated_Source\PSoC4/Cm0Start.c ****     * an infinite loop.
+ 114:.\Generated_Source\PSoC4/Cm0Start.c ****     ***************************************************************************/
+ 115:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 116:.\Generated_Source\PSoC4/Cm0Start.c ****     #ifdef CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK
+ 117:.\Generated_Source\PSoC4/Cm0Start.c ****         CyBoot_IntDefaultHandler_Exception_EntryCallback();
+ 118:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK */
+ 119:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 120:.\Generated_Source\PSoC4/Cm0Start.c ****     while(1)
+ 121:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 122:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 123:.\Generated_Source\PSoC4/Cm0Start.c ****     }
+  29              		.loc 1 123 0 discriminator 1
+  30 0000 FEE7     		b	.L2
+  31              		.cfi_endproc
+  32              	.LFE2:
+  33              		.size	IntDefaultHandler, .-IntDefaultHandler
+  34              		.section	.text._exit,"ax",%progbits
+  35              		.align	1
+  36              		.weak	_exit
+  37              		.code	16
+  38              		.thumb_func
+  39              		.type	_exit, %function
+  40              	_exit:
+  41              	.LFB3:
+ 124:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 125:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 126:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined(__ARMCC_VERSION)
+ 127:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 128:.\Generated_Source\PSoC4/Cm0Start.c **** /* Local function for device reset. */
+ 129:.\Generated_Source\PSoC4/Cm0Start.c **** extern void Reset(void);
+ 130:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 4
+
+
+ 131:.\Generated_Source\PSoC4/Cm0Start.c **** /* Application entry point. */
+ 132:.\Generated_Source\PSoC4/Cm0Start.c **** extern void $Super$$main(void);
+ 133:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 134:.\Generated_Source\PSoC4/Cm0Start.c **** /* Linker-generated Stack Base addresses, Two Region and One Region */
+ 135:.\Generated_Source\PSoC4/Cm0Start.c **** extern unsigned long Image$$ARM_LIB_STACK$$ZI$$Limit;
+ 136:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 137:.\Generated_Source\PSoC4/Cm0Start.c **** /* RealView C Library initialization. */
+ 138:.\Generated_Source\PSoC4/Cm0Start.c **** extern int __main(void);
+ 139:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 140:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 141:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 142:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: Reset
+ 143:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 144:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 145:.\Generated_Source\PSoC4/Cm0Start.c **** * This function handles the reset interrupt for the MDK toolchains.
+ 146:.\Generated_Source\PSoC4/Cm0Start.c **** * This is the first bit of code that is executed at startup.
+ 147:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 148:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 149:.\Generated_Source\PSoC4/Cm0Start.c **** void Reset(void)
+ 150:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 151:.\Generated_Source\PSoC4/Cm0Start.c ****     #if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLE || CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLE
+ 152:.\Generated_Source\PSoC4/Cm0Start.c ****         /* The bootloadable application image is started at Reset() handler
+ 153:.\Generated_Source\PSoC4/Cm0Start.c ****         * as a result of a branch instruction execution from the bootloader.
+ 154:.\Generated_Source\PSoC4/Cm0Start.c ****         * So, the stack pointer needs to be reset to be sure that
+ 155:.\Generated_Source\PSoC4/Cm0Start.c ****         * there is no garbage in the stack.
+ 156:.\Generated_Source\PSoC4/Cm0Start.c ****         */
+ 157:.\Generated_Source\PSoC4/Cm0Start.c ****         register uint32_t msp __asm("msp");
+ 158:.\Generated_Source\PSoC4/Cm0Start.c ****         msp = (uint32_t)&Image$$ARM_LIB_STACK$$ZI$$Limit;
+ 159:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLE || CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOA
+ 160:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 161:.\Generated_Source\PSoC4/Cm0Start.c ****     #if(CY_IP_SRSSLT)
+ 162:.\Generated_Source\PSoC4/Cm0Start.c ****         CySysWdtDisable();
+ 163:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* (CY_IP_SRSSLT) */
+ 164:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 165:.\Generated_Source\PSoC4/Cm0Start.c ****     #if ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
+ 166:.\Generated_Source\PSoC4/Cm0Start.c ****         CyBtldr_CheckLaunch();
+ 167:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOAD
+ 168:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 169:.\Generated_Source\PSoC4/Cm0Start.c ****     __main();
+ 170:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 171:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 172:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 173:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: $Sub$$main
+ 174:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 175:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 176:.\Generated_Source\PSoC4/Cm0Start.c **** * This function is called immediately before the users main
+ 177:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 178:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 179:.\Generated_Source\PSoC4/Cm0Start.c **** __attribute__ ((noreturn, __noinline__))
+ 180:.\Generated_Source\PSoC4/Cm0Start.c **** void $Sub$$main(void)
+ 181:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 182:.\Generated_Source\PSoC4/Cm0Start.c ****     initialize_psoc();
+ 183:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 184:.\Generated_Source\PSoC4/Cm0Start.c ****     /* Call original main */
+ 185:.\Generated_Source\PSoC4/Cm0Start.c ****     $Super$$main();
+ 186:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 187:.\Generated_Source\PSoC4/Cm0Start.c ****     while (1)
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 5
+
+
+ 188:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 189:.\Generated_Source\PSoC4/Cm0Start.c ****         /* If main returns it is undefined what we should do. */
+ 190:.\Generated_Source\PSoC4/Cm0Start.c ****     }
+ 191:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 192:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 193:.\Generated_Source\PSoC4/Cm0Start.c **** #elif defined(__GNUC__)
+ 194:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 195:.\Generated_Source\PSoC4/Cm0Start.c **** /* Stack Base address */
+ 196:.\Generated_Source\PSoC4/Cm0Start.c **** extern void __cy_stack(void);
+ 197:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 198:.\Generated_Source\PSoC4/Cm0Start.c **** /* Application entry point. */
+ 199:.\Generated_Source\PSoC4/Cm0Start.c **** extern int main(void);
+ 200:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 201:.\Generated_Source\PSoC4/Cm0Start.c **** /* The static objects constructors initializer */
+ 202:.\Generated_Source\PSoC4/Cm0Start.c **** extern void __libc_init_array(void);
+ 203:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 204:.\Generated_Source\PSoC4/Cm0Start.c **** typedef unsigned char __cy_byte_align8 __attribute ((aligned (8)));
+ 205:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 206:.\Generated_Source\PSoC4/Cm0Start.c **** struct __cy_region
+ 207:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 208:.\Generated_Source\PSoC4/Cm0Start.c ****     __cy_byte_align8 *init; /* Initial contents of this region.  */
+ 209:.\Generated_Source\PSoC4/Cm0Start.c ****     __cy_byte_align8 *data; /* Start address of region.  */
+ 210:.\Generated_Source\PSoC4/Cm0Start.c ****     size_t init_size;       /* Size of initial data.  */
+ 211:.\Generated_Source\PSoC4/Cm0Start.c ****     size_t zero_size;       /* Additional size to be zeroed.  */
+ 212:.\Generated_Source\PSoC4/Cm0Start.c **** };
+ 213:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 214:.\Generated_Source\PSoC4/Cm0Start.c **** extern const struct __cy_region __cy_regions[];
+ 215:.\Generated_Source\PSoC4/Cm0Start.c **** extern const char __cy_region_num __attribute__((weak));
+ 216:.\Generated_Source\PSoC4/Cm0Start.c **** #define __cy_region_num ((size_t)&__cy_region_num)
+ 217:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 218:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 219:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 220:.\Generated_Source\PSoC4/Cm0Start.c **** * System Calls of the Red Hat newlib C Library
+ 221:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 222:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 223:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 224:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 225:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: _exit
+ 226:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 227:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 228:.\Generated_Source\PSoC4/Cm0Start.c **** * Exit a program without cleaning up files. If your system doesn't provide
+ 229:.\Generated_Source\PSoC4/Cm0Start.c **** * this, it is best to avoid linking with subroutines that require it (exit,
+ 230:.\Generated_Source\PSoC4/Cm0Start.c **** * system).
+ 231:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 232:.\Generated_Source\PSoC4/Cm0Start.c **** * \param status: Status caused program exit.
+ 233:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 234:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 235:.\Generated_Source\PSoC4/Cm0Start.c **** __attribute__((weak))
+ 236:.\Generated_Source\PSoC4/Cm0Start.c **** void _exit(int status)
+ 237:.\Generated_Source\PSoC4/Cm0Start.c **** {
+  42              		.loc 1 237 0
+  43              		.cfi_startproc
+  44              	.LVL0:
+  45 0000 08B5     		push	{r3, lr}
+  46              		.cfi_def_cfa_offset 8
+  47              		.cfi_offset 3, -8
+  48              		.cfi_offset 14, -4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 6
+
+
+ 238:.\Generated_Source\PSoC4/Cm0Start.c ****     CyHalt((uint8) status);
+  49              		.loc 1 238 0
+  50 0002 C0B2     		uxtb	r0, r0
+  51              	.LVL1:
+  52 0004 FFF7FEFF 		bl	CyHalt
+  53              	.LVL2:
+  54              	.L4:
+ 239:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 240:.\Generated_Source\PSoC4/Cm0Start.c ****     while(1)
+ 241:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 242:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 243:.\Generated_Source\PSoC4/Cm0Start.c ****     }
+  55              		.loc 1 243 0 discriminator 1
+  56 0008 FEE7     		b	.L4
+  57              		.cfi_endproc
+  58              	.LFE3:
+  59              		.size	_exit, .-_exit
+  60              		.section	.text._sbrk,"ax",%progbits
+  61              		.align	1
+  62              		.weak	_sbrk
+  63              		.code	16
+  64              		.thumb_func
+  65              		.type	_sbrk, %function
+  66              	_sbrk:
+  67              	.LFB4:
+ 244:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 245:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 246:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 247:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 248:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: _sbrk
+ 249:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 250:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 251:.\Generated_Source\PSoC4/Cm0Start.c **** * Increase program data space. As malloc and related functions depend on this,
+ 252:.\Generated_Source\PSoC4/Cm0Start.c **** * it is useful to have a working implementation. The following suffices for a
+ 253:.\Generated_Source\PSoC4/Cm0Start.c **** * standalone system; it exploits the symbol end automatically defined by the
+ 254:.\Generated_Source\PSoC4/Cm0Start.c **** * GNU linker.
+ 255:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 256:.\Generated_Source\PSoC4/Cm0Start.c **** * \param nbytes: The number of bytes requested (if the parameter value is positive)
+ 257:.\Generated_Source\PSoC4/Cm0Start.c **** * from the heap or returned back to the heap (if the parameter value is
+ 258:.\Generated_Source\PSoC4/Cm0Start.c **** * negative).
+ 259:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 260:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 261:.\Generated_Source\PSoC4/Cm0Start.c **** __attribute__((weak))
+ 262:.\Generated_Source\PSoC4/Cm0Start.c **** void * _sbrk (int nbytes)
+ 263:.\Generated_Source\PSoC4/Cm0Start.c **** {
+  68              		.loc 1 263 0
+  69              		.cfi_startproc
+  70              	.LVL3:
+  71 0000 031C     		mov	r3, r0
+  72 0002 10B5     		push	{r4, lr}
+  73              		.cfi_def_cfa_offset 8
+  74              		.cfi_offset 4, -8
+  75              		.cfi_offset 14, -4
+ 264:.\Generated_Source\PSoC4/Cm0Start.c ****     extern int  end;            /* Symbol defined by linker map. Start of free memory (as symbol). 
+ 265:.\Generated_Source\PSoC4/Cm0Start.c ****     void *      returnValue;
+ 266:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 267:.\Generated_Source\PSoC4/Cm0Start.c ****     /* The statically held previous end of the heap, with its initialization. */
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 7
+
+
+ 268:.\Generated_Source\PSoC4/Cm0Start.c ****     static void *heapPointer = (void *) &end;                 /* Previous end */
+ 269:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 270:.\Generated_Source\PSoC4/Cm0Start.c ****     if (((heapPointer + nbytes) - (void *) &end) <= CYDEV_HEAP_SIZE)
+  76              		.loc 1 270 0
+  77 0004 8024     		mov	r4, #128
+  78 0006 0849     		ldr	r1, .L9
+  79 0008 084A     		ldr	r2, .L9+4
+  80 000a 0868     		ldr	r0, [r1]
+  81              	.LVL4:
+  82 000c E400     		lsl	r4, r4, #3
+  83 000e C318     		add	r3, r0, r3
+  84              	.LVL5:
+  85 0010 9A1A     		sub	r2, r3, r2
+  86 0012 A242     		cmp	r2, r4
+  87 0014 01DC     		bgt	.L7
+  88              	.LVL6:
+ 271:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 272:.\Generated_Source\PSoC4/Cm0Start.c ****         returnValue  = heapPointer;
+ 273:.\Generated_Source\PSoC4/Cm0Start.c ****         heapPointer += nbytes;
+  89              		.loc 1 273 0
+  90 0016 0B60     		str	r3, [r1]
+  91 0018 05E0     		b	.L8
+  92              	.LVL7:
+  93              	.L7:
+ 274:.\Generated_Source\PSoC4/Cm0Start.c ****     }
+ 275:.\Generated_Source\PSoC4/Cm0Start.c ****     else
+ 276:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 277:.\Generated_Source\PSoC4/Cm0Start.c ****         errno = ENOMEM;
+  94              		.loc 1 277 0
+  95 001a FFF7FEFF 		bl	__errno
+  96              	.LVL8:
+  97 001e 0C23     		mov	r3, #12
+  98 0020 0360     		str	r3, [r0]
+  99              	.LVL9:
+ 278:.\Generated_Source\PSoC4/Cm0Start.c ****         returnValue = (void *) -1;
+ 100              		.loc 1 278 0
+ 101 0022 0120     		mov	r0, #1
+ 102 0024 4042     		neg	r0, r0
+ 103              	.LVL10:
+ 104              	.L8:
+ 279:.\Generated_Source\PSoC4/Cm0Start.c ****     }
+ 280:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 281:.\Generated_Source\PSoC4/Cm0Start.c ****     return (returnValue);
+ 282:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 105              		.loc 1 282 0
+ 106              		@ sp needed
+ 107 0026 10BD     		pop	{r4, pc}
+ 108              	.L10:
+ 109              		.align	2
+ 110              	.L9:
+ 111 0028 00000000 		.word	.LANCHOR0
+ 112 002c 00000000 		.word	end
+ 113              		.cfi_endproc
+ 114              	.LFE4:
+ 115              		.size	_sbrk, .-_sbrk
+ 116              		.section	.text.Start_c,"ax",%progbits
+ 117              		.align	1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 8
+
+
+ 118              		.global	Start_c
+ 119              		.code	16
+ 120              		.thumb_func
+ 121              		.type	Start_c, %function
+ 122              	Start_c:
+ 123              	.LFB5:
+ 283:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 284:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 285:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 286:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: Start_c
+ 287:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 288:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 289:.\Generated_Source\PSoC4/Cm0Start.c **** * This function handles initializing the .data and .bss sections in
+ 290:.\Generated_Source\PSoC4/Cm0Start.c **** * preparation for running the standard c code.  Once initialization is complete
+ 291:.\Generated_Source\PSoC4/Cm0Start.c **** * it will call main().  This function will never return.
+ 292:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 293:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 294:.\Generated_Source\PSoC4/Cm0Start.c **** void Start_c(void)  __attribute__ ((noreturn, noinline));
+ 295:.\Generated_Source\PSoC4/Cm0Start.c **** void Start_c(void)
+ 296:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 124              		.loc 1 296 0
+ 125              		.cfi_startproc
+ 126              	.LVL11:
+ 127 0000 70B5     		push	{r4, r5, r6, lr}
+ 128              		.cfi_def_cfa_offset 16
+ 129              		.cfi_offset 4, -16
+ 130              		.cfi_offset 5, -12
+ 131              		.cfi_offset 6, -8
+ 132              		.cfi_offset 14, -4
+ 133 0002 1049     		ldr	r1, .L22
+ 297:.\Generated_Source\PSoC4/Cm0Start.c ****     #ifdef CY_BOOT_START_C_CALLBACK
+ 298:.\Generated_Source\PSoC4/Cm0Start.c ****         CyBoot_Start_c_Callback();
+ 299:.\Generated_Source\PSoC4/Cm0Start.c ****     #else
+ 300:.\Generated_Source\PSoC4/Cm0Start.c ****         unsigned regions = __cy_region_num;
+ 301:.\Generated_Source\PSoC4/Cm0Start.c ****         const struct __cy_region *rptr = __cy_regions;
+ 134              		.loc 1 301 0
+ 135 0004 104B     		ldr	r3, .L22+4
+ 136 0006 0139     		sub	r1, r1, #1
+ 137              	.LVL12:
+ 138              	.L12:
+ 302:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 303:.\Generated_Source\PSoC4/Cm0Start.c ****         /* Initialize memory */
+ 304:.\Generated_Source\PSoC4/Cm0Start.c ****         for (regions = __cy_region_num; regions != 0u; regions--)
+ 139              		.loc 1 304 0 discriminator 1
+ 140 0008 4A1C     		add	r2, r1, #1
+ 141 000a 15D0     		beq	.L19
+ 142              	.LBB2:
+ 305:.\Generated_Source\PSoC4/Cm0Start.c ****         {
+ 306:.\Generated_Source\PSoC4/Cm0Start.c ****             uint32 *src = (uint32 *)rptr->init;
+ 307:.\Generated_Source\PSoC4/Cm0Start.c ****             uint32 *dst = (uint32 *)rptr->data;
+ 308:.\Generated_Source\PSoC4/Cm0Start.c ****             unsigned limit = rptr->init_size;
+ 309:.\Generated_Source\PSoC4/Cm0Start.c ****             unsigned count;
+ 310:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 311:.\Generated_Source\PSoC4/Cm0Start.c ****             for (count = 0u; count != limit; count += sizeof (uint32))
+ 143              		.loc 1 311 0
+ 144 000c 0022     		mov	r2, #0
+ 306:.\Generated_Source\PSoC4/Cm0Start.c ****             uint32 *dst = (uint32 *)rptr->data;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 9
+
+
+ 145              		.loc 1 306 0
+ 146 000e 1E68     		ldr	r6, [r3]
+ 147              	.LVL13:
+ 307:.\Generated_Source\PSoC4/Cm0Start.c ****             unsigned limit = rptr->init_size;
+ 148              		.loc 1 307 0
+ 149 0010 5C68     		ldr	r4, [r3, #4]
+ 150              	.LVL14:
+ 308:.\Generated_Source\PSoC4/Cm0Start.c ****             unsigned count;
+ 151              		.loc 1 308 0
+ 152 0012 9D68     		ldr	r5, [r3, #8]
+ 153              	.LVL15:
+ 154              	.L13:
+ 155 0014 A018     		add	r0, r4, r2
+ 156              	.LVL16:
+ 157              		.loc 1 311 0 discriminator 1
+ 158 0016 AA42     		cmp	r2, r5
+ 159 0018 03D0     		beq	.L20
+ 312:.\Generated_Source\PSoC4/Cm0Start.c ****             {
+ 313:.\Generated_Source\PSoC4/Cm0Start.c ****                 *dst = *src;
+ 160              		.loc 1 313 0 discriminator 3
+ 161 001a B058     		ldr	r0, [r6, r2]
+ 162              	.LVL17:
+ 163 001c A050     		str	r0, [r4, r2]
+ 164              	.LVL18:
+ 311:.\Generated_Source\PSoC4/Cm0Start.c ****             {
+ 165              		.loc 1 311 0 discriminator 3
+ 166 001e 0432     		add	r2, r2, #4
+ 167              	.LVL19:
+ 168 0020 F8E7     		b	.L13
+ 169              	.LVL20:
+ 170              	.L20:
+ 171 0022 021C     		mov	r2, r0
+ 172              	.LVL21:
+ 314:.\Generated_Source\PSoC4/Cm0Start.c ****                 dst++;
+ 315:.\Generated_Source\PSoC4/Cm0Start.c ****                 src++;
+ 316:.\Generated_Source\PSoC4/Cm0Start.c ****             }
+ 317:.\Generated_Source\PSoC4/Cm0Start.c ****             limit = rptr->zero_size;
+ 173              		.loc 1 317 0
+ 174 0024 DC68     		ldr	r4, [r3, #12]
+ 175              	.LVL22:
+ 176              	.L15:
+ 177 0026 151A     		sub	r5, r2, r0
+ 178              	.LVL23:
+ 318:.\Generated_Source\PSoC4/Cm0Start.c ****             for (count = 0u; count != limit; count += sizeof (uint32))
+ 179              		.loc 1 318 0 discriminator 1
+ 180 0028 A542     		cmp	r5, r4
+ 181 002a 02D0     		beq	.L21
+ 319:.\Generated_Source\PSoC4/Cm0Start.c ****             {
+ 320:.\Generated_Source\PSoC4/Cm0Start.c ****                 *dst = 0u;
+ 182              		.loc 1 320 0 discriminator 3
+ 183 002c 0025     		mov	r5, #0
+ 184              	.LVL24:
+ 185 002e 20C2     		stmia	r2!, {r5}
+ 186              	.LVL25:
+ 187 0030 F9E7     		b	.L15
+ 188              	.LVL26:
+ 189              	.L21:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 10
+
+
+ 321:.\Generated_Source\PSoC4/Cm0Start.c ****                 dst++;
+ 322:.\Generated_Source\PSoC4/Cm0Start.c ****             }
+ 323:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 324:.\Generated_Source\PSoC4/Cm0Start.c ****             rptr++;
+ 190              		.loc 1 324 0 discriminator 2
+ 191 0032 1033     		add	r3, r3, #16
+ 192              	.LVL27:
+ 193 0034 0139     		sub	r1, r1, #1
+ 194              	.LVL28:
+ 195 0036 E7E7     		b	.L12
+ 196              	.LVL29:
+ 197              	.L19:
+ 198              	.LBE2:
+ 325:.\Generated_Source\PSoC4/Cm0Start.c ****         }
+ 326:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 327:.\Generated_Source\PSoC4/Cm0Start.c ****         /* Invoke static objects constructors */
+ 328:.\Generated_Source\PSoC4/Cm0Start.c ****         __libc_init_array();
+ 199              		.loc 1 328 0
+ 200 0038 FFF7FEFF 		bl	__libc_init_array
+ 201              	.LVL30:
+ 329:.\Generated_Source\PSoC4/Cm0Start.c ****         (void) main();
+ 202              		.loc 1 329 0
+ 203 003c FFF7FEFF 		bl	main
+ 204              	.LVL31:
+ 205              	.L18:
+ 330:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 331:.\Generated_Source\PSoC4/Cm0Start.c ****         while (1)
+ 332:.\Generated_Source\PSoC4/Cm0Start.c ****         {
+ 333:.\Generated_Source\PSoC4/Cm0Start.c ****             /* If main returns, make sure we don't return. */
+ 334:.\Generated_Source\PSoC4/Cm0Start.c ****         }
+ 206              		.loc 1 334 0 discriminator 1
+ 207 0040 FEE7     		b	.L18
+ 208              	.L23:
+ 209 0042 C046     		.align	2
+ 210              	.L22:
+ 211 0044 00000000 		.word	__cy_region_num
+ 212 0048 00000000 		.word	__cy_regions
+ 213              		.cfi_endproc
+ 214              	.LFE5:
+ 215              		.size	Start_c, .-Start_c
+ 216              		.section	.text.Reset,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	Reset
+ 219              		.code	16
+ 220              		.thumb_func
+ 221              		.type	Reset, %function
+ 222              	Reset:
+ 223              	.LFB6:
+ 335:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 336:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* CY_BOOT_START_C_CALLBACK */
+ 337:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 338:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 339:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 340:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 341:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: Reset
+ 342:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 343:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 11
+
+
+ 344:.\Generated_Source\PSoC4/Cm0Start.c **** * This function handles the reset interrupt for the GCC toolchain.  This is
+ 345:.\Generated_Source\PSoC4/Cm0Start.c **** * the first bit of code that is executed at startup.
+ 346:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 347:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 348:.\Generated_Source\PSoC4/Cm0Start.c **** void Reset(void)
+ 349:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 224              		.loc 1 349 0
+ 225              		.cfi_startproc
+ 226 0000 08B5     		push	{r3, lr}
+ 227              		.cfi_def_cfa_offset 8
+ 228              		.cfi_offset 3, -8
+ 229              		.cfi_offset 14, -4
+ 350:.\Generated_Source\PSoC4/Cm0Start.c ****     #if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLE || CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLE
+ 351:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 352:.\Generated_Source\PSoC4/Cm0Start.c ****         /* The bootloadable application image is started at Reset() handler
+ 353:.\Generated_Source\PSoC4/Cm0Start.c ****         * as a result of a branch instruction execution from the bootloader.
+ 354:.\Generated_Source\PSoC4/Cm0Start.c ****         * So, the stack pointer needs to be reset to be sure that
+ 355:.\Generated_Source\PSoC4/Cm0Start.c ****         * there is no garbage in the stack.
+ 356:.\Generated_Source\PSoC4/Cm0Start.c ****         */
+ 357:.\Generated_Source\PSoC4/Cm0Start.c ****         __asm volatile ("MSR msp, %0\n" : : "r" ((uint32)&__cy_stack) : "sp");
+ 230              		.loc 1 357 0
+ 231 0002 024B     		ldr	r3, .L25
+ 232              	@ 357 ".\Generated_Source\PSoC4\Cm0Start.c" 1
+ 233 0004 83F30888 		MSR msp, r3
+ 234              	
+ 235              	@ 0 "" 2
+ 358:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* CYDEV_PROJ_TYPE_LOADABLE */
+ 359:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 360:.\Generated_Source\PSoC4/Cm0Start.c ****     #if(CY_IP_SRSSLT)
+ 361:.\Generated_Source\PSoC4/Cm0Start.c ****         CySysWdtDisable();
+ 362:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* (CY_IP_SRSSLT) */
+ 363:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 364:.\Generated_Source\PSoC4/Cm0Start.c ****     #if ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
+ 365:.\Generated_Source\PSoC4/Cm0Start.c ****         CyBtldr_CheckLaunch();
+ 366:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOAD
+ 367:.\Generated_Source\PSoC4/Cm0Start.c ****     Start_c();
+ 236              		.loc 1 367 0
+ 237              		.code	16
+ 238 0008 FFF7FEFF 		bl	Start_c
+ 239              	.LVL32:
+ 240              	.L26:
+ 241              		.align	2
+ 242              	.L25:
+ 243 000c 00000000 		.word	__cy_stack
+ 244              		.cfi_endproc
+ 245              	.LFE6:
+ 246              		.size	Reset, .-Reset
+ 247              		.section	.text.startup.initialize_psoc,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	initialize_psoc
+ 250              		.code	16
+ 251              		.thumb_func
+ 252              		.type	initialize_psoc, %function
+ 253              	initialize_psoc:
+ 254              	.LFB7:
+ 368:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 369:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 12
+
+
+ 370:.\Generated_Source\PSoC4/Cm0Start.c **** #elif defined (__ICCARM__)
+ 371:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 372:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 373:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 374:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: __low_level_init
+ 375:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 376:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 377:.\Generated_Source\PSoC4/Cm0Start.c **** * This function performs early initializations for the IAR Embedded
+ 378:.\Generated_Source\PSoC4/Cm0Start.c **** * Workbench IDE. It is executed in the context of reset interrupt handler
+ 379:.\Generated_Source\PSoC4/Cm0Start.c **** * before the data sections are initialized.
+ 380:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 381:.\Generated_Source\PSoC4/Cm0Start.c **** * \return The value that determines whether or not data sections should be
+ 382:.\Generated_Source\PSoC4/Cm0Start.c **** * initialized by the system startup code:
+ 383:.\Generated_Source\PSoC4/Cm0Start.c **** *    0 - skip data sections initialization;
+ 384:.\Generated_Source\PSoC4/Cm0Start.c **** *    1 - initialize data sections;
+ 385:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 386:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 387:.\Generated_Source\PSoC4/Cm0Start.c **** #pragma inline = never
+ 388:.\Generated_Source\PSoC4/Cm0Start.c **** int __low_level_init(void)
+ 389:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 390:.\Generated_Source\PSoC4/Cm0Start.c ****     #if(CY_IP_SRSSLT)
+ 391:.\Generated_Source\PSoC4/Cm0Start.c ****         CySysWdtDisable();
+ 392:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* (CY_IP_SRSSLT) */
+ 393:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 394:.\Generated_Source\PSoC4/Cm0Start.c **** #if ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
+ 395:.\Generated_Source\PSoC4/Cm0Start.c ****     CyBtldr_CheckLaunch();
+ 396:.\Generated_Source\PSoC4/Cm0Start.c **** #endif /* ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
+ 397:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 398:.\Generated_Source\PSoC4/Cm0Start.c ****     /* Initialize data sections */
+ 399:.\Generated_Source\PSoC4/Cm0Start.c ****     __iar_data_init3();
+ 400:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 401:.\Generated_Source\PSoC4/Cm0Start.c ****     initialize_psoc();
+ 402:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 403:.\Generated_Source\PSoC4/Cm0Start.c ****     return 0;
+ 404:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 405:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 406:.\Generated_Source\PSoC4/Cm0Start.c **** #endif /* __GNUC__ */
+ 407:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 408:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 409:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 410:.\Generated_Source\PSoC4/Cm0Start.c **** * Ram Interrupt Vector table storage area. Must be placed at 0x20000000.
+ 411:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 412:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 413:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined (__ICCARM__)
+ 414:.\Generated_Source\PSoC4/Cm0Start.c ****     #pragma location=".ramvectors"
+ 415:.\Generated_Source\PSoC4/Cm0Start.c **** #else
+ 416:.\Generated_Source\PSoC4/Cm0Start.c ****     #ifndef CY_SYS_RAM_VECTOR_SECTION
+ 417:.\Generated_Source\PSoC4/Cm0Start.c ****         #define CY_SYS_RAM_VECTOR_SECTION CY_SECTION(".ramvectors")
+ 418:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* CY_SYS_RAM_VECTOR_SECTION */
+ 419:.\Generated_Source\PSoC4/Cm0Start.c ****     CY_SYS_RAM_VECTOR_SECTION
+ 420:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined (__ICCARM__) */
+ 421:.\Generated_Source\PSoC4/Cm0Start.c **** cyisraddress CyRamVectors[CY_NUM_VECTORS];
+ 422:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 423:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 424:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 425:.\Generated_Source\PSoC4/Cm0Start.c **** * Rom Interrupt Vector table storage area. Must be 256-byte aligned.
+ 426:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 13
+
+
+ 427:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 428:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined(__ARMCC_VERSION)
+ 429:.\Generated_Source\PSoC4/Cm0Start.c ****     /* Suppress diagnostic message 1296-D: extended constant initialiser used */
+ 430:.\Generated_Source\PSoC4/Cm0Start.c ****     #pragma diag_suppress 1296
+ 431:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined(__ARMCC_VERSION) */
+ 432:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 433:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined (__ICCARM__)
+ 434:.\Generated_Source\PSoC4/Cm0Start.c ****     #pragma location=".romvectors"
+ 435:.\Generated_Source\PSoC4/Cm0Start.c ****     const intvec_elem __vector_table[CY_NUM_ROM_VECTORS] =
+ 436:.\Generated_Source\PSoC4/Cm0Start.c **** #else
+ 437:.\Generated_Source\PSoC4/Cm0Start.c ****     #ifndef CY_SYS_ROM_VECTOR_SECTION
+ 438:.\Generated_Source\PSoC4/Cm0Start.c ****         #define CY_SYS_ROM_VECTOR_SECTION CY_SECTION(".romvectors")
+ 439:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* CY_SYS_ROM_VECTOR_SECTION */
+ 440:.\Generated_Source\PSoC4/Cm0Start.c ****     CY_SYS_ROM_VECTOR_SECTION
+ 441:.\Generated_Source\PSoC4/Cm0Start.c ****     const cyisraddress RomVectors[CY_NUM_ROM_VECTORS] =
+ 442:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined (__ICCARM__) */
+ 443:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 444:.\Generated_Source\PSoC4/Cm0Start.c ****     CY_SYS_INITIAL_STACK_POINTER,   /* The initial stack pointer  0 */
+ 445:.\Generated_Source\PSoC4/Cm0Start.c ****     #if defined (__ICCARM__) /* The reset handler          1 */
+ 446:.\Generated_Source\PSoC4/Cm0Start.c ****         __iar_program_start,
+ 447:.\Generated_Source\PSoC4/Cm0Start.c ****     #else
+ 448:.\Generated_Source\PSoC4/Cm0Start.c ****         (cyisraddress)&Reset,
+ 449:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* defined (__ICCARM__) */
+ 450:.\Generated_Source\PSoC4/Cm0Start.c ****     &IntDefaultHandler,      /* The NMI handler            2 */
+ 451:.\Generated_Source\PSoC4/Cm0Start.c ****     &IntDefaultHandler,      /* The hard fault handler     3 */
+ 452:.\Generated_Source\PSoC4/Cm0Start.c **** };
+ 453:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 454:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined(__ARMCC_VERSION)
+ 455:.\Generated_Source\PSoC4/Cm0Start.c ****     #pragma diag_default 1296
+ 456:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined(__ARMCC_VERSION) */
+ 457:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 458:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 459:.\Generated_Source\PSoC4/Cm0Start.c **** /*******************************************************************************
+ 460:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: initialize_psoc
+ 461:.\Generated_Source\PSoC4/Cm0Start.c **** ****************************************************************************//**
+ 462:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 463:.\Generated_Source\PSoC4/Cm0Start.c **** * This function is used to initialize the PSoC chip before calling main.
+ 464:.\Generated_Source\PSoC4/Cm0Start.c **** *
+ 465:.\Generated_Source\PSoC4/Cm0Start.c **** *******************************************************************************/
+ 466:.\Generated_Source\PSoC4/Cm0Start.c **** #if(defined(__GNUC__) && !defined(__ARMCC_VERSION))
+ 467:.\Generated_Source\PSoC4/Cm0Start.c **** __attribute__ ((constructor(101)))
+ 468:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* (defined(__GNUC__) && !defined(__ARMCC_VERSION)) */
+ 469:.\Generated_Source\PSoC4/Cm0Start.c **** void initialize_psoc(void)
+ 470:.\Generated_Source\PSoC4/Cm0Start.c **** {
+ 255              		.loc 1 470 0
+ 256              		.cfi_startproc
+ 471:.\Generated_Source\PSoC4/Cm0Start.c ****     uint32 indexInit;
+ 472:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 473:.\Generated_Source\PSoC4/Cm0Start.c ****     #if(CY_IP_CPUSSV2)
+ 474:.\Generated_Source\PSoC4/Cm0Start.c ****         #if (CY_IP_CPUSS_CM0)
+ 475:.\Generated_Source\PSoC4/Cm0Start.c ****             /***********************************************************************
+ 476:.\Generated_Source\PSoC4/Cm0Start.c ****             * Make sure that Vector Table is located at 0000_0000 in Flash, before
+ 477:.\Generated_Source\PSoC4/Cm0Start.c ****             * accessing RomVectors or calling functions that may be placed in
+ 478:.\Generated_Source\PSoC4/Cm0Start.c ****             * .psocinit (cyfitter_cfg and ClockSetup). Note The CY_CPUSS_CONFIG_REG
+ 479:.\Generated_Source\PSoC4/Cm0Start.c ****             * register is retention for the specified device family.
+ 480:.\Generated_Source\PSoC4/Cm0Start.c ****             ***********************************************************************/
+ 481:.\Generated_Source\PSoC4/Cm0Start.c ****             CY_CPUSS_CONFIG_REG &= (uint32) ~CY_CPUSS_CONFIG_VECT_IN_RAM;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 14
+
+
+ 257              		.loc 1 481 0
+ 258 0000 0121     		mov	r1, #1
+ 259 0002 104A     		ldr	r2, .L32
+ 470:.\Generated_Source\PSoC4/Cm0Start.c ****     uint32 indexInit;
+ 260              		.loc 1 470 0
+ 261 0004 10B5     		push	{r4, lr}
+ 262              		.cfi_def_cfa_offset 8
+ 263              		.cfi_offset 4, -8
+ 264              		.cfi_offset 14, -4
+ 265              		.loc 1 481 0
+ 266 0006 1368     		ldr	r3, [r2]
+ 267 0008 141C     		mov	r4, r2
+ 268 000a 8B43     		bic	r3, r1
+ 269 000c 1360     		str	r3, [r2]
+ 270              	.LVL33:
+ 482:.\Generated_Source\PSoC4/Cm0Start.c ****         #endif /* (CY_IP_CPUSS_CM0) */
+ 483:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* (CY_IP_CPUSSV2) */
+ 484:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 485:.\Generated_Source\PSoC4/Cm0Start.c ****     /* Set Ram interrupt vectors to default functions. */
+ 486:.\Generated_Source\PSoC4/Cm0Start.c ****     for (indexInit = 0u; indexInit < CY_NUM_VECTORS; indexInit++)
+ 271              		.loc 1 486 0
+ 272 000e 0023     		mov	r3, #0
+ 273              	.LVL34:
+ 274              	.L29:
+ 275 0010 9A00     		lsl	r2, r3, #2
+ 487:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 488:.\Generated_Source\PSoC4/Cm0Start.c ****         CyRamVectors[indexInit] = (indexInit < CY_NUM_ROM_VECTORS) ?
+ 489:.\Generated_Source\PSoC4/Cm0Start.c ****             #if defined (__ICCARM__)
+ 490:.\Generated_Source\PSoC4/Cm0Start.c ****                 __vector_table[indexInit].__fun : &IntDefaultHandler;
+ 491:.\Generated_Source\PSoC4/Cm0Start.c ****             #else
+ 492:.\Generated_Source\PSoC4/Cm0Start.c ****                 RomVectors[indexInit] : &IntDefaultHandler;
+ 276              		.loc 1 492 0
+ 277 0012 0D49     		ldr	r1, .L32+4
+ 278 0014 032B     		cmp	r3, #3
+ 279 0016 01D8     		bhi	.L28
+ 280              		.loc 1 492 0 is_stmt 0 discriminator 1
+ 281 0018 0C49     		ldr	r1, .L32+8
+ 282 001a 8958     		ldr	r1, [r1, r2]
+ 283              	.L28:
+ 488:.\Generated_Source\PSoC4/Cm0Start.c ****             #if defined (__ICCARM__)
+ 284              		.loc 1 488 0 is_stmt 1 discriminator 2
+ 285 001c 0C48     		ldr	r0, .L32+12
+ 486:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 286              		.loc 1 486 0 discriminator 2
+ 287 001e 0133     		add	r3, r3, #1
+ 288              	.LVL35:
+ 488:.\Generated_Source\PSoC4/Cm0Start.c ****             #if defined (__ICCARM__)
+ 289              		.loc 1 488 0 discriminator 2
+ 290 0020 8150     		str	r1, [r0, r2]
+ 486:.\Generated_Source\PSoC4/Cm0Start.c ****     {
+ 291              		.loc 1 486 0 discriminator 2
+ 292 0022 302B     		cmp	r3, #48
+ 293 0024 F4D1     		bne	.L29
+ 493:.\Generated_Source\PSoC4/Cm0Start.c ****             #endif  /* defined (__ICCARM__) */
+ 494:.\Generated_Source\PSoC4/Cm0Start.c ****     }
+ 495:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 496:.\Generated_Source\PSoC4/Cm0Start.c ****     /* Initialize configuration registers. */
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 15
+
+
+ 497:.\Generated_Source\PSoC4/Cm0Start.c ****     cyfitter_cfg();
+ 294              		.loc 1 497 0
+ 295 0026 FFF7FEFF 		bl	cyfitter_cfg
+ 296              	.LVL36:
+ 498:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 499:.\Generated_Source\PSoC4/Cm0Start.c ****     #if !defined (__ICCARM__)
+ 500:.\Generated_Source\PSoC4/Cm0Start.c ****         /* Actually, no need to clean this variable, just to make compiler happy. */
+ 501:.\Generated_Source\PSoC4/Cm0Start.c ****         cySysNoInitDataValid = 0u;
+ 297              		.loc 1 501 0
+ 298 002a 0022     		mov	r2, #0
+ 299 002c 094B     		ldr	r3, .L32+16
+ 300 002e 1A60     		str	r2, [r3]
+ 502:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* !defined (__ICCARM__) */
+ 503:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 504:.\Generated_Source\PSoC4/Cm0Start.c ****     #if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_STANDARD)
+ 505:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 506:.\Generated_Source\PSoC4/Cm0Start.c ****         /* Need to make sure that this variable will not be optimized out */
+ 507:.\Generated_Source\PSoC4/Cm0Start.c ****         if (0u == cyBtldrRunType)
+ 301              		.loc 1 507 0
+ 302 0030 094B     		ldr	r3, .L32+20
+ 303 0032 1A68     		ldr	r2, [r3]
+ 304 0034 002A     		cmp	r2, #0
+ 305 0036 00D1     		bne	.L30
+ 508:.\Generated_Source\PSoC4/Cm0Start.c ****         {
+ 509:.\Generated_Source\PSoC4/Cm0Start.c ****             cyBtldrRunType = 0u;
+ 306              		.loc 1 509 0
+ 307 0038 1A60     		str	r2, [r3]
+ 308              	.L30:
+ 510:.\Generated_Source\PSoC4/Cm0Start.c ****         }
+ 511:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 512:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_STANDARD) */
+ 513:.\Generated_Source\PSoC4/Cm0Start.c **** 
+ 514:.\Generated_Source\PSoC4/Cm0Start.c ****     #if (CY_IP_CPUSS_CM0)
+ 515:.\Generated_Source\PSoC4/Cm0Start.c ****         /* Vector Table is located at 0x2000:0000 in SRAM */
+ 516:.\Generated_Source\PSoC4/Cm0Start.c ****         CY_CPUSS_CONFIG_REG |= CY_CPUSS_CONFIG_VECT_IN_RAM;
+ 309              		.loc 1 516 0
+ 310 003a 0122     		mov	r2, #1
+ 311 003c 2368     		ldr	r3, [r4]
+ 517:.\Generated_Source\PSoC4/Cm0Start.c **** 	#else
+ 518:.\Generated_Source\PSoC4/Cm0Start.c **** 		(*(uint32 *)CYREG_CM0P_VTOR) = CY_CPUSS_CONFIG_VECT_ADDR_IN_RAM;
+ 519:.\Generated_Source\PSoC4/Cm0Start.c ****     #endif /* (CY_IP_CPUSS_CM0) */
+ 520:.\Generated_Source\PSoC4/Cm0Start.c **** }
+ 312              		.loc 1 520 0
+ 313              		@ sp needed
+ 516:.\Generated_Source\PSoC4/Cm0Start.c **** 	#else
+ 314              		.loc 1 516 0
+ 315 003e 1343     		orr	r3, r2
+ 316 0040 2360     		str	r3, [r4]
+ 317              		.loc 1 520 0
+ 318 0042 10BD     		pop	{r4, pc}
+ 319              	.L33:
+ 320              		.align	2
+ 321              	.L32:
+ 322 0044 00001040 		.word	1074790400
+ 323 0048 00000000 		.word	IntDefaultHandler
+ 324 004c 00000000 		.word	.LANCHOR1
+ 325 0050 00000000 		.word	.LANCHOR2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 16
+
+
+ 326 0054 00000000 		.word	.LANCHOR3
+ 327 0058 00000000 		.word	.LANCHOR4
+ 328              		.cfi_endproc
+ 329              	.LFE7:
+ 330              		.size	initialize_psoc, .-initialize_psoc
+ 331              		.section	.init_array,"aw",%init_array
+ 332              		.align	2
+ 333 0000 00000000 		.word	initialize_psoc(target1)
+ 334              		.global	RomVectors
+ 335              		.global	CyRamVectors
+ 336              		.global	cyBtldrRunType
+ 337              		.section	.bootloaderruntype,"aw",%progbits
+ 338              		.align	2
+ 339              		.set	.LANCHOR4,. + 0
+ 340              		.type	cyBtldrRunType, %object
+ 341              		.size	cyBtldrRunType, 4
+ 342              	cyBtldrRunType:
+ 343 0000 00000000 		.space	4
+ 344              		.section	.romvectors,"a",%progbits
+ 345              		.align	2
+ 346              		.set	.LANCHOR1,. + 0
+ 347              		.type	RomVectors, %object
+ 348              		.size	RomVectors, 16
+ 349              	RomVectors:
+ 350 0000 00000000 		.word	__cy_stack
+ 351 0004 00000000 		.word	Reset
+ 352 0008 00000000 		.word	IntDefaultHandler
+ 353 000c 00000000 		.word	IntDefaultHandler
+ 354              		.data
+ 355              		.align	2
+ 356              		.set	.LANCHOR0,. + 0
+ 357              		.type	heapPointer.4758, %object
+ 358              		.size	heapPointer.4758, 4
+ 359              	heapPointer.4758:
+ 360 0000 00000000 		.word	end
+ 361              		.section	.noinit,"aw",%progbits
+ 362              		.align	2
+ 363              		.set	.LANCHOR3,. + 0
+ 364              		.type	cySysNoInitDataValid, %object
+ 365              		.size	cySysNoInitDataValid, 4
+ 366              	cySysNoInitDataValid:
+ 367 0000 00000000 		.space	4
+ 368              		.section	.ramvectors,"aw",%progbits
+ 369              		.align	2
+ 370              		.set	.LANCHOR2,. + 0
+ 371              		.type	CyRamVectors, %object
+ 372              		.size	CyRamVectors, 192
+ 373              	CyRamVectors:
+ 374 0000 00000000 		.space	192
+ 374      00000000 
+ 374      00000000 
+ 374      00000000 
+ 374      00000000 
+ 375              		.weak	__cy_region_num
+ 376              		.text
+ 377              	.Letext0:
+ 378              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 17
+
+
+ 379              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 380              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 381              		.file 5 ".\\Generated_Source\\PSoC4\\cyfitter_cfg.h"
+ 382              		.file 6 ".\\Generated_Source\\PSoC4\\CyLib.h"
+ 383              		.section	.debug_info,"",%progbits
+ 384              	.Ldebug_info0:
+ 385 0000 99030000 		.4byte	0x399
+ 386 0004 0400     		.2byte	0x4
+ 387 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 388 000a 04       		.byte	0x4
+ 389 000b 01       		.uleb128 0x1
+ 390 000c 14000000 		.4byte	.LASF46
+ 391 0010 01       		.byte	0x1
+ 392 0011 51020000 		.4byte	.LASF47
+ 393 0015 7F020000 		.4byte	.LASF48
+ 394 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 395 001d 00000000 		.4byte	0
+ 396 0021 00000000 		.4byte	.Ldebug_line0
+ 397 0025 02       		.uleb128 0x2
+ 398 0026 01       		.byte	0x1
+ 399 0027 06       		.byte	0x6
+ 400 0028 EB020000 		.4byte	.LASF0
+ 401 002c 02       		.uleb128 0x2
+ 402 002d 01       		.byte	0x1
+ 403 002e 08       		.byte	0x8
+ 404 002f 24010000 		.4byte	.LASF1
+ 405 0033 02       		.uleb128 0x2
+ 406 0034 02       		.byte	0x2
+ 407 0035 05       		.byte	0x5
+ 408 0036 75020000 		.4byte	.LASF2
+ 409 003a 02       		.uleb128 0x2
+ 410 003b 02       		.byte	0x2
+ 411 003c 07       		.byte	0x7
+ 412 003d DB000000 		.4byte	.LASF3
+ 413 0041 02       		.uleb128 0x2
+ 414 0042 04       		.byte	0x4
+ 415 0043 05       		.byte	0x5
+ 416 0044 E2020000 		.4byte	.LASF4
+ 417 0048 02       		.uleb128 0x2
+ 418 0049 04       		.byte	0x4
+ 419 004a 07       		.byte	0x7
+ 420 004b 49010000 		.4byte	.LASF5
+ 421 004f 02       		.uleb128 0x2
+ 422 0050 08       		.byte	0x8
+ 423 0051 05       		.byte	0x5
+ 424 0052 3E020000 		.4byte	.LASF6
+ 425 0056 02       		.uleb128 0x2
+ 426 0057 08       		.byte	0x8
+ 427 0058 07       		.byte	0x7
+ 428 0059 F0010000 		.4byte	.LASF7
+ 429 005d 03       		.uleb128 0x3
+ 430 005e 04       		.byte	0x4
+ 431 005f 05       		.byte	0x5
+ 432 0060 696E7400 		.ascii	"int\000"
+ 433 0064 02       		.uleb128 0x2
+ 434 0065 04       		.byte	0x4
+ 435 0066 07       		.byte	0x7
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 18
+
+
+ 436 0067 D6010000 		.4byte	.LASF8
+ 437 006b 04       		.uleb128 0x4
+ 438 006c 70010000 		.4byte	.LASF9
+ 439 0070 02       		.byte	0x2
+ 440 0071 9801     		.2byte	0x198
+ 441 0073 2C000000 		.4byte	0x2c
+ 442 0077 04       		.uleb128 0x4
+ 443 0078 C5010000 		.4byte	.LASF10
+ 444 007c 02       		.byte	0x2
+ 445 007d 9A01     		.2byte	0x19a
+ 446 007f 48000000 		.4byte	0x48
+ 447 0083 02       		.uleb128 0x2
+ 448 0084 04       		.byte	0x4
+ 449 0085 04       		.byte	0x4
+ 450 0086 19010000 		.4byte	.LASF11
+ 451 008a 02       		.uleb128 0x2
+ 452 008b 08       		.byte	0x8
+ 453 008c 04       		.byte	0x4
+ 454 008d 9A010000 		.4byte	.LASF12
+ 455 0091 02       		.uleb128 0x2
+ 456 0092 01       		.byte	0x1
+ 457 0093 08       		.byte	0x8
+ 458 0094 4C020000 		.4byte	.LASF13
+ 459 0098 04       		.uleb128 0x4
+ 460 0099 00000000 		.4byte	.LASF14
+ 461 009d 02       		.byte	0x2
+ 462 009e 4402     		.2byte	0x244
+ 463 00a0 A4000000 		.4byte	0xa4
+ 464 00a4 05       		.uleb128 0x5
+ 465 00a5 77000000 		.4byte	0x77
+ 466 00a9 04       		.uleb128 0x4
+ 467 00aa 0D020000 		.4byte	.LASF15
+ 468 00ae 02       		.byte	0x2
+ 469 00af 5402     		.2byte	0x254
+ 470 00b1 B5000000 		.4byte	0xb5
+ 471 00b5 06       		.uleb128 0x6
+ 472 00b6 04       		.byte	0x4
+ 473 00b7 BB000000 		.4byte	0xbb
+ 474 00bb 07       		.uleb128 0x7
+ 475 00bc 08       		.uleb128 0x8
+ 476 00bd 06000000 		.4byte	.LASF16
+ 477 00c1 03       		.byte	0x3
+ 478 00c2 D4       		.byte	0xd4
+ 479 00c3 64000000 		.4byte	0x64
+ 480 00c7 02       		.uleb128 0x2
+ 481 00c8 04       		.byte	0x4
+ 482 00c9 07       		.byte	0x7
+ 483 00ca 35020000 		.4byte	.LASF17
+ 484 00ce 09       		.uleb128 0x9
+ 485 00cf 04       		.byte	0x4
+ 486 00d0 0A       		.uleb128 0xa
+ 487 00d1 91000000 		.4byte	0x91
+ 488 00d5 08       		.uleb128 0x8
+ 489 00d6 24020000 		.4byte	.LASF18
+ 490 00da 01       		.byte	0x1
+ 491 00db CC       		.byte	0xcc
+ 492 00dc 2C000000 		.4byte	0x2c
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 19
+
+
+ 493 00e0 0B       		.uleb128 0xb
+ 494 00e1 13030000 		.4byte	.LASF49
+ 495 00e5 10       		.byte	0x10
+ 496 00e6 01       		.byte	0x1
+ 497 00e7 CE       		.byte	0xce
+ 498 00e8 1D010000 		.4byte	0x11d
+ 499 00ec 0C       		.uleb128 0xc
+ 500 00ed FE000000 		.4byte	.LASF19
+ 501 00f1 01       		.byte	0x1
+ 502 00f2 D0       		.byte	0xd0
+ 503 00f3 1D010000 		.4byte	0x11d
+ 504 00f7 00       		.byte	0
+ 505 00f8 0C       		.uleb128 0xc
+ 506 00f9 1F010000 		.4byte	.LASF20
+ 507 00fd 01       		.byte	0x1
+ 508 00fe D1       		.byte	0xd1
+ 509 00ff 1D010000 		.4byte	0x11d
+ 510 0103 04       		.byte	0x4
+ 511 0104 0C       		.uleb128 0xc
+ 512 0105 1A020000 		.4byte	.LASF21
+ 513 0109 01       		.byte	0x1
+ 514 010a D2       		.byte	0xd2
+ 515 010b BC000000 		.4byte	0xbc
+ 516 010f 08       		.byte	0x8
+ 517 0110 0C       		.uleb128 0xc
+ 518 0111 0A010000 		.4byte	.LASF22
+ 519 0115 01       		.byte	0x1
+ 520 0116 D3       		.byte	0xd3
+ 521 0117 BC000000 		.4byte	0xbc
+ 522 011b 0C       		.byte	0xc
+ 523 011c 00       		.byte	0
+ 524 011d 06       		.uleb128 0x6
+ 525 011e 04       		.byte	0x4
+ 526 011f D5000000 		.4byte	0xd5
+ 527 0123 0D       		.uleb128 0xd
+ 528 0124 82010000 		.4byte	.LASF50
+ 529 0128 01       		.byte	0x1
+ 530 0129 6D       		.byte	0x6d
+ 531 012a 00000000 		.4byte	.LFB2
+ 532 012e 02000000 		.4byte	.LFE2-.LFB2
+ 533 0132 01       		.uleb128 0x1
+ 534 0133 9C       		.byte	0x9c
+ 535 0134 0E       		.uleb128 0xe
+ 536 0135 7C010000 		.4byte	.LASF27
+ 537 0139 01       		.byte	0x1
+ 538 013a EC       		.byte	0xec
+ 539 013b 00000000 		.4byte	.LFB3
+ 540 013f 0A000000 		.4byte	.LFE3-.LFB3
+ 541 0143 01       		.uleb128 0x1
+ 542 0144 9C       		.byte	0x9c
+ 543 0145 6A010000 		.4byte	0x16a
+ 544 0149 0F       		.uleb128 0xf
+ 545 014a 03010000 		.4byte	.LASF23
+ 546 014e 01       		.byte	0x1
+ 547 014f EC       		.byte	0xec
+ 548 0150 5D000000 		.4byte	0x5d
+ 549 0154 00000000 		.4byte	.LLST0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 20
+
+
+ 550 0158 10       		.uleb128 0x10
+ 551 0159 08000000 		.4byte	.LVL2
+ 552 015d 61030000 		.4byte	0x361
+ 553 0161 11       		.uleb128 0x11
+ 554 0162 01       		.uleb128 0x1
+ 555 0163 50       		.byte	0x50
+ 556 0164 03       		.uleb128 0x3
+ 557 0165 F3       		.byte	0xf3
+ 558 0166 01       		.uleb128 0x1
+ 559 0167 50       		.byte	0x50
+ 560 0168 00       		.byte	0
+ 561 0169 00       		.byte	0
+ 562 016a 12       		.uleb128 0x12
+ 563 016b 94010000 		.4byte	.LASF51
+ 564 016f 01       		.byte	0x1
+ 565 0170 0601     		.2byte	0x106
+ 566 0172 CE000000 		.4byte	0xce
+ 567 0176 00000000 		.4byte	.LFB4
+ 568 017a 30000000 		.4byte	.LFE4-.LFB4
+ 569 017e 01       		.uleb128 0x1
+ 570 017f 9C       		.byte	0x9c
+ 571 0180 CC010000 		.4byte	0x1cc
+ 572 0184 13       		.uleb128 0x13
+ 573 0185 0C030000 		.4byte	.LASF24
+ 574 0189 01       		.byte	0x1
+ 575 018a 0601     		.2byte	0x106
+ 576 018c 5D000000 		.4byte	0x5d
+ 577 0190 21000000 		.4byte	.LLST1
+ 578 0194 14       		.uleb128 0x14
+ 579 0195 656E6400 		.ascii	"end\000"
+ 580 0199 01       		.byte	0x1
+ 581 019a 0801     		.2byte	0x108
+ 582 019c 5D000000 		.4byte	0x5d
+ 583 01a0 15       		.uleb128 0x15
+ 584 01a1 32010000 		.4byte	.LASF25
+ 585 01a5 01       		.byte	0x1
+ 586 01a6 0901     		.2byte	0x109
+ 587 01a8 CE000000 		.4byte	0xce
+ 588 01ac 4D000000 		.4byte	.LLST2
+ 589 01b0 16       		.uleb128 0x16
+ 590 01b1 CF000000 		.4byte	.LASF26
+ 591 01b5 01       		.byte	0x1
+ 592 01b6 0C01     		.2byte	0x10c
+ 593 01b8 CE000000 		.4byte	0xce
+ 594 01bc 05       		.uleb128 0x5
+ 595 01bd 03       		.byte	0x3
+ 596 01be 00000000 		.4byte	heapPointer.4758
+ 597 01c2 17       		.uleb128 0x17
+ 598 01c3 1E000000 		.4byte	.LVL8
+ 599 01c7 72030000 		.4byte	0x372
+ 600 01cb 00       		.byte	0
+ 601 01cc 18       		.uleb128 0x18
+ 602 01cd C1000000 		.4byte	.LASF28
+ 603 01d1 01       		.byte	0x1
+ 604 01d2 2701     		.2byte	0x127
+ 605 01d4 00000000 		.4byte	.LFB5
+ 606 01d8 4C000000 		.4byte	.LFE5-.LFB5
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 21
+
+
+ 607 01dc 01       		.uleb128 0x1
+ 608 01dd 9C       		.byte	0x9c
+ 609 01de 63020000 		.4byte	0x263
+ 610 01e2 15       		.uleb128 0x15
+ 611 01e3 04030000 		.4byte	.LASF29
+ 612 01e7 01       		.byte	0x1
+ 613 01e8 2C01     		.2byte	0x12c
+ 614 01ea 64000000 		.4byte	0x64
+ 615 01ee 78000000 		.4byte	.LLST3
+ 616 01f2 15       		.uleb128 0x15
+ 617 01f3 14010000 		.4byte	.LASF30
+ 618 01f7 01       		.byte	0x1
+ 619 01f8 2D01     		.2byte	0x12d
+ 620 01fa 63020000 		.4byte	0x263
+ 621 01fe A5000000 		.4byte	.LLST4
+ 622 0202 19       		.uleb128 0x19
+ 623 0203 0C000000 		.4byte	.LBB2
+ 624 0207 2C000000 		.4byte	.LBE2-.LBB2
+ 625 020b 50020000 		.4byte	0x250
+ 626 020f 1A       		.uleb128 0x1a
+ 627 0210 73726300 		.ascii	"src\000"
+ 628 0214 01       		.byte	0x1
+ 629 0215 3201     		.2byte	0x132
+ 630 0217 6E020000 		.4byte	0x26e
+ 631 021b B8000000 		.4byte	.LLST5
+ 632 021f 1A       		.uleb128 0x1a
+ 633 0220 64737400 		.ascii	"dst\000"
+ 634 0224 01       		.byte	0x1
+ 635 0225 3301     		.2byte	0x133
+ 636 0227 6E020000 		.4byte	0x26e
+ 637 022b FD000000 		.4byte	.LLST6
+ 638 022f 15       		.uleb128 0x15
+ 639 0230 07020000 		.4byte	.LASF31
+ 640 0234 01       		.byte	0x1
+ 641 0235 3401     		.2byte	0x134
+ 642 0237 64000000 		.4byte	0x64
+ 643 023b 63010000 		.4byte	.LLST7
+ 644 023f 15       		.uleb128 0x15
+ 645 0240 C9000000 		.4byte	.LASF32
+ 646 0244 01       		.byte	0x1
+ 647 0245 3501     		.2byte	0x135
+ 648 0247 64000000 		.4byte	0x64
+ 649 024b 81010000 		.4byte	.LLST8
+ 650 024f 00       		.byte	0
+ 651 0250 17       		.uleb128 0x17
+ 652 0251 3C000000 		.4byte	.LVL30
+ 653 0255 83030000 		.4byte	0x383
+ 654 0259 17       		.uleb128 0x17
+ 655 025a 40000000 		.4byte	.LVL31
+ 656 025e 8A030000 		.4byte	0x38a
+ 657 0262 00       		.byte	0
+ 658 0263 06       		.uleb128 0x6
+ 659 0264 04       		.byte	0x4
+ 660 0265 69020000 		.4byte	0x269
+ 661 0269 0A       		.uleb128 0xa
+ 662 026a E0000000 		.4byte	0xe0
+ 663 026e 06       		.uleb128 0x6
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 22
+
+
+ 664 026f 04       		.byte	0x4
+ 665 0270 77000000 		.4byte	0x77
+ 666 0274 18       		.uleb128 0x18
+ 667 0275 76010000 		.4byte	.LASF33
+ 668 0279 01       		.byte	0x1
+ 669 027a 5C01     		.2byte	0x15c
+ 670 027c 00000000 		.4byte	.LFB6
+ 671 0280 10000000 		.4byte	.LFE6-.LFB6
+ 672 0284 01       		.uleb128 0x1
+ 673 0285 9C       		.byte	0x9c
+ 674 0286 94020000 		.4byte	0x294
+ 675 028a 17       		.uleb128 0x17
+ 676 028b 0C000000 		.4byte	.LVL32
+ 677 028f CC010000 		.4byte	0x1cc
+ 678 0293 00       		.byte	0
+ 679 0294 18       		.uleb128 0x18
+ 680 0295 B5010000 		.4byte	.LASF34
+ 681 0299 01       		.byte	0x1
+ 682 029a D501     		.2byte	0x1d5
+ 683 029c 00000000 		.4byte	.LFB7
+ 684 02a0 5C000000 		.4byte	.LFE7-.LFB7
+ 685 02a4 01       		.uleb128 0x1
+ 686 02a5 9C       		.byte	0x9c
+ 687 02a6 C4020000 		.4byte	0x2c4
+ 688 02aa 15       		.uleb128 0x15
+ 689 02ab CC010000 		.4byte	.LASF35
+ 690 02af 01       		.byte	0x1
+ 691 02b0 D701     		.2byte	0x1d7
+ 692 02b2 77000000 		.4byte	0x77
+ 693 02b6 CA010000 		.4byte	.LLST9
+ 694 02ba 17       		.uleb128 0x17
+ 695 02bb 2A000000 		.4byte	.LVL36
+ 696 02bf 95030000 		.4byte	0x395
+ 697 02c3 00       		.byte	0
+ 698 02c4 1B       		.uleb128 0x1b
+ 699 02c5 5B010000 		.4byte	.LASF36
+ 700 02c9 01       		.byte	0x1
+ 701 02ca 4E       		.byte	0x4e
+ 702 02cb 77000000 		.4byte	0x77
+ 703 02cf 05       		.uleb128 0x5
+ 704 02d0 03       		.byte	0x3
+ 705 02d1 00000000 		.4byte	cySysNoInitDataValid
+ 706 02d5 14       		.uleb128 0x14
+ 707 02d6 656E6400 		.ascii	"end\000"
+ 708 02da 01       		.byte	0x1
+ 709 02db 0801     		.2byte	0x108
+ 710 02dd 5D000000 		.4byte	0x5d
+ 711 02e1 1C       		.uleb128 0x1c
+ 712 02e2 A6010000 		.4byte	.LASF37
+ 713 02e6 01       		.byte	0x1
+ 714 02e7 5F       		.byte	0x5f
+ 715 02e8 A4000000 		.4byte	0xa4
+ 716 02ec 05       		.uleb128 0x5
+ 717 02ed 03       		.byte	0x3
+ 718 02ee 00000000 		.4byte	cyBtldrRunType
+ 719 02f2 1D       		.uleb128 0x1d
+ 720 02f3 E0000000 		.4byte	0xe0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 23
+
+
+ 721 02f7 FD020000 		.4byte	0x2fd
+ 722 02fb 1E       		.uleb128 0x1e
+ 723 02fc 00       		.byte	0
+ 724 02fd 1F       		.uleb128 0x1f
+ 725 02fe F7020000 		.4byte	.LASF38
+ 726 0302 01       		.byte	0x1
+ 727 0303 D6       		.byte	0xd6
+ 728 0304 08030000 		.4byte	0x308
+ 729 0308 0A       		.uleb128 0xa
+ 730 0309 F2020000 		.4byte	0x2f2
+ 731 030d 1F       		.uleb128 0x1f
+ 732 030e EE000000 		.4byte	.LASF39
+ 733 0312 01       		.byte	0x1
+ 734 0313 D7       		.byte	0xd7
+ 735 0314 D0000000 		.4byte	0xd0
+ 736 0318 1D       		.uleb128 0x1d
+ 737 0319 A9000000 		.4byte	0xa9
+ 738 031d 28030000 		.4byte	0x328
+ 739 0321 20       		.uleb128 0x20
+ 740 0322 C7000000 		.4byte	0xc7
+ 741 0326 2F       		.byte	0x2f
+ 742 0327 00       		.byte	0
+ 743 0328 21       		.uleb128 0x21
+ 744 0329 B4000000 		.4byte	.LASF40
+ 745 032d 01       		.byte	0x1
+ 746 032e A501     		.2byte	0x1a5
+ 747 0330 18030000 		.4byte	0x318
+ 748 0334 05       		.uleb128 0x5
+ 749 0335 03       		.byte	0x3
+ 750 0336 00000000 		.4byte	CyRamVectors
+ 751 033a 1D       		.uleb128 0x1d
+ 752 033b A9000000 		.4byte	0xa9
+ 753 033f 4A030000 		.4byte	0x34a
+ 754 0343 20       		.uleb128 0x20
+ 755 0344 C7000000 		.4byte	0xc7
+ 756 0348 03       		.byte	0x3
+ 757 0349 00       		.byte	0
+ 758 034a 21       		.uleb128 0x21
+ 759 034b 3E010000 		.4byte	.LASF41
+ 760 034f 01       		.byte	0x1
+ 761 0350 B901     		.2byte	0x1b9
+ 762 0352 5C030000 		.4byte	0x35c
+ 763 0356 05       		.uleb128 0x5
+ 764 0357 03       		.byte	0x3
+ 765 0358 00000000 		.4byte	RomVectors
+ 766 035c 0A       		.uleb128 0xa
+ 767 035d 3A030000 		.4byte	0x33a
+ 768 0361 22       		.uleb128 0x22
+ 769 0362 0D000000 		.4byte	.LASF52
+ 770 0366 06       		.byte	0x6
+ 771 0367 E5       		.byte	0xe5
+ 772 0368 72030000 		.4byte	0x372
+ 773 036c 23       		.uleb128 0x23
+ 774 036d 6B000000 		.4byte	0x6b
+ 775 0371 00       		.byte	0
+ 776 0372 24       		.uleb128 0x24
+ 777 0373 DA020000 		.4byte	.LASF42
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 24
+
+
+ 778 0377 04       		.byte	0x4
+ 779 0378 0F       		.byte	0xf
+ 780 0379 7D030000 		.4byte	0x37d
+ 781 037d 06       		.uleb128 0x6
+ 782 037e 04       		.byte	0x4
+ 783 037f 5D000000 		.4byte	0x5d
+ 784 0383 25       		.uleb128 0x25
+ 785 0384 A2000000 		.4byte	.LASF44
+ 786 0388 01       		.byte	0x1
+ 787 0389 CA       		.byte	0xca
+ 788 038a 24       		.uleb128 0x24
+ 789 038b A1010000 		.4byte	.LASF43
+ 790 038f 01       		.byte	0x1
+ 791 0390 C7       		.byte	0xc7
+ 792 0391 5D000000 		.4byte	0x5d
+ 793 0395 25       		.uleb128 0x25
+ 794 0396 E3010000 		.4byte	.LASF45
+ 795 039a 05       		.byte	0x5
+ 796 039b 16       		.byte	0x16
+ 797 039c 00       		.byte	0
+ 798              		.section	.debug_abbrev,"",%progbits
+ 799              	.Ldebug_abbrev0:
+ 800 0000 01       		.uleb128 0x1
+ 801 0001 11       		.uleb128 0x11
+ 802 0002 01       		.byte	0x1
+ 803 0003 25       		.uleb128 0x25
+ 804 0004 0E       		.uleb128 0xe
+ 805 0005 13       		.uleb128 0x13
+ 806 0006 0B       		.uleb128 0xb
+ 807 0007 03       		.uleb128 0x3
+ 808 0008 0E       		.uleb128 0xe
+ 809 0009 1B       		.uleb128 0x1b
+ 810 000a 0E       		.uleb128 0xe
+ 811 000b 55       		.uleb128 0x55
+ 812 000c 17       		.uleb128 0x17
+ 813 000d 11       		.uleb128 0x11
+ 814 000e 01       		.uleb128 0x1
+ 815 000f 10       		.uleb128 0x10
+ 816 0010 17       		.uleb128 0x17
+ 817 0011 00       		.byte	0
+ 818 0012 00       		.byte	0
+ 819 0013 02       		.uleb128 0x2
+ 820 0014 24       		.uleb128 0x24
+ 821 0015 00       		.byte	0
+ 822 0016 0B       		.uleb128 0xb
+ 823 0017 0B       		.uleb128 0xb
+ 824 0018 3E       		.uleb128 0x3e
+ 825 0019 0B       		.uleb128 0xb
+ 826 001a 03       		.uleb128 0x3
+ 827 001b 0E       		.uleb128 0xe
+ 828 001c 00       		.byte	0
+ 829 001d 00       		.byte	0
+ 830 001e 03       		.uleb128 0x3
+ 831 001f 24       		.uleb128 0x24
+ 832 0020 00       		.byte	0
+ 833 0021 0B       		.uleb128 0xb
+ 834 0022 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 25
+
+
+ 835 0023 3E       		.uleb128 0x3e
+ 836 0024 0B       		.uleb128 0xb
+ 837 0025 03       		.uleb128 0x3
+ 838 0026 08       		.uleb128 0x8
+ 839 0027 00       		.byte	0
+ 840 0028 00       		.byte	0
+ 841 0029 04       		.uleb128 0x4
+ 842 002a 16       		.uleb128 0x16
+ 843 002b 00       		.byte	0
+ 844 002c 03       		.uleb128 0x3
+ 845 002d 0E       		.uleb128 0xe
+ 846 002e 3A       		.uleb128 0x3a
+ 847 002f 0B       		.uleb128 0xb
+ 848 0030 3B       		.uleb128 0x3b
+ 849 0031 05       		.uleb128 0x5
+ 850 0032 49       		.uleb128 0x49
+ 851 0033 13       		.uleb128 0x13
+ 852 0034 00       		.byte	0
+ 853 0035 00       		.byte	0
+ 854 0036 05       		.uleb128 0x5
+ 855 0037 35       		.uleb128 0x35
+ 856 0038 00       		.byte	0
+ 857 0039 49       		.uleb128 0x49
+ 858 003a 13       		.uleb128 0x13
+ 859 003b 00       		.byte	0
+ 860 003c 00       		.byte	0
+ 861 003d 06       		.uleb128 0x6
+ 862 003e 0F       		.uleb128 0xf
+ 863 003f 00       		.byte	0
+ 864 0040 0B       		.uleb128 0xb
+ 865 0041 0B       		.uleb128 0xb
+ 866 0042 49       		.uleb128 0x49
+ 867 0043 13       		.uleb128 0x13
+ 868 0044 00       		.byte	0
+ 869 0045 00       		.byte	0
+ 870 0046 07       		.uleb128 0x7
+ 871 0047 15       		.uleb128 0x15
+ 872 0048 00       		.byte	0
+ 873 0049 27       		.uleb128 0x27
+ 874 004a 19       		.uleb128 0x19
+ 875 004b 00       		.byte	0
+ 876 004c 00       		.byte	0
+ 877 004d 08       		.uleb128 0x8
+ 878 004e 16       		.uleb128 0x16
+ 879 004f 00       		.byte	0
+ 880 0050 03       		.uleb128 0x3
+ 881 0051 0E       		.uleb128 0xe
+ 882 0052 3A       		.uleb128 0x3a
+ 883 0053 0B       		.uleb128 0xb
+ 884 0054 3B       		.uleb128 0x3b
+ 885 0055 0B       		.uleb128 0xb
+ 886 0056 49       		.uleb128 0x49
+ 887 0057 13       		.uleb128 0x13
+ 888 0058 00       		.byte	0
+ 889 0059 00       		.byte	0
+ 890 005a 09       		.uleb128 0x9
+ 891 005b 0F       		.uleb128 0xf
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 26
+
+
+ 892 005c 00       		.byte	0
+ 893 005d 0B       		.uleb128 0xb
+ 894 005e 0B       		.uleb128 0xb
+ 895 005f 00       		.byte	0
+ 896 0060 00       		.byte	0
+ 897 0061 0A       		.uleb128 0xa
+ 898 0062 26       		.uleb128 0x26
+ 899 0063 00       		.byte	0
+ 900 0064 49       		.uleb128 0x49
+ 901 0065 13       		.uleb128 0x13
+ 902 0066 00       		.byte	0
+ 903 0067 00       		.byte	0
+ 904 0068 0B       		.uleb128 0xb
+ 905 0069 13       		.uleb128 0x13
+ 906 006a 01       		.byte	0x1
+ 907 006b 03       		.uleb128 0x3
+ 908 006c 0E       		.uleb128 0xe
+ 909 006d 0B       		.uleb128 0xb
+ 910 006e 0B       		.uleb128 0xb
+ 911 006f 3A       		.uleb128 0x3a
+ 912 0070 0B       		.uleb128 0xb
+ 913 0071 3B       		.uleb128 0x3b
+ 914 0072 0B       		.uleb128 0xb
+ 915 0073 01       		.uleb128 0x1
+ 916 0074 13       		.uleb128 0x13
+ 917 0075 00       		.byte	0
+ 918 0076 00       		.byte	0
+ 919 0077 0C       		.uleb128 0xc
+ 920 0078 0D       		.uleb128 0xd
+ 921 0079 00       		.byte	0
+ 922 007a 03       		.uleb128 0x3
+ 923 007b 0E       		.uleb128 0xe
+ 924 007c 3A       		.uleb128 0x3a
+ 925 007d 0B       		.uleb128 0xb
+ 926 007e 3B       		.uleb128 0x3b
+ 927 007f 0B       		.uleb128 0xb
+ 928 0080 49       		.uleb128 0x49
+ 929 0081 13       		.uleb128 0x13
+ 930 0082 38       		.uleb128 0x38
+ 931 0083 0B       		.uleb128 0xb
+ 932 0084 00       		.byte	0
+ 933 0085 00       		.byte	0
+ 934 0086 0D       		.uleb128 0xd
+ 935 0087 2E       		.uleb128 0x2e
+ 936 0088 00       		.byte	0
+ 937 0089 3F       		.uleb128 0x3f
+ 938 008a 19       		.uleb128 0x19
+ 939 008b 03       		.uleb128 0x3
+ 940 008c 0E       		.uleb128 0xe
+ 941 008d 3A       		.uleb128 0x3a
+ 942 008e 0B       		.uleb128 0xb
+ 943 008f 3B       		.uleb128 0x3b
+ 944 0090 0B       		.uleb128 0xb
+ 945 0091 27       		.uleb128 0x27
+ 946 0092 19       		.uleb128 0x19
+ 947 0093 11       		.uleb128 0x11
+ 948 0094 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 27
+
+
+ 949 0095 12       		.uleb128 0x12
+ 950 0096 06       		.uleb128 0x6
+ 951 0097 40       		.uleb128 0x40
+ 952 0098 18       		.uleb128 0x18
+ 953 0099 9742     		.uleb128 0x2117
+ 954 009b 19       		.uleb128 0x19
+ 955 009c 00       		.byte	0
+ 956 009d 00       		.byte	0
+ 957 009e 0E       		.uleb128 0xe
+ 958 009f 2E       		.uleb128 0x2e
+ 959 00a0 01       		.byte	0x1
+ 960 00a1 3F       		.uleb128 0x3f
+ 961 00a2 19       		.uleb128 0x19
+ 962 00a3 03       		.uleb128 0x3
+ 963 00a4 0E       		.uleb128 0xe
+ 964 00a5 3A       		.uleb128 0x3a
+ 965 00a6 0B       		.uleb128 0xb
+ 966 00a7 3B       		.uleb128 0x3b
+ 967 00a8 0B       		.uleb128 0xb
+ 968 00a9 27       		.uleb128 0x27
+ 969 00aa 19       		.uleb128 0x19
+ 970 00ab 11       		.uleb128 0x11
+ 971 00ac 01       		.uleb128 0x1
+ 972 00ad 12       		.uleb128 0x12
+ 973 00ae 06       		.uleb128 0x6
+ 974 00af 40       		.uleb128 0x40
+ 975 00b0 18       		.uleb128 0x18
+ 976 00b1 9742     		.uleb128 0x2117
+ 977 00b3 19       		.uleb128 0x19
+ 978 00b4 01       		.uleb128 0x1
+ 979 00b5 13       		.uleb128 0x13
+ 980 00b6 00       		.byte	0
+ 981 00b7 00       		.byte	0
+ 982 00b8 0F       		.uleb128 0xf
+ 983 00b9 05       		.uleb128 0x5
+ 984 00ba 00       		.byte	0
+ 985 00bb 03       		.uleb128 0x3
+ 986 00bc 0E       		.uleb128 0xe
+ 987 00bd 3A       		.uleb128 0x3a
+ 988 00be 0B       		.uleb128 0xb
+ 989 00bf 3B       		.uleb128 0x3b
+ 990 00c0 0B       		.uleb128 0xb
+ 991 00c1 49       		.uleb128 0x49
+ 992 00c2 13       		.uleb128 0x13
+ 993 00c3 02       		.uleb128 0x2
+ 994 00c4 17       		.uleb128 0x17
+ 995 00c5 00       		.byte	0
+ 996 00c6 00       		.byte	0
+ 997 00c7 10       		.uleb128 0x10
+ 998 00c8 898201   		.uleb128 0x4109
+ 999 00cb 01       		.byte	0x1
+ 1000 00cc 11       		.uleb128 0x11
+ 1001 00cd 01       		.uleb128 0x1
+ 1002 00ce 31       		.uleb128 0x31
+ 1003 00cf 13       		.uleb128 0x13
+ 1004 00d0 00       		.byte	0
+ 1005 00d1 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 28
+
+
+ 1006 00d2 11       		.uleb128 0x11
+ 1007 00d3 8A8201   		.uleb128 0x410a
+ 1008 00d6 00       		.byte	0
+ 1009 00d7 02       		.uleb128 0x2
+ 1010 00d8 18       		.uleb128 0x18
+ 1011 00d9 9142     		.uleb128 0x2111
+ 1012 00db 18       		.uleb128 0x18
+ 1013 00dc 00       		.byte	0
+ 1014 00dd 00       		.byte	0
+ 1015 00de 12       		.uleb128 0x12
+ 1016 00df 2E       		.uleb128 0x2e
+ 1017 00e0 01       		.byte	0x1
+ 1018 00e1 3F       		.uleb128 0x3f
+ 1019 00e2 19       		.uleb128 0x19
+ 1020 00e3 03       		.uleb128 0x3
+ 1021 00e4 0E       		.uleb128 0xe
+ 1022 00e5 3A       		.uleb128 0x3a
+ 1023 00e6 0B       		.uleb128 0xb
+ 1024 00e7 3B       		.uleb128 0x3b
+ 1025 00e8 05       		.uleb128 0x5
+ 1026 00e9 27       		.uleb128 0x27
+ 1027 00ea 19       		.uleb128 0x19
+ 1028 00eb 49       		.uleb128 0x49
+ 1029 00ec 13       		.uleb128 0x13
+ 1030 00ed 11       		.uleb128 0x11
+ 1031 00ee 01       		.uleb128 0x1
+ 1032 00ef 12       		.uleb128 0x12
+ 1033 00f0 06       		.uleb128 0x6
+ 1034 00f1 40       		.uleb128 0x40
+ 1035 00f2 18       		.uleb128 0x18
+ 1036 00f3 9742     		.uleb128 0x2117
+ 1037 00f5 19       		.uleb128 0x19
+ 1038 00f6 01       		.uleb128 0x1
+ 1039 00f7 13       		.uleb128 0x13
+ 1040 00f8 00       		.byte	0
+ 1041 00f9 00       		.byte	0
+ 1042 00fa 13       		.uleb128 0x13
+ 1043 00fb 05       		.uleb128 0x5
+ 1044 00fc 00       		.byte	0
+ 1045 00fd 03       		.uleb128 0x3
+ 1046 00fe 0E       		.uleb128 0xe
+ 1047 00ff 3A       		.uleb128 0x3a
+ 1048 0100 0B       		.uleb128 0xb
+ 1049 0101 3B       		.uleb128 0x3b
+ 1050 0102 05       		.uleb128 0x5
+ 1051 0103 49       		.uleb128 0x49
+ 1052 0104 13       		.uleb128 0x13
+ 1053 0105 02       		.uleb128 0x2
+ 1054 0106 17       		.uleb128 0x17
+ 1055 0107 00       		.byte	0
+ 1056 0108 00       		.byte	0
+ 1057 0109 14       		.uleb128 0x14
+ 1058 010a 34       		.uleb128 0x34
+ 1059 010b 00       		.byte	0
+ 1060 010c 03       		.uleb128 0x3
+ 1061 010d 08       		.uleb128 0x8
+ 1062 010e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 29
+
+
+ 1063 010f 0B       		.uleb128 0xb
+ 1064 0110 3B       		.uleb128 0x3b
+ 1065 0111 05       		.uleb128 0x5
+ 1066 0112 49       		.uleb128 0x49
+ 1067 0113 13       		.uleb128 0x13
+ 1068 0114 3F       		.uleb128 0x3f
+ 1069 0115 19       		.uleb128 0x19
+ 1070 0116 3C       		.uleb128 0x3c
+ 1071 0117 19       		.uleb128 0x19
+ 1072 0118 00       		.byte	0
+ 1073 0119 00       		.byte	0
+ 1074 011a 15       		.uleb128 0x15
+ 1075 011b 34       		.uleb128 0x34
+ 1076 011c 00       		.byte	0
+ 1077 011d 03       		.uleb128 0x3
+ 1078 011e 0E       		.uleb128 0xe
+ 1079 011f 3A       		.uleb128 0x3a
+ 1080 0120 0B       		.uleb128 0xb
+ 1081 0121 3B       		.uleb128 0x3b
+ 1082 0122 05       		.uleb128 0x5
+ 1083 0123 49       		.uleb128 0x49
+ 1084 0124 13       		.uleb128 0x13
+ 1085 0125 02       		.uleb128 0x2
+ 1086 0126 17       		.uleb128 0x17
+ 1087 0127 00       		.byte	0
+ 1088 0128 00       		.byte	0
+ 1089 0129 16       		.uleb128 0x16
+ 1090 012a 34       		.uleb128 0x34
+ 1091 012b 00       		.byte	0
+ 1092 012c 03       		.uleb128 0x3
+ 1093 012d 0E       		.uleb128 0xe
+ 1094 012e 3A       		.uleb128 0x3a
+ 1095 012f 0B       		.uleb128 0xb
+ 1096 0130 3B       		.uleb128 0x3b
+ 1097 0131 05       		.uleb128 0x5
+ 1098 0132 49       		.uleb128 0x49
+ 1099 0133 13       		.uleb128 0x13
+ 1100 0134 02       		.uleb128 0x2
+ 1101 0135 18       		.uleb128 0x18
+ 1102 0136 00       		.byte	0
+ 1103 0137 00       		.byte	0
+ 1104 0138 17       		.uleb128 0x17
+ 1105 0139 898201   		.uleb128 0x4109
+ 1106 013c 00       		.byte	0
+ 1107 013d 11       		.uleb128 0x11
+ 1108 013e 01       		.uleb128 0x1
+ 1109 013f 31       		.uleb128 0x31
+ 1110 0140 13       		.uleb128 0x13
+ 1111 0141 00       		.byte	0
+ 1112 0142 00       		.byte	0
+ 1113 0143 18       		.uleb128 0x18
+ 1114 0144 2E       		.uleb128 0x2e
+ 1115 0145 01       		.byte	0x1
+ 1116 0146 3F       		.uleb128 0x3f
+ 1117 0147 19       		.uleb128 0x19
+ 1118 0148 03       		.uleb128 0x3
+ 1119 0149 0E       		.uleb128 0xe
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 30
+
+
+ 1120 014a 3A       		.uleb128 0x3a
+ 1121 014b 0B       		.uleb128 0xb
+ 1122 014c 3B       		.uleb128 0x3b
+ 1123 014d 05       		.uleb128 0x5
+ 1124 014e 27       		.uleb128 0x27
+ 1125 014f 19       		.uleb128 0x19
+ 1126 0150 11       		.uleb128 0x11
+ 1127 0151 01       		.uleb128 0x1
+ 1128 0152 12       		.uleb128 0x12
+ 1129 0153 06       		.uleb128 0x6
+ 1130 0154 40       		.uleb128 0x40
+ 1131 0155 18       		.uleb128 0x18
+ 1132 0156 9742     		.uleb128 0x2117
+ 1133 0158 19       		.uleb128 0x19
+ 1134 0159 01       		.uleb128 0x1
+ 1135 015a 13       		.uleb128 0x13
+ 1136 015b 00       		.byte	0
+ 1137 015c 00       		.byte	0
+ 1138 015d 19       		.uleb128 0x19
+ 1139 015e 0B       		.uleb128 0xb
+ 1140 015f 01       		.byte	0x1
+ 1141 0160 11       		.uleb128 0x11
+ 1142 0161 01       		.uleb128 0x1
+ 1143 0162 12       		.uleb128 0x12
+ 1144 0163 06       		.uleb128 0x6
+ 1145 0164 01       		.uleb128 0x1
+ 1146 0165 13       		.uleb128 0x13
+ 1147 0166 00       		.byte	0
+ 1148 0167 00       		.byte	0
+ 1149 0168 1A       		.uleb128 0x1a
+ 1150 0169 34       		.uleb128 0x34
+ 1151 016a 00       		.byte	0
+ 1152 016b 03       		.uleb128 0x3
+ 1153 016c 08       		.uleb128 0x8
+ 1154 016d 3A       		.uleb128 0x3a
+ 1155 016e 0B       		.uleb128 0xb
+ 1156 016f 3B       		.uleb128 0x3b
+ 1157 0170 05       		.uleb128 0x5
+ 1158 0171 49       		.uleb128 0x49
+ 1159 0172 13       		.uleb128 0x13
+ 1160 0173 02       		.uleb128 0x2
+ 1161 0174 17       		.uleb128 0x17
+ 1162 0175 00       		.byte	0
+ 1163 0176 00       		.byte	0
+ 1164 0177 1B       		.uleb128 0x1b
+ 1165 0178 34       		.uleb128 0x34
+ 1166 0179 00       		.byte	0
+ 1167 017a 03       		.uleb128 0x3
+ 1168 017b 0E       		.uleb128 0xe
+ 1169 017c 3A       		.uleb128 0x3a
+ 1170 017d 0B       		.uleb128 0xb
+ 1171 017e 3B       		.uleb128 0x3b
+ 1172 017f 0B       		.uleb128 0xb
+ 1173 0180 49       		.uleb128 0x49
+ 1174 0181 13       		.uleb128 0x13
+ 1175 0182 02       		.uleb128 0x2
+ 1176 0183 18       		.uleb128 0x18
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 31
+
+
+ 1177 0184 00       		.byte	0
+ 1178 0185 00       		.byte	0
+ 1179 0186 1C       		.uleb128 0x1c
+ 1180 0187 34       		.uleb128 0x34
+ 1181 0188 00       		.byte	0
+ 1182 0189 03       		.uleb128 0x3
+ 1183 018a 0E       		.uleb128 0xe
+ 1184 018b 3A       		.uleb128 0x3a
+ 1185 018c 0B       		.uleb128 0xb
+ 1186 018d 3B       		.uleb128 0x3b
+ 1187 018e 0B       		.uleb128 0xb
+ 1188 018f 49       		.uleb128 0x49
+ 1189 0190 13       		.uleb128 0x13
+ 1190 0191 3F       		.uleb128 0x3f
+ 1191 0192 19       		.uleb128 0x19
+ 1192 0193 02       		.uleb128 0x2
+ 1193 0194 18       		.uleb128 0x18
+ 1194 0195 00       		.byte	0
+ 1195 0196 00       		.byte	0
+ 1196 0197 1D       		.uleb128 0x1d
+ 1197 0198 01       		.uleb128 0x1
+ 1198 0199 01       		.byte	0x1
+ 1199 019a 49       		.uleb128 0x49
+ 1200 019b 13       		.uleb128 0x13
+ 1201 019c 01       		.uleb128 0x1
+ 1202 019d 13       		.uleb128 0x13
+ 1203 019e 00       		.byte	0
+ 1204 019f 00       		.byte	0
+ 1205 01a0 1E       		.uleb128 0x1e
+ 1206 01a1 21       		.uleb128 0x21
+ 1207 01a2 00       		.byte	0
+ 1208 01a3 00       		.byte	0
+ 1209 01a4 00       		.byte	0
+ 1210 01a5 1F       		.uleb128 0x1f
+ 1211 01a6 34       		.uleb128 0x34
+ 1212 01a7 00       		.byte	0
+ 1213 01a8 03       		.uleb128 0x3
+ 1214 01a9 0E       		.uleb128 0xe
+ 1215 01aa 3A       		.uleb128 0x3a
+ 1216 01ab 0B       		.uleb128 0xb
+ 1217 01ac 3B       		.uleb128 0x3b
+ 1218 01ad 0B       		.uleb128 0xb
+ 1219 01ae 49       		.uleb128 0x49
+ 1220 01af 13       		.uleb128 0x13
+ 1221 01b0 3F       		.uleb128 0x3f
+ 1222 01b1 19       		.uleb128 0x19
+ 1223 01b2 3C       		.uleb128 0x3c
+ 1224 01b3 19       		.uleb128 0x19
+ 1225 01b4 00       		.byte	0
+ 1226 01b5 00       		.byte	0
+ 1227 01b6 20       		.uleb128 0x20
+ 1228 01b7 21       		.uleb128 0x21
+ 1229 01b8 00       		.byte	0
+ 1230 01b9 49       		.uleb128 0x49
+ 1231 01ba 13       		.uleb128 0x13
+ 1232 01bb 2F       		.uleb128 0x2f
+ 1233 01bc 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 32
+
+
+ 1234 01bd 00       		.byte	0
+ 1235 01be 00       		.byte	0
+ 1236 01bf 21       		.uleb128 0x21
+ 1237 01c0 34       		.uleb128 0x34
+ 1238 01c1 00       		.byte	0
+ 1239 01c2 03       		.uleb128 0x3
+ 1240 01c3 0E       		.uleb128 0xe
+ 1241 01c4 3A       		.uleb128 0x3a
+ 1242 01c5 0B       		.uleb128 0xb
+ 1243 01c6 3B       		.uleb128 0x3b
+ 1244 01c7 05       		.uleb128 0x5
+ 1245 01c8 49       		.uleb128 0x49
+ 1246 01c9 13       		.uleb128 0x13
+ 1247 01ca 3F       		.uleb128 0x3f
+ 1248 01cb 19       		.uleb128 0x19
+ 1249 01cc 02       		.uleb128 0x2
+ 1250 01cd 18       		.uleb128 0x18
+ 1251 01ce 00       		.byte	0
+ 1252 01cf 00       		.byte	0
+ 1253 01d0 22       		.uleb128 0x22
+ 1254 01d1 2E       		.uleb128 0x2e
+ 1255 01d2 01       		.byte	0x1
+ 1256 01d3 3F       		.uleb128 0x3f
+ 1257 01d4 19       		.uleb128 0x19
+ 1258 01d5 03       		.uleb128 0x3
+ 1259 01d6 0E       		.uleb128 0xe
+ 1260 01d7 3A       		.uleb128 0x3a
+ 1261 01d8 0B       		.uleb128 0xb
+ 1262 01d9 3B       		.uleb128 0x3b
+ 1263 01da 0B       		.uleb128 0xb
+ 1264 01db 27       		.uleb128 0x27
+ 1265 01dc 19       		.uleb128 0x19
+ 1266 01dd 3C       		.uleb128 0x3c
+ 1267 01de 19       		.uleb128 0x19
+ 1268 01df 01       		.uleb128 0x1
+ 1269 01e0 13       		.uleb128 0x13
+ 1270 01e1 00       		.byte	0
+ 1271 01e2 00       		.byte	0
+ 1272 01e3 23       		.uleb128 0x23
+ 1273 01e4 05       		.uleb128 0x5
+ 1274 01e5 00       		.byte	0
+ 1275 01e6 49       		.uleb128 0x49
+ 1276 01e7 13       		.uleb128 0x13
+ 1277 01e8 00       		.byte	0
+ 1278 01e9 00       		.byte	0
+ 1279 01ea 24       		.uleb128 0x24
+ 1280 01eb 2E       		.uleb128 0x2e
+ 1281 01ec 00       		.byte	0
+ 1282 01ed 3F       		.uleb128 0x3f
+ 1283 01ee 19       		.uleb128 0x19
+ 1284 01ef 03       		.uleb128 0x3
+ 1285 01f0 0E       		.uleb128 0xe
+ 1286 01f1 3A       		.uleb128 0x3a
+ 1287 01f2 0B       		.uleb128 0xb
+ 1288 01f3 3B       		.uleb128 0x3b
+ 1289 01f4 0B       		.uleb128 0xb
+ 1290 01f5 27       		.uleb128 0x27
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 33
+
+
+ 1291 01f6 19       		.uleb128 0x19
+ 1292 01f7 49       		.uleb128 0x49
+ 1293 01f8 13       		.uleb128 0x13
+ 1294 01f9 3C       		.uleb128 0x3c
+ 1295 01fa 19       		.uleb128 0x19
+ 1296 01fb 00       		.byte	0
+ 1297 01fc 00       		.byte	0
+ 1298 01fd 25       		.uleb128 0x25
+ 1299 01fe 2E       		.uleb128 0x2e
+ 1300 01ff 00       		.byte	0
+ 1301 0200 3F       		.uleb128 0x3f
+ 1302 0201 19       		.uleb128 0x19
+ 1303 0202 03       		.uleb128 0x3
+ 1304 0203 0E       		.uleb128 0xe
+ 1305 0204 3A       		.uleb128 0x3a
+ 1306 0205 0B       		.uleb128 0xb
+ 1307 0206 3B       		.uleb128 0x3b
+ 1308 0207 0B       		.uleb128 0xb
+ 1309 0208 27       		.uleb128 0x27
+ 1310 0209 19       		.uleb128 0x19
+ 1311 020a 3C       		.uleb128 0x3c
+ 1312 020b 19       		.uleb128 0x19
+ 1313 020c 00       		.byte	0
+ 1314 020d 00       		.byte	0
+ 1315 020e 00       		.byte	0
+ 1316              		.section	.debug_loc,"",%progbits
+ 1317              	.Ldebug_loc0:
+ 1318              	.LLST0:
+ 1319 0000 00000000 		.4byte	.LVL0
+ 1320 0004 04000000 		.4byte	.LVL1
+ 1321 0008 0100     		.2byte	0x1
+ 1322 000a 50       		.byte	0x50
+ 1323 000b 04000000 		.4byte	.LVL1
+ 1324 000f 0A000000 		.4byte	.LFE3
+ 1325 0013 0400     		.2byte	0x4
+ 1326 0015 F3       		.byte	0xf3
+ 1327 0016 01       		.uleb128 0x1
+ 1328 0017 50       		.byte	0x50
+ 1329 0018 9F       		.byte	0x9f
+ 1330 0019 00000000 		.4byte	0
+ 1331 001d 00000000 		.4byte	0
+ 1332              	.LLST1:
+ 1333 0021 00000000 		.4byte	.LVL3
+ 1334 0025 0C000000 		.4byte	.LVL4
+ 1335 0029 0100     		.2byte	0x1
+ 1336 002b 50       		.byte	0x50
+ 1337 002c 0C000000 		.4byte	.LVL4
+ 1338 0030 10000000 		.4byte	.LVL5
+ 1339 0034 0100     		.2byte	0x1
+ 1340 0036 53       		.byte	0x53
+ 1341 0037 10000000 		.4byte	.LVL5
+ 1342 003b 30000000 		.4byte	.LFE4
+ 1343 003f 0400     		.2byte	0x4
+ 1344 0041 F3       		.byte	0xf3
+ 1345 0042 01       		.uleb128 0x1
+ 1346 0043 50       		.byte	0x50
+ 1347 0044 9F       		.byte	0x9f
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 34
+
+
+ 1348 0045 00000000 		.4byte	0
+ 1349 0049 00000000 		.4byte	0
+ 1350              	.LLST2:
+ 1351 004d 16000000 		.4byte	.LVL6
+ 1352 0051 1A000000 		.4byte	.LVL7
+ 1353 0055 0100     		.2byte	0x1
+ 1354 0057 50       		.byte	0x50
+ 1355 0058 22000000 		.4byte	.LVL9
+ 1356 005c 26000000 		.4byte	.LVL10
+ 1357 0060 0300     		.2byte	0x3
+ 1358 0062 09       		.byte	0x9
+ 1359 0063 FF       		.byte	0xff
+ 1360 0064 9F       		.byte	0x9f
+ 1361 0065 26000000 		.4byte	.LVL10
+ 1362 0069 30000000 		.4byte	.LFE4
+ 1363 006d 0100     		.2byte	0x1
+ 1364 006f 50       		.byte	0x50
+ 1365 0070 00000000 		.4byte	0
+ 1366 0074 00000000 		.4byte	0
+ 1367              	.LLST3:
+ 1368 0078 08000000 		.4byte	.LVL12
+ 1369 007c 34000000 		.4byte	.LVL27
+ 1370 0080 0300     		.2byte	0x3
+ 1371 0082 71       		.byte	0x71
+ 1372 0083 01       		.sleb128 1
+ 1373 0084 9F       		.byte	0x9f
+ 1374 0085 34000000 		.4byte	.LVL27
+ 1375 0089 36000000 		.4byte	.LVL28
+ 1376 008d 0100     		.2byte	0x1
+ 1377 008f 51       		.byte	0x51
+ 1378 0090 36000000 		.4byte	.LVL28
+ 1379 0094 3B000000 		.4byte	.LVL30-1
+ 1380 0098 0300     		.2byte	0x3
+ 1381 009a 71       		.byte	0x71
+ 1382 009b 01       		.sleb128 1
+ 1383 009c 9F       		.byte	0x9f
+ 1384 009d 00000000 		.4byte	0
+ 1385 00a1 00000000 		.4byte	0
+ 1386              	.LLST4:
+ 1387 00a5 08000000 		.4byte	.LVL12
+ 1388 00a9 3B000000 		.4byte	.LVL30-1
+ 1389 00ad 0100     		.2byte	0x1
+ 1390 00af 53       		.byte	0x53
+ 1391 00b0 00000000 		.4byte	0
+ 1392 00b4 00000000 		.4byte	0
+ 1393              	.LLST5:
+ 1394 00b8 10000000 		.4byte	.LVL13
+ 1395 00bc 14000000 		.4byte	.LVL15
+ 1396 00c0 0100     		.2byte	0x1
+ 1397 00c2 56       		.byte	0x56
+ 1398 00c3 16000000 		.4byte	.LVL16
+ 1399 00c7 1E000000 		.4byte	.LVL18
+ 1400 00cb 0600     		.2byte	0x6
+ 1401 00cd 76       		.byte	0x76
+ 1402 00ce 00       		.sleb128 0
+ 1403 00cf 72       		.byte	0x72
+ 1404 00d0 00       		.sleb128 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 35
+
+
+ 1405 00d1 22       		.byte	0x22
+ 1406 00d2 9F       		.byte	0x9f
+ 1407 00d3 1E000000 		.4byte	.LVL18
+ 1408 00d7 20000000 		.4byte	.LVL19
+ 1409 00db 0800     		.2byte	0x8
+ 1410 00dd 76       		.byte	0x76
+ 1411 00de 00       		.sleb128 0
+ 1412 00df 72       		.byte	0x72
+ 1413 00e0 00       		.sleb128 0
+ 1414 00e1 22       		.byte	0x22
+ 1415 00e2 23       		.byte	0x23
+ 1416 00e3 04       		.uleb128 0x4
+ 1417 00e4 9F       		.byte	0x9f
+ 1418 00e5 20000000 		.4byte	.LVL19
+ 1419 00e9 24000000 		.4byte	.LVL21
+ 1420 00ed 0600     		.2byte	0x6
+ 1421 00ef 76       		.byte	0x76
+ 1422 00f0 00       		.sleb128 0
+ 1423 00f1 72       		.byte	0x72
+ 1424 00f2 00       		.sleb128 0
+ 1425 00f3 22       		.byte	0x22
+ 1426 00f4 9F       		.byte	0x9f
+ 1427 00f5 00000000 		.4byte	0
+ 1428 00f9 00000000 		.4byte	0
+ 1429              	.LLST6:
+ 1430 00fd 12000000 		.4byte	.LVL14
+ 1431 0101 14000000 		.4byte	.LVL15
+ 1432 0105 0100     		.2byte	0x1
+ 1433 0107 54       		.byte	0x54
+ 1434 0108 16000000 		.4byte	.LVL16
+ 1435 010c 1C000000 		.4byte	.LVL17
+ 1436 0110 0100     		.2byte	0x1
+ 1437 0112 50       		.byte	0x50
+ 1438 0113 1C000000 		.4byte	.LVL17
+ 1439 0117 1E000000 		.4byte	.LVL18
+ 1440 011b 0600     		.2byte	0x6
+ 1441 011d 74       		.byte	0x74
+ 1442 011e 00       		.sleb128 0
+ 1443 011f 72       		.byte	0x72
+ 1444 0120 00       		.sleb128 0
+ 1445 0121 22       		.byte	0x22
+ 1446 0122 9F       		.byte	0x9f
+ 1447 0123 1E000000 		.4byte	.LVL18
+ 1448 0127 20000000 		.4byte	.LVL19
+ 1449 012b 0800     		.2byte	0x8
+ 1450 012d 74       		.byte	0x74
+ 1451 012e 00       		.sleb128 0
+ 1452 012f 72       		.byte	0x72
+ 1453 0130 00       		.sleb128 0
+ 1454 0131 22       		.byte	0x22
+ 1455 0132 23       		.byte	0x23
+ 1456 0133 04       		.uleb128 0x4
+ 1457 0134 9F       		.byte	0x9f
+ 1458 0135 20000000 		.4byte	.LVL19
+ 1459 0139 22000000 		.4byte	.LVL20
+ 1460 013d 0600     		.2byte	0x6
+ 1461 013f 74       		.byte	0x74
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 36
+
+
+ 1462 0140 00       		.sleb128 0
+ 1463 0141 72       		.byte	0x72
+ 1464 0142 00       		.sleb128 0
+ 1465 0143 22       		.byte	0x22
+ 1466 0144 9F       		.byte	0x9f
+ 1467 0145 22000000 		.4byte	.LVL20
+ 1468 0149 26000000 		.4byte	.LVL22
+ 1469 014d 0100     		.2byte	0x1
+ 1470 014f 50       		.byte	0x50
+ 1471 0150 26000000 		.4byte	.LVL22
+ 1472 0154 38000000 		.4byte	.LVL29
+ 1473 0158 0100     		.2byte	0x1
+ 1474 015a 52       		.byte	0x52
+ 1475 015b 00000000 		.4byte	0
+ 1476 015f 00000000 		.4byte	0
+ 1477              	.LLST7:
+ 1478 0163 14000000 		.4byte	.LVL15
+ 1479 0167 26000000 		.4byte	.LVL22
+ 1480 016b 0100     		.2byte	0x1
+ 1481 016d 55       		.byte	0x55
+ 1482 016e 26000000 		.4byte	.LVL22
+ 1483 0172 38000000 		.4byte	.LVL29
+ 1484 0176 0100     		.2byte	0x1
+ 1485 0178 54       		.byte	0x54
+ 1486 0179 00000000 		.4byte	0
+ 1487 017d 00000000 		.4byte	0
+ 1488              	.LLST8:
+ 1489 0181 16000000 		.4byte	.LVL16
+ 1490 0185 24000000 		.4byte	.LVL21
+ 1491 0189 0100     		.2byte	0x1
+ 1492 018b 52       		.byte	0x52
+ 1493 018c 26000000 		.4byte	.LVL22
+ 1494 0190 28000000 		.4byte	.LVL23
+ 1495 0194 0600     		.2byte	0x6
+ 1496 0196 72       		.byte	0x72
+ 1497 0197 00       		.sleb128 0
+ 1498 0198 70       		.byte	0x70
+ 1499 0199 00       		.sleb128 0
+ 1500 019a 1C       		.byte	0x1c
+ 1501 019b 9F       		.byte	0x9f
+ 1502 019c 28000000 		.4byte	.LVL23
+ 1503 01a0 2E000000 		.4byte	.LVL24
+ 1504 01a4 0100     		.2byte	0x1
+ 1505 01a6 55       		.byte	0x55
+ 1506 01a7 2E000000 		.4byte	.LVL24
+ 1507 01ab 32000000 		.4byte	.LVL26
+ 1508 01af 0600     		.2byte	0x6
+ 1509 01b1 72       		.byte	0x72
+ 1510 01b2 00       		.sleb128 0
+ 1511 01b3 70       		.byte	0x70
+ 1512 01b4 00       		.sleb128 0
+ 1513 01b5 1C       		.byte	0x1c
+ 1514 01b6 9F       		.byte	0x9f
+ 1515 01b7 32000000 		.4byte	.LVL26
+ 1516 01bb 38000000 		.4byte	.LVL29
+ 1517 01bf 0100     		.2byte	0x1
+ 1518 01c1 55       		.byte	0x55
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 37
+
+
+ 1519 01c2 00000000 		.4byte	0
+ 1520 01c6 00000000 		.4byte	0
+ 1521              	.LLST9:
+ 1522 01ca 0E000000 		.4byte	.LVL33
+ 1523 01ce 10000000 		.4byte	.LVL34
+ 1524 01d2 0200     		.2byte	0x2
+ 1525 01d4 30       		.byte	0x30
+ 1526 01d5 9F       		.byte	0x9f
+ 1527 01d6 10000000 		.4byte	.LVL34
+ 1528 01da 29000000 		.4byte	.LVL36-1
+ 1529 01de 0100     		.2byte	0x1
+ 1530 01e0 53       		.byte	0x53
+ 1531 01e1 00000000 		.4byte	0
+ 1532 01e5 00000000 		.4byte	0
+ 1533              		.section	.debug_aranges,"",%progbits
+ 1534 0000 44000000 		.4byte	0x44
+ 1535 0004 0200     		.2byte	0x2
+ 1536 0006 00000000 		.4byte	.Ldebug_info0
+ 1537 000a 04       		.byte	0x4
+ 1538 000b 00       		.byte	0
+ 1539 000c 0000     		.2byte	0
+ 1540 000e 0000     		.2byte	0
+ 1541 0010 00000000 		.4byte	.LFB2
+ 1542 0014 02000000 		.4byte	.LFE2-.LFB2
+ 1543 0018 00000000 		.4byte	.LFB3
+ 1544 001c 0A000000 		.4byte	.LFE3-.LFB3
+ 1545 0020 00000000 		.4byte	.LFB4
+ 1546 0024 30000000 		.4byte	.LFE4-.LFB4
+ 1547 0028 00000000 		.4byte	.LFB5
+ 1548 002c 4C000000 		.4byte	.LFE5-.LFB5
+ 1549 0030 00000000 		.4byte	.LFB6
+ 1550 0034 10000000 		.4byte	.LFE6-.LFB6
+ 1551 0038 00000000 		.4byte	.LFB7
+ 1552 003c 5C000000 		.4byte	.LFE7-.LFB7
+ 1553 0040 00000000 		.4byte	0
+ 1554 0044 00000000 		.4byte	0
+ 1555              		.section	.debug_ranges,"",%progbits
+ 1556              	.Ldebug_ranges0:
+ 1557 0000 00000000 		.4byte	.LFB2
+ 1558 0004 02000000 		.4byte	.LFE2
+ 1559 0008 00000000 		.4byte	.LFB3
+ 1560 000c 0A000000 		.4byte	.LFE3
+ 1561 0010 00000000 		.4byte	.LFB4
+ 1562 0014 30000000 		.4byte	.LFE4
+ 1563 0018 00000000 		.4byte	.LFB5
+ 1564 001c 4C000000 		.4byte	.LFE5
+ 1565 0020 00000000 		.4byte	.LFB6
+ 1566 0024 10000000 		.4byte	.LFE6
+ 1567 0028 00000000 		.4byte	.LFB7
+ 1568 002c 5C000000 		.4byte	.LFE7
+ 1569 0030 00000000 		.4byte	0
+ 1570 0034 00000000 		.4byte	0
+ 1571              		.section	.debug_line,"",%progbits
+ 1572              	.Ldebug_line0:
+ 1573 0000 39020000 		.section	.debug_str,"MS",%progbits,1
+ 1573      02005D01 
+ 1573      00000201 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 38
+
+
+ 1573      FB0E0D00 
+ 1573      01010101 
+ 1574              	.LASF14:
+ 1575 0000 72656733 		.ascii	"reg32\000"
+ 1575      3200
+ 1576              	.LASF16:
+ 1577 0006 73697A65 		.ascii	"size_t\000"
+ 1577      5F7400
+ 1578              	.LASF52:
+ 1579 000d 43794861 		.ascii	"CyHalt\000"
+ 1579      6C7400
+ 1580              	.LASF46:
+ 1581 0014 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1581      4320342E 
+ 1581      392E3320 
+ 1581      32303135 
+ 1581      30333033 
+ 1582 0047 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1582      20726576 
+ 1582      6973696F 
+ 1582      6E203232 
+ 1582      31323230 
+ 1583 007a 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1583      66756E63 
+ 1583      74696F6E 
+ 1583      2D736563 
+ 1583      74696F6E 
+ 1584              	.LASF44:
+ 1585 00a2 5F5F6C69 		.ascii	"__libc_init_array\000"
+ 1585      62635F69 
+ 1585      6E69745F 
+ 1585      61727261 
+ 1585      7900
+ 1586              	.LASF40:
+ 1587 00b4 43795261 		.ascii	"CyRamVectors\000"
+ 1587      6D566563 
+ 1587      746F7273 
+ 1587      00
+ 1588              	.LASF28:
+ 1589 00c1 53746172 		.ascii	"Start_c\000"
+ 1589      745F6300 
+ 1590              	.LASF32:
+ 1591 00c9 636F756E 		.ascii	"count\000"
+ 1591      7400
+ 1592              	.LASF26:
+ 1593 00cf 68656170 		.ascii	"heapPointer\000"
+ 1593      506F696E 
+ 1593      74657200 
+ 1594              	.LASF3:
+ 1595 00db 73686F72 		.ascii	"short unsigned int\000"
+ 1595      7420756E 
+ 1595      7369676E 
+ 1595      65642069 
+ 1595      6E7400
+ 1596              	.LASF39:
+ 1597 00ee 5F5F6379 		.ascii	"__cy_region_num\000"
+ 1597      5F726567 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 39
+
+
+ 1597      696F6E5F 
+ 1597      6E756D00 
+ 1598              	.LASF19:
+ 1599 00fe 696E6974 		.ascii	"init\000"
+ 1599      00
+ 1600              	.LASF23:
+ 1601 0103 73746174 		.ascii	"status\000"
+ 1601      757300
+ 1602              	.LASF22:
+ 1603 010a 7A65726F 		.ascii	"zero_size\000"
+ 1603      5F73697A 
+ 1603      6500
+ 1604              	.LASF30:
+ 1605 0114 72707472 		.ascii	"rptr\000"
+ 1605      00
+ 1606              	.LASF11:
+ 1607 0119 666C6F61 		.ascii	"float\000"
+ 1607      7400
+ 1608              	.LASF20:
+ 1609 011f 64617461 		.ascii	"data\000"
+ 1609      00
+ 1610              	.LASF1:
+ 1611 0124 756E7369 		.ascii	"unsigned char\000"
+ 1611      676E6564 
+ 1611      20636861 
+ 1611      7200
+ 1612              	.LASF25:
+ 1613 0132 72657475 		.ascii	"returnValue\000"
+ 1613      726E5661 
+ 1613      6C756500 
+ 1614              	.LASF41:
+ 1615 013e 526F6D56 		.ascii	"RomVectors\000"
+ 1615      6563746F 
+ 1615      727300
+ 1616              	.LASF5:
+ 1617 0149 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1617      20756E73 
+ 1617      69676E65 
+ 1617      6420696E 
+ 1617      7400
+ 1618              	.LASF36:
+ 1619 015b 63795379 		.ascii	"cySysNoInitDataValid\000"
+ 1619      734E6F49 
+ 1619      6E697444 
+ 1619      61746156 
+ 1619      616C6964 
+ 1620              	.LASF9:
+ 1621 0170 75696E74 		.ascii	"uint8\000"
+ 1621      3800
+ 1622              	.LASF33:
+ 1623 0176 52657365 		.ascii	"Reset\000"
+ 1623      7400
+ 1624              	.LASF27:
+ 1625 017c 5F657869 		.ascii	"_exit\000"
+ 1625      7400
+ 1626              	.LASF50:
+ 1627 0182 496E7444 		.ascii	"IntDefaultHandler\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 40
+
+
+ 1627      65666175 
+ 1627      6C744861 
+ 1627      6E646C65 
+ 1627      7200
+ 1628              	.LASF51:
+ 1629 0194 5F736272 		.ascii	"_sbrk\000"
+ 1629      6B00
+ 1630              	.LASF12:
+ 1631 019a 646F7562 		.ascii	"double\000"
+ 1631      6C6500
+ 1632              	.LASF43:
+ 1633 01a1 6D61696E 		.ascii	"main\000"
+ 1633      00
+ 1634              	.LASF37:
+ 1635 01a6 63794274 		.ascii	"cyBtldrRunType\000"
+ 1635      6C647252 
+ 1635      756E5479 
+ 1635      706500
+ 1636              	.LASF34:
+ 1637 01b5 696E6974 		.ascii	"initialize_psoc\000"
+ 1637      69616C69 
+ 1637      7A655F70 
+ 1637      736F6300 
+ 1638              	.LASF10:
+ 1639 01c5 75696E74 		.ascii	"uint32\000"
+ 1639      333200
+ 1640              	.LASF35:
+ 1641 01cc 696E6465 		.ascii	"indexInit\000"
+ 1641      78496E69 
+ 1641      7400
+ 1642              	.LASF8:
+ 1643 01d6 756E7369 		.ascii	"unsigned int\000"
+ 1643      676E6564 
+ 1643      20696E74 
+ 1643      00
+ 1644              	.LASF45:
+ 1645 01e3 63796669 		.ascii	"cyfitter_cfg\000"
+ 1645      74746572 
+ 1645      5F636667 
+ 1645      00
+ 1646              	.LASF7:
+ 1647 01f0 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1647      206C6F6E 
+ 1647      6720756E 
+ 1647      7369676E 
+ 1647      65642069 
+ 1648              	.LASF31:
+ 1649 0207 6C696D69 		.ascii	"limit\000"
+ 1649      7400
+ 1650              	.LASF15:
+ 1651 020d 63796973 		.ascii	"cyisraddress\000"
+ 1651      72616464 
+ 1651      72657373 
+ 1651      00
+ 1652              	.LASF21:
+ 1653 021a 696E6974 		.ascii	"init_size\000"
+ 1653      5F73697A 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 41
+
+
+ 1653      6500
+ 1654              	.LASF18:
+ 1655 0224 5F5F6379 		.ascii	"__cy_byte_align8\000"
+ 1655      5F627974 
+ 1655      655F616C 
+ 1655      69676E38 
+ 1655      00
+ 1656              	.LASF17:
+ 1657 0235 73697A65 		.ascii	"sizetype\000"
+ 1657      74797065 
+ 1657      00
+ 1658              	.LASF6:
+ 1659 023e 6C6F6E67 		.ascii	"long long int\000"
+ 1659      206C6F6E 
+ 1659      6720696E 
+ 1659      7400
+ 1660              	.LASF13:
+ 1661 024c 63686172 		.ascii	"char\000"
+ 1661      00
+ 1662              	.LASF47:
+ 1663 0251 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Cm0Start.c\000"
+ 1663      6E657261 
+ 1663      7465645F 
+ 1663      536F7572 
+ 1663      63655C50 
+ 1664              	.LASF2:
+ 1665 0275 73686F72 		.ascii	"short int\000"
+ 1665      7420696E 
+ 1665      7400
+ 1666              	.LASF48:
+ 1667 027f 433A5C44 		.ascii	"C:\\Dropbox\\Projects\\George Posture Correction Pr"
+ 1667      726F7062 
+ 1667      6F785C50 
+ 1667      726F6A65 
+ 1667      6374735C 
+ 1668 02af 6F6A6563 		.ascii	"oject\\BackBone\\BackBone_Bootloadable.cydsn\000"
+ 1668      745C4261 
+ 1668      636B426F 
+ 1668      6E655C42 
+ 1668      61636B42 
+ 1669              	.LASF42:
+ 1670 02da 5F5F6572 		.ascii	"__errno\000"
+ 1670      726E6F00 
+ 1671              	.LASF4:
+ 1672 02e2 6C6F6E67 		.ascii	"long int\000"
+ 1672      20696E74 
+ 1672      00
+ 1673              	.LASF0:
+ 1674 02eb 7369676E 		.ascii	"signed char\000"
+ 1674      65642063 
+ 1674      68617200 
+ 1675              	.LASF38:
+ 1676 02f7 5F5F6379 		.ascii	"__cy_regions\000"
+ 1676      5F726567 
+ 1676      696F6E73 
+ 1676      00
+ 1677              	.LASF29:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccAAcUqM.s 			page 42
+
+
+ 1678 0304 72656769 		.ascii	"regions\000"
+ 1678      6F6E7300 
+ 1679              	.LASF24:
+ 1680 030c 6E627974 		.ascii	"nbytes\000"
+ 1680      657300
+ 1681              	.LASF49:
+ 1682 0313 5F5F6379 		.ascii	"__cy_region\000"
+ 1682      5F726567 
+ 1682      696F6E00 
+ 1683              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
