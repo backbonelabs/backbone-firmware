@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
   30:.\20648_driver\drivers/inv_mems_slave_compass.c **** const short *st_upper;
   31:.\20648_driver\drivers/inv_mems_slave_compass.c **** const short *st_lower;
   32:.\20648_driver\drivers/inv_mems_slave_compass.c **** int scale = 0;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 2
 
 
   33:.\20648_driver\drivers/inv_mems_slave_compass.c **** uint8_t dmp_on = 1;
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
   87:.\20648_driver\drivers/inv_mems_slave_compass.c **** /* 0.15 uT * (1 << 30) */
   88:.\20648_driver\drivers/inv_mems_slave_compass.c **** #define DATA_AKM8963_SCALE1      161061273
   89:.\20648_driver\drivers/inv_mems_slave_compass.c **** /* 0.6 uT * (1 << 30) */
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 3
 
 
   90:.\20648_driver\drivers/inv_mems_slave_compass.c **** #define DATA_AK09911_SCALE       644245094
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  144:.\20648_driver\drivers/inv_mems_slave_compass.c ****  */
  145:.\20648_driver\drivers/inv_mems_slave_compass.c **** int inv_setup_compass_akm()
  146:.\20648_driver\drivers/inv_mems_slave_compass.c **** {
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 4
 
 
  147:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	int result;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  201:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		st_lower = AK09912_ST_Lower;
  202:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	} else if (HW_AK09916 == COMPASS_SLAVE_ID) {
  203:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		st_upper = AK09916_ST_Upper;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 5
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 5
 
 
  204:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		st_lower = AK09916_ST_Lower;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  238:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	int result;
   30              		.loc 1 238 0
   31 0002 F0B5     		push	{r4, r5, r6, r7, lr}
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 6
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 6
 
 
   32              		.cfi_def_cfa_offset 20
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
   76 0030 FF30     		add	r0, r0, #255
   77 0032 D218     		add	r2, r2, r3
   78 0034 FFF7FEFF 		bl	inv_read_mems_reg
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 7
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 7
 
 
   79              	.LVL6:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  122 006c 00D0     		beq	.LCB81
  123 006e F7E0     		b	.L39	@long jump
  124              	.LCB81:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 8
 
 
  272:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		return result;
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  289:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		(HW_AK09912 != COMPASS_SLAVE_ID) &&
  290:.\20648_driver\drivers/inv_mems_slave_compass.c ****                   (HW_AK09916 != COMPASS_SLAVE_ID)) {
  291:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		result = inv_execute_write_secondary(0, addr, REG_AKM_ST_CTRL, DATA_AKM_SELF_TEST);
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 9
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 9
 
 
  160              		.loc 1 291 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  303:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		result = inv_execute_write_secondary(0, addr, mode,	DATA_AKM_MODE_ST);
  304:.\20648_driver\drivers/inv_mems_slave_compass.c **** 
  305:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	if (result)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 10
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 10
 
 
  202              		.loc 1 305 0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  236              	.LVL35:
  237 00f8 08AB     		add	r3, sp, #32
  313:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		else if (HW_AK09912 == COMPASS_SLAVE_ID)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 11
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 11
 
 
  238              		.loc 1 313 0
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  345:.\20648_driver\drivers/inv_mems_slave_compass.c ****     z = ((short)data[5])<<8|data[4];
  346:.\20648_driver\drivers/inv_mems_slave_compass.c ****     
  347:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	if (HW_AK09911 == COMPASS_SLAVE_ID)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 12
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 12
 
 
  348:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		shift = 7;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  285 0132 201C     		mov	r0, r4
  286              	.LVL42:
  287 0134 311C     		mov	r1, r6
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 13
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 13
 
 
  288 0136 0093     		str	r3, [sp]
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  331 0164 242F     		cmp	r7, #36
  332 0166 E7D0     		beq	.L43
  333              	.LVL52:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 14
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 14
 
 
  335:.\20648_driver\drivers/inv_mems_slave_compass.c ****                 result = inv_execute_read_secondary(0, addr, REG_AK09916_MEASURE_DATA, BYTES_PER_SE
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  374              	.LVL56:
  345:.\20648_driver\drivers/inv_mems_slave_compass.c ****     
  375              		.loc 1 345 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 15
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 15
 
 
  376 0196 AC46     		mov	ip, r5
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  422 01d2 1968     		ldr	r1, [r3]
  423 01d4 0023     		mov	r3, #0
  424 01d6 CA5E     		ldrsh	r2, [r1, r3]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 16
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 16
 
 
  425 01d8 6B46     		mov	r3, sp
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  471 0214 6B46     		mov	r3, sp
  472 0216 1022     		mov	r2, #16
  473 0218 9B5E     		ldrsh	r3, [r3, r2]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 17
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 17
 
 
  361:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		}
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  520              	.LVL75:
  521              	.L37:
  522 025c 041C     		mov	r4, r0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 18
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 18
 
 
  523 025e 5BE7     		b	.L4
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  395:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		return 0;
  565              		.loc 1 395 0
  566 0008 0020     		mov	r0, #0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 19
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 19
 
 
  567              	.LVL79:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  606 0034 00000000 		.word	.LANCHOR0
  607              		.cfi_endproc
  608              	.LFE6:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 20
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 20
 
 
  609              		.size	inv_write_akm_scale, .-inv_write_akm_scale
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  638              		.loc 1 433 0
  639 0014 0020     		mov	r0, #0
  640              	.LVL86:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 21
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 21
 
 
  641 0016 0EE0     		b	.L61
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  687              		.code	16
  688              		.thumb_func
  689              		.type	inv_suspend_akm, %function
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 22
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 22
 
 
  690              	inv_suspend_akm:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  451:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	if (inv_mems_pressure_getstate() == 0)
  726              		.loc 1 451 0
  727 0020 FFF7FEFF 		bl	inv_mems_pressure_getstate
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 23
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 23
 
 
  728              	.LVL94:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  770 0002 F0B5     		push	{r4, r5, r6, r7, lr}
  771              		.cfi_def_cfa_offset 20
  772              		.cfi_offset 4, -20
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 24
 
 
  773              		.cfi_offset 5, -16
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  169:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		cmd = DATA_AK09911_MODE_FR;
  818              		.loc 1 169 0
  819 003c 6027     		mov	r7, #96
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 25
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 25
 
 
  820 003e 0CE0     		b	.L84
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  861              	.L86:
  190:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		st_upper = AKM8972_ST_Upper;
  862              		.loc 1 190 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 26
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 26
 
 
  863 006c 222B     		cmp	r3, #34
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  907 00aa 191C     		mov	r1, r3
  908 00ac 3031     		add	r1, r1, #48
  909 00ae 1160     		str	r1, [r2]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 27
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 27
 
 
  201:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	} else if (HW_AK09916 == COMPASS_SLAVE_ID) {
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  214:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		return result;
  954              		.loc 1 214 0
  955 00ea 0028     		cmp	r0, #0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 28
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 28
 
 
  956 00ec 25D1     		bne	.L82
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1002 012a 2372     		strb	r3, [r4, #8]
  234:.\20648_driver\drivers/inv_mems_slave_compass.c **** }
  1003              		.loc 1 234 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 29
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 29
 
 
  1004 012c FFF7FEFF 		bl	inv_suspend_akm
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  468:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		return 0;
  1047              		.loc 1 468 0
  1048 0000 0020     		mov	r0, #0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 30
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 30
 
 
  462:.\20648_driver\drivers/inv_mems_slave_compass.c **** 	int result;
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  484:.\20648_driver\drivers/inv_mems_slave_compass.c **** 			reg_addr = REG_AK09912_DMP_READ;
  485:.\20648_driver\drivers/inv_mems_slave_compass.c **** 			bytes = DATA_AKM_99_BYTES_DMP;
  486:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		} else {
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 31
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 31
 
 
  487:.\20648_driver\drivers/inv_mems_slave_compass.c **** 			reg_addr = REG_AK09912_STATUS1;
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1111 004a 0028     		cmp	r0, #0
  1112 004c 0FD1     		bne	.L109
  511:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		return result;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 32
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 32
 
 
  512:.\20648_driver\drivers/inv_mems_slave_compass.c **** 
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1144              	.L120:
  1145              		.align	2
  1146              	.L119:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 33
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 33
 
 
  1147 0070 00000000 		.word	.LANCHOR0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  547:.\20648_driver\drivers/inv_mems_slave_compass.c **** 
  548:.\20648_driver\drivers/inv_mems_slave_compass.c **** int inv_compass_dmp_cal(const signed char *m, const signed char *compass_m)
  549:.\20648_driver\drivers/inv_mems_slave_compass.c **** {
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 34
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 34
 
 
  1188              		.loc 1 549 0
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1227 0020 F6D1     		bne	.L126
  558:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		for (j = 0; j < THREE_AXES; j++)
  1228              		.loc 1 558 0 discriminator 2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 35
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 35
 
 
  1229 0022 0131     		add	r1, r1, #1
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  589:.\20648_driver\drivers/inv_mems_slave_compass.c ****             scale = DATA_AKM8963_SCALE1;
  590:.\20648_driver\drivers/inv_mems_slave_compass.c ****             shift = AK89XX_SHIFT;
  591:.\20648_driver\drivers/inv_mems_slave_compass.c ****             break;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 36
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 36
 
 
  592:.\20648_driver\drivers/inv_mems_slave_compass.c ****     }
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  600:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		tmp_m[i] = 0;
  1298              		.loc 1 600 0 discriminator 3
  1299 0080 0024     		mov	r4, #0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 37
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 37
 
 
  1300 0082 06AB     		add	r3, sp, #24
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  604:.\20648_driver\drivers/inv_mems_slave_compass.c **** 			final_matrix[i * THREE_AXES + j] = 0;
  1342              		.loc 1 604 0 discriminator 2
  1343 00ba 0C2E     		cmp	r6, #12
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 38
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 38
 
 
  1344 00bc E7D1     		bne	.L133
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  614:.\20648_driver\drivers/inv_mems_slave_compass.c **** 			for (k = 0; k < THREE_AXES; k++)
  1385              		.loc 1 614 0 discriminator 2
  1386 00f2 0C2B     		cmp	r3, #12
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 39
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 39
 
 
  1387 00f4 EBD1     		bne	.L138
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1426              		.cfi_offset 5, -16
  1427              		.cfi_offset 6, -12
  1428              		.cfi_offset 7, -8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 40
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 40
 
 
  1429              		.cfi_offset 14, -4
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1472 0040 039A     		ldr	r2, [sp, #12]
  1473 0042 5351     		str	r3, [r2, r5]
  1474 0044 0435     		add	r5, r5, #4
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 41
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 41
 
 
  635:.\20648_driver\drivers/inv_mems_slave_compass.c **** 		tmp = 0;
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1524              		.type	AKM8963_ST_Upper, %object
  1525              		.size	AKM8963_ST_Upper, 6
  1526              	AKM8963_ST_Upper:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 42
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 42
 
 
  1527 0018 C800     		.short	200
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1581              		.type	CSWTCH.32, %object
  1582              		.size	CSWTCH.32, 6
  1583              	CSWTCH.32:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 43
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 43
 
 
  1584 0060 16       		.byte	22
@@ -2578,67 +2578,67 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1634              	.Ldebug_info0:
  1635 0000 950B0000 		.4byte	0xb95
  1636 0004 0400     		.2byte	0x4
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 44
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 44
 
 
  1637 0006 00000000 		.4byte	.Ldebug_abbrev0
  1638 000a 04       		.byte	0x4
  1639 000b 01       		.uleb128 0x1
- 1640 000c C9010000 		.4byte	.LASF83
+ 1640 000c D0010000 		.4byte	.LASF83
  1641 0010 01       		.byte	0x1
- 1642 0011 E6000000 		.4byte	.LASF84
- 1643 0015 A4020000 		.4byte	.LASF85
+ 1642 0011 ED000000 		.4byte	.LASF84
+ 1643 0015 48050000 		.4byte	.LASF85
  1644 0019 00000000 		.4byte	.Ldebug_ranges0+0
  1645 001d 00000000 		.4byte	0
  1646 0021 00000000 		.4byte	.Ldebug_line0
  1647 0025 02       		.uleb128 0x2
- 1648 0026 05040000 		.4byte	.LASF0
+ 1648 0026 B1030000 		.4byte	.LASF0
  1649 002a 02       		.byte	0x2
  1650 002b 1B       		.byte	0x1b
  1651 002c 30000000 		.4byte	0x30
  1652 0030 03       		.uleb128 0x3
  1653 0031 01       		.byte	0x1
  1654 0032 06       		.byte	0x6
- 1655 0033 EA040000 		.4byte	.LASF2
+ 1655 0033 96040000 		.4byte	.LASF2
  1656 0037 02       		.uleb128 0x2
- 1657 0038 9A020000 		.4byte	.LASF1
+ 1657 0038 A1020000 		.4byte	.LASF1
  1658 003c 02       		.byte	0x2
  1659 003d 1D       		.byte	0x1d
  1660 003e 42000000 		.4byte	0x42
  1661 0042 03       		.uleb128 0x3
  1662 0043 01       		.byte	0x1
  1663 0044 08       		.byte	0x8
- 1664 0045 FF020000 		.4byte	.LASF3
+ 1664 0045 AB020000 		.4byte	.LASF3
  1665 0049 03       		.uleb128 0x3
  1666 004a 02       		.byte	0x2
  1667 004b 05       		.byte	0x5
- 1668 004c 8F000000 		.4byte	.LASF4
+ 1668 004c 96000000 		.4byte	.LASF4
  1669 0050 02       		.uleb128 0x2
- 1670 0051 1B010000 		.4byte	.LASF5
+ 1670 0051 22010000 		.4byte	.LASF5
  1671 0055 02       		.byte	0x2
  1672 0056 2B       		.byte	0x2b
  1673 0057 5B000000 		.4byte	0x5b
  1674 005b 03       		.uleb128 0x3
  1675 005c 02       		.byte	0x2
  1676 005d 07       		.byte	0x7
- 1677 005e 48040000 		.4byte	.LASF6
+ 1677 005e F4030000 		.4byte	.LASF6
  1678 0062 03       		.uleb128 0x3
  1679 0063 04       		.byte	0x4
  1680 0064 05       		.byte	0x5
- 1681 0065 36040000 		.4byte	.LASF7
+ 1681 0065 E2030000 		.4byte	.LASF7
  1682 0069 03       		.uleb128 0x3
  1683 006a 04       		.byte	0x4
  1684 006b 07       		.byte	0x7
- 1685 006c 8C040000 		.4byte	.LASF8
+ 1685 006c 38040000 		.4byte	.LASF8
  1686 0070 03       		.uleb128 0x3
  1687 0071 08       		.byte	0x8
  1688 0072 05       		.byte	0x5
- 1689 0073 6A020000 		.4byte	.LASF9
+ 1689 0073 71020000 		.4byte	.LASF9
  1690 0077 03       		.uleb128 0x3
  1691 0078 08       		.byte	0x8
  1692 0079 07       		.byte	0x7
- 1693 007a 78030000 		.4byte	.LASF10
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 45
+ 1693 007a 24030000 		.4byte	.LASF10
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 45
 
 
  1694 007e 04       		.uleb128 0x4
@@ -2648,19 +2648,19 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1698 0085 03       		.uleb128 0x3
  1699 0086 04       		.byte	0x4
  1700 0087 07       		.byte	0x7
- 1701 0088 95030000 		.4byte	.LASF11
+ 1701 0088 41030000 		.4byte	.LASF11
  1702 008c 02       		.uleb128 0x2
- 1703 008d 5A000000 		.4byte	.LASF12
+ 1703 008d 61000000 		.4byte	.LASF12
  1704 0091 03       		.byte	0x3
  1705 0092 14       		.byte	0x14
  1706 0093 25000000 		.4byte	0x25
  1707 0097 02       		.uleb128 0x2
- 1708 0098 F6040000 		.4byte	.LASF13
+ 1708 0098 A2040000 		.4byte	.LASF13
  1709 009c 03       		.byte	0x3
  1710 009d 15       		.byte	0x15
  1711 009e 37000000 		.4byte	0x37
  1712 00a2 02       		.uleb128 0x2
- 1713 00a3 A2030000 		.4byte	.LASF14
+ 1713 00a3 4E030000 		.4byte	.LASF14
  1714 00a7 03       		.byte	0x3
  1715 00a8 21       		.byte	0x21
  1716 00a9 50000000 		.4byte	0x50
@@ -2674,16 +2674,16 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1724 00bd 03       		.uleb128 0x3
  1725 00be 04       		.byte	0x4
  1726 00bf 07       		.byte	0x7
- 1727 00c0 91020000 		.4byte	.LASF15
+ 1727 00c0 98020000 		.4byte	.LASF15
  1728 00c4 07       		.uleb128 0x7
  1729 00c5 04       		.byte	0x4
  1730 00c6 42000000 		.4byte	0x42
  1731 00ca 03       		.uleb128 0x3
  1732 00cb 01       		.byte	0x1
  1733 00cc 08       		.byte	0x8
- 1734 00cd 31040000 		.4byte	.LASF16
+ 1734 00cd DD030000 		.4byte	.LASF16
  1735 00d1 02       		.uleb128 0x2
- 1736 00d2 A3050000 		.4byte	.LASF17
+ 1736 00d2 D1050000 		.4byte	.LASF17
  1737 00d6 04       		.byte	0x4
  1738 00d7 24       		.byte	0x24
  1739 00d8 7E000000 		.4byte	0x7e
@@ -2692,13 +2692,13 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1742 00de 04       		.byte	0x4
  1743 00df 14000000 		.4byte	.LASF18
  1744 00e3 08       		.uleb128 0x8
- 1745 00e4 BE040000 		.4byte	.LASF69
+ 1745 00e4 6A040000 		.4byte	.LASF69
  1746 00e8 01       		.byte	0x1
  1747 00e9 B401     		.2byte	0x1b4
  1748 00eb 7E000000 		.4byte	0x7e
  1749 00ef 01       		.byte	0x1
  1750 00f0 01010000 		.4byte	0x101
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 46
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 46
 
 
  1751 00f4 09       		.uleb128 0x9
@@ -2708,7 +2708,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1755 00fc 7E000000 		.4byte	0x7e
  1756 0100 00       		.byte	0
  1757 0101 0A       		.uleb128 0xa
- 1758 0102 42000000 		.4byte	.LASF29
+ 1758 0102 49000000 		.4byte	.LASF29
  1759 0106 01       		.byte	0x1
  1760 0107 ED       		.byte	0xed
  1761 0108 7E000000 		.4byte	0x7e
@@ -2724,7 +2724,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1771 0121 7E000000 		.4byte	0x7e
  1772 0125 00000000 		.4byte	.LLST0
  1773 0129 0C       		.uleb128 0xc
- 1774 012a 87040000 		.4byte	.LASF20
+ 1774 012a 33040000 		.4byte	.LASF20
  1775 012e 01       		.byte	0x1
  1776 012f F0       		.byte	0xf0
  1777 0130 C2030000 		.4byte	0x3c2
@@ -2732,25 +2732,25 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1779 0135 91       		.byte	0x91
  1780 0136 60       		.sleb128 -32
  1781 0137 0B       		.uleb128 0xb
- 1782 0138 16010000 		.4byte	.LASF21
+ 1782 0138 1D010000 		.4byte	.LASF21
  1783 013c 01       		.byte	0x1
  1784 013d F0       		.byte	0xf0
  1785 013e 42000000 		.4byte	0x42
  1786 0142 CA010000 		.4byte	.LLST1
  1787 0146 0B       		.uleb128 0xb
- 1788 0147 5D020000 		.4byte	.LASF22
+ 1788 0147 64020000 		.4byte	.LASF22
  1789 014b 01       		.byte	0x1
  1790 014c F0       		.byte	0xf0
  1791 014d 42000000 		.4byte	0x42
  1792 0151 DE010000 		.4byte	.LLST2
  1793 0155 0B       		.uleb128 0xb
- 1794 0156 31030000 		.4byte	.LASF23
+ 1794 0156 DD020000 		.4byte	.LASF23
  1795 015a 01       		.byte	0x1
  1796 015b F1       		.byte	0xf1
  1797 015c 42000000 		.4byte	0x42
  1798 0160 F1010000 		.4byte	.LLST3
  1799 0164 0C       		.uleb128 0xc
- 1800 0165 E7050000 		.4byte	.LASF24
+ 1800 0165 15060000 		.4byte	.LASF24
  1801 0169 01       		.byte	0x1
  1802 016a F1       		.byte	0xf1
  1803 016b 42000000 		.4byte	0x42
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1805 0170 91       		.byte	0x91
  1806 0171 5A       		.sleb128 -38
  1807 0172 0D       		.uleb128 0xd
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 47
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 47
 
 
  1808 0173 7800     		.ascii	"x\000"
@@ -2779,7 +2779,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1823 0191 49000000 		.4byte	0x49
  1824 0195 AC020000 		.4byte	.LLST6
  1825 0199 0C       		.uleb128 0xc
- 1826 019a A6000000 		.4byte	.LASF25
+ 1826 019a AD000000 		.4byte	.LASF25
  1827 019e 01       		.byte	0x1
  1828 019f F3       		.byte	0xf3
  1829 01a0 C4000000 		.4byte	0xc4
@@ -2788,13 +2788,13 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1832 01a6 00000000 		.4byte	compass_sens
  1833 01aa 9F       		.byte	0x9f
  1834 01ab 0B       		.uleb128 0xb
- 1835 01ac 8B020000 		.4byte	.LASF26
+ 1835 01ac 92020000 		.4byte	.LASF26
  1836 01b0 01       		.byte	0x1
  1837 01b1 F4       		.byte	0xf4
  1838 01b2 7E000000 		.4byte	0x7e
  1839 01b6 E0020000 		.4byte	.LLST7
  1840 01ba 0C       		.uleb128 0xc
- 1841 01bb 52050000 		.4byte	.LASF27
+ 1841 01bb FE040000 		.4byte	.LASF27
  1842 01bf 01       		.byte	0x1
  1843 01c0 F5       		.byte	0xf5
  1844 01c1 D2030000 		.4byte	0x3d2
@@ -2802,7 +2802,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1846 01c6 91       		.byte	0x91
  1847 01c7 5C       		.sleb128 -36
  1848 01c8 0C       		.uleb128 0xc
- 1849 01c9 62020000 		.4byte	.LASF28
+ 1849 01c9 69020000 		.4byte	.LASF28
  1850 01cd 01       		.byte	0x1
  1851 01ce F6       		.byte	0xf6
  1852 01cf 42000000 		.4byte	0x42
@@ -2810,7 +2810,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1854 01d4 91       		.byte	0x91
  1855 01d5 5B       		.sleb128 -37
  1856 01d6 0E       		.uleb128 0xe
- 1857 01d7 3F040000 		.4byte	.LASF34
+ 1857 01d7 EB030000 		.4byte	.LASF34
  1858 01db 01       		.byte	0x1
  1859 01dc 7501     		.2byte	0x175
  1860 01de 18010000 		.4byte	.L4
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1862 01e3 14000000 		.4byte	.LVL1
  1863 01e7 520A0000 		.4byte	0xa52
  1864 01eb 02020000 		.4byte	0x202
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 48
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 48
 
 
  1865 01ef 10       		.uleb128 0x10
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1919 0240 4C020000 		.4byte	0x24c
  1920 0244 10       		.uleb128 0x10
  1921 0245 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 49
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 49
 
 
  1922 0246 50       		.byte	0x50
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  1976 0299 10       		.uleb128 0x10
  1977 029a 01       		.uleb128 0x1
  1978 029b 50       		.byte	0x50
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 50
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 50
 
 
  1979 029c 01       		.uleb128 0x1
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2033 02f3 FD020000 		.4byte	0x2fd
  2034 02f7 10       		.uleb128 0x10
  2035 02f8 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 51
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 51
 
 
  2036 02f9 50       		.byte	0x50
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2090 034a 00       		.byte	0
  2091 034b 0F       		.uleb128 0xf
  2092 034c 52010000 		.4byte	.LVL46
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 52
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 52
 
 
  2093 0350 8B0A0000 		.4byte	0xa8b
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2147 0395 7D       		.byte	0x7d
  2148 0396 00       		.sleb128 0
  2149 0397 02       		.uleb128 0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 53
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 53
 
 
  2150 0398 91       		.byte	0x91
@@ -3172,20 +3172,20 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2198 03e0 01       		.byte	0x1
  2199 03e1 00       		.byte	0
  2200 03e2 12       		.uleb128 0x12
- 2201 03e3 EC050000 		.4byte	.LASF30
+ 2201 03e3 1A060000 		.4byte	.LASF30
  2202 03e7 01       		.byte	0x1
  2203 03e8 8501     		.2byte	0x185
  2204 03ea 7E000000 		.4byte	0x7e
  2205 03ee 00000000 		.4byte	.LFB6
  2206 03f2 38000000 		.4byte	.LFE6-.LFB6
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 54
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 54
 
 
  2207 03f6 01       		.uleb128 0x1
  2208 03f7 9C       		.byte	0x9c
  2209 03f8 55040000 		.4byte	0x455
  2210 03fc 13       		.uleb128 0x13
- 2211 03fd 87040000 		.4byte	.LASF20
+ 2211 03fd 33040000 		.4byte	.LASF20
  2212 0401 01       		.byte	0x1
  2213 0402 8501     		.2byte	0x185
  2214 0404 7E000000 		.4byte	0x7e
@@ -3230,7 +3230,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2253 0453 00       		.byte	0
  2254 0454 00       		.byte	0
  2255 0455 12       		.uleb128 0x12
- 2256 0456 C2000000 		.4byte	.LASF31
+ 2256 0456 C9000000 		.4byte	.LASF31
  2257 045a 01       		.byte	0x1
  2258 045b 9D01     		.2byte	0x19d
  2259 045d 7E000000 		.4byte	0x7e
@@ -3238,12 +3238,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2261 0465 48000000 		.4byte	.LFE7-.LFB7
  2262 0469 01       		.uleb128 0x1
  2263 046a 9C       		.byte	0x9c
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 55
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 55
 
 
  2264 046b 80040000 		.4byte	0x480
  2265 046f 13       		.uleb128 0x13
- 2266 0470 8F030000 		.4byte	.LASF32
+ 2266 0470 3B030000 		.4byte	.LASF32
  2267 0474 01       		.byte	0x1
  2268 0475 9D01     		.2byte	0x19d
  2269 0477 80040000 		.4byte	0x480
@@ -3296,9 +3296,9 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2316 04e8 00       		.byte	0
  2317 04e9 00       		.byte	0
  2318 04ea 0A       		.uleb128 0xa
- 2319 04eb D1050000 		.4byte	.LASF33
+ 2319 04eb FF050000 		.4byte	.LASF33
  2320 04ef 01       		.byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 56
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 56
 
 
  2321 04f0 91       		.byte	0x91
@@ -3315,7 +3315,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2332 050a 7E000000 		.4byte	0x7e
  2333 050e D5030000 		.4byte	.LLST14
  2334 0512 0C       		.uleb128 0xc
- 2335 0513 87040000 		.4byte	.LASF20
+ 2335 0513 33040000 		.4byte	.LASF20
  2336 0517 01       		.byte	0x1
  2337 0518 94       		.byte	0x94
  2338 0519 AD000000 		.4byte	0xad
@@ -3323,7 +3323,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2340 051e 91       		.byte	0x91
  2341 051f 64       		.sleb128 -28
  2342 0520 0B       		.uleb128 0xb
- 2343 0521 A6000000 		.4byte	.LASF25
+ 2343 0521 AD000000 		.4byte	.LASF25
  2344 0525 01       		.byte	0x1
  2345 0526 95       		.byte	0x95
  2346 0527 97000000 		.4byte	0x97
@@ -3335,7 +3335,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2352 0536 97000000 		.4byte	0x97
  2353 053a 64040000 		.4byte	.LLST16
  2354 053e 1B       		.uleb128 0x1b
- 2355 053f AB030000 		.4byte	.LASF35
+ 2355 053f 57030000 		.4byte	.LASF35
  2356 0543 01       		.byte	0x1
  2357 0544 E8       		.byte	0xe8
  2358 0545 28010000 		.4byte	.L92
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2375 0562 51       		.byte	0x51
  2376 0563 02       		.uleb128 0x2
  2377 0564 75       		.byte	0x75
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 57
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 57
 
 
  2378 0565 00       		.sleb128 0
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2432 05ad 02       		.uleb128 0x2
  2433 05ae 75       		.byte	0x75
  2434 05af 00       		.sleb128 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 58
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 58
 
 
  2435 05b0 00       		.byte	0
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2489 0601 10       		.uleb128 0x10
  2490 0602 01       		.uleb128 0x1
  2491 0603 51       		.byte	0x51
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 59
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 59
 
 
  2492 0604 02       		.uleb128 0x2
@@ -3495,7 +3495,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2503 0612 E3000000 		.4byte	0xe3
  2504 0616 00       		.byte	0
  2505 0617 1C       		.uleb128 0x1c
- 2506 0618 96010000 		.4byte	.LASF86
+ 2506 0618 9D010000 		.4byte	.LASF86
  2507 061c 01       		.byte	0x1
  2508 061d CD01     		.2byte	0x1cd
  2509 061f 7E000000 		.4byte	0x7e
@@ -3511,19 +3511,19 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2519 0639 7E000000 		.4byte	0x7e
  2520 063d 78040000 		.4byte	.LLST17
  2521 0641 15       		.uleb128 0x15
- 2522 0642 0D030000 		.4byte	.LASF36
+ 2522 0642 B9020000 		.4byte	.LASF36
  2523 0646 01       		.byte	0x1
  2524 0647 D001     		.2byte	0x1d0
  2525 0649 97000000 		.4byte	0x97
  2526 064d A1040000 		.4byte	.LLST18
  2527 0651 15       		.uleb128 0x15
- 2528 0652 9E040000 		.4byte	.LASF37
+ 2528 0652 4A040000 		.4byte	.LASF37
  2529 0656 01       		.byte	0x1
  2530 0657 D001     		.2byte	0x1d0
  2531 0659 97000000 		.4byte	0x97
  2532 065d B4040000 		.4byte	.LLST19
  2533 0661 15       		.uleb128 0x15
- 2534 0662 8F050000 		.4byte	.LASF38
+ 2534 0662 3B050000 		.4byte	.LASF38
  2535 0666 01       		.byte	0x1
  2536 0667 D101     		.2byte	0x1d1
  2537 0669 42000000 		.4byte	0x42
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2546 0681 02       		.uleb128 0x2
  2547 0682 75       		.byte	0x75
  2548 0683 00       		.sleb128 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 60
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 60
 
 
  2549 0684 10       		.uleb128 0x10
@@ -3568,7 +3568,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2573 06a8 620B0000 		.4byte	0xb62
  2574 06ac 00       		.byte	0
  2575 06ad 1D       		.uleb128 0x1d
- 2576 06ae 68010000 		.4byte	.LASF87
+ 2576 06ae 6F010000 		.4byte	.LASF87
  2577 06b2 01       		.byte	0x1
  2578 06b3 1802     		.2byte	0x218
  2579 06b5 CA000000 		.4byte	0xca
@@ -3577,7 +3577,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2582 06c1 01       		.uleb128 0x1
  2583 06c2 9C       		.byte	0x9c
  2584 06c3 1E       		.uleb128 0x1e
- 2585 06c4 4A030000 		.4byte	.LASF39
+ 2585 06c4 F6020000 		.4byte	.LASF39
  2586 06c8 01       		.byte	0x1
  2587 06c9 2402     		.2byte	0x224
  2588 06cb 7E000000 		.4byte	0x7e
@@ -3593,16 +3593,16 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2598 06e3 B3070000 		.4byte	0x7b3
  2599 06e7 DA040000 		.4byte	.LLST21
  2600 06eb 13       		.uleb128 0x13
- 2601 06ec BF010000 		.4byte	.LASF40
+ 2601 06ec C6010000 		.4byte	.LASF40
  2602 06f0 01       		.byte	0x1
  2603 06f1 2402     		.2byte	0x224
  2604 06f3 B3070000 		.4byte	0x7b3
  2605 06f7 FB040000 		.4byte	.LLST22
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 61
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 61
 
 
  2606 06fb 20       		.uleb128 0x20
- 2607 06fc E0030000 		.4byte	.LASF41
+ 2607 06fc 8C030000 		.4byte	.LASF41
  2608 0700 01       		.byte	0x1
  2609 0701 2602     		.2byte	0x226
  2610 0703 BE070000 		.4byte	0x7be
@@ -3610,7 +3610,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2612 0708 91       		.byte	0x91
  2613 0709 887F     		.sleb128 -120
  2614 070b 20       		.uleb128 0x20
- 2615 070c 57020000 		.4byte	.LASF42
+ 2615 070c 5E020000 		.4byte	.LASF42
  2616 0710 01       		.byte	0x1
  2617 0711 2702     		.2byte	0x227
  2618 0713 CE070000 		.4byte	0x7ce
@@ -3636,7 +3636,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2638 073d 7E000000 		.4byte	0x7e
  2639 0741 AA050000 		.4byte	.LLST25
  2640 0745 20       		.uleb128 0x20
- 2641 0746 A6000000 		.4byte	.LASF25
+ 2641 0746 AD000000 		.4byte	.LASF25
  2642 074a 01       		.byte	0x1
  2643 074b 2902     		.2byte	0x229
  2644 074d DE070000 		.4byte	0x7de
@@ -3644,21 +3644,21 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2646 0752 91       		.byte	0x91
  2647 0753 947F     		.sleb128 -108
  2648 0755 15       		.uleb128 0x15
- 2649 0756 8F030000 		.4byte	.LASF32
+ 2649 0756 3B030000 		.4byte	.LASF32
  2650 075a 01       		.byte	0x1
  2651 075b 2A02     		.2byte	0x22a
  2652 075d 7E000000 		.4byte	0x7e
  2653 0761 C9050000 		.4byte	.LLST26
  2654 0765 15       		.uleb128 0x15
- 2655 0766 8B020000 		.4byte	.LASF26
+ 2655 0766 92020000 		.4byte	.LASF26
  2656 076a 01       		.byte	0x1
  2657 076b 2B02     		.2byte	0x22b
  2658 076d 7E000000 		.4byte	0x7e
  2659 0771 DC050000 		.4byte	.LLST27
  2660 0775 20       		.uleb128 0x20
- 2661 0776 20050000 		.4byte	.LASF43
+ 2661 0776 CC040000 		.4byte	.LASF43
  2662 077a 01       		.byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 62
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 62
 
 
  2663 077b 2C02     		.2byte	0x22c
@@ -3718,10 +3718,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2717 07ec 02       		.byte	0x2
  2718 07ed 00       		.byte	0
  2719 07ee 1E       		.uleb128 0x1e
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 63
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 63
 
 
- 2720 07ef 61000000 		.4byte	.LASF44
+ 2720 07ef 68000000 		.4byte	.LASF44
  2721 07f3 01       		.byte	0x1
  2722 07f4 7602     		.2byte	0x276
  2723 07f6 7E000000 		.4byte	0x7e
@@ -3731,13 +3731,13 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2727 0803 9C       		.byte	0x9c
  2728 0804 55080000 		.4byte	0x855
  2729 0808 13       		.uleb128 0x13
- 2730 0809 5E030000 		.4byte	.LASF45
+ 2730 0809 0A030000 		.4byte	.LASF45
  2731 080d 01       		.byte	0x1
  2732 080e 7602     		.2byte	0x276
  2733 0810 55080000 		.4byte	0x855
  2734 0814 EF050000 		.4byte	.LLST28
  2735 0818 13       		.uleb128 0x13
- 2736 0819 72050000 		.4byte	.LASF46
+ 2736 0819 1E050000 		.4byte	.LASF46
  2737 081d 01       		.byte	0x1
  2738 081e 7602     		.2byte	0x276
  2739 0820 5B080000 		.4byte	0x85b
@@ -3775,10 +3775,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2771 086f 02       		.byte	0x2
  2772 0870 00       		.byte	0
  2773 0871 0C       		.uleb128 0xc
- 2774 0872 5B040000 		.4byte	.LASF47
+ 2774 0872 07040000 		.4byte	.LASF47
  2775 0876 01       		.byte	0x1
  2776 0877 78       		.byte	0x78
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 64
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 64
 
 
  2777 0878 82080000 		.4byte	0x882
@@ -3788,7 +3788,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2781 0882 21       		.uleb128 0x21
  2782 0883 61080000 		.4byte	0x861
  2783 0887 0C       		.uleb128 0xc
- 2784 0888 41050000 		.4byte	.LASF48
+ 2784 0888 ED040000 		.4byte	.LASF48
  2785 088c 01       		.byte	0x1
  2786 088d 79       		.byte	0x79
  2787 088e 98080000 		.4byte	0x898
@@ -3798,7 +3798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2791 0898 21       		.uleb128 0x21
  2792 0899 61080000 		.4byte	0x861
  2793 089d 0C       		.uleb128 0xc
- 2794 089e C0050000 		.4byte	.LASF49
+ 2794 089e EE050000 		.4byte	.LASF49
  2795 08a2 01       		.byte	0x1
  2796 08a3 7B       		.byte	0x7b
  2797 08a4 AE080000 		.4byte	0x8ae
@@ -3808,7 +3808,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2801 08ae 21       		.uleb128 0x21
  2802 08af 61080000 		.4byte	0x861
  2803 08b3 0C       		.uleb128 0xc
- 2804 08b4 37010000 		.4byte	.LASF50
+ 2804 08b4 3E010000 		.4byte	.LASF50
  2805 08b8 01       		.byte	0x1
  2806 08b9 7C       		.byte	0x7c
  2807 08ba C4080000 		.4byte	0x8c4
@@ -3818,7 +3818,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2811 08c4 21       		.uleb128 0x21
  2812 08c5 61080000 		.4byte	0x861
  2813 08c9 0C       		.uleb128 0xc
- 2814 08ca AF050000 		.4byte	.LASF51
+ 2814 08ca DD050000 		.4byte	.LASF51
  2815 08ce 01       		.byte	0x1
  2816 08cf 7E       		.byte	0x7e
  2817 08d0 DA080000 		.4byte	0x8da
@@ -3828,7 +3828,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2821 08da 21       		.uleb128 0x21
  2822 08db 61080000 		.4byte	0x861
  2823 08df 0C       		.uleb128 0xc
- 2824 08e0 26010000 		.4byte	.LASF52
+ 2824 08e0 2D010000 		.4byte	.LASF52
  2825 08e4 01       		.byte	0x1
  2826 08e5 7F       		.byte	0x7f
  2827 08e6 F0080000 		.4byte	0x8f0
@@ -3838,10 +3838,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2831 08f0 21       		.uleb128 0x21
  2832 08f1 61080000 		.4byte	0x861
  2833 08f5 0C       		.uleb128 0xc
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 65
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 65
 
 
- 2834 08f6 20040000 		.4byte	.LASF53
+ 2834 08f6 CC030000 		.4byte	.LASF53
  2835 08fa 01       		.byte	0x1
  2836 08fb 81       		.byte	0x81
  2837 08fc 06090000 		.4byte	0x906
@@ -3851,7 +3851,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2841 0906 21       		.uleb128 0x21
  2842 0907 61080000 		.4byte	0x861
  2843 090b 0C       		.uleb128 0xc
- 2844 090c FE040000 		.4byte	.LASF54
+ 2844 090c AA040000 		.4byte	.LASF54
  2845 0910 01       		.byte	0x1
  2846 0911 82       		.byte	0x82
  2847 0912 1C090000 		.4byte	0x91c
@@ -3861,7 +3861,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2851 091c 21       		.uleb128 0x21
  2852 091d 61080000 		.4byte	0x861
  2853 0921 0C       		.uleb128 0xc
- 2854 0922 7E000000 		.4byte	.LASF55
+ 2854 0922 85000000 		.4byte	.LASF55
  2855 0926 01       		.byte	0x1
  2856 0927 84       		.byte	0x84
  2857 0928 32090000 		.4byte	0x932
@@ -3871,7 +3871,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2861 0932 21       		.uleb128 0x21
  2862 0933 61080000 		.4byte	0x861
  2863 0937 0C       		.uleb128 0xc
- 2864 0938 A5010000 		.4byte	.LASF56
+ 2864 0938 AC010000 		.4byte	.LASF56
  2865 093c 01       		.byte	0x1
  2866 093d 85       		.byte	0x85
  2867 093e 48090000 		.4byte	0x948
@@ -3881,7 +3881,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2871 0948 21       		.uleb128 0x21
  2872 0949 61080000 		.4byte	0x861
  2873 094d 0C       		.uleb128 0xc
- 2874 094e 67030000 		.4byte	.LASF57
+ 2874 094e 13030000 		.4byte	.LASF57
  2875 0952 01       		.byte	0x1
  2876 0953 87       		.byte	0x87
  2877 0954 5E090000 		.4byte	0x95e
@@ -3891,20 +3891,20 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2881 095e 21       		.uleb128 0x21
  2882 095f 61080000 		.4byte	0x861
  2883 0963 0C       		.uleb128 0xc
- 2884 0964 0F050000 		.4byte	.LASF58
+ 2884 0964 BB040000 		.4byte	.LASF58
  2885 0968 01       		.byte	0x1
  2886 0969 88       		.byte	0x88
  2887 096a 74090000 		.4byte	0x974
  2888 096e 05       		.uleb128 0x5
  2889 096f 03       		.byte	0x3
  2890 0970 3C000000 		.4byte	AK09916_ST_Upper
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 66
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 66
 
 
  2891 0974 21       		.uleb128 0x21
  2892 0975 61080000 		.4byte	0x861
  2893 0979 0C       		.uleb128 0xc
- 2894 097a AB000000 		.4byte	.LASF59
+ 2894 097a B2000000 		.4byte	.LASF59
  2895 097e 01       		.byte	0x1
  2896 097f 8A       		.byte	0x8a
  2897 0980 97000000 		.4byte	0x97
@@ -3920,14 +3920,14 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2907 0996 03       		.byte	0x3
  2908 0997 09000000 		.4byte	sModeRegAddr
  2909 099b 22       		.uleb128 0x22
- 2910 099c 39030000 		.4byte	.LASF61
+ 2910 099c E5020000 		.4byte	.LASF61
  2911 09a0 05       		.byte	0x5
  2912 09a1 2D       		.byte	0x2d
  2913 09a2 A6090000 		.4byte	0x9a6
  2914 09a6 21       		.uleb128 0x21
  2915 09a7 42000000 		.4byte	0x42
  2916 09ab 22       		.uleb128 0x22
- 2917 09ac 16030000 		.4byte	.LASF62
+ 2917 09ac C2020000 		.4byte	.LASF62
  2918 09b0 05       		.byte	0x5
  2919 09b1 2E       		.byte	0x2e
  2920 09b2 A6090000 		.4byte	0x9a6
@@ -3939,12 +3939,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2926 09c4 08       		.byte	0x8
  2927 09c5 00       		.byte	0
  2928 09c6 22       		.uleb128 0x22
- 2929 09c7 D5000000 		.4byte	.LASF63
+ 2929 09c7 DC000000 		.4byte	.LASF63
  2930 09cb 05       		.byte	0x5
  2931 09cc 33       		.byte	0x33
  2932 09cd B6090000 		.4byte	0x9b6
  2933 09d1 23       		.uleb128 0x23
- 2934 09d2 99000000 		.4byte	.LASF64
+ 2934 09d2 A0000000 		.4byte	.LASF64
  2935 09d6 01       		.byte	0x1
  2936 09d7 1C       		.byte	0x1c
  2937 09d8 B6090000 		.4byte	0x9b6
@@ -3958,11 +3958,11 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2945 09ec BD000000 		.4byte	0xbd
  2946 09f0 02       		.byte	0x2
  2947 09f1 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 67
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 67
 
 
  2948 09f2 23       		.uleb128 0x23
- 2949 09f3 82050000 		.4byte	.LASF65
+ 2949 09f3 2E050000 		.4byte	.LASF65
  2950 09f7 01       		.byte	0x1
  2951 09f8 1D       		.byte	0x1d
  2952 09f9 E2090000 		.4byte	0x9e2
@@ -3970,7 +3970,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2954 09fe 03       		.byte	0x3
  2955 09ff 00000000 		.4byte	compass_sens
  2956 0a03 23       		.uleb128 0x23
- 2957 0a04 28030000 		.4byte	.LASF66
+ 2957 0a04 D4020000 		.4byte	.LASF66
  2958 0a08 01       		.byte	0x1
  2959 0a09 1E       		.byte	0x1e
  2960 0a0a 140A0000 		.4byte	0xa14
@@ -3983,7 +3983,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2967 0a1a 21       		.uleb128 0x21
  2968 0a1b 49000000 		.4byte	0x49
  2969 0a1f 23       		.uleb128 0x23
- 2970 0a20 B6010000 		.4byte	.LASF67
+ 2970 0a20 BD010000 		.4byte	.LASF67
  2971 0a24 01       		.byte	0x1
  2972 0a25 1F       		.byte	0x1f
  2973 0a26 140A0000 		.4byte	0xa14
@@ -3991,7 +3991,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2975 0a2b 03       		.byte	0x3
  2976 0a2c 00000000 		.4byte	st_lower
  2977 0a30 23       		.uleb128 0x23
- 2978 0a31 8F030000 		.4byte	.LASF32
+ 2978 0a31 3B030000 		.4byte	.LASF32
  2979 0a35 01       		.byte	0x1
  2980 0a36 20       		.byte	0x20
  2981 0a37 7E000000 		.4byte	0x7e
@@ -3999,7 +3999,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2983 0a3c 03       		.byte	0x3
  2984 0a3d 00000000 		.4byte	scale
  2985 0a41 23       		.uleb128 0x23
- 2986 0a42 9C050000 		.4byte	.LASF68
+ 2986 0a42 35000000 		.4byte	.LASF68
  2987 0a46 01       		.byte	0x1
  2988 0a47 21       		.byte	0x21
  2989 0a48 97000000 		.4byte	0x97
@@ -4007,7 +4007,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  2991 0a4d 03       		.byte	0x3
  2992 0a4e 00000000 		.4byte	dmp_on
  2993 0a52 24       		.uleb128 0x24
- 2994 0a53 0E040000 		.4byte	.LASF70
+ 2994 0a53 BA030000 		.4byte	.LASF70
  2995 0a57 06       		.byte	0x6
  2996 0a58 40       		.byte	0x40
  2997 0a59 D1000000 		.4byte	0xd1
@@ -4018,12 +4018,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3002 0a67 85000000 		.4byte	0x85
  3003 0a6b 25       		.uleb128 0x25
  3004 0a6c C4000000 		.4byte	0xc4
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 68
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 68
 
 
  3005 0a70 00       		.byte	0
  3006 0a71 24       		.uleb128 0x24
- 3007 0a72 A4040000 		.4byte	.LASF71
+ 3007 0a72 50040000 		.4byte	.LASF71
  3008 0a76 06       		.byte	0x6
  3009 0a77 38       		.byte	0x38
  3010 0a78 D1000000 		.4byte	0xd1
@@ -4034,7 +4034,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3015 0a86 A6090000 		.4byte	0x9a6
  3016 0a8a 00       		.byte	0
  3017 0a8b 24       		.uleb128 0x24
- 3018 0a8c CE040000 		.4byte	.LASF72
+ 3018 0a8c 7A040000 		.4byte	.LASF72
  3019 0a90 07       		.byte	0x7
  3020 0a91 47       		.byte	0x47
  3021 0a92 7E000000 		.4byte	0x7e
@@ -4049,7 +4049,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3030 0aaa 97000000 		.4byte	0x97
  3031 0aae 00       		.byte	0
  3032 0aaf 26       		.uleb128 0x26
- 3033 0ab0 37050000 		.4byte	.LASF81
+ 3033 0ab0 E3040000 		.4byte	.LASF81
  3034 0ab4 0A       		.byte	0xa
  3035 0ab5 2D       		.byte	0x2d
  3036 0ab6 C00A0000 		.4byte	0xac0
@@ -4077,8 +4077,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3058 0aea 04       		.byte	0x4
  3059 0aeb 97000000 		.4byte	0x97
  3060 0aef 24       		.uleb128 0x24
- 3061 0af0 48010000 		.4byte	.LASF74
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 69
+ 3061 0af0 4F010000 		.4byte	.LASF74
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 69
 
 
  3062 0af4 07       		.byte	0x7
@@ -4089,17 +4089,17 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3067 0aff 7E000000 		.4byte	0x7e
  3068 0b03 00       		.byte	0
  3069 0b04 27       		.uleb128 0x27
- 3070 0b05 6C040000 		.4byte	.LASF75
+ 3070 0b05 18040000 		.4byte	.LASF75
  3071 0b09 08       		.byte	0x8
  3072 0b0a 1E       		.byte	0x1e
  3073 0b0b CA000000 		.4byte	0xca
  3074 0b0f 27       		.uleb128 0x27
- 3075 0b10 E6030000 		.4byte	.LASF76
+ 3075 0b10 92030000 		.4byte	.LASF76
  3076 0b14 07       		.byte	0x7
  3077 0b15 61       		.byte	0x61
  3078 0b16 D1000000 		.4byte	0xd1
  3079 0b1a 24       		.uleb128 0x24
- 3080 0b1b 78020000 		.4byte	.LASF77
+ 3080 0b1b 7F020000 		.4byte	.LASF77
  3081 0b1f 07       		.byte	0x7
  3082 0b20 2B       		.byte	0x2b
  3083 0b21 7E000000 		.4byte	0x7e
@@ -4114,7 +4114,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3092 0b39 CA000000 		.4byte	0xca
  3093 0b3d 00       		.byte	0
  3094 0b3e 24       		.uleb128 0x24
- 3095 0b3f 82010000 		.4byte	.LASF78
+ 3095 0b3f 89010000 		.4byte	.LASF78
  3096 0b43 07       		.byte	0x7
  3097 0b44 3E       		.byte	0x3e
  3098 0b45 7E000000 		.4byte	0x7e
@@ -4129,16 +4129,16 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3107 0b5d CA000000 		.4byte	0xca
  3108 0b61 00       		.byte	0
  3109 0b62 27       		.uleb128 0x27
- 3110 0b63 C2030000 		.4byte	.LASF79
+ 3110 0b63 6E030000 		.4byte	.LASF79
  3111 0b67 07       		.byte	0x7
  3112 0b68 5B       		.byte	0x5b
  3113 0b69 D1000000 		.4byte	0xd1
  3114 0b6d 24       		.uleb128 0x24
- 3115 0b6e 35000000 		.4byte	.LASF80
+ 3115 0b6e 3C000000 		.4byte	.LASF80
  3116 0b72 09       		.byte	0x9
  3117 0b73 37       		.byte	0x37
  3118 0b74 62000000 		.4byte	0x62
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 70
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 70
 
 
  3119 0b78 870B0000 		.4byte	0xb87
@@ -4148,7 +4148,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3123 0b82 62000000 		.4byte	0x62
  3124 0b86 00       		.byte	0
  3125 0b87 28       		.uleb128 0x28
- 3126 0b88 5B050000 		.4byte	.LASF82
+ 3126 0b88 07050000 		.4byte	.LASF82
  3127 0b8c 0B       		.byte	0xb
  3128 0b8d A1       		.byte	0xa1
  3129 0b8e D1000000 		.4byte	0xd1
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3173 0025 3E       		.uleb128 0x3e
  3174 0026 0B       		.uleb128 0xb
  3175 0027 03       		.uleb128 0x3
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 71
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 71
 
 
  3176 0028 0E       		.uleb128 0xe
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3230 005e 49       		.uleb128 0x49
  3231 005f 13       		.uleb128 0x13
  3232 0060 20       		.uleb128 0x20
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 72
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 72
 
 
  3233 0061 0B       		.uleb128 0xb
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3287 0098 49       		.uleb128 0x49
  3288 0099 13       		.uleb128 0x13
  3289 009a 02       		.uleb128 0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 73
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 73
 
 
  3290 009b 17       		.uleb128 0x17
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3344 00d3 13       		.uleb128 0x13
  3345 00d4 00       		.byte	0
  3346 00d5 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 74
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 74
 
 
  3347 00d6 10       		.uleb128 0x10
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3401 0112 49       		.uleb128 0x49
  3402 0113 13       		.uleb128 0x13
  3403 0114 02       		.uleb128 0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 75
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 75
 
 
  3404 0115 17       		.uleb128 0x17
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3458 014c 13       		.uleb128 0x13
  3459 014d 00       		.byte	0
  3460 014e 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 76
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 76
 
 
  3461 014f 18       		.uleb128 0x18
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3515 0187 01       		.uleb128 0x1
  3516 0188 12       		.uleb128 0x12
  3517 0189 06       		.uleb128 0x6
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 77
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 77
 
 
  3518 018a 40       		.uleb128 0x40
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3572 01c2 9642     		.uleb128 0x2116
  3573 01c4 19       		.uleb128 0x19
  3574 01c5 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 78
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 78
 
 
  3575 01c6 13       		.uleb128 0x13
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3629 01fc 19       		.uleb128 0x19
  3630 01fd 00       		.byte	0
  3631 01fe 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 79
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 79
 
 
  3632 01ff 23       		.uleb128 0x23
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3686 0235 3B       		.uleb128 0x3b
  3687 0236 0B       		.uleb128 0xb
  3688 0237 27       		.uleb128 0x27
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 80
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 80
 
 
  3689 0238 19       		.uleb128 0x19
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3743 000f 21000000 		.4byte	.LVL4-1
  3744 0013 0100     		.2byte	0x1
  3745 0015 51       		.byte	0x51
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 81
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 81
 
 
  3746 0016 22000000 		.4byte	.LVL4
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3800 00a8 0100     		.2byte	0x1
  3801 00aa 54       		.byte	0x54
  3802 00ab C0000000 		.4byte	.LVL23
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 82
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 82
 
 
  3803 00af C2000000 		.4byte	.LVL24
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3857 0144 54       		.byte	0x54
  3858 0145 56010000 		.4byte	.LVL48
  3859 0149 5A010000 		.4byte	.LVL49
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 83
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 83
 
 
  3860 014d 0100     		.2byte	0x1
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3914 01d6 00000000 		.4byte	0
  3915 01da 00000000 		.4byte	0
  3916              	.LLST2:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 84
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 84
 
 
  3917 01de 10000000 		.4byte	.LVL0
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  3971 0269 B4010000 		.4byte	.LVL60
  3972 026d C0010000 		.4byte	.LVL61
  3973 0271 0100     		.2byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 85
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 85
 
 
  3974 0273 52       		.byte	0x52
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4028 02fe 00000000 		.4byte	.LVL78
  4029 0302 0A000000 		.4byte	.LVL79
  4030 0306 0100     		.2byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 86
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 86
 
 
  4031 0308 50       		.byte	0x50
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4085              	.LLST12:
  4086 037d 00000000 		.4byte	.LVL85
  4087 0381 16000000 		.4byte	.LVL86
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 87
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 87
 
 
  4088 0385 0100     		.2byte	0x1
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4142 040b 0300     		.2byte	0x3
  4143 040d 70       		.byte	0x70
  4144 040e 45       		.sleb128 -59
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 88
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 88
 
 
  4145 040f 9F       		.byte	0x9f
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4199 049d 00000000 		.4byte	0
  4200              	.LLST18:
  4201 04a1 3A000000 		.4byte	.LVL118
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 89
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 89
 
 
  4202 04a5 49000000 		.4byte	.LVL120-1
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4256 052f 0200     		.2byte	0x2
  4257 0531 30       		.byte	0x30
  4258 0532 9F       		.byte	0x9f
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 90
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 90
 
 
  4259 0533 08000000 		.4byte	.LVL128
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4313 05c0 51       		.byte	0x51
  4314 05c1 00000000 		.4byte	0
  4315 05c5 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 91
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 91
 
 
  4316              	.LLST26:
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4370              	.LLST32:
  4371 0655 0A000000 		.4byte	.LVL152
  4372 0659 1C000000 		.4byte	.LVL153
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 92
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 92
 
 
  4373 065d 0A00     		.2byte	0xa
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4426 0020 00000000 		.4byte	.LFB4
  4427 0024 58010000 		.4byte	.LFE4
  4428 0028 00000000 		.4byte	.LFB9
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 93
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 93
 
 
  4429 002c 80000000 		.4byte	.LFE9
@@ -5554,455 +5554,460 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 1
  4448      7574655F 
  4448      72656164 
  4448      5F736563 
- 4449              	.LASF80:
- 4450 0035 696E765F 		.ascii	"inv_q30_mult\000"
- 4450      7133305F 
- 4450      6D756C74 
- 4450      00
- 4451              	.LASF29:
- 4452 0042 696E765F 		.ascii	"inv_check_akm_self_test\000"
- 4452      63686563 
- 4452      6B5F616B 
- 4452      6D5F7365 
- 4452      6C665F74 
- 4453              	.LASF12:
- 4454 005a 696E7438 		.ascii	"int8_t\000"
- 4454      5F7400
- 4455              	.LASF44:
- 4456 0061 696E765F 		.ascii	"inv_apply_raw_compass_matrix\000"
- 4456      6170706C 
- 4456      795F7261 
- 4456      775F636F 
- 4456      6D706173 
- 4457              	.LASF55:
- 4458 007e 414B3039 		.ascii	"AK09912_ST_Lower\000"
- 4458      3931325F 
- 4458      53545F4C 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 94
+ 4449              	.LASF68:
+ 4450 0035 646D705F 		.ascii	"dmp_on\000"
+ 4450      6F6E00
+ 4451              	.LASF80:
+ 4452 003c 696E765F 		.ascii	"inv_q30_mult\000"
+ 4452      7133305F 
+ 4452      6D756C74 
+ 4452      00
+ 4453              	.LASF29:
+ 4454 0049 696E765F 		.ascii	"inv_check_akm_self_test\000"
+ 4454      63686563 
+ 4454      6B5F616B 
+ 4454      6D5F7365 
+ 4454      6C665F74 
+ 4455              	.LASF12:
+ 4456 0061 696E7438 		.ascii	"int8_t\000"
+ 4456      5F7400
+ 4457              	.LASF44:
+ 4458 0068 696E765F 		.ascii	"inv_apply_raw_compass_matrix\000"
+ 4458      6170706C 
+ 4458      795F7261 
+ 4458      775F636F 
+ 4458      6D706173 
+ 4459              	.LASF55:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 94
 
 
- 4458      6F776572 
- 4458      00
- 4459              	.LASF4:
- 4460 008f 73686F72 		.ascii	"short int\000"
- 4460      7420696E 
- 4460      7400
- 4461              	.LASF64:
- 4462 0099 66696E61 		.ascii	"final_matrix\000"
- 4462      6C5F6D61 
- 4462      74726978 
- 4462      00
- 4463              	.LASF25:
- 4464 00a6 73656E73 		.ascii	"sens\000"
+ 4460 0085 414B3039 		.ascii	"AK09912_ST_Lower\000"
+ 4460      3931325F 
+ 4460      53545F4C 
+ 4460      6F776572 
+ 4460      00
+ 4461              	.LASF4:
+ 4462 0096 73686F72 		.ascii	"short int\000"
+ 4462      7420696E 
+ 4462      7400
+ 4463              	.LASF64:
+ 4464 00a0 66696E61 		.ascii	"final_matrix\000"
+ 4464      6C5F6D61 
+ 4464      74726978 
  4464      00
- 4465              	.LASF59:
- 4466 00ab 7365636F 		.ascii	"secondary_resume_state\000"
- 4466      6E646172 
- 4466      795F7265 
- 4466      73756D65 
- 4466      5F737461 
- 4467              	.LASF31:
- 4468 00c2 696E765F 		.ascii	"inv_read_akm_scale\000"
- 4468      72656164 
- 4468      5F616B6D 
- 4468      5F736361 
- 4468      6C6500
- 4469              	.LASF63:
- 4470 00d5 534F4654 		.ascii	"SOFT_IRON_MATRIX\000"
- 4470      5F49524F 
- 4470      4E5F4D41 
- 4470      54524958 
- 4470      00
- 4471              	.LASF84:
- 4472 00e6 2E5C3230 		.ascii	".\\20648_driver\\drivers\\inv_mems_slave_compass.c\000"
- 4472      3634385F 
- 4472      64726976 
- 4472      65725C64 
- 4472      72697665 
- 4473              	.LASF21:
- 4474 0116 6D6F6465 		.ascii	"mode\000"
- 4474      00
- 4475              	.LASF5:
- 4476 011b 5F5F7569 		.ascii	"__uint16_t\000"
- 4476      6E743136 
- 4476      5F7400
- 4477              	.LASF52:
- 4478 0126 414B4D38 		.ascii	"AKM8963_ST_Upper\000"
- 4478      3936335F 
- 4478      53545F55 
- 4478      70706572 
- 4478      00
- 4479              	.LASF50:
- 4480 0137 414B4D38 		.ascii	"AKM8972_ST_Upper\000"
- 4480      3937325F 
+ 4465              	.LASF25:
+ 4466 00ad 73656E73 		.ascii	"sens\000"
+ 4466      00
+ 4467              	.LASF59:
+ 4468 00b2 7365636F 		.ascii	"secondary_resume_state\000"
+ 4468      6E646172 
+ 4468      795F7265 
+ 4468      73756D65 
+ 4468      5F737461 
+ 4469              	.LASF31:
+ 4470 00c9 696E765F 		.ascii	"inv_read_akm_scale\000"
+ 4470      72656164 
+ 4470      5F616B6D 
+ 4470      5F736361 
+ 4470      6C6500
+ 4471              	.LASF63:
+ 4472 00dc 534F4654 		.ascii	"SOFT_IRON_MATRIX\000"
+ 4472      5F49524F 
+ 4472      4E5F4D41 
+ 4472      54524958 
+ 4472      00
+ 4473              	.LASF84:
+ 4474 00ed 2E5C3230 		.ascii	".\\20648_driver\\drivers\\inv_mems_slave_compass.c\000"
+ 4474      3634385F 
+ 4474      64726976 
+ 4474      65725C64 
+ 4474      72697665 
+ 4475              	.LASF21:
+ 4476 011d 6D6F6465 		.ascii	"mode\000"
+ 4476      00
+ 4477              	.LASF5:
+ 4478 0122 5F5F7569 		.ascii	"__uint16_t\000"
+ 4478      6E743136 
+ 4478      5F7400
+ 4479              	.LASF52:
+ 4480 012d 414B4D38 		.ascii	"AKM8963_ST_Upper\000"
+ 4480      3936335F 
  4480      53545F55 
  4480      70706572 
  4480      00
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 95
+ 4481              	.LASF50:
+ 4482 013e 414B4D38 		.ascii	"AKM8972_ST_Upper\000"
+ 4482      3937325F 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 95
 
 
- 4481              	.LASF74:
- 4482 0148 696E765F 		.ascii	"inv_mems_secondary_stop_channel\000"
- 4482      6D656D73 
- 4482      5F736563 
- 4482      6F6E6461 
- 4482      72795F73 
- 4483              	.LASF87:
- 4484 0168 696E765F 		.ascii	"inv_mems_compass_getstate\000"
+ 4482      53545F55 
+ 4482      70706572 
+ 4482      00
+ 4483              	.LASF74:
+ 4484 014f 696E765F 		.ascii	"inv_mems_secondary_stop_channel\000"
  4484      6D656D73 
- 4484      5F636F6D 
- 4484      70617373 
- 4484      5F676574 
- 4485              	.LASF78:
- 4486 0182 696E765F 		.ascii	"inv_write_secondary\000"
- 4486      77726974 
- 4486      655F7365 
- 4486      636F6E64 
- 4486      61727900 
- 4487              	.LASF86:
- 4488 0196 696E765F 		.ascii	"inv_resume_akm\000"
- 4488      72657375 
- 4488      6D655F61 
- 4488      6B6D00
- 4489              	.LASF56:
- 4490 01a5 414B3039 		.ascii	"AK09912_ST_Upper\000"
- 4490      3931325F 
- 4490      53545F55 
- 4490      70706572 
- 4490      00
- 4491              	.LASF67:
- 4492 01b6 73745F6C 		.ascii	"st_lower\000"
- 4492      6F776572 
+ 4484      5F736563 
+ 4484      6F6E6461 
+ 4484      72795F73 
+ 4485              	.LASF87:
+ 4486 016f 696E765F 		.ascii	"inv_mems_compass_getstate\000"
+ 4486      6D656D73 
+ 4486      5F636F6D 
+ 4486      70617373 
+ 4486      5F676574 
+ 4487              	.LASF78:
+ 4488 0189 696E765F 		.ascii	"inv_write_secondary\000"
+ 4488      77726974 
+ 4488      655F7365 
+ 4488      636F6E64 
+ 4488      61727900 
+ 4489              	.LASF86:
+ 4490 019d 696E765F 		.ascii	"inv_resume_akm\000"
+ 4490      72657375 
+ 4490      6D655F61 
+ 4490      6B6D00
+ 4491              	.LASF56:
+ 4492 01ac 414B3039 		.ascii	"AK09912_ST_Upper\000"
+ 4492      3931325F 
+ 4492      53545F55 
+ 4492      70706572 
  4492      00
- 4493              	.LASF40:
- 4494 01bf 636F6D70 		.ascii	"compass_m\000"
- 4494      6173735F 
- 4494      6D00
- 4495              	.LASF83:
- 4496 01c9 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
- 4496      4320342E 
- 4496      392E3320 
- 4496      32303135 
- 4496      30333033 
- 4497 01fc 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
- 4497      20726576 
- 4497      6973696F 
- 4497      6E203232 
- 4497      31323230 
- 4498 022f 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
- 4498      66756E63 
- 4498      74696F6E 
- 4498      2D736563 
- 4498      74696F6E 
- 4499              	.LASF42:
- 4500 0257 746D705F 		.ascii	"tmp_m\000"
- 4500      6D00
- 4501              	.LASF22:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 96
+ 4493              	.LASF67:
+ 4494 01bd 73745F6C 		.ascii	"st_lower\000"
+ 4494      6F776572 
+ 4494      00
+ 4495              	.LASF40:
+ 4496 01c6 636F6D70 		.ascii	"compass_m\000"
+ 4496      6173735F 
+ 4496      6D00
+ 4497              	.LASF83:
+ 4498 01d0 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 4498      4320342E 
+ 4498      392E3320 
+ 4498      32303135 
+ 4498      30333033 
+ 4499 0203 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 4499      20726576 
+ 4499      6973696F 
+ 4499      6E203232 
+ 4499      31323230 
+ 4500 0236 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 4500      66756E63 
+ 4500      74696F6E 
+ 4500      2D736563 
+ 4500      74696F6E 
+ 4501              	.LASF42:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 96
 
 
- 4502 025d 61646472 		.ascii	"addr\000"
- 4502      00
- 4503              	.LASF28:
- 4504 0262 6F64725F 		.ascii	"odr_cfg\000"
- 4504      63666700 
- 4505              	.LASF9:
- 4506 026a 6C6F6E67 		.ascii	"long long int\000"
- 4506      206C6F6E 
- 4506      6720696E 
- 4506      7400
- 4507              	.LASF77:
- 4508 0278 696E765F 		.ascii	"inv_read_secondary\000"
- 4508      72656164 
- 4508      5F736563 
- 4508      6F6E6461 
- 4508      727900
- 4509              	.LASF26:
- 4510 028b 73686966 		.ascii	"shift\000"
- 4510      7400
- 4511              	.LASF15:
- 4512 0291 73697A65 		.ascii	"sizetype\000"
- 4512      74797065 
- 4512      00
- 4513              	.LASF1:
- 4514 029a 5F5F7569 		.ascii	"__uint8_t\000"
- 4514      6E74385F 
- 4514      7400
- 4515              	.LASF85:
- 4516 02a4 433A5C44 		.ascii	"C:\\Dropbox\\Projects\\George Posture Correction Pr"
- 4516      726F7062 
- 4516      6F785C50 
- 4516      726F6A65 
- 4516      6374735C 
- 4517 02d4 6F6A6563 		.ascii	"oject\\BackBone\\BackBone_Bootloadable.cydsn\000"
- 4517      745C4261 
- 4517      636B426F 
- 4517      6E655C42 
- 4517      61636B42 
- 4518              	.LASF3:
- 4519 02ff 756E7369 		.ascii	"unsigned char\000"
- 4519      676E6564 
- 4519      20636861 
- 4519      7200
- 4520              	.LASF36:
- 4521 030d 7265675F 		.ascii	"reg_addr\000"
- 4521      61646472 
- 4521      00
- 4522              	.LASF62:
- 4523 0316 434F4D50 		.ascii	"COMPASS_CHIP_ADDR\000"
- 4523      4153535F 
- 4523      43484950 
- 4523      5F414444 
- 4523      5200
- 4524              	.LASF66:
- 4525 0328 73745F75 		.ascii	"st_upper\000"
- 4525      70706572 
- 4525      00
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 97
+ 4502 025e 746D705F 		.ascii	"tmp_m\000"
+ 4502      6D00
+ 4503              	.LASF22:
+ 4504 0264 61646472 		.ascii	"addr\000"
+ 4504      00
+ 4505              	.LASF28:
+ 4506 0269 6F64725F 		.ascii	"odr_cfg\000"
+ 4506      63666700 
+ 4507              	.LASF9:
+ 4508 0271 6C6F6E67 		.ascii	"long long int\000"
+ 4508      206C6F6E 
+ 4508      6720696E 
+ 4508      7400
+ 4509              	.LASF77:
+ 4510 027f 696E765F 		.ascii	"inv_read_secondary\000"
+ 4510      72656164 
+ 4510      5F736563 
+ 4510      6F6E6461 
+ 4510      727900
+ 4511              	.LASF26:
+ 4512 0292 73686966 		.ascii	"shift\000"
+ 4512      7400
+ 4513              	.LASF15:
+ 4514 0298 73697A65 		.ascii	"sizetype\000"
+ 4514      74797065 
+ 4514      00
+ 4515              	.LASF1:
+ 4516 02a1 5F5F7569 		.ascii	"__uint8_t\000"
+ 4516      6E74385F 
+ 4516      7400
+ 4517              	.LASF3:
+ 4518 02ab 756E7369 		.ascii	"unsigned char\000"
+ 4518      676E6564 
+ 4518      20636861 
+ 4518      7200
+ 4519              	.LASF36:
+ 4520 02b9 7265675F 		.ascii	"reg_addr\000"
+ 4520      61646472 
+ 4520      00
+ 4521              	.LASF62:
+ 4522 02c2 434F4D50 		.ascii	"COMPASS_CHIP_ADDR\000"
+ 4522      4153535F 
+ 4522      43484950 
+ 4522      5F414444 
+ 4522      5200
+ 4523              	.LASF66:
+ 4524 02d4 73745F75 		.ascii	"st_upper\000"
+ 4524      70706572 
+ 4524      00
+ 4525              	.LASF23:
+ 4526 02dd 636F756E 		.ascii	"counter\000"
+ 4526      74657200 
+ 4527              	.LASF61:
+ 4528 02e5 434F4D50 		.ascii	"COMPASS_SLAVE_ID\000"
+ 4528      4153535F 
+ 4528      534C4156 
+ 4528      455F4944 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 97
 
 
- 4526              	.LASF23:
- 4527 0331 636F756E 		.ascii	"counter\000"
- 4527      74657200 
- 4528              	.LASF61:
- 4529 0339 434F4D50 		.ascii	"COMPASS_SLAVE_ID\000"
- 4529      4153535F 
- 4529      534C4156 
- 4529      455F4944 
- 4529      00
- 4530              	.LASF39:
- 4531 034a 696E765F 		.ascii	"inv_compass_dmp_cal\000"
- 4531      636F6D70 
- 4531      6173735F 
- 4531      646D705F 
- 4531      63616C00 
- 4532              	.LASF45:
- 4533 035e 7261775F 		.ascii	"raw_data\000"
- 4533      64617461 
- 4533      00
- 4534              	.LASF57:
- 4535 0367 414B3039 		.ascii	"AK09916_ST_Lower\000"
- 4535      3931365F 
- 4535      53545F4C 
- 4535      6F776572 
- 4535      00
- 4536              	.LASF10:
- 4537 0378 6C6F6E67 		.ascii	"long long unsigned int\000"
- 4537      206C6F6E 
- 4537      6720756E 
- 4537      7369676E 
- 4537      65642069 
- 4538              	.LASF32:
- 4539 038f 7363616C 		.ascii	"scale\000"
- 4539      6500
- 4540              	.LASF11:
- 4541 0395 756E7369 		.ascii	"unsigned int\000"
- 4541      676E6564 
- 4541      20696E74 
- 4541      00
- 4542              	.LASF14:
- 4543 03a2 75696E74 		.ascii	"uint16_t\000"
- 4543      31365F74 
- 4543      00
- 4544              	.LASF35:
- 4545 03ab 736B6970 		.ascii	"skip_akm_fuse_rom_read\000"
- 4545      5F616B6D 
- 4545      5F667573 
- 4545      655F726F 
- 4545      6D5F7265 
- 4546              	.LASF79:
- 4547 03c2 696E765F 		.ascii	"inv_mems_secondary_enable_i2c\000"
- 4547      6D656D73 
- 4547      5F736563 
- 4547      6F6E6461 
- 4547      72795F65 
- 4548              	.LASF41:
- 4549 03e0 7472616E 		.ascii	"trans\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 98
+ 4528      00
+ 4529              	.LASF39:
+ 4530 02f6 696E765F 		.ascii	"inv_compass_dmp_cal\000"
+ 4530      636F6D70 
+ 4530      6173735F 
+ 4530      646D705F 
+ 4530      63616C00 
+ 4531              	.LASF45:
+ 4532 030a 7261775F 		.ascii	"raw_data\000"
+ 4532      64617461 
+ 4532      00
+ 4533              	.LASF57:
+ 4534 0313 414B3039 		.ascii	"AK09916_ST_Lower\000"
+ 4534      3931365F 
+ 4534      53545F4C 
+ 4534      6F776572 
+ 4534      00
+ 4535              	.LASF10:
+ 4536 0324 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 4536      206C6F6E 
+ 4536      6720756E 
+ 4536      7369676E 
+ 4536      65642069 
+ 4537              	.LASF32:
+ 4538 033b 7363616C 		.ascii	"scale\000"
+ 4538      6500
+ 4539              	.LASF11:
+ 4540 0341 756E7369 		.ascii	"unsigned int\000"
+ 4540      676E6564 
+ 4540      20696E74 
+ 4540      00
+ 4541              	.LASF14:
+ 4542 034e 75696E74 		.ascii	"uint16_t\000"
+ 4542      31365F74 
+ 4542      00
+ 4543              	.LASF35:
+ 4544 0357 736B6970 		.ascii	"skip_akm_fuse_rom_read\000"
+ 4544      5F616B6D 
+ 4544      5F667573 
+ 4544      655F726F 
+ 4544      6D5F7265 
+ 4545              	.LASF79:
+ 4546 036e 696E765F 		.ascii	"inv_mems_secondary_enable_i2c\000"
+ 4546      6D656D73 
+ 4546      5F736563 
+ 4546      6F6E6461 
+ 4546      72795F65 
+ 4547              	.LASF41:
+ 4548 038c 7472616E 		.ascii	"trans\000"
+ 4548      7300
+ 4549              	.LASF76:
+ 4550 0392 696E765F 		.ascii	"inv_mems_secondary_disable_i2c\000"
+ 4550      6D656D73 
+ 4550      5F736563 
+ 4550      6F6E6461 
+ 4550      72795F64 
+ 4551              	.LASF0:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 98
 
 
- 4549      7300
- 4550              	.LASF76:
- 4551 03e6 696E765F 		.ascii	"inv_mems_secondary_disable_i2c\000"
- 4551      6D656D73 
- 4551      5F736563 
- 4551      6F6E6461 
- 4551      72795F64 
- 4552              	.LASF0:
- 4553 0405 5F5F696E 		.ascii	"__int8_t\000"
- 4553      74385F74 
- 4553      00
- 4554              	.LASF70:
- 4555 040e 696E765F 		.ascii	"inv_read_mems_reg\000"
- 4555      72656164 
- 4555      5F6D656D 
- 4555      735F7265 
- 4555      6700
- 4556              	.LASF53:
- 4557 0420 414B3039 		.ascii	"AK09911_ST_Lower\000"
- 4557      3931315F 
- 4557      53545F4C 
- 4557      6F776572 
- 4557      00
- 4558              	.LASF16:
- 4559 0431 63686172 		.ascii	"char\000"
- 4559      00
- 4560              	.LASF7:
- 4561 0436 6C6F6E67 		.ascii	"long int\000"
- 4561      20696E74 
- 4561      00
- 4562              	.LASF34:
- 4563 043f 414B4D5F 		.ascii	"AKM_fail\000"
- 4563      6661696C 
- 4563      00
- 4564              	.LASF6:
- 4565 0448 73686F72 		.ascii	"short unsigned int\000"
- 4565      7420756E 
- 4565      7369676E 
- 4565      65642069 
- 4565      6E7400
- 4566              	.LASF47:
- 4567 045b 414B4D38 		.ascii	"AKM8975_ST_Lower\000"
- 4567      3937355F 
- 4567      53545F4C 
- 4567      6F776572 
- 4567      00
- 4568              	.LASF75:
- 4569 046c 696E765F 		.ascii	"inv_mems_pressure_getstate\000"
- 4569      6D656D73 
- 4569      5F707265 
- 4569      73737572 
- 4569      655F6765 
- 4570              	.LASF20:
- 4571 0487 64617461 		.ascii	"data\000"
- 4571      00
- 4572              	.LASF8:
- 4573 048c 6C6F6E67 		.ascii	"long unsigned int\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 99
+ 4552 03b1 5F5F696E 		.ascii	"__int8_t\000"
+ 4552      74385F74 
+ 4552      00
+ 4553              	.LASF70:
+ 4554 03ba 696E765F 		.ascii	"inv_read_mems_reg\000"
+ 4554      72656164 
+ 4554      5F6D656D 
+ 4554      735F7265 
+ 4554      6700
+ 4555              	.LASF53:
+ 4556 03cc 414B3039 		.ascii	"AK09911_ST_Lower\000"
+ 4556      3931315F 
+ 4556      53545F4C 
+ 4556      6F776572 
+ 4556      00
+ 4557              	.LASF16:
+ 4558 03dd 63686172 		.ascii	"char\000"
+ 4558      00
+ 4559              	.LASF7:
+ 4560 03e2 6C6F6E67 		.ascii	"long int\000"
+ 4560      20696E74 
+ 4560      00
+ 4561              	.LASF34:
+ 4562 03eb 414B4D5F 		.ascii	"AKM_fail\000"
+ 4562      6661696C 
+ 4562      00
+ 4563              	.LASF6:
+ 4564 03f4 73686F72 		.ascii	"short unsigned int\000"
+ 4564      7420756E 
+ 4564      7369676E 
+ 4564      65642069 
+ 4564      6E7400
+ 4565              	.LASF47:
+ 4566 0407 414B4D38 		.ascii	"AKM8975_ST_Lower\000"
+ 4566      3937355F 
+ 4566      53545F4C 
+ 4566      6F776572 
+ 4566      00
+ 4567              	.LASF75:
+ 4568 0418 696E765F 		.ascii	"inv_mems_pressure_getstate\000"
+ 4568      6D656D73 
+ 4568      5F707265 
+ 4568      73737572 
+ 4568      655F6765 
+ 4569              	.LASF20:
+ 4570 0433 64617461 		.ascii	"data\000"
+ 4570      00
+ 4571              	.LASF8:
+ 4572 0438 6C6F6E67 		.ascii	"long unsigned int\000"
+ 4572      20756E73 
+ 4572      69676E65 
+ 4572      6420696E 
+ 4572      7400
+ 4573              	.LASF37:
+ 4574 044a 62797465 		.ascii	"bytes\000"
+ 4574      7300
+ 4575              	.LASF71:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 99
 
 
- 4573      20756E73 
- 4573      69676E65 
- 4573      6420696E 
- 4573      7400
- 4574              	.LASF37:
- 4575 049e 62797465 		.ascii	"bytes\000"
- 4575      7300
- 4576              	.LASF71:
- 4577 04a4 696E765F 		.ascii	"inv_write_single_mems_reg\000"
- 4577      77726974 
- 4577      655F7369 
- 4577      6E676C65 
- 4577      5F6D656D 
- 4578              	.LASF69:
- 4579 04be 696E765F 		.ascii	"inv_suspend_akm\000"
- 4579      73757370 
- 4579      656E645F 
- 4579      616B6D00 
- 4580              	.LASF72:
- 4581 04ce 696E765F 		.ascii	"inv_execute_write_secondary\000"
- 4581      65786563 
- 4581      7574655F 
- 4581      77726974 
- 4581      655F7365 
- 4582              	.LASF2:
- 4583 04ea 7369676E 		.ascii	"signed char\000"
- 4583      65642063 
- 4583      68617200 
- 4584              	.LASF13:
- 4585 04f6 75696E74 		.ascii	"uint8_t\000"
- 4585      385F7400 
- 4586              	.LASF54:
- 4587 04fe 414B3039 		.ascii	"AK09911_ST_Upper\000"
- 4587      3931315F 
- 4587      53545F55 
- 4587      70706572 
- 4587      00
- 4588              	.LASF58:
- 4589 050f 414B3039 		.ascii	"AK09916_ST_Upper\000"
- 4589      3931365F 
- 4589      53545F55 
- 4589      70706572 
- 4589      00
- 4590              	.LASF43:
- 4591 0520 63757272 		.ascii	"current_compass_matrix\000"
- 4591      656E745F 
- 4591      636F6D70 
- 4591      6173735F 
- 4591      6D617472 
- 4592              	.LASF81:
- 4593 0537 696E765F 		.ascii	"inv_sleep\000"
- 4593      736C6565 
- 4593      7000
- 4594              	.LASF48:
- 4595 0541 414B4D38 		.ascii	"AKM8975_ST_Upper\000"
- 4595      3937355F 
- 4595      53545F55 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 100
+ 4576 0450 696E765F 		.ascii	"inv_write_single_mems_reg\000"
+ 4576      77726974 
+ 4576      655F7369 
+ 4576      6E676C65 
+ 4576      5F6D656D 
+ 4577              	.LASF69:
+ 4578 046a 696E765F 		.ascii	"inv_suspend_akm\000"
+ 4578      73757370 
+ 4578      656E645F 
+ 4578      616B6D00 
+ 4579              	.LASF72:
+ 4580 047a 696E765F 		.ascii	"inv_execute_write_secondary\000"
+ 4580      65786563 
+ 4580      7574655F 
+ 4580      77726974 
+ 4580      655F7365 
+ 4581              	.LASF2:
+ 4582 0496 7369676E 		.ascii	"signed char\000"
+ 4582      65642063 
+ 4582      68617200 
+ 4583              	.LASF13:
+ 4584 04a2 75696E74 		.ascii	"uint8_t\000"
+ 4584      385F7400 
+ 4585              	.LASF54:
+ 4586 04aa 414B3039 		.ascii	"AK09911_ST_Upper\000"
+ 4586      3931315F 
+ 4586      53545F55 
+ 4586      70706572 
+ 4586      00
+ 4587              	.LASF58:
+ 4588 04bb 414B3039 		.ascii	"AK09916_ST_Upper\000"
+ 4588      3931365F 
+ 4588      53545F55 
+ 4588      70706572 
+ 4588      00
+ 4589              	.LASF43:
+ 4590 04cc 63757272 		.ascii	"current_compass_matrix\000"
+ 4590      656E745F 
+ 4590      636F6D70 
+ 4590      6173735F 
+ 4590      6D617472 
+ 4591              	.LASF81:
+ 4592 04e3 696E765F 		.ascii	"inv_sleep\000"
+ 4592      736C6565 
+ 4592      7000
+ 4593              	.LASF48:
+ 4594 04ed 414B4D38 		.ascii	"AKM8975_ST_Upper\000"
+ 4594      3937355F 
+ 4594      53545F55 
+ 4594      70706572 
+ 4594      00
+ 4595              	.LASF27:
+ 4596 04fe 736C765F 		.ascii	"slv_ctrl\000"
+ 4596      6374726C 
+ 4596      00
+ 4597              	.LASF82:
+ 4598 0507 646D705F 		.ascii	"dmp_set_compass_matrix\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 100
 
 
- 4595      70706572 
- 4595      00
- 4596              	.LASF27:
- 4597 0552 736C765F 		.ascii	"slv_ctrl\000"
- 4597      6374726C 
- 4597      00
- 4598              	.LASF82:
- 4599 055b 646D705F 		.ascii	"dmp_set_compass_matrix\000"
- 4599      7365745F 
- 4599      636F6D70 
- 4599      6173735F 
- 4599      6D617472 
- 4600              	.LASF46:
- 4601 0572 636F6D70 		.ascii	"compensated_out\000"
- 4601      656E7361 
- 4601      7465645F 
- 4601      6F757400 
- 4602              	.LASF65:
- 4603 0582 636F6D70 		.ascii	"compass_sens\000"
- 4603      6173735F 
- 4603      73656E73 
- 4603      00
- 4604              	.LASF38:
- 4605 058f 6C446174 		.ascii	"lDataToWrite\000"
- 4605      61546F57 
- 4605      72697465 
- 4605      00
- 4606              	.LASF68:
- 4607 059c 646D705F 		.ascii	"dmp_on\000"
- 4607      6F6E00
- 4608              	.LASF17:
- 4609 05a3 696E765F 		.ascii	"inv_error_t\000"
- 4609      6572726F 
- 4609      725F7400 
- 4610              	.LASF51:
- 4611 05af 414B4D38 		.ascii	"AKM8963_ST_Lower\000"
- 4611      3936335F 
- 4611      53545F4C 
- 4611      6F776572 
- 4611      00
- 4612              	.LASF49:
- 4613 05c0 414B4D38 		.ascii	"AKM8972_ST_Lower\000"
- 4613      3937325F 
- 4613      53545F4C 
- 4613      6F776572 
- 4613      00
- 4614              	.LASF33:
- 4615 05d1 696E765F 		.ascii	"inv_setup_compass_akm\000"
- 4615      73657475 
- 4615      705F636F 
- 4615      6D706173 
- 4615      735F616B 
- 4616              	.LASF24:
- 4617 05e7 636E746C 		.ascii	"cntl\000"
- 4617      00
- 4618              	.LASF30:
- 4619 05ec 696E765F 		.ascii	"inv_write_akm_scale\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccNDKBPg.s 			page 101
+ 4598      7365745F 
+ 4598      636F6D70 
+ 4598      6173735F 
+ 4598      6D617472 
+ 4599              	.LASF46:
+ 4600 051e 636F6D70 		.ascii	"compensated_out\000"
+ 4600      656E7361 
+ 4600      7465645F 
+ 4600      6F757400 
+ 4601              	.LASF65:
+ 4602 052e 636F6D70 		.ascii	"compass_sens\000"
+ 4602      6173735F 
+ 4602      73656E73 
+ 4602      00
+ 4603              	.LASF38:
+ 4604 053b 6C446174 		.ascii	"lDataToWrite\000"
+ 4604      61546F57 
+ 4604      72697465 
+ 4604      00
+ 4605              	.LASF85:
+ 4606 0548 433A5C55 		.ascii	"C:\\Users\\Administrator\\Desktop\\Temp\\BackBone.c"
+ 4606      73657273 
+ 4606      5C41646D 
+ 4606      696E6973 
+ 4606      74726174 
+ 4607 0576 7977726B 		.ascii	"ywrk.Archive_modified\\BackBone.cywrk.Archive 09302"
+ 4607      2E417263 
+ 4607      68697665 
+ 4607      5F6D6F64 
+ 4607      69666965 
+ 4608 05a8 3031365C 		.ascii	"016\\BackBone\\BackBone_Bootloadable.cydsn\000"
+ 4608      4261636B 
+ 4608      426F6E65 
+ 4608      5C426163 
+ 4608      6B426F6E 
+ 4609              	.LASF17:
+ 4610 05d1 696E765F 		.ascii	"inv_error_t\000"
+ 4610      6572726F 
+ 4610      725F7400 
+ 4611              	.LASF51:
+ 4612 05dd 414B4D38 		.ascii	"AKM8963_ST_Lower\000"
+ 4612      3936335F 
+ 4612      53545F4C 
+ 4612      6F776572 
+ 4612      00
+ 4613              	.LASF49:
+ 4614 05ee 414B4D38 		.ascii	"AKM8972_ST_Lower\000"
+ 4614      3937325F 
+ 4614      53545F4C 
+ 4614      6F776572 
+ 4614      00
+ 4615              	.LASF33:
+ 4616 05ff 696E765F 		.ascii	"inv_setup_compass_akm\000"
+ 4616      73657475 
+ 4616      705F636F 
+ 4616      6D706173 
+ 4616      735F616B 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccKhMK9m.s 			page 101
 
 
- 4619      77726974 
- 4619      655F616B 
- 4619      6D5F7363 
- 4619      616C6500 
- 4620              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
+ 4617              	.LASF24:
+ 4618 0615 636E746C 		.ascii	"cntl\000"
+ 4618      00
+ 4619              	.LASF30:
+ 4620 061a 696E765F 		.ascii	"inv_write_akm_scale\000"
+ 4620      77726974 
+ 4620      655F616B 
+ 4620      6D5F7363 
+ 4620      616C6500 
+ 4621              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

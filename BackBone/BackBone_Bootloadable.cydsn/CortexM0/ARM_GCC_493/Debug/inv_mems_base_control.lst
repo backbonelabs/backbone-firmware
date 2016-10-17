@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
   30:.\20648_driver\drivers/inv_mems_base_control.c **** #include ".\20648_driver\invn\invn_types.h"
   31:.\20648_driver\drivers/inv_mems_base_control.c **** 
   32:.\20648_driver\drivers/inv_mems_base_control.c **** //#define INV_SENSOR_MULTIFIFO
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 2
 
 
   33:.\20648_driver\drivers/inv_mems_base_control.c **** #define INV_ODR_MIN_DELAY   200     // Limited by 8-bit HW Gyro rate divider register "GYRO_SMPLRT_
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
   87:.\20648_driver\drivers/inv_mems_base_control.c **** 
   88:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648)
   89:.\20648_driver\drivers/inv_mems_base_control.c **** static unsigned short bac_on = 0; // indicates if ANDROID_SENSOR_ACTIVITY_CLASSIFICATON is on
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 3
 
 
   90:.\20648_driver\drivers/inv_mems_base_control.c **** static unsigned short bac_status = 0;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  144:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
  145:.\20648_driver\drivers/inv_mems_base_control.c **** 	0x1008, // ANDROID_SENSOR_WAKEUP_LIGHT,
  146:.\20648_driver\drivers/inv_mems_base_control.c **** 	0x0088, // ANDROID_SENSOR_WAKEUP_PRESSURE,
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 4
 
 
  147:.\20648_driver\drivers/inv_mems_base_control.c **** 	0x0808, // ANDROID_SENSOR_WAKEUP_GRAVITY,
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  201:.\20648_driver\drivers/inv_mems_base_control.c **** ,	{	ANDROID_SENSOR_WAKEUP_ORIENTATION,					INV_SENSOR_WAKEUP_NINEQ_accel	}
  202:.\20648_driver\drivers/inv_mems_base_control.c **** ,	{	ANDROID_SENSOR_WAKEUP_ROTATION_VECTOR,				INV_SENSOR_WAKEUP_NINEQ_accel	}
  203:.\20648_driver\drivers/inv_mems_base_control.c **** };
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 5
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 5
 
 
  204:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  258:.\20648_driver\drivers/inv_mems_base_control.c **** ,	{	ANDROID_SENSOR_WAKEUP_LINEAR_ACCELERATION,			INV_SENSOR_WAKEUP_SIXQ_accel	}
  259:.\20648_driver\drivers/inv_mems_base_control.c **** };
  260:.\20648_driver\drivers/inv_mems_base_control.c **** 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 6
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 6
 
 
  261:.\20648_driver\drivers/inv_mems_base_control.c **** /**********/
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  315:.\20648_driver\drivers/inv_mems_base_control.c **** ,	{	ANDROID_SENSOR_GAME_ROTATION_VECTOR,	            INV_SENSOR_WAKEUP_GEOMAG		}
  316:.\20648_driver\drivers/inv_mems_base_control.c **** };
  317:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 7
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 7
 
 
  318:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  372:.\20648_driver\drivers/inv_mems_base_control.c **** 			}
  373:.\20648_driver\drivers/inv_mems_base_control.c **** 		}
  374:.\20648_driver\drivers/inv_mems_base_control.c **** 		Element++;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 8
 
 
  375:.\20648_driver\drivers/inv_mems_base_control.c **** 	}	//	end while elements to process
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
   60              	.LVL5:
   61 001e 80B2     		uxth	r0, r0
   62              	.LVL6:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 9
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 9
 
 
  393:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  107              	.LVL11:
  168:.\20648_driver\drivers/inv_mems_base_control.c **** }
  108              		.loc 1 168 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 10
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 10
 
 
  109 0000 1F22     		mov	r2, #31
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  156              		.loc 1 363 0
  157 0008 013E     		sub	r6, r6, #1
  158 000a 0FD3     		bcc	.L18
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 11
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 11
 
 
  159              	.LVL15:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  209              	.LFB8:
  400:.\20648_driver\drivers/inv_mems_base_control.c **** 
  401:.\20648_driver\drivers/inv_mems_base_control.c **** /******************/
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 12
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 12
 
 
  402:.\20648_driver\drivers/inv_mems_base_control.c **** static	u16	SampleRateDividerGet	(MinDelayT	MinDelay)
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  456:.\20648_driver\drivers/inv_mems_base_control.c ****     /** In case GMRV is ON, need to check for GMRV related ODR be applied to GRV too, since GRV wil
  457:.\20648_driver\drivers/inv_mems_base_control.c ****     if(sGmrvIsOn)
  458:.\20648_driver\drivers/inv_mems_base_control.c ****         lMinOdr = min(lMinOdr , lMinOdrForGmrv);
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 13
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 13
 
 
  459:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  513:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
  514:.\20648_driver\drivers/inv_mems_base_control.c **** 
  515:.\20648_driver\drivers/inv_mems_base_control.c **** #ifndef INV_SENSOR_MULTIFIFO
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 14
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 14
 
 
  516:.\20648_driver\drivers/inv_mems_base_control.c ****     // get min delay of all enabled sensors of all sensor engine groups
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  570:.\20648_driver\drivers/inv_mems_base_control.c **** 		{
  571:.\20648_driver\drivers/inv_mems_base_control.c **** 			result	|=	inv_set_gyro_divider	((unsigned char)(hw_smplrt_divider - 1));
  572:.\20648_driver\drivers/inv_mems_base_control.c **** 			lLastHwSmplrtDivider = hw_smplrt_divider;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 15
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 15
 
 
  573:.\20648_driver\drivers/inv_mems_base_control.c **** 		}
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  627:.\20648_driver\drivers/inv_mems_base_control.c **** inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
  628:.\20648_driver\drivers/inv_mems_base_control.c **** {
  629:.\20648_driver\drivers/inv_mems_base_control.c ****     inv_error_t result;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 16
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 16
 
 
  630:.\20648_driver\drivers/inv_mems_base_control.c ****     
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  684:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
  685:.\20648_driver\drivers/inv_mems_base_control.c ****             inv_dmp_odr_delays[INV_SENSOR_SIXQ] = delayInMs;
  686:.\20648_driver\drivers/inv_mems_base_control.c ****             inv_dmp_odr_delays[INV_SENSOR_SIXQ_accel] = delayInMs;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 17
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 17
 
 
  687:.\20648_driver\drivers/inv_mems_base_control.c ****             break;
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  741:.\20648_driver\drivers/inv_mems_base_control.c ****             inv_dmp_odr_delays[INV_SENSOR_WAKEUP_GYRO] = delayInMs;
  742:.\20648_driver\drivers/inv_mems_base_control.c ****             break;
  743:.\20648_driver\drivers/inv_mems_base_control.c **** 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 18
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 18
 
 
  744:.\20648_driver\drivers/inv_mems_base_control.c ****         case ANDROID_SENSOR_WAKEUP_GYROSCOPE:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  798:.\20648_driver\drivers/inv_mems_base_control.c **** 
  799:.\20648_driver\drivers/inv_mems_base_control.c ****         // not support yet
  800:.\20648_driver\drivers/inv_mems_base_control.c ****         case ANDROID_SENSOR_META_DATA:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 19
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 19
 
 
  801:.\20648_driver\drivers/inv_mems_base_control.c ****         case ANDROID_SENSOR_TEMPERATURE:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  842:.\20648_driver\drivers/inv_mems_base_control.c ****       return -1;
  843:.\20648_driver\drivers/inv_mems_base_control.c ****        
  844:.\20648_driver\drivers/inv_mems_base_control.c ****    *odr = 0;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 20
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 20
 
 
  223              		.loc 1 844 0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  268 0037 4F       		.byte	(.L42-.L24)/2
  269 0038 53       		.byte	(.L39-.L24)/2
  270 0039 6E       		.byte	(.L52-.L24)/2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 21
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 21
 
 
  271 003a 6E       		.byte	(.L52-.L24)/2
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  872:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
  873:.\20648_driver\drivers/inv_mems_base_control.c **** 
  874:.\20648_driver\drivers/inv_mems_base_control.c ****         case ANDROID_SENSOR_GYROSCOPE_UNCALIBRATED:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 22
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 22
 
 
  875:.\20648_driver\drivers/inv_mems_base_control.c ****             *odr = inv_get_odr_in_units( inv_dmp_odr_dividers[INV_SENSOR_GYRO] , odr_units );
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  899:.\20648_driver\drivers/inv_mems_base_control.c ****             break;
  900:.\20648_driver\drivers/inv_mems_base_control.c **** 
  901:.\20648_driver\drivers/inv_mems_base_control.c ****         case ANDROID_SENSOR_LIGHT:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 23
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 23
 
 
  902:.\20648_driver\drivers/inv_mems_base_control.c ****         case ANDROID_SENSOR_PROXIMITY:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  363 00a4 20E0     		b	.L53
  364              	.L45:
  929:.\20648_driver\drivers/inv_mems_base_control.c ****             break;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 24
 
 
  930:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  394 00c8 988D     		ldrh	r0, [r3, #44]
  395 00ca 0DE0     		b	.L53
  396              	.L38:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 25
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 25
 
 
  955:.\20648_driver\drivers/inv_mems_base_control.c ****             break;
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  429              	.LVL28:
  430 00f2 4042     		neg	r0, r0
  431 00f4 00E0     		b	.L22
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 26
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 26
 
 
  432              	.LVL29:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1003:.\20648_driver\drivers/inv_mems_base_control.c **** 
 1004:.\20648_driver\drivers/inv_mems_base_control.c **** 	*sensor_control = 0;
  459              		.loc 1 1004 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 27
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 27
 
 
  460 0000 0023     		mov	r3, #0
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  504 002a F1E7     		b	.L58
  505              	.L68:
  506 002c 0433     		add	r3, r3, #4
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 28
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 28
 
 
 1005:.\20648_driver\drivers/inv_mems_base_control.c **** 		cntr = 32 * i;
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1045:.\20648_driver\drivers/inv_mems_base_control.c **** 			*sensor_control |= HEADER2_SET;
 1046:.\20648_driver\drivers/inv_mems_base_control.c **** 		else
 1047:.\20648_driver\drivers/inv_mems_base_control.c **** 			// control has to be regenerated when removing sensors because of overlap
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 29
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 29
 
 
 1048:.\20648_driver\drivers/inv_mems_base_control.c **** 			inv_reGenerate_sensorControl(sen_num_2_ctrl, sensor_control);
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  540              		.loc 1 1087 0 is_stmt 0 discriminator 1
  541 000c 186D     		ldr	r0, [r3, #80]
  542 000e 1823     		mov	r3, #24
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 30
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 30
 
 
  543 0010 1840     		and	r0, r3
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1118:.\20648_driver\drivers/inv_mems_base_control.c **** 	}
 1119:.\20648_driver\drivers/inv_mems_base_control.c **** 
 1120:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM30630)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 31
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 31
 
 
 1121:.\20648_driver\drivers/inv_mems_base_control.c ****     if ( (androidSensor == ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR) || (androidSensor == ANDROID
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1175:.\20648_driver\drivers/inv_mems_base_control.c ****                 result |= inv_enable_sensor_internal(ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR, 0,
 1176:.\20648_driver\drivers/inv_mems_base_control.c ****             }
 1177:.\20648_driver\drivers/inv_mems_base_control.c ****             // else enable GRV and no GMRV already ON
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 32
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 32
 
 
 1178:.\20648_driver\drivers/inv_mems_base_control.c ****             
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1232:.\20648_driver\drivers/inv_mems_base_control.c **** 
 1233:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM30630 || MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648)
 1234:.\20648_driver\drivers/inv_mems_base_control.c ****     if (androidSensor == ANDROID_SENSOR_FLIP_PICKUP) {
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 33
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 33
 
 
 1235:.\20648_driver\drivers/inv_mems_base_control.c ****       if (enable){          
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1289:.\20648_driver\drivers/inv_mems_base_control.c **** #if defined MEMS_SECONDARY_DEVICE
 1290:.\20648_driver\drivers/inv_mems_base_control.c ****     if (inv_sensor_control & CPASS_CALIBR_SET || inv_sensor_control & QUAT9_SET	
 1291:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM20648)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 34
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 34
 
 
 1292:.\20648_driver\drivers/inv_mems_base_control.c **** 		|| inv_sensor_control & GEOMAG_SET
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1346:.\20648_driver\drivers/inv_mems_base_control.c ****         data_rdy_status |= SECONDARY_COMPASS_AVAILABLE;
 1347:.\20648_driver\drivers/inv_mems_base_control.c ****     if (inv_androidSensorsOn_mask[0] & INV_NEEDS_PRESSURE)
 1348:.\20648_driver\drivers/inv_mems_base_control.c ****         data_rdy_status |= SECONDARY_PRESSURE_AVAILABLE;
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 35
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 35
 
 
 1349:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1403:.\20648_driver\drivers/inv_mems_base_control.c **** 	if ( (androidSensor == ANDROID_SENSOR_ORIENTATION) || (androidSensor == ANDROID_SENSOR_ROTATION_VE
 1404:.\20648_driver\drivers/inv_mems_base_control.c **** 	{
 1405:.\20648_driver\drivers/inv_mems_base_control.c **** 		inv_mems_augmented_sensors_update_odr(androidSensor, &inv_dmp_odr_delays[INV_SENSOR_NINEQ]);
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 36
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 36
 
 
 1406:.\20648_driver\drivers/inv_mems_base_control.c **** 		inv_mems_augmented_sensors_update_odr(androidSensor, &inv_dmp_odr_delays[INV_SENSOR_NINEQ_accel])
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  571 0000 08B5     		push	{r3, lr}
  572              		.cfi_def_cfa_offset 8
  573              		.cfi_offset 3, -8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 37
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 37
 
 
  574              		.cfi_offset 14, -4
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1469:.\20648_driver\drivers/inv_mems_base_control.c **** 		else {
 1470:.\20648_driver\drivers/inv_mems_base_control.c **** 			dmp_set_tilt_enable(1);
  615              		.loc 1 1470 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 38
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 38
 
 
  616 0028 0120     		mov	r0, #1
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  659 0012 1180     		strh	r1, [r2]
 1480:.\20648_driver\drivers/inv_mems_base_control.c **** 			dmp_set_tilt_enable(1); // turn off BAC FIFO output except tilt if BAC sensor is off
  660              		.loc 1 1480 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 39
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 39
 
 
  661 0014 0120     		mov	r0, #1
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  705              	inv_set_batch_mode_status:
  706              	.LFB17:
 1490:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 40
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 40
 
 
 1491:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  729              	.L94:
  730 0014 00000000 		.word	.LANCHOR0
  731              		.cfi_endproc
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 41
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 41
 
 
  732              	.LFE17:
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  779 0024 FFF7FEFF 		bl	dmp_set_data_output_control2
  780              	.LVL58:
  781 0028 051C     		mov	r5, r0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 42
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 42
 
 
  782              	.LVL59:
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  828              		.align	1
  829              		.global	inv_set_batch_timeout
  830              		.code	16
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 43
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 43
 
 
  831              		.thumb_func
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  870 0024 002A     		cmp	r2, #0
  871 0026 01DB     		blt	.L108
 1539:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM20648)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 44
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 44
 
 
 1540:.\20648_driver\drivers/inv_mems_base_control.c **** 		|| inv_sensor_control & GEOMAG_SET
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  900              	.L107:
 1565:.\20648_driver\drivers/inv_mems_base_control.c **** }    
  901              		.loc 1 1565 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 45
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 45
 
 
  902              		@ sp needed
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  947 001c FA21     		mov	r1, #250
  948 001e 6043     		mul	r0, r4
  949 0020 8900     		lsl	r1, r1, #2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 46
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 46
 
 
  950 0022 FFF7FEFF 		bl	__aeabi_idiv
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
 1591:.\20648_driver\drivers/inv_mems_base_control.c **** 		if(inv_sensor_control & PRESSURE_SET) {
 1592:.\20648_driver\drivers/inv_mems_base_control.c **** 			rc = dmp_set_batchmode_params(timeout, SECONDARY_PRESSURE_AVAILABLE);
 1593:.\20648_driver\drivers/inv_mems_base_control.c **** 		}
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 47
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 47
 
 
 1594:.\20648_driver\drivers/inv_mems_base_control.c **** 		if(inv_sensor_control & CPASS_SET || inv_sensor_control & CPASS_CALIBR_SET) {
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1023 0008 00000000 		.word	.LANCHOR0
  1024              		.cfi_endproc
  1025              	.LFE21:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 48
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 48
 
 
  1026              		.size	inv_get_androidSensorsOn_mask, .-inv_get_androidSensorsOn_mask
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1065              	.LVL90:
  1066 0002 80B2     		uxth	r0, r0
  1067 0004 08B5     		push	{r3, lr}
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 49
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 49
 
 
  1068              		.cfi_def_cfa_offset 8
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1097              		.align	1
  1098              		.global	inv_set_accel_cal_params
  1099              		.code	16
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 50
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 50
 
 
  1100              		.thumb_func
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1142 0024 1FE0     		b	.L140
  1143              	.L135:
 1662:.\20648_driver\drivers/inv_mems_base_control.c ****     } else if (hw_smplrt_divider <= 11) { // 112Hz > freq >= 102Hz
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 51
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 51
 
 
  1144              		.loc 1 1662 0
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1186 005a 04E0     		b	.L140
  1187              	.L139:
 1675:.\20648_driver\drivers/inv_mems_base_control.c ****     } else if (hw_smplrt_divider <= 225) { // 15Hz > freq >= 5Hz
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 52
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 52
 
 
  1188              		.loc 1 1675 0
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1233              		.loc 1 489 0
  1234              		.cfi_startproc
  1235              	.LVL97:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 53
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 53
 
 
  1236 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1285 003a 231C     		add	r3, r4, #0
  1286 003c 9442     		cmp	r4, r2
  1287 003e 00D9     		bls	.L147
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 54
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 54
 
 
  1288 0040 131C     		add	r3, r2, #0
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1337 007c 052C     		cmp	r4, #5
  1338 007e 00D9     		bls	.L154
  1339 0080 0523     		mov	r3, #5
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 55
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 55
 
 
  1340              	.L154:
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  524:.\20648_driver\drivers/inv_mems_base_control.c **** #if defined MEMS_SECONDARY_DEVICE
  1387              		.loc 1 524 0
  1388 00b0 9642     		cmp	r6, r2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 56
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 56
 
 
  1389 00b2 00D1     		bne	.LCB1351
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1436              	.LBE56:
  490:.\20648_driver\drivers/inv_mems_base_control.c **** 
  1437              		.loc 1 490 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 57
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 57
 
 
  1438 00e0 0025     		mov	r5, #0
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1483              	.LVL129:
  548:.\20648_driver\drivers/inv_mems_base_control.c **** 		result			|=	DividerRateSet	(MinDelayGen		(MinDelayGenAccel3List), hw_smplrt_divider, INV_SENSOR_G
  1484              		.loc 1 548 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 58
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 58
 
 
  1485 011a 0090     		str	r0, [sp]
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1529              	.LBB63:
  556:.\20648_driver\drivers/inv_mems_base_control.c **** 			if	(bac_status != 0)				lStepCounterMinDly = min(lStepCounterMinDly, inv_dmp_odr_delays[INV_SENS
  1530              		.loc 1 556 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 59
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 59
 
 
  1531 014e FFF7FEFF 		bl	MinDelayGenActual
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1578              	.L165:
  405:.\20648_driver\drivers/inv_mems_base_control.c **** }	//	end of SampleRateDividerGet()
  1579              		.loc 1 405 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 60
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 60
 
 
  1580 0186 FA21     		mov	r1, #250
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  576:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM30630)
  1627              		.loc 1 576 0
  1628 01c2 301C     		mov	r0, r6
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 61
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 61
 
 
  1629 01c4 0221     		mov	r1, #2
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1678 020a 0025     		mov	r5, #0
  524:.\20648_driver\drivers/inv_mems_base_control.c **** #if defined MEMS_SECONDARY_DEVICE
  1679              		.loc 1 524 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 62
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 62
 
 
  1680 020c A642     		cmp	r6, r4
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1728              		.loc 1 643 0
  1729 000e FA23     		mov	r3, #250
  1730 0010 9B00     		lsl	r3, r3, #2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 63
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 63
 
 
  1731 0012 9C42     		cmp	r4, r3
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1783 0049 4B       		.byte	(.L221-.L201)/2
  1784 004a 3E       		.byte	(.L211-.L201)/2
  1785 004b 3E       		.byte	(.L211-.L201)/2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 64
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 64
 
 
  1786 004c 40       		.byte	(.L222-.L201)/2
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1828              		.loc 1 674 0
  1829 0076 43E0     		b	.L199
  1830              	.L208:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 65
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 65
 
 
  685:.\20648_driver\drivers/inv_mems_base_control.c ****             inv_dmp_odr_delays[INV_SENSOR_SIXQ_accel] = delayInMs;
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1870              		.loc 1 717 0
  1871 00a0 2EE0     		b	.L199
  1872              	.L211:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 66
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 66
 
 
  723:.\20648_driver\drivers/inv_mems_base_control.c ****             break;
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1914 00cc 0433     		add	r3, r3, #4
  1915 00ce EDE7     		b	.L230
  1916              	.L216:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 67
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 67
 
 
  769:.\20648_driver\drivers/inv_mems_base_control.c ****             inv_dmp_odr_delays[INV_SENSOR_WAKEUP_NINEQ_accel] = delayInMs;
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  1956              		.loc 1 792 0
  1957 00f6 0B4B     		ldr	r3, .L231
  1958 00f8 1C87     		strh	r4, [r3, #56]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 68
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 68
 
 
  793:.\20648_driver\drivers/inv_mems_base_control.c **** 
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2006              	.LFB12:
 1093:.\20648_driver\drivers/inv_mems_base_control.c ****     inv_error_t result = 0;
  2007              		.loc 1 1093 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 69
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 69
 
 
  2008              		.cfi_startproc
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2054 0032 04D0     		beq	.L236
 1220:.\20648_driver\drivers/inv_mems_base_control.c ****         else
  2055              		.loc 1 1220 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 70
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 70
 
 
  2056 0034 2B1C     		mov	r3, r5
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2099              		.loc 1 1244 0
  2100 006e 2B2F     		cmp	r7, #43
  2101 0070 08D1     		bne	.L244
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 71
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 71
 
 
 1246:.\20648_driver\drivers/inv_mems_base_control.c ****         else
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2147 00ac 05D0     		beq	.L250
  2148              	.L249:
 1057:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 72
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 72
 
 
  2149              		.loc 1 1057 0
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2195 00f2 1F22     		mov	r2, #31
  2196              	.LVL185:
  2197 00f4 0121     		mov	r1, #1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 73
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 73
 
 
  2198 00f6 3A40     		and	r2, r7
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2242 012c 2B1C     		mov	r3, r5
  2243 012e 5C33     		add	r3, r3, #92
  2244 0130 1988     		ldrh	r1, [r3]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 74
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 74
 
 
  2245 0132 2B1C     		mov	r3, r5
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2291 017e 724B     		ldr	r3, .L342
  2292 0180 0B40     		and	r3, r1
  2293              	.L339:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 75
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 75
 
 
  2294 0182 1380     		strh	r3, [r2]
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2340              	.LVL194:
 1333:.\20648_driver\drivers/inv_mems_base_control.c ****         data_rdy_status |= GYRO_AVAILABLE;
  2341              		.loc 1 1333 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 76
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 76
 
 
  2342 01c8 EA6C     		ldr	r2, [r5, #76]
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2389              	.L265:
 1339:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
  2390              		.loc 1 1339 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 77
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 77
 
 
  2391 020c 0221     		mov	r1, #2
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2437 0246 0192     		str	r2, [sp, #4]
  2438              	.LVL202:
  2439              	.L271:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 78
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 78
 
 
 1355:.\20648_driver\drivers/inv_mems_base_control.c **** #endif
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2488 028c 1A06     		lsl	r2, r3, #24
  2489 028e 02D5     		bpl	.L275
 1372:.\20648_driver\drivers/inv_mems_base_control.c **** #if (MEMS_CHIP == HW_ICM20648)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 79
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 79
 
 
  2490              		.loc 1 1372 0
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2536 02c6 051C     		mov	r5, r0
  2537              	.LVL219:
  2538 02c8 FFF7FEFF 		bl	inv_get_gyro_fullscale
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 80
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 80
 
 
  2539              	.LVL220:
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2584 030c 0C23     		mov	r3, #12
 1431:.\20648_driver\drivers/inv_mems_base_control.c **** 
  2585              		.loc 1 1431 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 81
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 81
 
 
  2586 030e 0543     		orr	r5, r0
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2631              	.LVL236:
 1203:.\20648_driver\drivers/inv_mems_base_control.c **** 
  2632              		.loc 1 1203 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 82
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 82
 
 
  2633 0342 281C     		mov	r0, r5
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2675 000c 0028     		cmp	r0, #0
  2676 000e 01D0     		beq	.L345
  2677              		.loc 1 1694 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 83
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 83
 
 
  2678 0010 2243     		orr	r2, r4
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2725 0034 01       		.byte	1
  2726 0035 00       		.byte	0
  2727 0036 17       		.byte	23
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 84
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 84
 
 
  2728 0037 14       		.byte	20
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2782 006a 1D       		.byte	29
  2783 006b 18       		.byte	24
  2784 006c 23       		.byte	35
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 85
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 85
 
 
  2785 006d 18       		.byte	24
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2839 0094 04       		.byte	4
  2840 0095 0A       		.byte	10
  2841 0096 1A       		.byte	26
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 86
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 86
 
 
  2842 0097 1D       		.byte	29
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2896 00d2 0000     		.short	0
  2897 00d4 1800     		.short	24
  2898 00d6 1000     		.short	16
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 87
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 87
 
 
  2899 00d8 0801     		.short	264
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  2953 0034 C800     		.short	200
  2954 0036 C800     		.short	200
  2955 0038 C800     		.short	200
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 88
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 88
 
 
  2956 003a C800     		.short	200
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3005              		.type	inv_sensor_control, %object
  3006              		.size	inv_sensor_control, 2
  3007              	inv_sensor_control:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 89
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 89
 
 
  3008 005c 0000     		.space	2
@@ -5315,10 +5315,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3039 0006 00000000 		.4byte	.Ldebug_abbrev0
  3040 000a 04       		.byte	0x4
  3041 000b 01       		.uleb128 0x1
- 3042 000c 56060000 		.4byte	.LASF229
+ 3042 000c DF060000 		.4byte	.LASF229
  3043 0010 01       		.byte	0x1
  3044 0011 60030000 		.4byte	.LASF230
- 3045 0015 85110000 		.4byte	.LASF231
+ 3045 0015 89040000 		.4byte	.LASF231
  3046 0019 68000000 		.4byte	.Ldebug_ranges0+0x68
  3047 001d 00000000 		.4byte	0
  3048 0021 00000000 		.4byte	.Ldebug_line0
@@ -5333,52 +5333,52 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3057 0033 03       		.uleb128 0x3
  3058 0034 01       		.byte	0x1
  3059 0035 06       		.byte	0x6
- 3060 0036 5C120000 		.4byte	.LASF1
+ 3060 0036 8A120000 		.4byte	.LASF1
  3061 003a 04       		.uleb128 0x4
- 3062 003b 1C0F0000 		.4byte	.LASF6
+ 3062 003b A50F0000 		.4byte	.LASF6
  3063 003f 02       		.byte	0x2
  3064 0040 1D       		.byte	0x1d
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 90
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 90
 
 
  3065 0041 45000000 		.4byte	0x45
  3066 0045 03       		.uleb128 0x3
  3067 0046 01       		.byte	0x1
  3068 0047 08       		.byte	0x8
- 3069 0048 96100000 		.4byte	.LASF2
+ 3069 0048 1F110000 		.4byte	.LASF2
  3070 004c 03       		.uleb128 0x3
  3071 004d 02       		.byte	0x2
  3072 004e 05       		.byte	0x5
- 3073 004f 350D0000 		.4byte	.LASF3
+ 3073 004f BE0D0000 		.4byte	.LASF3
  3074 0053 03       		.uleb128 0x3
  3075 0054 02       		.byte	0x2
  3076 0055 07       		.byte	0x7
- 3077 0056 90120000 		.4byte	.LASF4
+ 3077 0056 BE120000 		.4byte	.LASF4
  3078 005a 03       		.uleb128 0x3
  3079 005b 04       		.byte	0x4
  3080 005c 05       		.byte	0x5
- 3081 005d AA0D0000 		.4byte	.LASF5
+ 3081 005d 330E0000 		.4byte	.LASF5
  3082 0061 04       		.uleb128 0x4
- 3083 0062 A4100000 		.4byte	.LASF7
+ 3083 0062 2D110000 		.4byte	.LASF7
  3084 0066 02       		.byte	0x2
  3085 0067 41       		.byte	0x41
  3086 0068 6C000000 		.4byte	0x6c
  3087 006c 03       		.uleb128 0x3
  3088 006d 04       		.byte	0x4
  3089 006e 07       		.byte	0x7
- 3090 006f C70F0000 		.4byte	.LASF8
+ 3090 006f 50100000 		.4byte	.LASF8
  3091 0073 03       		.uleb128 0x3
  3092 0074 08       		.byte	0x8
  3093 0075 05       		.byte	0x5
- 3094 0076 200A0000 		.4byte	.LASF9
+ 3094 0076 A90A0000 		.4byte	.LASF9
  3095 007a 03       		.uleb128 0x3
  3096 007b 08       		.byte	0x8
  3097 007c 07       		.byte	0x7
- 3098 007d 81050000 		.4byte	.LASF10
+ 3098 007d 0A060000 		.4byte	.LASF10
  3099 0081 03       		.uleb128 0x3
  3100 0082 04       		.byte	0x4
  3101 0083 07       		.byte	0x7
- 3102 0084 BE0F0000 		.4byte	.LASF11
+ 3102 0084 47100000 		.4byte	.LASF11
  3103 0088 05       		.uleb128 0x5
  3104 0089 04       		.byte	0x4
  3105 008a 06       		.uleb128 0x6
@@ -5387,9 +5387,9 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3108 0090 03       		.uleb128 0x3
  3109 0091 01       		.byte	0x1
  3110 0092 08       		.byte	0x8
- 3111 0093 93080000 		.4byte	.LASF12
+ 3111 0093 1C090000 		.4byte	.LASF12
  3112 0097 04       		.uleb128 0x4
- 3113 0098 3F090000 		.4byte	.LASF13
+ 3113 0098 C8090000 		.4byte	.LASF13
  3114 009c 03       		.byte	0x3
  3115 009d 15       		.byte	0x15
  3116 009e 3A000000 		.4byte	0x3a
@@ -5398,77 +5398,77 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3119 00a7 03       		.byte	0x3
  3120 00a8 2D       		.byte	0x2d
  3121 00a9 61000000 		.4byte	0x61
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 91
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 91
 
 
  3122 00ad 07       		.uleb128 0x7
- 3123 00ae EC090000 		.4byte	.LASF54
+ 3123 00ae 750A0000 		.4byte	.LASF54
  3124 00b2 01       		.byte	0x1
  3125 00b3 04       		.byte	0x4
  3126 00b4 26       		.byte	0x26
  3127 00b5 A4010000 		.4byte	0x1a4
  3128 00b9 08       		.uleb128 0x8
- 3129 00ba C70C0000 		.4byte	.LASF15
+ 3129 00ba 500D0000 		.4byte	.LASF15
  3130 00be 00       		.sleb128 0
  3131 00bf 08       		.uleb128 0x8
- 3132 00c0 7A120000 		.4byte	.LASF16
+ 3132 00c0 A8120000 		.4byte	.LASF16
  3133 00c4 01       		.sleb128 1
  3134 00c5 08       		.uleb128 0x8
- 3135 00c6 44130000 		.4byte	.LASF17
+ 3135 00c6 72130000 		.4byte	.LASF17
  3136 00ca 02       		.sleb128 2
  3137 00cb 08       		.uleb128 0x8
  3138 00cc 7C010000 		.4byte	.LASF18
  3139 00d0 03       		.sleb128 3
  3140 00d1 08       		.uleb128 0x8
- 3141 00d2 26070000 		.4byte	.LASF19
+ 3141 00d2 AF070000 		.4byte	.LASF19
  3142 00d6 04       		.sleb128 4
  3143 00d7 08       		.uleb128 0x8
- 3144 00d8 E0110000 		.4byte	.LASF20
+ 3144 00d8 0E120000 		.4byte	.LASF20
  3145 00dc 05       		.sleb128 5
  3146 00dd 08       		.uleb128 0x8
- 3147 00de CB120000 		.4byte	.LASF21
+ 3147 00de F9120000 		.4byte	.LASF21
  3148 00e2 06       		.sleb128 6
  3149 00e3 08       		.uleb128 0x8
- 3150 00e4 DD130000 		.4byte	.LASF22
+ 3150 00e4 0B140000 		.4byte	.LASF22
  3151 00e8 07       		.sleb128 7
  3152 00e9 08       		.uleb128 0x8
- 3153 00ea B0050000 		.4byte	.LASF23
+ 3153 00ea 39060000 		.4byte	.LASF23
  3154 00ee 08       		.sleb128 8
  3155 00ef 08       		.uleb128 0x8
- 3156 00f0 F0110000 		.4byte	.LASF24
+ 3156 00f0 1E120000 		.4byte	.LASF24
  3157 00f4 09       		.sleb128 9
  3158 00f5 08       		.uleb128 0x8
- 3159 00f6 970B0000 		.4byte	.LASF25
+ 3159 00f6 200C0000 		.4byte	.LASF25
  3160 00fa 0A       		.sleb128 10
  3161 00fb 08       		.uleb128 0x8
- 3162 00fc 120C0000 		.4byte	.LASF26
+ 3162 00fc 9B0C0000 		.4byte	.LASF26
  3163 0100 0B       		.sleb128 11
  3164 0101 08       		.uleb128 0x8
- 3165 0102 A2130000 		.4byte	.LASF27
+ 3165 0102 D0130000 		.4byte	.LASF27
  3166 0106 0C       		.sleb128 12
  3167 0107 08       		.uleb128 0x8
- 3168 0108 DF0E0000 		.4byte	.LASF28
+ 3168 0108 680F0000 		.4byte	.LASF28
  3169 010c 0D       		.sleb128 13
  3170 010d 08       		.uleb128 0x8
- 3171 010e EB0A0000 		.4byte	.LASF29
+ 3171 010e 740B0000 		.4byte	.LASF29
  3172 0112 0E       		.sleb128 14
  3173 0113 08       		.uleb128 0x8
  3174 0114 7D020000 		.4byte	.LASF30
  3175 0118 0F       		.sleb128 15
  3176 0119 08       		.uleb128 0x8
- 3177 011a 1F0D0000 		.4byte	.LASF31
+ 3177 011a A80D0000 		.4byte	.LASF31
  3178 011e 10       		.sleb128 16
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 92
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 92
 
 
  3179 011f 08       		.uleb128 0x8
- 3180 0120 6E110000 		.4byte	.LASF32
+ 3180 0120 F7110000 		.4byte	.LASF32
  3181 0124 11       		.sleb128 17
  3182 0125 08       		.uleb128 0x8
- 3183 0126 98050000 		.4byte	.LASF33
+ 3183 0126 21060000 		.4byte	.LASF33
  3184 012a 12       		.sleb128 18
  3185 012b 08       		.uleb128 0x8
- 3186 012c 5C100000 		.4byte	.LASF34
+ 3186 012c E5100000 		.4byte	.LASF34
  3187 0130 13       		.sleb128 19
  3188 0131 08       		.uleb128 0x8
  3189 0132 C5020000 		.4byte	.LASF35
@@ -5477,81 +5477,81 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3192 0138 7D000000 		.4byte	.LASF36
  3193 013c 15       		.sleb128 21
  3194 013d 08       		.uleb128 0x8
- 3195 013e B6080000 		.4byte	.LASF37
+ 3195 013e 3F090000 		.4byte	.LASF37
  3196 0142 16       		.sleb128 22
  3197 0143 08       		.uleb128 0x8
- 3198 0144 C2070000 		.4byte	.LASF38
+ 3198 0144 4B080000 		.4byte	.LASF38
  3199 0148 17       		.sleb128 23
  3200 0149 08       		.uleb128 0x8
- 3201 014a 46140000 		.4byte	.LASF39
+ 3201 014a 74140000 		.4byte	.LASF39
  3202 014e 18       		.sleb128 24
  3203 014f 08       		.uleb128 0x8
- 3204 0150 47090000 		.4byte	.LASF40
+ 3204 0150 D0090000 		.4byte	.LASF40
  3205 0154 19       		.sleb128 25
  3206 0155 08       		.uleb128 0x8
  3207 0156 EF030000 		.4byte	.LASF41
  3208 015a 1A       		.sleb128 26
  3209 015b 08       		.uleb128 0x8
- 3210 015c AB070000 		.4byte	.LASF42
+ 3210 015c 34080000 		.4byte	.LASF42
  3211 0160 1B       		.sleb128 27
  3212 0161 08       		.uleb128 0x8
- 3213 0162 050A0000 		.4byte	.LASF43
+ 3213 0162 8E0A0000 		.4byte	.LASF43
  3214 0166 1C       		.sleb128 28
  3215 0167 08       		.uleb128 0x8
- 3216 0168 3E110000 		.4byte	.LASF44
+ 3216 0168 C7110000 		.4byte	.LASF44
  3217 016c 1D       		.sleb128 29
  3218 016d 08       		.uleb128 0x8
- 3219 016e EB040000 		.4byte	.LASF45
+ 3219 016e 74050000 		.4byte	.LASF45
  3220 0172 1E       		.sleb128 30
  3221 0173 08       		.uleb128 0x8
- 3222 0174 D7100000 		.4byte	.LASF46
+ 3222 0174 60110000 		.4byte	.LASF46
  3223 0178 1F       		.sleb128 31
  3224 0179 08       		.uleb128 0x8
- 3225 017a 55050000 		.4byte	.LASF47
+ 3225 017a DE050000 		.4byte	.LASF47
  3226 017e 20       		.sleb128 32
  3227 017f 08       		.uleb128 0x8
- 3228 0180 1A140000 		.4byte	.LASF48
+ 3228 0180 48140000 		.4byte	.LASF48
  3229 0184 21       		.sleb128 33
  3230 0185 08       		.uleb128 0x8
- 3231 0186 FE0E0000 		.4byte	.LASF49
+ 3231 0186 870F0000 		.4byte	.LASF49
  3232 018a 22       		.sleb128 34
  3233 018b 08       		.uleb128 0x8
- 3234 018c 170E0000 		.4byte	.LASF50
+ 3234 018c A00E0000 		.4byte	.LASF50
  3235 0190 23       		.sleb128 35
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 93
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 93
 
 
  3236 0191 08       		.uleb128 0x8
- 3237 0192 750D0000 		.4byte	.LASF51
+ 3237 0192 FE0D0000 		.4byte	.LASF51
  3238 0196 24       		.sleb128 36
  3239 0197 08       		.uleb128 0x8
  3240 0198 1B030000 		.4byte	.LASF52
  3241 019c 25       		.sleb128 37
  3242 019d 08       		.uleb128 0x8
- 3243 019e 260F0000 		.4byte	.LASF53
+ 3243 019e AF0F0000 		.4byte	.LASF53
  3244 01a2 26       		.sleb128 38
  3245 01a3 00       		.byte	0
  3246 01a4 07       		.uleb128 0x7
- 3247 01a5 1E100000 		.4byte	.LASF55
+ 3247 01a5 A7100000 		.4byte	.LASF55
  3248 01a9 01       		.byte	0x1
  3249 01aa 04       		.byte	0x4
  3250 01ab 57       		.byte	0x57
  3251 01ac C9010000 		.4byte	0x1c9
  3252 01b0 08       		.uleb128 0x8
- 3253 01b1 48120000 		.4byte	.LASF56
+ 3253 01b1 76120000 		.4byte	.LASF56
  3254 01b5 00       		.sleb128 0
  3255 01b6 08       		.uleb128 0x8
- 3256 01b7 DC120000 		.4byte	.LASF57
+ 3256 01b7 0A130000 		.4byte	.LASF57
  3257 01bb 01       		.sleb128 1
  3258 01bc 08       		.uleb128 0x8
  3259 01bd 38010000 		.4byte	.LASF58
  3260 01c1 02       		.sleb128 2
  3261 01c2 08       		.uleb128 0x8
- 3262 01c3 F30F0000 		.4byte	.LASF59
+ 3262 01c3 7C100000 		.4byte	.LASF59
  3263 01c7 03       		.sleb128 3
  3264 01c8 00       		.byte	0
  3265 01c9 09       		.uleb128 0x9
- 3266 01ca EB060000 		.4byte	.LASF60
+ 3266 01ca 74070000 		.4byte	.LASF60
  3267 01ce 01       		.byte	0x1
  3268 01cf 05       		.byte	0x5
  3269 01d0 9202     		.2byte	0x292
@@ -5560,88 +5560,88 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3272 01d7 A3010000 		.4byte	.LASF61
  3273 01db 00       		.sleb128 0
  3274 01dc 08       		.uleb128 0x8
- 3275 01dd 610E0000 		.4byte	.LASF62
+ 3275 01dd EA0E0000 		.4byte	.LASF62
  3276 01e1 01       		.sleb128 1
  3277 01e2 08       		.uleb128 0x8
- 3278 01e3 5C0C0000 		.4byte	.LASF63
+ 3278 01e3 E50C0000 		.4byte	.LASF63
  3279 01e7 02       		.sleb128 2
  3280 01e8 08       		.uleb128 0x8
- 3281 01e9 D8070000 		.4byte	.LASF64
+ 3281 01e9 61080000 		.4byte	.LASF64
  3282 01ed 03       		.sleb128 3
  3283 01ee 08       		.uleb128 0x8
- 3284 01ef EF130000 		.4byte	.LASF65
+ 3284 01ef 1D140000 		.4byte	.LASF65
  3285 01f3 04       		.sleb128 4
  3286 01f4 08       		.uleb128 0x8
- 3287 01f5 2B050000 		.4byte	.LASF66
+ 3287 01f5 B4050000 		.4byte	.LASF66
  3288 01f9 05       		.sleb128 5
  3289 01fa 08       		.uleb128 0x8
- 3290 01fb 40080000 		.4byte	.LASF67
+ 3290 01fb C9080000 		.4byte	.LASF67
  3291 01ff 06       		.sleb128 6
  3292 0200 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 94
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 94
 
 
- 3293 0201 FC0D0000 		.4byte	.LASF68
+ 3293 0201 850E0000 		.4byte	.LASF68
  3294 0205 07       		.sleb128 7
  3295 0206 08       		.uleb128 0x8
- 3296 0207 0B050000 		.4byte	.LASF69
+ 3296 0207 94050000 		.4byte	.LASF69
  3297 020b 08       		.sleb128 8
  3298 020c 08       		.uleb128 0x8
- 3299 020d AD0B0000 		.4byte	.LASF70
+ 3299 020d 360C0000 		.4byte	.LASF70
  3300 0211 09       		.sleb128 9
  3301 0212 08       		.uleb128 0x8
- 3302 0213 BA130000 		.4byte	.LASF71
+ 3302 0213 E8130000 		.4byte	.LASF71
  3303 0217 0A       		.sleb128 10
  3304 0218 08       		.uleb128 0x8
- 3305 0219 83130000 		.4byte	.LASF72
+ 3305 0219 B1130000 		.4byte	.LASF72
  3306 021d 0B       		.sleb128 11
  3307 021e 08       		.uleb128 0x8
  3308 021f D7030000 		.4byte	.LASF73
  3309 0223 0C       		.sleb128 12
  3310 0224 08       		.uleb128 0x8
- 3311 0225 25120000 		.4byte	.LASF74
+ 3311 0225 53120000 		.4byte	.LASF74
  3312 0229 0D       		.sleb128 13
  3313 022a 08       		.uleb128 0x8
  3314 022b 52000000 		.4byte	.LASF75
  3315 022f 0E       		.sleb128 14
  3316 0230 08       		.uleb128 0x8
- 3317 0231 32060000 		.4byte	.LASF76
+ 3317 0231 BB060000 		.4byte	.LASF76
  3318 0235 0F       		.sleb128 15
  3319 0236 08       		.uleb128 0x8
  3320 0237 63040000 		.4byte	.LASF77
  3321 023b 10       		.sleb128 16
  3322 023c 08       		.uleb128 0x8
- 3323 023d 4C0D0000 		.4byte	.LASF78
+ 3323 023d D50D0000 		.4byte	.LASF78
  3324 0241 11       		.sleb128 17
  3325 0242 08       		.uleb128 0x8
- 3326 0243 21110000 		.4byte	.LASF79
+ 3326 0243 AA110000 		.4byte	.LASF79
  3327 0247 12       		.sleb128 18
  3328 0248 08       		.uleb128 0x8
- 3329 0249 030D0000 		.4byte	.LASF80
+ 3329 0249 8C0D0000 		.4byte	.LASF80
  3330 024d 13       		.sleb128 19
  3331 024e 08       		.uleb128 0x8
- 3332 024f 360E0000 		.4byte	.LASF81
+ 3332 024f BF0E0000 		.4byte	.LASF81
  3333 0253 14       		.sleb128 20
  3334 0254 08       		.uleb128 0x8
  3335 0255 F2010000 		.4byte	.LASF82
  3336 0259 15       		.sleb128 21
  3337 025a 08       		.uleb128 0x8
- 3338 025b B2120000 		.4byte	.LASF83
+ 3338 025b E0120000 		.4byte	.LASF83
  3339 025f 16       		.sleb128 22
  3340 0260 08       		.uleb128 0x8
  3341 0261 08040000 		.4byte	.LASF84
  3342 0265 17       		.sleb128 23
  3343 0266 08       		.uleb128 0x8
- 3344 0267 5D140000 		.4byte	.LASF85
+ 3344 0267 8B140000 		.4byte	.LASF85
  3345 026b 18       		.sleb128 24
  3346 026c 08       		.uleb128 0x8
- 3347 026d D0080000 		.4byte	.LASF86
+ 3347 026d 59090000 		.4byte	.LASF86
  3348 0271 19       		.sleb128 25
  3349 0272 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 95
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 95
 
 
- 3350 0273 12060000 		.4byte	.LASF87
+ 3350 0273 9B060000 		.4byte	.LASF87
  3351 0277 1A       		.sleb128 26
  3352 0278 08       		.uleb128 0x8
  3353 0279 2E030000 		.4byte	.LASF88
@@ -5650,79 +5650,79 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3356 027f 94000000 		.4byte	.LASF89
  3357 0283 1C       		.sleb128 28
  3358 0284 08       		.uleb128 0x8
- 3359 0285 020B0000 		.4byte	.LASF90
+ 3359 0285 8B0B0000 		.4byte	.LASF90
  3360 0289 1D       		.sleb128 29
  3361 028a 08       		.uleb128 0x8
- 3362 028b D20D0000 		.4byte	.LASF91
+ 3362 028b 5B0E0000 		.4byte	.LASF91
  3363 028f 1E       		.sleb128 30
  3364 0290 08       		.uleb128 0x8
- 3365 0291 70070000 		.4byte	.LASF92
+ 3365 0291 F9070000 		.4byte	.LASF92
  3366 0295 1F       		.sleb128 31
  3367 0296 08       		.uleb128 0x8
  3368 0297 35040000 		.4byte	.LASF93
  3369 029b 20       		.sleb128 32
  3370 029c 08       		.uleb128 0x8
- 3371 029d C10A0000 		.4byte	.LASF94
+ 3371 029d 4A0B0000 		.4byte	.LASF94
  3372 02a1 21       		.sleb128 33
  3373 02a2 08       		.uleb128 0x8
- 3374 02a3 7F090000 		.4byte	.LASF95
+ 3374 02a3 080A0000 		.4byte	.LASF95
  3375 02a7 22       		.sleb128 34
  3376 02a8 08       		.uleb128 0x8
- 3377 02a9 14090000 		.4byte	.LASF96
+ 3377 02a9 9D090000 		.4byte	.LASF96
  3378 02ad 23       		.sleb128 35
  3379 02ae 08       		.uleb128 0x8
- 3380 02af E50B0000 		.4byte	.LASF97
+ 3380 02af 6E0C0000 		.4byte	.LASF97
  3381 02b3 24       		.sleb128 36
  3382 02b4 08       		.uleb128 0x8
- 3383 02b5 8F040000 		.4byte	.LASF98
+ 3383 02b5 18050000 		.4byte	.LASF98
  3384 02b9 25       		.sleb128 37
  3385 02ba 08       		.uleb128 0x8
- 3386 02bb CD050000 		.4byte	.LASF99
+ 3386 02bb 56060000 		.4byte	.LASF99
  3387 02bf 26       		.sleb128 38
  3388 02c0 08       		.uleb128 0x8
  3389 02c1 E9020000 		.4byte	.LASF100
  3390 02c5 27       		.sleb128 39
  3391 02c6 08       		.uleb128 0x8
- 3392 02c7 E20C0000 		.4byte	.LASF101
+ 3392 02c7 6B0D0000 		.4byte	.LASF101
  3393 02cb 28       		.sleb128 40
  3394 02cc 08       		.uleb128 0x8
- 3395 02cd FD100000 		.4byte	.LASF102
+ 3395 02cd 86110000 		.4byte	.LASF102
  3396 02d1 29       		.sleb128 41
  3397 02d2 08       		.uleb128 0x8
- 3398 02d3 930D0000 		.4byte	.LASF103
+ 3398 02d3 1C0E0000 		.4byte	.LASF103
  3399 02d7 2A       		.sleb128 42
  3400 02d8 08       		.uleb128 0x8
- 3401 02d9 C40B0000 		.4byte	.LASF104
+ 3401 02d9 4D0C0000 		.4byte	.LASF104
  3402 02dd 2B       		.sleb128 43
  3403 02de 08       		.uleb128 0x8
- 3404 02df C6040000 		.4byte	.LASF105
+ 3404 02df 4F050000 		.4byte	.LASF105
  3405 02e3 2C       		.sleb128 44
  3406 02e4 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 96
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 96
 
 
- 3407 02e5 F3070000 		.4byte	.LASF106
+ 3407 02e5 7C080000 		.4byte	.LASF106
  3408 02e9 2D       		.sleb128 45
  3409 02ea 08       		.uleb128 0x8
  3410 02eb C3000000 		.4byte	.LASF107
  3411 02ef 2E       		.sleb128 46
  3412 02f0 08       		.uleb128 0x8
- 3413 02f1 970A0000 		.4byte	.LASF108
+ 3413 02f1 200B0000 		.4byte	.LASF108
  3414 02f5 2F       		.sleb128 47
  3415 02f6 08       		.uleb128 0x8
- 3416 02f7 73100000 		.4byte	.LASF109
+ 3416 02f7 FC100000 		.4byte	.LASF109
  3417 02fb 30       		.sleb128 48
  3418 02fc 08       		.uleb128 0x8
  3419 02fd 68010000 		.4byte	.LASF110
  3420 0301 31       		.sleb128 49
  3421 0302 00       		.byte	0
  3422 0303 04       		.uleb128 0x4
- 3423 0304 75050000 		.4byte	.LASF111
+ 3423 0304 FE050000 		.4byte	.LASF111
  3424 0308 06       		.byte	0x6
  3425 0309 24       		.byte	0x24
  3426 030a 25000000 		.4byte	0x25
  3427 030e 07       		.uleb128 0x7
- 3428 030f C0050000 		.4byte	.LASF112
+ 3428 030f 49060000 		.4byte	.LASF112
  3429 0313 01       		.byte	0x1
  3430 0314 07       		.byte	0x7
  3431 0315 F9       		.byte	0xf9
@@ -5731,24 +5731,24 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3434 031b 0C020000 		.4byte	.LASF113
  3435 031f 00       		.sleb128 0
  3436 0320 08       		.uleb128 0x8
- 3437 0321 D80C0000 		.4byte	.LASF114
+ 3437 0321 610D0000 		.4byte	.LASF114
  3438 0325 01       		.sleb128 1
  3439 0326 08       		.uleb128 0x8
- 3440 0327 F8090000 		.4byte	.LASF115
+ 3440 0327 810A0000 		.4byte	.LASF115
  3441 032b 02       		.sleb128 2
  3442 032c 00       		.byte	0
  3443 032d 03       		.uleb128 0x3
  3444 032e 08       		.byte	0x8
  3445 032f 04       		.byte	0x4
- 3446 0330 07130000 		.4byte	.LASF116
+ 3446 0330 35130000 		.4byte	.LASF116
  3447 0334 03       		.uleb128 0x3
  3448 0335 04       		.byte	0x4
  3449 0336 04       		.byte	0x4
- 3450 0337 89040000 		.4byte	.LASF117
+ 3450 0337 12050000 		.4byte	.LASF117
  3451 033b 03       		.uleb128 0x3
  3452 033c 08       		.byte	0x8
  3453 033d 04       		.byte	0x4
- 3454 033e BB0C0000 		.4byte	.LASF118
+ 3454 033e 440D0000 		.4byte	.LASF118
  3455 0342 0A       		.uleb128 0xa
  3456 0343 02       		.byte	0x2
  3457 0344 01       		.byte	0x1
@@ -5758,25 +5758,25 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3461 034b 12010000 		.4byte	.LASF119
  3462 034f 01       		.byte	0x1
  3463 0350 AE       		.byte	0xae
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 97
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 97
 
 
  3464 0351 C9010000 		.4byte	0x1c9
  3465 0355 00       		.byte	0
  3466 0356 0B       		.uleb128 0xb
- 3467 0357 E1040000 		.4byte	.LASF120
+ 3467 0357 6A050000 		.4byte	.LASF120
  3468 035b 01       		.byte	0x1
  3469 035c AF       		.byte	0xaf
  3470 035d AD000000 		.4byte	0xad
  3471 0361 01       		.byte	0x1
  3472 0362 00       		.byte	0
  3473 0363 04       		.uleb128 0x4
- 3474 0364 4F0F0000 		.4byte	.LASF121
+ 3474 0364 D80F0000 		.4byte	.LASF121
  3475 0368 01       		.byte	0x1
  3476 0369 B0       		.byte	0xb0
  3477 036a 42030000 		.4byte	0x342
  3478 036e 0C       		.uleb128 0xc
- 3479 036f 68080000 		.4byte	.LASF122
+ 3479 036f F1080000 		.4byte	.LASF122
  3480 0373 01       		.byte	0x1
  3481 0374 5C01     		.2byte	0x15c
  3482 0376 53000000 		.4byte	0x53
@@ -5798,27 +5798,27 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3498 039e 01       		.byte	0x1
  3499 039f E2030000 		.4byte	0x3e2
  3500 03a3 0F       		.uleb128 0xf
- 3501 03a4 0B090000 		.4byte	.LASF123
+ 3501 03a4 94090000 		.4byte	.LASF123
  3502 03a8 01       		.byte	0x1
  3503 03a9 7F01     		.2byte	0x17f
  3504 03ab 6E030000 		.4byte	0x36e
  3505 03af 0F       		.uleb128 0xf
- 3506 03b0 82100000 		.4byte	.LASF124
+ 3506 03b0 0B110000 		.4byte	.LASF124
  3507 03b4 01       		.byte	0x1
  3508 03b5 8001     		.2byte	0x180
  3509 03b7 7A030000 		.4byte	0x37a
  3510 03bb 0F       		.uleb128 0xf
- 3511 03bc E1040000 		.4byte	.LASF120
+ 3511 03bc 6A050000 		.4byte	.LASF120
  3512 03c0 01       		.byte	0x1
  3513 03c1 8101     		.2byte	0x181
  3514 03c3 AD000000 		.4byte	0xad
  3515 03c7 10       		.uleb128 0x10
- 3516 03c8 F6100000 		.4byte	.LASF125
+ 3516 03c8 7F110000 		.4byte	.LASF125
  3517 03cc 01       		.byte	0x1
  3518 03cd 8401     		.2byte	0x184
  3519 03cf 03030000 		.4byte	0x303
  3520 03d3 11       		.uleb128 0x11
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 98
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 98
 
 
  3521 03d4 10       		.uleb128 0x10
@@ -5835,37 +5835,37 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3532 03ea 01       		.byte	0x1
  3533 03eb FC030000 		.4byte	0x3fc
  3534 03ef 0F       		.uleb128 0xf
- 3535 03f0 E4060000 		.4byte	.LASF127
+ 3535 03f0 6D070000 		.4byte	.LASF127
  3536 03f4 01       		.byte	0x1
  3537 03f5 AF05     		.2byte	0x5af
  3538 03f7 45000000 		.4byte	0x45
  3539 03fb 00       		.byte	0
  3540 03fc 12       		.uleb128 0x12
- 3541 03fd 2E0A0000 		.4byte	.LASF129
+ 3541 03fd B70A0000 		.4byte	.LASF129
  3542 0401 01       		.byte	0x1
  3543 0402 C305     		.2byte	0x5c3
  3544 0404 01       		.byte	0x1
  3545 0405 16040000 		.4byte	0x416
  3546 0409 0F       		.uleb128 0xf
- 3547 040a E4060000 		.4byte	.LASF127
+ 3547 040a 6D070000 		.4byte	.LASF127
  3548 040e 01       		.byte	0x1
  3549 040f C305     		.2byte	0x5c3
  3550 0411 45000000 		.4byte	0x45
  3551 0415 00       		.byte	0
  3552 0416 0E       		.uleb128 0xe
- 3553 0417 5B070000 		.4byte	.LASF131
+ 3553 0417 E4070000 		.4byte	.LASF131
  3554 041b 01       		.byte	0x1
  3555 041c 9201     		.2byte	0x192
  3556 041e 7A030000 		.4byte	0x37a
  3557 0422 01       		.byte	0x1
  3558 0423 40040000 		.4byte	0x440
  3559 0427 0F       		.uleb128 0xf
- 3560 0428 0B090000 		.4byte	.LASF123
+ 3560 0428 94090000 		.4byte	.LASF123
  3561 042c 01       		.byte	0x1
  3562 042d 9201     		.2byte	0x192
  3563 042f 6E030000 		.4byte	0x36e
  3564 0433 10       		.uleb128 0x10
- 3565 0434 D1100000 		.4byte	.LASF132
+ 3565 0434 5A110000 		.4byte	.LASF132
  3566 0438 01       		.byte	0x1
  3567 0439 9401     		.2byte	0x194
  3568 043b 7A030000 		.4byte	0x37a
@@ -5878,29 +5878,29 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3575 0449 8A040000 		.4byte	0x48a
  3576 044d 0F       		.uleb128 0xf
  3577 044e D1010000 		.4byte	.LASF133
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 99
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 99
 
 
  3578 0452 01       		.byte	0x1
  3579 0453 0104     		.2byte	0x401
  3580 0455 45000000 		.4byte	0x45
  3581 0459 0F       		.uleb128 0xf
- 3582 045a E4060000 		.4byte	.LASF127
+ 3582 045a 6D070000 		.4byte	.LASF127
  3583 045e 01       		.byte	0x1
  3584 045f 0104     		.2byte	0x401
  3585 0461 45000000 		.4byte	0x45
  3586 0465 0F       		.uleb128 0xf
- 3587 0466 A7080000 		.4byte	.LASF134
+ 3587 0466 30090000 		.4byte	.LASF134
  3588 046a 01       		.byte	0x1
  3589 046b 0104     		.2byte	0x401
  3590 046d 8A040000 		.4byte	0x48a
  3591 0471 0F       		.uleb128 0xf
- 3592 0472 37140000 		.4byte	.LASF135
+ 3592 0472 65140000 		.4byte	.LASF135
  3593 0476 01       		.byte	0x1
  3594 0477 0104     		.2byte	0x401
  3595 0479 95040000 		.4byte	0x495
  3596 047d 10       		.uleb128 0x10
- 3597 047e 8A120000 		.4byte	.LASF136
+ 3597 047e B8120000 		.4byte	.LASF136
  3598 0482 01       		.byte	0x1
  3599 0483 0304     		.2byte	0x403
  3600 0485 4C000000 		.4byte	0x4c
@@ -5914,7 +5914,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3608 0496 04       		.byte	0x4
  3609 0497 53000000 		.4byte	0x53
  3610 049b 0E       		.uleb128 0xe
- 3611 049c EC120000 		.4byte	.LASF137
+ 3611 049c 1A130000 		.4byte	.LASF137
  3612 04a0 01       		.byte	0x1
  3613 04a1 B504     		.2byte	0x4b5
  3614 04a3 03030000 		.4byte	0x303
@@ -5926,25 +5926,25 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3620 04b2 B504     		.2byte	0x4b5
  3621 04b4 45000000 		.4byte	0x45
  3622 04b8 0F       		.uleb128 0xf
- 3623 04b9 E4060000 		.4byte	.LASF127
+ 3623 04b9 6D070000 		.4byte	.LASF127
  3624 04bd 01       		.byte	0x1
  3625 04be B504     		.2byte	0x4b5
  3626 04c0 45000000 		.4byte	0x45
  3627 04c4 0F       		.uleb128 0xf
- 3628 04c5 04120000 		.4byte	.LASF138
+ 3628 04c5 32120000 		.4byte	.LASF138
  3629 04c9 01       		.byte	0x1
  3630 04ca B504     		.2byte	0x4b5
  3631 04cc 8A000000 		.4byte	0x8a
  3632 04d0 10       		.uleb128 0x10
  3633 04d1 8F030000 		.4byte	.LASF139
  3634 04d5 01       		.byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 100
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 100
 
 
  3635 04d6 B704     		.2byte	0x4b7
  3636 04d8 03030000 		.4byte	0x303
  3637 04dc 10       		.uleb128 0x10
- 3638 04dd 71130000 		.4byte	.LASF140
+ 3638 04dd 9F130000 		.4byte	.LASF140
  3639 04e1 01       		.byte	0x1
  3640 04e2 B804     		.2byte	0x4b8
  3641 04e4 53000000 		.4byte	0x53
@@ -5954,12 +5954,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3645 04ee BA04     		.2byte	0x4ba
  3646 04f0 53000000 		.4byte	0x53
  3647 04f4 10       		.uleb128 0x10
- 3648 04f5 98080000 		.4byte	.LASF142
+ 3648 04f5 21090000 		.4byte	.LASF142
  3649 04f9 01       		.byte	0x1
  3650 04fa BB04     		.2byte	0x4bb
  3651 04fc 53000000 		.4byte	0x53
  3652 0500 10       		.uleb128 0x10
- 3653 0501 CF0E0000 		.4byte	.LASF143
+ 3653 0501 580F0000 		.4byte	.LASF143
  3654 0505 01       		.byte	0x1
  3655 0506 BD04     		.2byte	0x4bd
  3656 0508 53000000 		.4byte	0x53
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3689 0563 AF030000 		.4byte	0x3af
  3690 0567 95000000 		.4byte	.LLST5
  3691 056b 16       		.uleb128 0x16
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 101
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 101
 
 
  3692 056c A3030000 		.4byte	0x3a3
@@ -6029,7 +6029,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3717 05a6 00       		.byte	0
  3718 05a7 00       		.byte	0
  3719 05a8 1C       		.uleb128 0x1c
- 3720 05a9 D2090000 		.4byte	.LASF202
+ 3720 05a9 5B0A0000 		.4byte	.LASF202
  3721 05ad 01       		.byte	0x1
  3722 05ae A6       		.byte	0xa6
  3723 05af 6C000000 		.4byte	0x6c
@@ -6053,12 +6053,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3741 05dc DB000000 		.4byte	.LLST8
  3742 05e0 00       		.byte	0
  3743 05e1 1F       		.uleb128 0x1f
- 3744 05e2 08140000 		.4byte	.LASF233
+ 3744 05e2 36140000 		.4byte	.LASF233
  3745 05e6 01       		.byte	0x1
  3746 05e7 6301     		.2byte	0x163
  3747 05e9 6E030000 		.4byte	0x36e
  3748 05ed 00000000 		.4byte	.LFB1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 102
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 102
 
 
  3749 05f1 38000000 		.4byte	.LFE1-.LFB1
@@ -6066,7 +6066,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3751 05f6 9C       		.byte	0x9c
  3752 05f7 53060000 		.4byte	0x653
  3753 05fb 20       		.uleb128 0x20
- 3754 05fc F2080000 		.4byte	.LASF145
+ 3754 05fc 7B090000 		.4byte	.LASF145
  3755 0600 01       		.byte	0x1
  3756 0601 6501     		.2byte	0x165
  3757 0603 53060000 		.4byte	0x653
@@ -6078,7 +6078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3763 0613 86030000 		.4byte	0x386
  3764 0617 1A010000 		.4byte	.LLST10
  3765 061b 21       		.uleb128 0x21
- 3766 061c 0B090000 		.4byte	.LASF123
+ 3766 061c 94090000 		.4byte	.LASF123
  3767 0620 01       		.byte	0x1
  3768 0621 6901     		.2byte	0x169
  3769 0623 6E030000 		.4byte	0x36e
@@ -6088,7 +6088,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3773 0630 12000000 		.4byte	.LBE16-.LBB16
  3774 0634 49060000 		.4byte	0x649
  3775 0638 21       		.uleb128 0x21
- 3776 0639 79100000 		.4byte	.LASF147
+ 3776 0639 02110000 		.4byte	.LASF147
  3777 063d 01       		.byte	0x1
  3778 063e 6F01     		.2byte	0x16f
  3779 0640 6E030000 		.4byte	0x36e
@@ -6104,7 +6104,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3789 0659 14       		.uleb128 0x14
  3790 065a 63030000 		.4byte	0x363
  3791 065e 24       		.uleb128 0x24
- 3792 065f 8B0B0000 		.4byte	.LASF154
+ 3792 065f 140C0000 		.4byte	.LASF154
  3793 0663 01       		.byte	0x1
  3794 0664 4503     		.2byte	0x345
  3795 0666 03030000 		.4byte	0x303
@@ -6114,11 +6114,11 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3799 0673 9C       		.byte	0x9c
  3800 0674 BF060000 		.4byte	0x6bf
  3801 0678 20       		.uleb128 0x20
- 3802 0679 7D0C0000 		.4byte	.LASF148
+ 3802 0679 060D0000 		.4byte	.LASF148
  3803 067d 01       		.byte	0x1
  3804 067e 4503     		.2byte	0x345
  3805 0680 45000000 		.4byte	0x45
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 103
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 103
 
 
  3806 0684 78010000 		.4byte	.LLST13
@@ -6129,7 +6129,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3811 0690 BF060000 		.4byte	0x6bf
  3812 0694 B2010000 		.4byte	.LLST14
  3813 0698 20       		.uleb128 0x20
- 3814 0699 19080000 		.4byte	.LASF149
+ 3814 0699 A2080000 		.4byte	.LASF149
  3815 069d 01       		.byte	0x1
  3816 069e 4503     		.2byte	0x345
  3817 06a0 0E030000 		.4byte	0x30e
@@ -6148,7 +6148,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3830 06c0 04       		.byte	0x4
  3831 06c1 A2000000 		.4byte	0xa2
  3832 06c5 27       		.uleb128 0x27
- 3833 06c6 27130000 		.4byte	.LASF152
+ 3833 06c6 55130000 		.4byte	.LASF152
  3834 06ca 01       		.byte	0x1
  3835 06cb E603     		.2byte	0x3e6
  3836 06cd 00000000 		.4byte	.LFB9
@@ -6157,28 +6157,28 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3839 06d6 9C       		.byte	0x9c
  3840 06d7 32070000 		.4byte	0x732
  3841 06db 28       		.uleb128 0x28
- 3842 06dc A7080000 		.4byte	.LASF134
+ 3842 06dc 30090000 		.4byte	.LASF134
  3843 06e0 01       		.byte	0x1
  3844 06e1 E603     		.2byte	0x3e6
  3845 06e3 8A040000 		.4byte	0x48a
  3846 06e7 01       		.uleb128 0x1
  3847 06e8 50       		.byte	0x50
  3848 06e9 28       		.uleb128 0x28
- 3849 06ea 37140000 		.4byte	.LASF135
+ 3849 06ea 65140000 		.4byte	.LASF135
  3850 06ee 01       		.byte	0x1
  3851 06ef E603     		.2byte	0x3e6
  3852 06f1 95040000 		.4byte	0x495
  3853 06f5 01       		.uleb128 0x1
  3854 06f6 51       		.byte	0x51
  3855 06f7 21       		.uleb128 0x21
- 3856 06f8 8A120000 		.4byte	.LASF136
+ 3856 06f8 B8120000 		.4byte	.LASF136
  3857 06fc 01       		.byte	0x1
  3858 06fd E803     		.2byte	0x3e8
  3859 06ff 4C000000 		.4byte	0x4c
  3860 0703 2E020000 		.4byte	.LLST16
  3861 0707 29       		.uleb128 0x29
  3862 0708 6900     		.ascii	"i\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 104
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 104
 
 
  3863 070a 01       		.byte	0x1
@@ -6191,7 +6191,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3870 0719 25000000 		.4byte	0x25
  3871 071d 41020000 		.4byte	.LLST17
  3872 0721 21       		.uleb128 0x21
- 3873 0722 D90F0000 		.4byte	.LASF151
+ 3873 0722 62100000 		.4byte	.LASF151
  3874 0726 01       		.byte	0x1
  3875 0727 EA03     		.2byte	0x3ea
  3876 0729 6C000000 		.4byte	0x6c
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3917 0799 23       		.uleb128 0x23
  3918 079a 2E000000 		.4byte	.LVL45
  3919 079e 4C130000 		.4byte	0x134c
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 105
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 105
 
 
  3920 07a2 00       		.byte	0
@@ -6264,7 +6264,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3940 07da 00       		.byte	0
  3941 07db 00       		.byte	0
  3942 07dc 27       		.uleb128 0x27
- 3943 07dd AF100000 		.4byte	.LASF153
+ 3943 07dd 38110000 		.4byte	.LASF153
  3944 07e1 01       		.byte	0x1
  3945 07e2 EB05     		.2byte	0x5eb
  3946 07e4 00000000 		.4byte	.LFB17
@@ -6273,7 +6273,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3949 07ed 9C       		.byte	0x9c
  3950 07ee 01080000 		.4byte	0x801
  3951 07f2 28       		.uleb128 0x28
- 3952 07f3 E4060000 		.4byte	.LASF127
+ 3952 07f3 6D070000 		.4byte	.LASF127
  3953 07f7 01       		.byte	0x1
  3954 07f8 EB05     		.2byte	0x5eb
  3955 07fa 45000000 		.4byte	0x45
@@ -6281,7 +6281,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3957 07ff 50       		.byte	0x50
  3958 0800 00       		.byte	0
  3959 0801 24       		.uleb128 0x24
- 3960 0802 FA080000 		.4byte	.LASF155
+ 3960 0802 83090000 		.4byte	.LASF155
  3961 0806 01       		.byte	0x1
  3962 0807 D405     		.2byte	0x5d4
  3963 0809 03030000 		.4byte	0x303
@@ -6291,14 +6291,14 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  3967 0816 9C       		.byte	0x9c
  3968 0817 55080000 		.4byte	0x855
  3969 081b 20       		.uleb128 0x20
- 3970 081c E4060000 		.4byte	.LASF127
+ 3970 081c 6D070000 		.4byte	.LASF127
  3971 0820 01       		.byte	0x1
  3972 0821 D405     		.2byte	0x5d4
  3973 0823 45000000 		.4byte	0x45
  3974 0827 1B030000 		.4byte	.LLST24
  3975 082b 2C       		.uleb128 0x2c
  3976 082c 72657400 		.ascii	"ret\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 106
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 106
 
 
  3977 0830 01       		.byte	0x1
@@ -6339,13 +6339,13 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4012 0880 9C       		.byte	0x9c
  4013 0881 C1080000 		.4byte	0x8c1
  4014 0885 20       		.uleb128 0x20
- 4015 0886 3E0A0000 		.4byte	.LASF159
+ 4015 0886 C70A0000 		.4byte	.LASF159
  4016 088a 01       		.byte	0x1
  4017 088b F905     		.2byte	0x5f9
  4018 088d 53000000 		.4byte	0x53
  4019 0891 8A030000 		.4byte	.LLST26
  4020 0895 21       		.uleb128 0x21
- 4021 0896 C9100000 		.4byte	.LASF160
+ 4021 0896 52110000 		.4byte	.LASF160
  4022 089a 01       		.byte	0x1
  4023 089b FB05     		.2byte	0x5fb
  4024 089d 2C000000 		.4byte	0x2c
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4031 08b3 81130000 		.4byte	0x1381
  4032 08b7 23       		.uleb128 0x23
  4033 08b8 40000000 		.4byte	.LVL71
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 107
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 107
 
 
  4034 08bc 8C130000 		.4byte	0x138c
@@ -6374,13 +6374,13 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4044 08d6 9C       		.byte	0x9c
  4045 08d7 17090000 		.4byte	0x917
  4046 08db 20       		.uleb128 0x20
- 4047 08dc 4A070000 		.4byte	.LASF162
+ 4047 08dc D3070000 		.4byte	.LASF162
  4048 08e0 01       		.byte	0x1
  4049 08e1 1F06     		.2byte	0x61f
  4050 08e3 53000000 		.4byte	0x53
  4051 08e7 44040000 		.4byte	.LLST28
  4052 08eb 21       		.uleb128 0x21
- 4053 08ec C9100000 		.4byte	.LASF160
+ 4053 08ec 52110000 		.4byte	.LASF160
  4054 08f0 01       		.byte	0x1
  4055 08f1 2106     		.2byte	0x621
  4056 08f3 2C000000 		.4byte	0x2c
@@ -6408,7 +6408,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4078 092e 04       		.byte	0x4
  4079 092f 6C000000 		.4byte	0x6c
  4080 0933 2A       		.uleb128 0x2a
- 4081 0934 720A0000 		.4byte	.LASF164
+ 4081 0934 FB0A0000 		.4byte	.LASF164
  4082 0938 01       		.byte	0x1
  4083 0939 4D06     		.2byte	0x64d
  4084 093b 53000000 		.4byte	0x53
@@ -6417,8 +6417,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4087 0947 01       		.uleb128 0x1
  4088 0948 9C       		.byte	0x9c
  4089 0949 24       		.uleb128 0x24
- 4090 094a 53130000 		.4byte	.LASF165
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 108
+ 4090 094a 81130000 		.4byte	.LASF165
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 108
 
 
  4091 094e 01       		.byte	0x1
@@ -6430,7 +6430,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4097 095e 9C       		.byte	0x9c
  4098 095f 9D090000 		.4byte	0x99d
  4099 0963 20       		.uleb128 0x20
- 4100 0964 68120000 		.4byte	.LASF166
+ 4100 0964 96120000 		.4byte	.LASF166
  4101 0968 01       		.byte	0x1
  4102 0969 5706     		.2byte	0x657
  4103 096b 53000000 		.4byte	0x53
@@ -6452,7 +6452,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4119 0998 A6130000 		.4byte	0x13a6
  4120 099c 00       		.byte	0
  4121 099d 24       		.uleb128 0x24
- 4122 099e A20C0000 		.4byte	.LASF168
+ 4122 099e 2B0D0000 		.4byte	.LASF168
  4123 09a2 01       		.byte	0x1
  4124 09a3 7306     		.2byte	0x673
  4125 09a5 03030000 		.4byte	0x303
@@ -6462,7 +6462,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4129 09b2 9C       		.byte	0x9c
  4130 09b3 150A0000 		.4byte	0xa15
  4131 09b7 20       		.uleb128 0x20
- 4132 09b8 68120000 		.4byte	.LASF166
+ 4132 09b8 96120000 		.4byte	.LASF166
  4133 09bc 01       		.byte	0x1
  4134 09bd 7306     		.2byte	0x673
  4135 09bf 53000000 		.4byte	0x53
@@ -6474,11 +6474,11 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4141 09cf 03030000 		.4byte	0x303
  4142 09d3 8A050000 		.4byte	.LLST34
  4143 09d7 2E       		.uleb128 0x2e
- 4144 09d8 1E100000 		.4byte	.LASF55
+ 4144 09d8 A7100000 		.4byte	.LASF55
  4145 09dc 01       		.byte	0x1
  4146 09dd 7606     		.2byte	0x676
  4147 09df 150A0000 		.4byte	0xa15
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 109
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 109
 
 
  4148 09e3 02       		.uleb128 0x2
@@ -6524,7 +6524,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4188 0a23 02       		.byte	0x2
  4189 0a24 00       		.byte	0
  4190 0a25 0E       		.uleb128 0xe
- 4191 0a26 A3120000 		.4byte	.LASF169
+ 4191 0a26 D1120000 		.4byte	.LASF169
  4192 0a2a 01       		.byte	0x1
  4193 0a2b 9D01     		.2byte	0x19d
  4194 0a2d 53000000 		.4byte	0x53
@@ -6537,8 +6537,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4201 0a3e 53000000 		.4byte	0x53
  4202 0a42 00       		.byte	0
  4203 0a43 0E       		.uleb128 0xe
- 4204 0a44 D70B0000 		.4byte	.LASF171
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 110
+ 4204 0a44 600C0000 		.4byte	.LASF171
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 110
 
 
  4205 0a48 01       		.byte	0x1
@@ -6553,7 +6553,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4214 0a5c 53000000 		.4byte	0x53
  4215 0a60 00       		.byte	0
  4216 0a61 32       		.uleb128 0x32
- 4217 0a62 200B0000 		.4byte	.LASF172
+ 4217 0a62 A90B0000 		.4byte	.LASF172
  4218 0a66 01       		.byte	0x1
  4219 0a67 E801     		.2byte	0x1e8
  4220 0a69 03030000 		.4byte	0x303
@@ -6569,25 +6569,25 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4230 0a83 03030000 		.4byte	0x303
  4231 0a87 A9050000 		.4byte	.LLST35
  4232 0a8b 21       		.uleb128 0x21
- 4233 0a8c 540B0000 		.4byte	.LASF173
+ 4233 0a8c DD0B0000 		.4byte	.LASF173
  4234 0a90 01       		.byte	0x1
  4235 0a91 EC01     		.2byte	0x1ec
  4236 0a93 53000000 		.4byte	0x53
  4237 0a97 2F060000 		.4byte	.LLST36
  4238 0a9b 21       		.uleb128 0x21
- 4239 0a9c 3F0D0000 		.4byte	.LASF174
+ 4239 0a9c C80D0000 		.4byte	.LASF174
  4240 0aa0 01       		.byte	0x1
  4241 0aa1 EC01     		.2byte	0x1ec
  4242 0aa3 53000000 		.4byte	0x53
  4243 0aa7 4D060000 		.4byte	.LLST37
  4244 0aab 21       		.uleb128 0x21
- 4245 0aac 87080000 		.4byte	.LASF175
+ 4245 0aac 10090000 		.4byte	.LASF175
  4246 0ab0 01       		.byte	0x1
  4247 0ab1 EC01     		.2byte	0x1ec
  4248 0ab3 53000000 		.4byte	0x53
  4249 0ab7 78060000 		.4byte	.LLST38
  4250 0abb 21       		.uleb128 0x21
- 4251 0abc 68120000 		.4byte	.LASF166
+ 4251 0abc 96120000 		.4byte	.LASF166
  4252 0ac0 01       		.byte	0x1
  4253 0ac1 F101     		.2byte	0x1f1
  4254 0ac3 53000000 		.4byte	0x53
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4259 0ad4 82000000 		.4byte	.LBE52-.LBB52
  4260 0ad8 01       		.byte	0x1
  4261 0ad9 F601     		.2byte	0x1f6
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 111
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 111
 
 
  4262 0adb 080B0000 		.4byte	0xb08
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4316 0b45 00       		.byte	0
  4317 0b46 00       		.byte	0
  4318 0b47 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 112
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 112
 
 
  4319 0b48 33       		.uleb128 0x33
@@ -6693,7 +6693,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4348 0b91 30000000 		.4byte	.Ldebug_ranges0+0x30
  4349 0b95 D80B0000 		.4byte	0xbd8
  4350 0b99 21       		.uleb128 0x21
- 4351 0b9a 13070000 		.4byte	.LASF177
+ 4351 0b9a 9C070000 		.4byte	.LASF177
  4352 0b9e 01       		.byte	0x1
  4353 0b9f 2C02     		.2byte	0x22c
  4354 0ba1 53000000 		.4byte	0x53
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4373 0bc3 72010000 		.4byte	.LVL141
  4374 0bc7 92030000 		.4byte	0x392
  4375 0bcb 1B       		.uleb128 0x1b
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 113
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 113
 
 
  4376 0bcc 01       		.uleb128 0x1
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4430 0c26 1B       		.uleb128 0x1b
  4431 0c27 01       		.uleb128 0x1
  4432 0c28 50       		.byte	0x50
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 114
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 114
 
 
  4433 0c29 05       		.uleb128 0x5
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4487 0c7a 00       		.byte	0
  4488 0c7b 2F       		.uleb128 0x2f
  4489 0c7c 3A010000 		.4byte	.LVL135
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 115
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 115
 
 
  4490 0c80 E1050000 		.4byte	0x5e1
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4544 0ce8 33040000 		.4byte	0x433
  4545 0cec 8C070000 		.4byte	.LLST46
  4546 0cf0 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 116
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 116
 
 
  4547 0cf1 00       		.byte	0
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4601 0d4b 92030000 		.4byte	0x392
  4602 0d4f 5F0D0000 		.4byte	0xd5f
  4603 0d53 1B       		.uleb128 0x1b
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 117
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 117
 
 
  4604 0d54 01       		.uleb128 0x1
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4658 0da5 50       		.byte	0x50
  4659 0da6 02       		.uleb128 0x2
  4660 0da7 76       		.byte	0x76
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 118
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 118
 
 
  4661 0da8 28       		.sleb128 40
@@ -7041,7 +7041,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4678 0dbf 00       		.byte	0
  4679 0dc0 00       		.byte	0
  4680 0dc1 24       		.uleb128 0x24
- 4681 0dc2 B1090000 		.4byte	.LASF178
+ 4681 0dc2 3A0A0000 		.4byte	.LASF178
  4682 0dc6 01       		.byte	0x1
  4683 0dc7 7302     		.2byte	0x273
  4684 0dc9 03030000 		.4byte	0x303
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4715 0e1e 0A010000 		.4byte	.LVL171
  4716 0e22 76130000 		.4byte	0x1376
  4717 0e26 23       		.uleb128 0x23
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 119
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 119
 
 
  4718 0e27 10010000 		.4byte	.LVL172
@@ -7115,7 +7115,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4749 0e6f 45000000 		.4byte	0x45
  4750 0e73 43080000 		.4byte	.LLST50
  4751 0e77 20       		.uleb128 0x20
- 4752 0e78 E4060000 		.4byte	.LASF127
+ 4752 0e78 6D070000 		.4byte	.LASF127
  4753 0e7c 01       		.byte	0x1
  4754 0e7d 4404     		.2byte	0x444
  4755 0e7f 45000000 		.4byte	0x45
@@ -7127,7 +7127,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4761 0e8f 03030000 		.4byte	0x303
  4762 0e93 85080000 		.4byte	.LLST52
  4763 0e97 2E       		.uleb128 0x2e
- 4764 0e98 04120000 		.4byte	.LASF138
+ 4764 0e98 32120000 		.4byte	.LASF138
  4765 0e9c 01       		.byte	0x1
  4766 0e9d 4F04     		.2byte	0x44f
  4767 0e9f 90000000 		.4byte	0x90
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4772 0eaa 9B040000 		.4byte	0x49b
  4773 0eae 26000000 		.4byte	.LBB74
  4774 0eb2 16030000 		.4byte	.LBE74-.LBB74
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 120
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 120
 
 
  4775 0eb6 01       		.byte	0x1
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4829 0f3c 9F       		.byte	0x9f
  4830 0f3d 36       		.uleb128 0x36
  4831 0f3e 71040000 		.4byte	0x471
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 121
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 121
 
 
  4832 0f42 06       		.uleb128 0x6
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4886 0fb5 50       		.byte	0x50
  4887 0fb6 02       		.uleb128 0x2
  4888 0fb7 76       		.byte	0x76
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 122
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 122
 
 
  4889 0fb8 00       		.sleb128 0
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4943 1039 50       		.byte	0x50
  4944 103a 05       		.uleb128 0x5
  4945 103b 74       		.byte	0x74
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 123
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 123
 
 
  4946 103c 00       		.sleb128 0
@@ -7364,7 +7364,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4986 108b 49140000 		.4byte	0x1449
  4987 108f 00       		.byte	0
  4988 1090 24       		.uleb128 0x24
- 4989 1091 920E0000 		.4byte	.LASF181
+ 4989 1091 1B0F0000 		.4byte	.LASF181
  4990 1095 01       		.byte	0x1
  4991 1096 9906     		.2byte	0x699
  4992 1098 03030000 		.4byte	0x303
@@ -7374,11 +7374,11 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  4996 10a5 9C       		.byte	0x9c
  4997 10a6 D4100000 		.4byte	0x10d4
  4998 10aa 20       		.uleb128 0x20
- 4999 10ab E4060000 		.4byte	.LASF127
+ 4999 10ab 6D070000 		.4byte	.LASF127
  5000 10af 01       		.byte	0x1
  5001 10b0 9906     		.2byte	0x699
  5002 10b2 45000000 		.4byte	0x45
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 124
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 124
 
 
  5003 10b6 3B0A0000 		.4byte	.LLST61
@@ -7400,7 +7400,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5019 10e2 24       		.byte	0x24
  5020 10e3 00       		.byte	0
  5021 10e4 38       		.uleb128 0x38
- 5022 10e5 6A090000 		.4byte	.LASF182
+ 5022 10e5 F3090000 		.4byte	.LASF182
  5023 10e9 01       		.byte	0x1
  5024 10ea 29       		.byte	0x29
  5025 10eb D4100000 		.4byte	0x10d4
@@ -7408,7 +7408,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5027 10f0 03       		.byte	0x3
  5028 10f1 00000000 		.4byte	inv_dmp_odr_dividers
  5029 10f5 38       		.uleb128 0x38
- 5030 10f6 5B110000 		.4byte	.LASF183
+ 5030 10f6 E4110000 		.4byte	.LASF183
  5031 10fa 01       		.byte	0x1
  5032 10fb 2A       		.byte	0x2a
  5033 10fc D4100000 		.4byte	0x10d4
@@ -7432,18 +7432,18 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5051 1123 03       		.byte	0x3
  5052 1124 56000000 		.4byte	bac_status
  5053 1128 38       		.uleb128 0x38
- 5054 1129 5F090000 		.4byte	.LASF186
+ 5054 1129 E8090000 		.4byte	.LASF186
  5055 112d 01       		.byte	0x1
  5056 112e 5C       		.byte	0x5c
  5057 112f 53000000 		.4byte	0x53
  5058 1133 05       		.uleb128 0x5
  5059 1134 03       		.byte	0x3
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 125
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 125
 
 
  5060 1135 60000000 		.4byte	b2s_status
  5061 1139 38       		.uleb128 0x38
- 5062 113a B3040000 		.4byte	.LASF187
+ 5062 113a 3C050000 		.4byte	.LASF187
  5063 113e 01       		.byte	0x1
  5064 113f 5D       		.byte	0x5d
  5065 1140 53000000 		.4byte	0x53
@@ -7459,7 +7459,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5075 1156 03       		.byte	0x3
  5076 1157 5C000000 		.4byte	inv_sensor_control
  5077 115b 38       		.uleb128 0x38
- 5078 115c 7E0E0000 		.4byte	.LASF189
+ 5078 115c 070F0000 		.4byte	.LASF189
  5079 1160 01       		.byte	0x1
  5080 1161 5F       		.byte	0x5f
  5081 1162 53000000 		.4byte	0x53
@@ -7474,7 +7474,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5090 117a 01       		.byte	0x1
  5091 117b 00       		.byte	0
  5092 117c 38       		.uleb128 0x38
- 5093 117d A40E0000 		.4byte	.LASF190
+ 5093 117d 2D0F0000 		.4byte	.LASF190
  5094 1181 01       		.byte	0x1
  5095 1182 60       		.byte	0x60
  5096 1183 6C110000 		.4byte	0x116c
@@ -7489,7 +7489,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5105 119b 13       		.byte	0x13
  5106 119c 00       		.byte	0
  5107 119d 38       		.uleb128 0x38
- 5108 119e 96070000 		.4byte	.LASF191
+ 5108 119e 1F080000 		.4byte	.LASF191
  5109 11a2 01       		.byte	0x1
  5110 11a3 B4       		.byte	0xb4
  5111 11a4 AE110000 		.4byte	0x11ae
@@ -7498,7 +7498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5114 11aa 34000000 		.4byte	MinDelayGenAccelList
  5115 11ae 14       		.uleb128 0x14
  5116 11af 8D110000 		.4byte	0x118d
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 126
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 126
 
 
  5117 11b3 30       		.uleb128 0x30
@@ -7509,7 +7509,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5122 11c1 0D       		.byte	0xd
  5123 11c2 00       		.byte	0
  5124 11c3 38       		.uleb128 0x38
- 5125 11c4 2B0C0000 		.4byte	.LASF192
+ 5125 11c4 B40C0000 		.4byte	.LASF192
  5126 11c8 01       		.byte	0x1
  5127 11c9 CE       		.byte	0xce
  5128 11ca D4110000 		.4byte	0x11d4
@@ -7526,7 +7526,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5139 11e7 03       		.byte	0x3
  5140 11e8 00       		.byte	0
  5141 11e9 38       		.uleb128 0x38
- 5142 11ea 46100000 		.4byte	.LASF193
+ 5142 11ea CF100000 		.4byte	.LASF193
  5143 11ee 01       		.byte	0x1
  5144 11ef FE       		.byte	0xfe
  5145 11f0 FA110000 		.4byte	0x11fa
@@ -7558,7 +7558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5171 122f 31       		.uleb128 0x31
  5172 1230 81000000 		.4byte	0x81
  5173 1234 04       		.byte	0x4
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 127
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 127
 
 
  5174 1235 00       		.byte	0
@@ -7580,7 +7580,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5190 125b 00       		.byte	0
  5191 125c 00       		.byte	0
  5192 125d 2E       		.uleb128 0x2e
- 5193 125e A80F0000 		.4byte	.LASF196
+ 5193 125e 31100000 		.4byte	.LASF196
  5194 1262 01       		.byte	0x1
  5195 1263 1801     		.2byte	0x118
  5196 1265 6F120000 		.4byte	0x126f
@@ -7590,7 +7590,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5200 126f 14       		.uleb128 0x14
  5201 1270 4D120000 		.4byte	0x124d
  5202 1274 2E       		.uleb128 0x2e
- 5203 1275 BD090000 		.4byte	.LASF197
+ 5203 1275 460A0000 		.4byte	.LASF197
  5204 1279 01       		.byte	0x1
  5205 127a 1E01     		.2byte	0x11e
  5206 127c 86120000 		.4byte	0x1286
@@ -7617,8 +7617,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5227 12b0 05       		.byte	0x5
  5228 12b1 00       		.byte	0
  5229 12b2 2E       		.uleb128 0x2e
- 5230 12b3 35070000 		.4byte	.LASF199
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 128
+ 5230 12b3 BE070000 		.4byte	.LASF199
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 128
 
 
  5231 12b7 01       		.byte	0x1
@@ -7630,7 +7630,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5237 12c4 14       		.uleb128 0x14
  5238 12c5 A2120000 		.4byte	0x12a2
  5239 12c9 2E       		.uleb128 0x2e
- 5240 12ca 630F0000 		.4byte	.LASF200
+ 5240 12ca EC0F0000 		.4byte	.LASF200
  5241 12ce 01       		.byte	0x1
  5242 12cf 4001     		.2byte	0x140
  5243 12d1 DB120000 		.4byte	0x12db
@@ -7640,7 +7640,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5247 12db 14       		.uleb128 0x14
  5248 12dc D9110000 		.4byte	0x11d9
  5249 12e0 2E       		.uleb128 0x2e
- 5250 12e1 700B0000 		.4byte	.LASF201
+ 5250 12e1 F90B0000 		.4byte	.LASF201
  5251 12e5 01       		.byte	0x1
  5252 12e6 E905     		.2byte	0x5e9
  5253 12e8 45000000 		.4byte	0x45
@@ -7676,9 +7676,9 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5283 132d 4C000000 		.4byte	0x4c
  5284 1331 00       		.byte	0
  5285 1332 3A       		.uleb128 0x3a
- 5286 1333 5B0B0000 		.4byte	.LASF204
+ 5286 1333 E40B0000 		.4byte	.LASF204
  5287 1337 09       		.byte	0x9
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 129
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 129
 
 
  5288 1338 90       		.byte	0x90
@@ -7690,7 +7690,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5294 1347 45000000 		.4byte	0x45
  5295 134b 00       		.byte	0
  5296 134c 3A       		.uleb128 0x3a
- 5297 134d 940F0000 		.4byte	.LASF205
+ 5297 134d 1D100000 		.4byte	.LASF205
  5298 1351 08       		.byte	0x8
  5299 1352 AD       		.byte	0xad
  5300 1353 03030000 		.4byte	0x303
@@ -7708,17 +7708,17 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5312 1371 25000000 		.4byte	0x25
  5313 1375 00       		.byte	0
  5314 1376 3C       		.uleb128 0x3c
- 5315 1377 72080000 		.4byte	.LASF207
+ 5315 1377 FB080000 		.4byte	.LASF207
  5316 137b 09       		.byte	0x9
  5317 137c 89       		.byte	0x89
  5318 137d 45000000 		.4byte	0x45
  5319 1381 3C       		.uleb128 0x3c
- 5320 1382 08100000 		.4byte	.LASF208
+ 5320 1382 91100000 		.4byte	.LASF208
  5321 1386 09       		.byte	0x9
  5322 1387 9B       		.byte	0x9b
  5323 1388 4C000000 		.4byte	0x4c
  5324 138c 3A       		.uleb128 0x3a
- 5325 138d 0E130000 		.4byte	.LASF209
+ 5325 138d 3C130000 		.4byte	.LASF209
  5326 1391 08       		.byte	0x8
  5327 1392 5B       		.byte	0x5b
  5328 1393 03030000 		.4byte	0x303
@@ -7729,7 +7729,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5333 13a1 4C000000 		.4byte	0x4c
  5334 13a5 00       		.byte	0
  5335 13a6 3A       		.uleb128 0x3a
- 5336 13a7 860C0000 		.4byte	.LASF210
+ 5336 13a7 0F0D0000 		.4byte	.LASF210
  5337 13ab 08       		.byte	0x8
  5338 13ac 85       		.byte	0x85
  5339 13ad 03030000 		.4byte	0x303
@@ -7738,10 +7738,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5342 13b6 25000000 		.4byte	0x25
  5343 13ba 00       		.byte	0
  5344 13bb 3D       		.uleb128 0x3d
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 130
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 130
 
 
- 5345 13bc F0050000 		.4byte	.LASF211
+ 5345 13bc 79060000 		.4byte	.LASF211
  5346 13c0 88000000 		.4byte	0x88
  5347 13c4 D8130000 		.4byte	0x13d8
  5348 13c8 3B       		.uleb128 0x3b
@@ -7752,7 +7752,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5353 13d3 81000000 		.4byte	0x81
  5354 13d7 00       		.byte	0
  5355 13d8 3A       		.uleb128 0x3a
- 5356 13d9 3B0B0000 		.4byte	.LASF212
+ 5356 13d9 C40B0000 		.4byte	.LASF212
  5357 13dd 08       		.byte	0x8
  5358 13de 8F       		.byte	0x8f
  5359 13df 03030000 		.4byte	0x303
@@ -7764,7 +7764,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5365 13ee 04       		.byte	0x4
  5366 13ef 25000000 		.4byte	0x25
  5367 13f3 3A       		.uleb128 0x3a
- 5368 13f4 390F0000 		.4byte	.LASF213
+ 5368 13f4 C20F0000 		.4byte	.LASF213
  5369 13f8 09       		.byte	0x9
  5370 13f9 96       		.byte	0x96
  5371 13fa 03030000 		.4byte	0x303
@@ -7773,7 +7773,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5374 1403 4C000000 		.4byte	0x4c
  5375 1407 00       		.byte	0
  5376 1408 3A       		.uleb128 0x3a
- 5377 1409 40050000 		.4byte	.LASF214
+ 5377 1409 C9050000 		.4byte	.LASF214
  5378 140d 09       		.byte	0x9
  5379 140e 84       		.byte	0x84
  5380 140f 03030000 		.4byte	0x303
@@ -7782,39 +7782,39 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5383 1418 45000000 		.4byte	0x45
  5384 141c 00       		.byte	0
  5385 141d 3E       		.uleb128 0x3e
- 5386 141e 540A0000 		.4byte	.LASF217
+ 5386 141e DD0A0000 		.4byte	.LASF217
  5387 1422 09       		.byte	0x9
  5388 1423 D8       		.byte	0xd8
  5389 1424 3C       		.uleb128 0x3c
- 5390 1425 2F100000 		.4byte	.LASF215
+ 5390 1425 B8100000 		.4byte	.LASF215
  5391 1429 09       		.byte	0x9
  5392 142a B1       		.byte	0xb1
  5393 142b 97000000 		.4byte	0x97
  5394 142f 3A       		.uleb128 0x3a
- 5395 1430 7B0B0000 		.4byte	.LASF216
+ 5395 1430 040C0000 		.4byte	.LASF216
  5396 1434 09       		.byte	0x9
  5397 1435 7E       		.byte	0x7e
  5398 1436 03030000 		.4byte	0x303
  5399 143a 49140000 		.4byte	0x1449
  5400 143e 3B       		.uleb128 0x3b
  5401 143f 45000000 		.4byte	0x45
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 131
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 131
 
 
  5402 1443 3B       		.uleb128 0x3b
  5403 1444 25000000 		.4byte	0x25
  5404 1448 00       		.byte	0
  5405 1449 3E       		.uleb128 0x3e
- 5406 144a 780F0000 		.4byte	.LASF218
+ 5406 144a 01100000 		.4byte	.LASF218
  5407 144e 09       		.byte	0x9
  5408 144f DC       		.byte	0xdc
  5409 1450 3C       		.uleb128 0x3c
- 5410 1451 BE0E0000 		.4byte	.LASF219
+ 5410 1451 470F0000 		.4byte	.LASF219
  5411 1455 08       		.byte	0x8
  5412 1456 F6       		.byte	0xf6
  5413 1457 03030000 		.4byte	0x303
  5414 145b 3A       		.uleb128 0x3a
- 5415 145c 23080000 		.4byte	.LASF220
+ 5415 145c AC080000 		.4byte	.LASF220
  5416 1460 08       		.byte	0x8
  5417 1461 27       		.byte	0x27
  5418 1462 03030000 		.4byte	0x303
@@ -7823,7 +7823,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5421 146b 25000000 		.4byte	0x25
  5422 146f 00       		.byte	0
  5423 1470 3A       		.uleb128 0x3a
- 5424 1471 B30D0000 		.4byte	.LASF221
+ 5424 1471 3C0E0000 		.4byte	.LASF221
  5425 1475 08       		.byte	0x8
  5426 1476 35       		.byte	0x35
  5427 1477 03030000 		.4byte	0x303
@@ -7832,7 +7832,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5430 1480 A2000000 		.4byte	0xa2
  5431 1484 00       		.byte	0
  5432 1485 3A       		.uleb128 0x3a
- 5433 1486 3F0C0000 		.4byte	.LASF222
+ 5433 1486 C80C0000 		.4byte	.LASF222
  5434 148a 08       		.byte	0x8
  5435 148b 48       		.byte	0x48
  5436 148c 03030000 		.4byte	0x303
@@ -7841,12 +7841,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5439 1495 53000000 		.4byte	0x53
  5440 1499 00       		.byte	0
  5441 149a 3C       		.uleb128 0x3c
- 5442 149b 16120000 		.4byte	.LASF223
+ 5442 149b 44120000 		.4byte	.LASF223
  5443 149f 09       		.byte	0x9
  5444 14a0 56       		.byte	0x56
  5445 14a1 03030000 		.4byte	0x303
  5446 14a5 3A       		.uleb128 0x3a
- 5447 14a6 F7050000 		.4byte	.LASF224
+ 5447 14a6 80060000 		.4byte	.LASF224
  5448 14aa 09       		.byte	0x9
  5449 14ab 75       		.byte	0x75
  5450 14ac 03030000 		.4byte	0x303
@@ -7855,10 +7855,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5453 14b5 25000000 		.4byte	0x25
  5454 14b9 00       		.byte	0
  5455 14ba 3A       		.uleb128 0x3a
- 5456 14bb FB060000 		.4byte	.LASF225
+ 5456 14bb 84070000 		.4byte	.LASF225
  5457 14bf 08       		.byte	0x8
  5458 14c0 41       		.byte	0x41
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 132
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 132
 
 
  5459 14c1 03030000 		.4byte	0x303
@@ -7867,7 +7867,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5462 14ca 53000000 		.4byte	0x53
  5463 14ce 00       		.byte	0
  5464 14cf 3A       		.uleb128 0x3a
- 5465 14d0 A10A0000 		.4byte	.LASF226
+ 5465 14d0 2A0B0000 		.4byte	.LASF226
  5466 14d4 08       		.byte	0x8
  5467 14d5 EB       		.byte	0xeb
  5468 14d6 03030000 		.4byte	0x303
@@ -7876,7 +7876,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5471 14df 2D090000 		.4byte	0x92d
  5472 14e3 00       		.byte	0
  5473 14e4 3A       		.uleb128 0x3a
- 5474 14e5 82140000 		.4byte	.LASF227
+ 5474 14e5 B0140000 		.4byte	.LASF227
  5475 14e9 08       		.byte	0x8
  5476 14ea F1       		.byte	0xf1
  5477 14eb 03030000 		.4byte	0x303
@@ -7885,7 +7885,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5480 14f4 6C000000 		.4byte	0x6c
  5481 14f8 00       		.byte	0
  5482 14f9 3C       		.uleb128 0x3c
- 5483 14fa 58080000 		.4byte	.LASF228
+ 5483 14fa E1080000 		.4byte	.LASF228
  5484 14fe 09       		.byte	0x9
  5485 14ff 51       		.byte	0x51
  5486 1500 03030000 		.4byte	0x303
@@ -7918,7 +7918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5513 0017 0B       		.uleb128 0xb
  5514 0018 3E       		.uleb128 0x3e
  5515 0019 0B       		.uleb128 0xb
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 133
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 133
 
 
  5516 001a 03       		.uleb128 0x3
@@ -7978,7 +7978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5570 0050 0B       		.uleb128 0xb
  5571 0051 01       		.uleb128 0x1
  5572 0052 13       		.uleb128 0x13
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 134
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 134
 
 
  5573 0053 00       		.byte	0
@@ -8038,7 +8038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5627 0089 0C       		.uleb128 0xc
  5628 008a 16       		.uleb128 0x16
  5629 008b 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 135
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 135
 
 
  5630 008c 03       		.uleb128 0x3
@@ -8098,7 +8098,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5684 00c2 00       		.byte	0
  5685 00c3 10       		.uleb128 0x10
  5686 00c4 34       		.uleb128 0x34
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 136
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 136
 
 
  5687 00c5 00       		.byte	0
@@ -8158,7 +8158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5741 00fb 00       		.byte	0
  5742 00fc 49       		.uleb128 0x49
  5743 00fd 13       		.uleb128 0x13
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 137
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 137
 
 
  5744 00fe 00       		.byte	0
@@ -8218,7 +8218,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5798 0135 898201   		.uleb128 0x4109
  5799 0138 01       		.byte	0x1
  5800 0139 11       		.uleb128 0x11
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 138
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 138
 
 
  5801 013a 01       		.uleb128 0x1
@@ -8278,7 +8278,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5855 0173 01       		.uleb128 0x1
  5856 0174 12       		.uleb128 0x12
  5857 0175 06       		.uleb128 0x6
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 139
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 139
 
 
  5858 0176 40       		.uleb128 0x40
@@ -8338,7 +8338,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5912 01ae 0B       		.uleb128 0xb
  5913 01af 3B       		.uleb128 0x3b
  5914 01b0 05       		.uleb128 0x5
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 140
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 140
 
 
  5915 01b1 49       		.uleb128 0x49
@@ -8398,7 +8398,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  5969 01ea 05       		.uleb128 0x5
  5970 01eb 00       		.byte	0
  5971 01ec 03       		.uleb128 0x3
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 141
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 141
 
 
  5972 01ed 08       		.uleb128 0x8
@@ -8458,7 +8458,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6026 0224 03       		.uleb128 0x3
  6027 0225 0E       		.uleb128 0xe
  6028 0226 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 142
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 142
 
 
  6029 0227 0B       		.uleb128 0xb
@@ -8518,7 +8518,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6083 025e 12       		.uleb128 0x12
  6084 025f 06       		.uleb128 0x6
  6085 0260 58       		.uleb128 0x58
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 143
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 143
 
 
  6086 0261 0B       		.uleb128 0xb
@@ -8578,7 +8578,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6140 0298 3A       		.uleb128 0x3a
  6141 0299 0B       		.uleb128 0xb
  6142 029a 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 144
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 144
 
 
  6143 029b 05       		.uleb128 0x5
@@ -8638,7 +8638,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6197 02d3 18       		.uleb128 0x18
  6198 02d4 9642     		.uleb128 0x2116
  6199 02d6 19       		.uleb128 0x19
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 145
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 145
 
 
  6200 02d7 01       		.uleb128 0x1
@@ -8698,7 +8698,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6254 030d 00       		.byte	0
  6255 030e 38       		.uleb128 0x38
  6256 030f 34       		.uleb128 0x34
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 146
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 146
 
 
  6257 0310 00       		.byte	0
@@ -8758,7 +8758,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6311 0346 49       		.uleb128 0x49
  6312 0347 13       		.uleb128 0x13
  6313 0348 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 147
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 147
 
 
  6314 0349 00       		.byte	0
@@ -8818,7 +8818,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6368 037f 00       		.byte	0
  6369 0380 00       		.byte	0
  6370 0381 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 148
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 148
 
 
  6371              		.section	.debug_loc,"",%progbits
@@ -8878,7 +8878,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6425 007a 00000000 		.4byte	0
  6426 007e 00000000 		.4byte	0
  6427              	.LLST4:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 149
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 149
 
 
  6428 0082 1A000000 		.4byte	.LVL4
@@ -8938,7 +8938,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6482 010f 0100     		.2byte	0x1
  6483 0111 55       		.byte	0x55
  6484 0112 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 150
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 150
 
 
  6485 0116 00000000 		.4byte	0
@@ -8998,7 +8998,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6539 019c F2000000 		.4byte	.LVL28
  6540 01a0 00010000 		.4byte	.LFE8
  6541 01a4 0400     		.2byte	0x4
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 151
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 151
 
 
  6542 01a6 F3       		.byte	0xf3
@@ -9058,7 +9058,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6596 0225 9F       		.byte	0x9f
  6597 0226 00000000 		.4byte	0
  6598 022a 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 152
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 152
 
 
  6599              	.LLST16:
@@ -9118,7 +9118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6653 02af 50       		.byte	0x50
  6654 02b0 00000000 		.4byte	0
  6655 02b4 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 153
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 153
 
 
  6656              	.LLST21:
@@ -9178,7 +9178,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6710 0334 18000000 		.4byte	.LVL56
  6711 0338 1A000000 		.4byte	.LVL57
  6712 033c 0100     		.2byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 154
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 154
 
 
  6713 033e 50       		.byte	0x50
@@ -9238,7 +9238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6767 03c0 44000000 		.4byte	.LVL73
  6768 03c4 0100     		.2byte	0x1
  6769 03c6 50       		.byte	0x50
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 155
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 155
 
 
  6770 03c7 44000000 		.4byte	.LVL73
@@ -9298,7 +9298,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6824 0428 74       		.byte	0x74
  6825 0429 00       		.sleb128 0
  6826 042a 0A       		.byte	0xa
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 156
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 156
 
 
  6827 042b FFFF     		.2byte	0xffff
@@ -9358,7 +9358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6881 04a7 18000000 		.4byte	.LVL77
  6882 04ab 1700     		.2byte	0x17
  6883 04ad 0A       		.byte	0xa
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 157
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 157
 
 
  6884 04ae 6504     		.2byte	0x465
@@ -9418,7 +9418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6938 0502 00000000 		.4byte	0
  6939              	.LLST30:
  6940 0506 00000000 		.4byte	.LVL89
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 158
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 158
 
 
  6941 050a 02000000 		.4byte	.LVL90
@@ -9478,7 +9478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  6995 0592 0200     		.2byte	0x2
  6996 0594 30       		.byte	0x30
  6997 0595 9F       		.byte	0x9f
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 159
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 159
 
 
  6998 0596 6E000000 		.4byte	.LVL96
@@ -9538,7 +9538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7052 0625 30       		.byte	0x30
  7053 0626 9F       		.byte	0x9f
  7054 0627 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 160
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 160
 
 
  7055 062b 00000000 		.4byte	0
@@ -9598,7 +9598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7109 06b4 00000000 		.4byte	0
  7110              	.LLST40:
  7111 06b8 12000000 		.4byte	.LVL99
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 161
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 161
 
 
  7112 06bc 2C000000 		.4byte	.LVL100
@@ -9658,7 +9658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7166 0745 C8       		.byte	0xc8
  7167 0746 16       		.byte	0x16
  7168 0747 14       		.byte	0x14
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 162
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 162
 
 
  7169 0748 0A       		.byte	0xa
@@ -9718,7 +9718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7223              	.LLST47:
  7224 07b4 00000000 		.4byte	.LVL163
  7225 07b8 09000000 		.4byte	.LVL164-1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 163
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 163
 
 
  7226 07bc 0100     		.2byte	0x1
@@ -9778,7 +9778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7280 083f 00000000 		.4byte	0
  7281              	.LLST50:
  7282 0843 00000000 		.4byte	.LVL177
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 164
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 164
 
 
  7283 0847 0B000000 		.4byte	.LVL178-1
@@ -9838,7 +9838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7337              	.LLST54:
  7338 08ce 26000000 		.4byte	.LVL180
  7339 08d2 46030000 		.4byte	.LVL239
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 165
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 165
 
 
  7340 08d6 0100     		.2byte	0x1
@@ -9898,7 +9898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7394 0963 0200     		.2byte	0x2
  7395 0965 91       		.byte	0x91
  7396 0966 54       		.sleb128 -44
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 166
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 166
 
 
  7397 0967 48020000 		.4byte	.LVL202
@@ -9958,7 +9958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7451 09e5 9A000000 		.4byte	.LVL183
  7452 09e9 46030000 		.4byte	.LVL239
  7453 09ed 0100     		.2byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 167
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 167
 
 
  7454 09ef 57       		.byte	0x57
@@ -10018,7 +10018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7508 0a64 0200     		.2byte	0x2
  7509 0a66 30       		.byte	0x30
  7510 0a67 9F       		.byte	0x9f
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 168
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 168
 
 
  7511 0a68 20000000 		.4byte	.LVL242
@@ -10078,7 +10078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7565 00b0 00000000 		.4byte	.LFB25
  7566 00b4 28000000 		.4byte	.LFE25-.LFB25
  7567 00b8 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 169
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 169
 
 
  7568 00bc 00000000 		.4byte	0
@@ -10138,7 +10138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7622 00cc 64000000 		.4byte	.LFE20
  7623 00d0 00000000 		.4byte	.LFB21
  7624 00d4 0C000000 		.4byte	.LFE21
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 170
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 170
 
 
  7625 00d8 00000000 		.4byte	.LFB22
@@ -10198,7 +10198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7655      4F49445F 
  7655      53454E53 
  7655      4F525F57 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 171
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 171
 
 
  7655      414B4555 
@@ -10258,7 +10258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7677      725F746F 
  7678              	.LASF110:
  7679 0168 47454E45 		.ascii	"GENERAL_SENSORS_MAX\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 172
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 172
 
 
  7679      52414C5F 
@@ -10318,7 +10318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7697      64655F73 
  7698              	.LASF161:
  7699 0230 696E765F 		.ascii	"inv_set_batch_timeout_ms\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 173
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 173
 
 
  7699      7365745F 
@@ -10378,7 +10378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7719 031b 494E565F 		.ascii	"INV_SENSOR_NUM_MAX\000"
  7719      53454E53 
  7719      4F525F4E 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 174
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 174
 
 
  7719      554D5F4D 
@@ -10438,7 +10438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7741 0408 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_ACCELEROMETER\000"
  7741      4F49445F 
  7741      53454E53 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 175
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 175
 
 
  7741      4F525F57 
@@ -10462,1057 +10462,1065 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 1
  7749      53454E53 
  7749      4F525F47 
  7749      59524F53 
- 7750              	.LASF117:
- 7751 0489 666C6F61 		.ascii	"float\000"
- 7751      7400
- 7752              	.LASF98:
- 7753 048f 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_STEP_DETECTOR\000"
- 7753      4F49445F 
- 7753      53454E53 
- 7753      4F525F57 
- 7753      414B4555 
- 7754              	.LASF187:
- 7755 04b3 666C6970 		.ascii	"flip_pickup_status\000"
- 7755      5F706963 
- 7755      6B75705F 
- 7755      73746174 
- 7755      757300
- 7756              	.LASF105:
- 7757 04c6 414E4452 		.ascii	"ANDROID_SENSOR_FLIP_PICKUP\000"
+ 7750              	.LASF231:
+ 7751 0489 433A5C55 		.ascii	"C:\\Users\\Administrator\\Desktop\\Temp\\BackBone.c"
+ 7751      73657273 
+ 7751      5C41646D 
+ 7751      696E6973 
+ 7751      74726174 
+ 7752 04b7 7977726B 		.ascii	"ywrk.Archive_modified\\BackBone.cywrk.Archive 09302"
+ 7752      2E417263 
+ 7752      68697665 
+ 7752      5F6D6F64 
+ 7752      69666965 
+ 7753 04e9 3031365C 		.ascii	"016\\BackBone\\BackBone_Bootloadable.cydsn\000"
+ 7753      4261636B 
+ 7753      426F6E65 
+ 7753      5C426163 
+ 7753      6B426F6E 
+ 7754              	.LASF117:
+ 7755 0512 666C6F61 		.ascii	"float\000"
+ 7755      7400
+ 7756              	.LASF98:
+ 7757 0518 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_STEP_DETECTOR\000"
  7757      4F49445F 
  7757      53454E53 
- 7757      4F525F46 
- 7757      4C49505F 
- 7758              	.LASF120:
- 7759 04e1 496E7653 		.ascii	"InvSensor\000"
- 7759      656E736F 
- 7759      7200
- 7760              	.LASF45:
- 7761 04eb 494E565F 		.ascii	"INV_SENSOR_WAKEUP_CALIB_COMPASS\000"
+ 7757      4F525F57 
+ 7757      414B4555 
+ 7758              	.LASF187:
+ 7759 053c 666C6970 		.ascii	"flip_pickup_status\000"
+ 7759      5F706963 
+ 7759      6B75705F 
+ 7759      73746174 
+ 7759      757300
+ 7760              	.LASF105:
+ 7761 054f 414E4452 		.ascii	"ANDROID_SENSOR_FLIP_PICKUP\000"
+ 7761      4F49445F 
  7761      53454E53 
- 7761      4F525F57 
- 7761      414B4555 
- 7761      505F4341 
- 7762              	.LASF69:
- 7763 050b 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_PROXIMITY\000"
- 7763      4F49445F 
- 7763      53454E53 
- 7763      4F525F57 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 176
+ 7761      4F525F46 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 176
 
 
- 7763      414B4555 
- 7764              	.LASF66:
- 7765 052b 414E4452 		.ascii	"ANDROID_SENSOR_LIGHT\000"
- 7765      4F49445F 
+ 7761      4C49505F 
+ 7762              	.LASF120:
+ 7763 056a 496E7653 		.ascii	"InvSensor\000"
+ 7763      656E736F 
+ 7763      7200
+ 7764              	.LASF45:
+ 7765 0574 494E565F 		.ascii	"INV_SENSOR_WAKEUP_CALIB_COMPASS\000"
  7765      53454E53 
- 7765      4F525F4C 
- 7765      49474854 
- 7766              	.LASF214:
- 7767 0540 696E765F 		.ascii	"inv_set_gyro_divider\000"
- 7767      7365745F 
- 7767      6779726F 
- 7767      5F646976 
- 7767      69646572 
- 7768              	.LASF47:
- 7769 0555 494E565F 		.ascii	"INV_SENSOR_WAKEUP_TILT_DETECTOR\000"
+ 7765      4F525F57 
+ 7765      414B4555 
+ 7765      505F4341 
+ 7766              	.LASF69:
+ 7767 0594 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_PROXIMITY\000"
+ 7767      4F49445F 
+ 7767      53454E53 
+ 7767      4F525F57 
+ 7767      414B4555 
+ 7768              	.LASF66:
+ 7769 05b4 414E4452 		.ascii	"ANDROID_SENSOR_LIGHT\000"
+ 7769      4F49445F 
  7769      53454E53 
- 7769      4F525F57 
- 7769      414B4555 
- 7769      505F5449 
- 7770              	.LASF111:
- 7771 0575 696E765F 		.ascii	"inv_error_t\000"
- 7771      6572726F 
- 7771      725F7400 
- 7772              	.LASF10:
- 7773 0581 6C6F6E67 		.ascii	"long long unsigned int\000"
- 7773      206C6F6E 
- 7773      6720756E 
- 7773      7369676E 
- 7773      65642069 
- 7774              	.LASF33:
- 7775 0598 494E565F 		.ascii	"INV_SENSOR_GEOMAG_cpass\000"
- 7775      53454E53 
- 7775      4F525F47 
- 7775      454F4D41 
- 7775      475F6370 
- 7776              	.LASF23:
- 7777 05b0 494E565F 		.ascii	"INV_SENSOR_PEDQ\000"
- 7777      53454E53 
- 7777      4F525F50 
- 7777      45445100 
- 7778              	.LASF112:
- 7779 05c0 494E565F 		.ascii	"INV_ODR_TYPE\000"
- 7779      4F44525F 
- 7779      54595045 
- 7779      00
- 7780              	.LASF99:
- 7781 05cd 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_STEP_COUNTER\000"
- 7781      4F49445F 
+ 7769      4F525F4C 
+ 7769      49474854 
+ 7770              	.LASF214:
+ 7771 05c9 696E765F 		.ascii	"inv_set_gyro_divider\000"
+ 7771      7365745F 
+ 7771      6779726F 
+ 7771      5F646976 
+ 7771      69646572 
+ 7772              	.LASF47:
+ 7773 05de 494E565F 		.ascii	"INV_SENSOR_WAKEUP_TILT_DETECTOR\000"
+ 7773      53454E53 
+ 7773      4F525F57 
+ 7773      414B4555 
+ 7773      505F5449 
+ 7774              	.LASF111:
+ 7775 05fe 696E765F 		.ascii	"inv_error_t\000"
+ 7775      6572726F 
+ 7775      725F7400 
+ 7776              	.LASF10:
+ 7777 060a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 7777      206C6F6E 
+ 7777      6720756E 
+ 7777      7369676E 
+ 7777      65642069 
+ 7778              	.LASF33:
+ 7779 0621 494E565F 		.ascii	"INV_SENSOR_GEOMAG_cpass\000"
+ 7779      53454E53 
+ 7779      4F525F47 
+ 7779      454F4D41 
+ 7779      475F6370 
+ 7780              	.LASF23:
+ 7781 0639 494E565F 		.ascii	"INV_SENSOR_PEDQ\000"
  7781      53454E53 
- 7781      4F525F57 
- 7781      414B4555 
- 7782              	.LASF211:
- 7783 05f0 6D656D73 		.ascii	"memset\000"
- 7783      657400
- 7784              	.LASF224:
- 7785 05f7 696E765F 		.ascii	"inv_enable_mems_hw_sensors\000"
- 7785      656E6162 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 177
+ 7781      4F525F50 
+ 7781      45445100 
+ 7782              	.LASF112:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 177
 
 
- 7785      6C655F6D 
- 7785      656D735F 
- 7785      68775F73 
- 7786              	.LASF87:
- 7787 0612 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GYROSCOPE\000"
- 7787      4F49445F 
- 7787      53454E53 
- 7787      4F525F57 
- 7787      414B4555 
- 7788              	.LASF76:
- 7789 0632 414E4452 		.ascii	"ANDROID_SENSOR_GAME_ROTATION_VECTOR\000"
- 7789      4F49445F 
- 7789      53454E53 
- 7789      4F525F47 
- 7789      414D455F 
- 7790              	.LASF229:
- 7791 0656 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
- 7791      4320342E 
- 7791      392E3320 
- 7791      32303135 
- 7791      30333033 
- 7792 0689 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
- 7792      20726576 
- 7792      6973696F 
- 7792      6E203232 
- 7792      31323230 
- 7793 06bc 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
- 7793      66756E63 
- 7793      74696F6E 
- 7793      2D736563 
- 7793      74696F6E 
- 7794              	.LASF127:
- 7795 06e4 656E6162 		.ascii	"enable\000"
- 7795      6C6500
- 7796              	.LASF60:
- 7797 06eb 414E4452 		.ascii	"ANDROID_SENSORS\000"
- 7797      4F49445F 
- 7797      53454E53 
- 7797      4F525300 
- 7798              	.LASF225:
- 7799 06fb 646D705F 		.ascii	"dmp_set_data_rdy_status\000"
- 7799      7365745F 
- 7799      64617461 
- 7799      5F726479 
- 7799      5F737461 
- 7800              	.LASF177:
- 7801 0713 6C537465 		.ascii	"lStepCounterMinDly\000"
- 7801      70436F75 
- 7801      6E746572 
- 7801      4D696E44 
- 7801      6C7900
- 7802              	.LASF19:
- 7803 0726 494E565F 		.ascii	"INV_SENSOR_ALS\000"
- 7803      53454E53 
- 7803      4F525F41 
- 7803      4C5300
- 7804              	.LASF199:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 178
+ 7783 0649 494E565F 		.ascii	"INV_ODR_TYPE\000"
+ 7783      4F44525F 
+ 7783      54595045 
+ 7783      00
+ 7784              	.LASF99:
+ 7785 0656 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_STEP_COUNTER\000"
+ 7785      4F49445F 
+ 7785      53454E53 
+ 7785      4F525F57 
+ 7785      414B4555 
+ 7786              	.LASF211:
+ 7787 0679 6D656D73 		.ascii	"memset\000"
+ 7787      657400
+ 7788              	.LASF224:
+ 7789 0680 696E765F 		.ascii	"inv_enable_mems_hw_sensors\000"
+ 7789      656E6162 
+ 7789      6C655F6D 
+ 7789      656D735F 
+ 7789      68775F73 
+ 7790              	.LASF87:
+ 7791 069b 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GYROSCOPE\000"
+ 7791      4F49445F 
+ 7791      53454E53 
+ 7791      4F525F57 
+ 7791      414B4555 
+ 7792              	.LASF76:
+ 7793 06bb 414E4452 		.ascii	"ANDROID_SENSOR_GAME_ROTATION_VECTOR\000"
+ 7793      4F49445F 
+ 7793      53454E53 
+ 7793      4F525F47 
+ 7793      414D455F 
+ 7794              	.LASF229:
+ 7795 06df 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 7795      4320342E 
+ 7795      392E3320 
+ 7795      32303135 
+ 7795      30333033 
+ 7796 0712 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 7796      20726576 
+ 7796      6973696F 
+ 7796      6E203232 
+ 7796      31323230 
+ 7797 0745 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 7797      66756E63 
+ 7797      74696F6E 
+ 7797      2D736563 
+ 7797      74696F6E 
+ 7798              	.LASF127:
+ 7799 076d 656E6162 		.ascii	"enable\000"
+ 7799      6C6500
+ 7800              	.LASF60:
+ 7801 0774 414E4452 		.ascii	"ANDROID_SENSORS\000"
+ 7801      4F49445F 
+ 7801      53454E53 
+ 7801      4F525300 
+ 7802              	.LASF225:
+ 7803 0784 646D705F 		.ascii	"dmp_set_data_rdy_status\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 178
 
 
- 7805 0735 4D696E44 		.ascii	"MinDelayGenGyro4List\000"
- 7805      656C6179 
- 7805      47656E47 
- 7805      79726F34 
- 7805      4C697374 
- 7806              	.LASF162:
- 7807 074a 62617463 		.ascii	"batch_time_in_ms\000"
- 7807      685F7469 
- 7807      6D655F69 
- 7807      6E5F6D73 
- 7807      00
- 7808              	.LASF131:
- 7809 075b 53616D70 		.ascii	"SampleRateDividerGet\000"
- 7809      6C655261 
- 7809      74654469 
- 7809      76696465 
- 7809      72476574 
- 7810              	.LASF92:
- 7811 0770 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_ROTATION_VECTOR\000"
- 7811      4F49445F 
- 7811      53454E53 
- 7811      4F525F57 
- 7811      414B4555 
- 7812              	.LASF191:
- 7813 0796 4D696E44 		.ascii	"MinDelayGenAccelList\000"
- 7813      656C6179 
- 7813      47656E41 
- 7813      6363656C 
- 7813      4C697374 
- 7814              	.LASF42:
- 7815 07ab 494E565F 		.ascii	"INV_SENSOR_WAKEUP_PEDQ\000"
+ 7803      7365745F 
+ 7803      64617461 
+ 7803      5F726479 
+ 7803      5F737461 
+ 7804              	.LASF177:
+ 7805 079c 6C537465 		.ascii	"lStepCounterMinDly\000"
+ 7805      70436F75 
+ 7805      6E746572 
+ 7805      4D696E44 
+ 7805      6C7900
+ 7806              	.LASF19:
+ 7807 07af 494E565F 		.ascii	"INV_SENSOR_ALS\000"
+ 7807      53454E53 
+ 7807      4F525F41 
+ 7807      4C5300
+ 7808              	.LASF199:
+ 7809 07be 4D696E44 		.ascii	"MinDelayGenGyro4List\000"
+ 7809      656C6179 
+ 7809      47656E47 
+ 7809      79726F34 
+ 7809      4C697374 
+ 7810              	.LASF162:
+ 7811 07d3 62617463 		.ascii	"batch_time_in_ms\000"
+ 7811      685F7469 
+ 7811      6D655F69 
+ 7811      6E5F6D73 
+ 7811      00
+ 7812              	.LASF131:
+ 7813 07e4 53616D70 		.ascii	"SampleRateDividerGet\000"
+ 7813      6C655261 
+ 7813      74654469 
+ 7813      76696465 
+ 7813      72476574 
+ 7814              	.LASF92:
+ 7815 07f9 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_ROTATION_VECTOR\000"
+ 7815      4F49445F 
  7815      53454E53 
  7815      4F525F57 
  7815      414B4555 
- 7815      505F5045 
- 7816              	.LASF38:
- 7817 07c2 494E565F 		.ascii	"INV_SENSOR_WAKEUP_ALS\000"
- 7817      53454E53 
- 7817      4F525F57 
- 7817      414B4555 
- 7817      505F414C 
- 7818              	.LASF64:
- 7819 07d8 414E4452 		.ascii	"ANDROID_SENSOR_ORIENTATION\000"
- 7819      4F49445F 
+ 7816              	.LASF191:
+ 7817 081f 4D696E44 		.ascii	"MinDelayGenAccelList\000"
+ 7817      656C6179 
+ 7817      47656E41 
+ 7817      6363656C 
+ 7817      4C697374 
+ 7818              	.LASF42:
+ 7819 0834 494E565F 		.ascii	"INV_SENSOR_WAKEUP_PEDQ\000"
  7819      53454E53 
- 7819      4F525F4F 
- 7819      5249454E 
- 7820              	.LASF106:
- 7821 07f3 414E4452 		.ascii	"ANDROID_SENSOR_ACTIVITY_CLASSIFICATON\000"
- 7821      4F49445F 
+ 7819      4F525F57 
+ 7819      414B4555 
+ 7819      505F5045 
+ 7820              	.LASF38:
+ 7821 084b 494E565F 		.ascii	"INV_SENSOR_WAKEUP_ALS\000"
  7821      53454E53 
- 7821      4F525F41 
- 7821      43544956 
- 7822              	.LASF149:
- 7823 0819 6F64725F 		.ascii	"odr_units\000"
- 7823      756E6974 
- 7823      7300
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 179
+ 7821      4F525F57 
+ 7821      414B4555 
+ 7821      505F414C 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 179
 
 
- 7824              	.LASF220:
- 7825 0823 646D705F 		.ascii	"dmp_set_data_output_control1\000"
- 7825      7365745F 
- 7825      64617461 
- 7825      5F6F7574 
- 7825      7075745F 
- 7826              	.LASF67:
- 7827 0840 414E4452 		.ascii	"ANDROID_SENSOR_PRESSURE\000"
- 7827      4F49445F 
- 7827      53454E53 
- 7827      4F525F50 
- 7827      52455353 
- 7828              	.LASF228:
- 7829 0858 696E765F 		.ascii	"inv_wakeup_mems\000"
- 7829      77616B65 
- 7829      75705F6D 
- 7829      656D7300 
- 7830              	.LASF122:
- 7831 0868 4D696E44 		.ascii	"MinDelayT\000"
- 7831      656C6179 
- 7831      5400
- 7832              	.LASF207:
- 7833 0872 696E765F 		.ascii	"inv_get_gyro_divider\000"
- 7833      6765745F 
- 7833      6779726F 
- 7833      5F646976 
- 7833      69646572 
- 7834              	.LASF175:
- 7835 0887 6D696E44 		.ascii	"minDly_gyro\000"
- 7835      6C795F67 
- 7835      79726F00 
- 7836              	.LASF12:
- 7837 0893 63686172 		.ascii	"char\000"
- 7837      00
- 7838              	.LASF142:
- 7839 0898 7065645F 		.ascii	"ped_int_status\000"
- 7839      696E745F 
- 7839      73746174 
- 7839      757300
- 7840              	.LASF134:
- 7841 08a7 73656E5F 		.ascii	"sen_num_2_ctrl\000"
- 7841      6E756D5F 
- 7841      325F6374 
- 7841      726C00
- 7842              	.LASF37:
- 7843 08b6 494E565F 		.ascii	"INV_SENSOR_WAKEUP_COMPASS\000"
- 7843      53454E53 
- 7843      4F525F57 
- 7843      414B4555 
- 7843      505F434F 
- 7844              	.LASF86:
- 7845 08d0 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_ORIENTATION\000"
- 7845      4F49445F 
- 7845      53454E53 
- 7845      4F525F57 
- 7845      414B4555 
- 7846              	.LASF145:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 180
+ 7822              	.LASF64:
+ 7823 0861 414E4452 		.ascii	"ANDROID_SENSOR_ORIENTATION\000"
+ 7823      4F49445F 
+ 7823      53454E53 
+ 7823      4F525F4F 
+ 7823      5249454E 
+ 7824              	.LASF106:
+ 7825 087c 414E4452 		.ascii	"ANDROID_SENSOR_ACTIVITY_CLASSIFICATON\000"
+ 7825      4F49445F 
+ 7825      53454E53 
+ 7825      4F525F41 
+ 7825      43544956 
+ 7826              	.LASF149:
+ 7827 08a2 6F64725F 		.ascii	"odr_units\000"
+ 7827      756E6974 
+ 7827      7300
+ 7828              	.LASF220:
+ 7829 08ac 646D705F 		.ascii	"dmp_set_data_output_control1\000"
+ 7829      7365745F 
+ 7829      64617461 
+ 7829      5F6F7574 
+ 7829      7075745F 
+ 7830              	.LASF67:
+ 7831 08c9 414E4452 		.ascii	"ANDROID_SENSOR_PRESSURE\000"
+ 7831      4F49445F 
+ 7831      53454E53 
+ 7831      4F525F50 
+ 7831      52455353 
+ 7832              	.LASF228:
+ 7833 08e1 696E765F 		.ascii	"inv_wakeup_mems\000"
+ 7833      77616B65 
+ 7833      75705F6D 
+ 7833      656D7300 
+ 7834              	.LASF122:
+ 7835 08f1 4D696E44 		.ascii	"MinDelayT\000"
+ 7835      656C6179 
+ 7835      5400
+ 7836              	.LASF207:
+ 7837 08fb 696E765F 		.ascii	"inv_get_gyro_divider\000"
+ 7837      6765745F 
+ 7837      6779726F 
+ 7837      5F646976 
+ 7837      69646572 
+ 7838              	.LASF175:
+ 7839 0910 6D696E44 		.ascii	"minDly_gyro\000"
+ 7839      6C795F67 
+ 7839      79726F00 
+ 7840              	.LASF12:
+ 7841 091c 63686172 		.ascii	"char\000"
+ 7841      00
+ 7842              	.LASF142:
+ 7843 0921 7065645F 		.ascii	"ped_int_status\000"
+ 7843      696E745F 
+ 7843      73746174 
+ 7843      757300
+ 7844              	.LASF134:
+ 7845 0930 73656E5F 		.ascii	"sen_num_2_ctrl\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 180
 
 
- 7847 08f2 456C656D 		.ascii	"Element\000"
- 7847      656E7400 
- 7848              	.LASF155:
- 7849 08fa 696E765F 		.ascii	"inv_enable_batch\000"
- 7849      656E6162 
- 7849      6C655F62 
- 7849      61746368 
- 7849      00
- 7850              	.LASF123:
- 7851 090b 4D696E44 		.ascii	"MinDelay\000"
- 7851      656C6179 
- 7851      00
- 7852              	.LASF96:
- 7853 0914 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GAME_ROTATION_VECTOR\000"
- 7853      4F49445F 
- 7853      53454E53 
- 7853      4F525F57 
- 7853      414B4555 
- 7854              	.LASF13:
- 7855 093f 75696E74 		.ascii	"uint8_t\000"
- 7855      385F7400 
- 7856              	.LASF40:
- 7857 0947 494E565F 		.ascii	"INV_SENSOR_WAKEUP_NINEQ\000"
+ 7845      6E756D5F 
+ 7845      325F6374 
+ 7845      726C00
+ 7846              	.LASF37:
+ 7847 093f 494E565F 		.ascii	"INV_SENSOR_WAKEUP_COMPASS\000"
+ 7847      53454E53 
+ 7847      4F525F57 
+ 7847      414B4555 
+ 7847      505F434F 
+ 7848              	.LASF86:
+ 7849 0959 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_ORIENTATION\000"
+ 7849      4F49445F 
+ 7849      53454E53 
+ 7849      4F525F57 
+ 7849      414B4555 
+ 7850              	.LASF145:
+ 7851 097b 456C656D 		.ascii	"Element\000"
+ 7851      656E7400 
+ 7852              	.LASF155:
+ 7853 0983 696E765F 		.ascii	"inv_enable_batch\000"
+ 7853      656E6162 
+ 7853      6C655F62 
+ 7853      61746368 
+ 7853      00
+ 7854              	.LASF123:
+ 7855 0994 4D696E44 		.ascii	"MinDelay\000"
+ 7855      656C6179 
+ 7855      00
+ 7856              	.LASF96:
+ 7857 099d 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GAME_ROTATION_VECTOR\000"
+ 7857      4F49445F 
  7857      53454E53 
  7857      4F525F57 
  7857      414B4555 
- 7857      505F4E49 
- 7858              	.LASF186:
- 7859 095f 6232735F 		.ascii	"b2s_status\000"
- 7859      73746174 
- 7859      757300
- 7860              	.LASF182:
- 7861 096a 696E765F 		.ascii	"inv_dmp_odr_dividers\000"
- 7861      646D705F 
- 7861      6F64725F 
- 7861      64697669 
- 7861      64657273 
- 7862              	.LASF95:
- 7863 097f 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD_UNCALIBRATED\000"
- 7863      4F49445F 
- 7863      53454E53 
- 7863      4F525F57 
- 7863      414B4555 
- 7864              	.LASF178:
- 7865 09b1 696E765F 		.ascii	"inv_set_odr\000"
- 7865      7365745F 
- 7865      6F647200 
- 7866              	.LASF197:
- 7867 09bd 4D696E44 		.ascii	"MinDelayGenGyro2List\000"
- 7867      656C6179 
- 7867      47656E47 
- 7867      79726F32 
- 7867      4C697374 
- 7868              	.LASF202:
- 7869 09d2 696E765F 		.ascii	"inv_androidSensor_enabled\000"
- 7869      616E6472 
- 7869      6F696453 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 181
+ 7858              	.LASF13:
+ 7859 09c8 75696E74 		.ascii	"uint8_t\000"
+ 7859      385F7400 
+ 7860              	.LASF40:
+ 7861 09d0 494E565F 		.ascii	"INV_SENSOR_WAKEUP_NINEQ\000"
+ 7861      53454E53 
+ 7861      4F525F57 
+ 7861      414B4555 
+ 7861      505F4E49 
+ 7862              	.LASF186:
+ 7863 09e8 6232735F 		.ascii	"b2s_status\000"
+ 7863      73746174 
+ 7863      757300
+ 7864              	.LASF182:
+ 7865 09f3 696E765F 		.ascii	"inv_dmp_odr_dividers\000"
+ 7865      646D705F 
+ 7865      6F64725F 
+ 7865      64697669 
+ 7865      64657273 
+ 7866              	.LASF95:
+ 7867 0a08 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD_UNCALIBRATED\000"
+ 7867      4F49445F 
+ 7867      53454E53 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 181
 
 
- 7869      656E736F 
- 7869      725F656E 
- 7870              	.LASF54:
- 7871 09ec 494E565F 		.ascii	"INV_SENSORS\000"
- 7871      53454E53 
- 7871      4F525300 
- 7872              	.LASF115:
- 7873 09f8 4F44525F 		.ascii	"ODR_IN_Ticks\000"
- 7873      494E5F54 
- 7873      69636B73 
- 7873      00
- 7874              	.LASF43:
- 7875 0a05 494E565F 		.ascii	"INV_SENSOR_WAKEUP_PRESSURE\000"
+ 7867      4F525F57 
+ 7867      414B4555 
+ 7868              	.LASF178:
+ 7869 0a3a 696E765F 		.ascii	"inv_set_odr\000"
+ 7869      7365745F 
+ 7869      6F647200 
+ 7870              	.LASF197:
+ 7871 0a46 4D696E44 		.ascii	"MinDelayGenGyro2List\000"
+ 7871      656C6179 
+ 7871      47656E47 
+ 7871      79726F32 
+ 7871      4C697374 
+ 7872              	.LASF202:
+ 7873 0a5b 696E765F 		.ascii	"inv_androidSensor_enabled\000"
+ 7873      616E6472 
+ 7873      6F696453 
+ 7873      656E736F 
+ 7873      725F656E 
+ 7874              	.LASF54:
+ 7875 0a75 494E565F 		.ascii	"INV_SENSORS\000"
  7875      53454E53 
- 7875      4F525F57 
- 7875      414B4555 
- 7875      505F5052 
- 7876              	.LASF9:
- 7877 0a20 6C6F6E67 		.ascii	"long long int\000"
- 7877      206C6F6E 
- 7877      6720696E 
- 7877      7400
- 7878              	.LASF129:
- 7879 0a2e 696E765F 		.ascii	"inv_enable_tilt\000"
- 7879      656E6162 
- 7879      6C655F74 
- 7879      696C7400 
- 7880              	.LASF159:
- 7881 0a3e 62617463 		.ascii	"batch_time_in_seconds\000"
- 7881      685F7469 
- 7881      6D655F69 
- 7881      6E5F7365 
- 7881      636F6E64 
- 7882              	.LASF217:
- 7883 0a54 696E765F 		.ascii	"inv_mems_prevent_lpen_control\000"
- 7883      6D656D73 
- 7883      5F707265 
- 7883      76656E74 
- 7883      5F6C7065 
- 7884              	.LASF164:
- 7885 0a72 696E765F 		.ascii	"inv_get_activitiy_classifier_on_flag\000"
- 7885      6765745F 
- 7885      61637469 
- 7885      76697469 
- 7885      795F636C 
- 7886              	.LASF108:
- 7887 0a97 53454C46 		.ascii	"SELF_TEST\000"
- 7887      5F544553 
- 7887      5400
- 7888              	.LASF226:
- 7889 0aa1 646D705F 		.ascii	"dmp_get_pedometer_get_all_steps\000"
+ 7875      4F525300 
+ 7876              	.LASF115:
+ 7877 0a81 4F44525F 		.ascii	"ODR_IN_Ticks\000"
+ 7877      494E5F54 
+ 7877      69636B73 
+ 7877      00
+ 7878              	.LASF43:
+ 7879 0a8e 494E565F 		.ascii	"INV_SENSOR_WAKEUP_PRESSURE\000"
+ 7879      53454E53 
+ 7879      4F525F57 
+ 7879      414B4555 
+ 7879      505F5052 
+ 7880              	.LASF9:
+ 7881 0aa9 6C6F6E67 		.ascii	"long long int\000"
+ 7881      206C6F6E 
+ 7881      6720696E 
+ 7881      7400
+ 7882              	.LASF129:
+ 7883 0ab7 696E765F 		.ascii	"inv_enable_tilt\000"
+ 7883      656E6162 
+ 7883      6C655F74 
+ 7883      696C7400 
+ 7884              	.LASF159:
+ 7885 0ac7 62617463 		.ascii	"batch_time_in_seconds\000"
+ 7885      685F7469 
+ 7885      6D655F69 
+ 7885      6E5F7365 
+ 7885      636F6E64 
+ 7886              	.LASF217:
+ 7887 0add 696E765F 		.ascii	"inv_mems_prevent_lpen_control\000"
+ 7887      6D656D73 
+ 7887      5F707265 
+ 7887      76656E74 
+ 7887      5F6C7065 
+ 7888              	.LASF164:
+ 7889 0afb 696E765F 		.ascii	"inv_get_activitiy_classifier_on_flag\000"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 182
+
+
  7889      6765745F 
- 7889      7065646F 
- 7889      6D657465 
- 7889      725F6765 
- 7890              	.LASF94:
- 7891 0ac1 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_AMBIENT_TEMPERATURE\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 182
-
-
- 7891      4F49445F 
- 7891      53454E53 
- 7891      4F525F57 
- 7891      414B4555 
- 7892              	.LASF29:
- 7893 0aeb 494E565F 		.ascii	"INV_SENSOR_FLIP_PICKUP\000"
- 7893      53454E53 
- 7893      4F525F46 
- 7893      4C49505F 
- 7893      5049434B 
- 7894              	.LASF90:
- 7895 0b02 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GRAVITY\000"
+ 7889      61637469 
+ 7889      76697469 
+ 7889      795F636C 
+ 7890              	.LASF108:
+ 7891 0b20 53454C46 		.ascii	"SELF_TEST\000"
+ 7891      5F544553 
+ 7891      5400
+ 7892              	.LASF226:
+ 7893 0b2a 646D705F 		.ascii	"dmp_get_pedometer_get_all_steps\000"
+ 7893      6765745F 
+ 7893      7065646F 
+ 7893      6D657465 
+ 7893      725F6765 
+ 7894              	.LASF94:
+ 7895 0b4a 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_AMBIENT_TEMPERATURE\000"
  7895      4F49445F 
  7895      53454E53 
  7895      4F525F57 
  7895      414B4555 
- 7896              	.LASF172:
- 7897 0b20 696E765F 		.ascii	"inv_set_hw_smplrt_dmp_odrs\000"
- 7897      7365745F 
- 7897      68775F73 
- 7897      6D706C72 
- 7897      745F646D 
- 7898              	.LASF212:
- 7899 0b3b 646D705F 		.ascii	"dmp_set_accel_cal_params\000"
- 7899      7365745F 
- 7899      61636365 
- 7899      6C5F6361 
- 7899      6C5F7061 
- 7900              	.LASF173:
- 7901 0b54 6D696E44 		.ascii	"minDly\000"
- 7901      6C7900
- 7902              	.LASF204:
- 7903 0b5b 696E765F 		.ascii	"inv_get_odr_in_units\000"
- 7903      6765745F 
- 7903      6F64725F 
- 7903      696E5F75 
- 7903      6E697473 
- 7904              	.LASF201:
- 7905 0b70 73426174 		.ascii	"sBatchMode\000"
- 7905      63684D6F 
- 7905      646500
- 7906              	.LASF216:
- 7907 0b7b 696E765F 		.ascii	"inv_set_gyro_sf\000"
- 7907      7365745F 
- 7907      6779726F 
- 7907      5F736600 
- 7908              	.LASF154:
- 7909 0b8b 696E765F 		.ascii	"inv_get_odr\000"
- 7909      6765745F 
- 7909      6F647200 
- 7910              	.LASF25:
- 7911 0b97 494E565F 		.ascii	"INV_SENSOR_CALIB_GYRO\000"
- 7911      53454E53 
- 7911      4F525F43 
- 7911      414C4942 
- 7911      5F475952 
- 7912              	.LASF70:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 183
+ 7896              	.LASF29:
+ 7897 0b74 494E565F 		.ascii	"INV_SENSOR_FLIP_PICKUP\000"
+ 7897      53454E53 
+ 7897      4F525F46 
+ 7897      4C49505F 
+ 7897      5049434B 
+ 7898              	.LASF90:
+ 7899 0b8b 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GRAVITY\000"
+ 7899      4F49445F 
+ 7899      53454E53 
+ 7899      4F525F57 
+ 7899      414B4555 
+ 7900              	.LASF172:
+ 7901 0ba9 696E765F 		.ascii	"inv_set_hw_smplrt_dmp_odrs\000"
+ 7901      7365745F 
+ 7901      68775F73 
+ 7901      6D706C72 
+ 7901      745F646D 
+ 7902              	.LASF212:
+ 7903 0bc4 646D705F 		.ascii	"dmp_set_accel_cal_params\000"
+ 7903      7365745F 
+ 7903      61636365 
+ 7903      6C5F6361 
+ 7903      6C5F7061 
+ 7904              	.LASF173:
+ 7905 0bdd 6D696E44 		.ascii	"minDly\000"
+ 7905      6C7900
+ 7906              	.LASF204:
+ 7907 0be4 696E765F 		.ascii	"inv_get_odr_in_units\000"
+ 7907      6765745F 
+ 7907      6F64725F 
+ 7907      696E5F75 
+ 7907      6E697473 
+ 7908              	.LASF201:
+ 7909 0bf9 73426174 		.ascii	"sBatchMode\000"
+ 7909      63684D6F 
+ 7909      646500
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 183
 
 
- 7913 0bad 414E4452 		.ascii	"ANDROID_SENSOR_GRAVITY\000"
- 7913      4F49445F 
- 7913      53454E53 
- 7913      4F525F47 
- 7913      52415649 
- 7914              	.LASF104:
- 7915 0bc4 414E4452 		.ascii	"ANDROID_SENSOR_B2S\000"
- 7915      4F49445F 
+ 7910              	.LASF216:
+ 7911 0c04 696E765F 		.ascii	"inv_set_gyro_sf\000"
+ 7911      7365745F 
+ 7911      6779726F 
+ 7911      5F736600 
+ 7912              	.LASF154:
+ 7913 0c14 696E765F 		.ascii	"inv_get_odr\000"
+ 7913      6765745F 
+ 7913      6F647200 
+ 7914              	.LASF25:
+ 7915 0c20 494E565F 		.ascii	"INV_SENSOR_CALIB_GYRO\000"
  7915      53454E53 
- 7915      4F525F42 
- 7915      325300
- 7916              	.LASF171:
- 7917 0bd7 6765744D 		.ascii	"getMinDlyGyro\000"
- 7917      696E446C 
- 7917      79477972 
- 7917      6F00
- 7918              	.LASF97:
- 7919 0be5 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GYROSCOPE_UNCALIBRATED\000"
+ 7915      4F525F43 
+ 7915      414C4942 
+ 7915      5F475952 
+ 7916              	.LASF70:
+ 7917 0c36 414E4452 		.ascii	"ANDROID_SENSOR_GRAVITY\000"
+ 7917      4F49445F 
+ 7917      53454E53 
+ 7917      4F525F47 
+ 7917      52415649 
+ 7918              	.LASF104:
+ 7919 0c4d 414E4452 		.ascii	"ANDROID_SENSOR_B2S\000"
  7919      4F49445F 
  7919      53454E53 
- 7919      4F525F57 
- 7919      414B4555 
- 7920              	.LASF26:
- 7921 0c12 494E565F 		.ascii	"INV_SENSOR_CALIB_COMPASS\000"
- 7921      53454E53 
- 7921      4F525F43 
- 7921      414C4942 
- 7921      5F434F4D 
- 7922              	.LASF192:
- 7923 0c2b 4D696E44 		.ascii	"MinDelayGenGyroList\000"
- 7923      656C6179 
- 7923      47656E47 
- 7923      79726F4C 
- 7923      69737400 
- 7924              	.LASF222:
- 7925 0c3f 646D705F 		.ascii	"dmp_set_motion_event_control\000"
- 7925      7365745F 
- 7925      6D6F7469 
- 7925      6F6E5F65 
- 7925      76656E74 
- 7926              	.LASF63:
- 7927 0c5c 414E4452 		.ascii	"ANDROID_SENSOR_GEOMAGNETIC_FIELD\000"
- 7927      4F49445F 
- 7927      53454E53 
- 7927      4F525F47 
- 7927      454F4D41 
- 7928              	.LASF148:
- 7929 0c7d 53656E73 		.ascii	"SensorId\000"
- 7929      6F724964 
- 7929      00
- 7930              	.LASF210:
- 7931 0c86 646D705F 		.ascii	"dmp_set_accel_feedback_gain\000"
- 7931      7365745F 
- 7931      61636365 
- 7931      6C5F6665 
- 7931      65646261 
- 7932              	.LASF168:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 184
+ 7919      4F525F42 
+ 7919      325300
+ 7920              	.LASF171:
+ 7921 0c60 6765744D 		.ascii	"getMinDlyGyro\000"
+ 7921      696E446C 
+ 7921      79477972 
+ 7921      6F00
+ 7922              	.LASF97:
+ 7923 0c6e 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_GYROSCOPE_UNCALIBRATED\000"
+ 7923      4F49445F 
+ 7923      53454E53 
+ 7923      4F525F57 
+ 7923      414B4555 
+ 7924              	.LASF26:
+ 7925 0c9b 494E565F 		.ascii	"INV_SENSOR_CALIB_COMPASS\000"
+ 7925      53454E53 
+ 7925      4F525F43 
+ 7925      414C4942 
+ 7925      5F434F4D 
+ 7926              	.LASF192:
+ 7927 0cb4 4D696E44 		.ascii	"MinDelayGenGyroList\000"
+ 7927      656C6179 
+ 7927      47656E47 
+ 7927      79726F4C 
+ 7927      69737400 
+ 7928              	.LASF222:
+ 7929 0cc8 646D705F 		.ascii	"dmp_set_motion_event_control\000"
+ 7929      7365745F 
+ 7929      6D6F7469 
+ 7929      6F6E5F65 
+ 7929      76656E74 
+ 7930              	.LASF63:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 184
 
 
- 7933 0ca2 696E765F 		.ascii	"inv_set_accel_cal_params\000"
- 7933      7365745F 
- 7933      61636365 
- 7933      6C5F6361 
- 7933      6C5F7061 
- 7934              	.LASF118:
- 7935 0cbb 6C6F6E67 		.ascii	"long double\000"
- 7935      20646F75 
- 7935      626C6500 
- 7936              	.LASF15:
- 7937 0cc7 494E565F 		.ascii	"INV_SENSOR_ACCEL\000"
- 7937      53454E53 
- 7937      4F525F41 
- 7937      4343454C 
- 7937      00
- 7938              	.LASF114:
- 7939 0cd8 4F44525F 		.ascii	"ODR_IN_Us\000"
- 7939      494E5F55 
- 7939      7300
- 7940              	.LASF101:
- 7941 0ce2 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_HEART_RATE\000"
- 7941      4F49445F 
+ 7931 0ce5 414E4452 		.ascii	"ANDROID_SENSOR_GEOMAGNETIC_FIELD\000"
+ 7931      4F49445F 
+ 7931      53454E53 
+ 7931      4F525F47 
+ 7931      454F4D41 
+ 7932              	.LASF148:
+ 7933 0d06 53656E73 		.ascii	"SensorId\000"
+ 7933      6F724964 
+ 7933      00
+ 7934              	.LASF210:
+ 7935 0d0f 646D705F 		.ascii	"dmp_set_accel_feedback_gain\000"
+ 7935      7365745F 
+ 7935      61636365 
+ 7935      6C5F6665 
+ 7935      65646261 
+ 7936              	.LASF168:
+ 7937 0d2b 696E765F 		.ascii	"inv_set_accel_cal_params\000"
+ 7937      7365745F 
+ 7937      61636365 
+ 7937      6C5F6361 
+ 7937      6C5F7061 
+ 7938              	.LASF118:
+ 7939 0d44 6C6F6E67 		.ascii	"long double\000"
+ 7939      20646F75 
+ 7939      626C6500 
+ 7940              	.LASF15:
+ 7941 0d50 494E565F 		.ascii	"INV_SENSOR_ACCEL\000"
  7941      53454E53 
- 7941      4F525F57 
- 7941      414B4555 
- 7942              	.LASF80:
- 7943 0d03 414E4452 		.ascii	"ANDROID_SENSOR_STEP_COUNTER\000"
- 7943      4F49445F 
- 7943      53454E53 
- 7943      4F525F53 
- 7943      5445505F 
- 7944              	.LASF31:
- 7945 0d1f 494E565F 		.ascii	"INV_SENSOR_SIXQ_accel\000"
+ 7941      4F525F41 
+ 7941      4343454C 
+ 7941      00
+ 7942              	.LASF114:
+ 7943 0d61 4F44525F 		.ascii	"ODR_IN_Us\000"
+ 7943      494E5F55 
+ 7943      7300
+ 7944              	.LASF101:
+ 7945 0d6b 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_HEART_RATE\000"
+ 7945      4F49445F 
  7945      53454E53 
- 7945      4F525F53 
- 7945      4958515F 
- 7945      61636365 
- 7946              	.LASF3:
- 7947 0d35 73686F72 		.ascii	"short int\000"
- 7947      7420696E 
- 7947      7400
- 7948              	.LASF174:
- 7949 0d3f 6D696E44 		.ascii	"minDly_accel\000"
- 7949      6C795F61 
- 7949      6363656C 
- 7949      00
- 7950              	.LASF78:
- 7951 0d4c 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION\000"
- 7951      4F49445F 
- 7951      53454E53 
- 7951      4F525F57 
- 7951      414B4555 
- 7952              	.LASF51:
- 7953 0d75 494E565F 		.ascii	"INV_SENSOR_WAKEUP_NINEQ_cpass\000"
- 7953      53454E53 
- 7953      4F525F57 
- 7953      414B4555 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 185
+ 7945      4F525F57 
+ 7945      414B4555 
+ 7946              	.LASF80:
+ 7947 0d8c 414E4452 		.ascii	"ANDROID_SENSOR_STEP_COUNTER\000"
+ 7947      4F49445F 
+ 7947      53454E53 
+ 7947      4F525F53 
+ 7947      5445505F 
+ 7948              	.LASF31:
+ 7949 0da8 494E565F 		.ascii	"INV_SENSOR_SIXQ_accel\000"
+ 7949      53454E53 
+ 7949      4F525F53 
+ 7949      4958515F 
+ 7949      61636365 
+ 7950              	.LASF3:
+ 7951 0dbe 73686F72 		.ascii	"short int\000"
+ 7951      7420696E 
+ 7951      7400
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 185
 
 
- 7953      505F4E49 
- 7954              	.LASF103:
- 7955 0d93 414E4452 		.ascii	"ANDROID_SENSOR_NUM_MAX\000"
+ 7952              	.LASF174:
+ 7953 0dc8 6D696E44 		.ascii	"minDly_accel\000"
+ 7953      6C795F61 
+ 7953      6363656C 
+ 7953      00
+ 7954              	.LASF78:
+ 7955 0dd5 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION\000"
  7955      4F49445F 
  7955      53454E53 
- 7955      4F525F4E 
- 7955      554D5F4D 
- 7956              	.LASF5:
- 7957 0daa 6C6F6E67 		.ascii	"long int\000"
- 7957      20696E74 
- 7957      00
- 7958              	.LASF221:
- 7959 0db3 646D705F 		.ascii	"dmp_set_data_interrupt_control\000"
- 7959      7365745F 
- 7959      64617461 
- 7959      5F696E74 
- 7959      65727275 
- 7960              	.LASF91:
- 7961 0dd2 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_LINEAR_ACCELERATION\000"
- 7961      4F49445F 
- 7961      53454E53 
- 7961      4F525F57 
- 7961      414B4555 
- 7962              	.LASF68:
- 7963 0dfc 414E4452 		.ascii	"ANDROID_SENSOR_TEMPERATURE\000"
- 7963      4F49445F 
- 7963      53454E53 
- 7963      4F525F54 
- 7963      454D5045 
- 7964              	.LASF50:
- 7965 0e17 494E565F 		.ascii	"INV_SENSOR_WAKEUP_GEOMAG_cpass\000"
+ 7955      4F525F57 
+ 7955      414B4555 
+ 7956              	.LASF51:
+ 7957 0dfe 494E565F 		.ascii	"INV_SENSOR_WAKEUP_NINEQ_cpass\000"
+ 7957      53454E53 
+ 7957      4F525F57 
+ 7957      414B4555 
+ 7957      505F4E49 
+ 7958              	.LASF103:
+ 7959 0e1c 414E4452 		.ascii	"ANDROID_SENSOR_NUM_MAX\000"
+ 7959      4F49445F 
+ 7959      53454E53 
+ 7959      4F525F4E 
+ 7959      554D5F4D 
+ 7960              	.LASF5:
+ 7961 0e33 6C6F6E67 		.ascii	"long int\000"
+ 7961      20696E74 
+ 7961      00
+ 7962              	.LASF221:
+ 7963 0e3c 646D705F 		.ascii	"dmp_set_data_interrupt_control\000"
+ 7963      7365745F 
+ 7963      64617461 
+ 7963      5F696E74 
+ 7963      65727275 
+ 7964              	.LASF91:
+ 7965 0e5b 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_LINEAR_ACCELERATION\000"
+ 7965      4F49445F 
  7965      53454E53 
  7965      4F525F57 
  7965      414B4555 
- 7965      505F4745 
- 7966              	.LASF81:
- 7967 0e36 414E4452 		.ascii	"ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR\000"
+ 7966              	.LASF68:
+ 7967 0e85 414E4452 		.ascii	"ANDROID_SENSOR_TEMPERATURE\000"
  7967      4F49445F 
  7967      53454E53 
- 7967      4F525F47 
- 7967      454F4D41 
- 7968              	.LASF62:
- 7969 0e61 414E4452 		.ascii	"ANDROID_SENSOR_ACCELEROMETER\000"
- 7969      4F49445F 
+ 7967      4F525F54 
+ 7967      454D5045 
+ 7968              	.LASF50:
+ 7969 0ea0 494E565F 		.ascii	"INV_SENSOR_WAKEUP_GEOMAG_cpass\000"
  7969      53454E53 
- 7969      4F525F41 
- 7969      4343454C 
- 7970              	.LASF189:
- 7971 0e7e 696E765F 		.ascii	"inv_sensor_control2\000"
- 7971      73656E73 
- 7971      6F725F63 
- 7971      6F6E7472 
- 7971      6F6C3200 
- 7972              	.LASF181:
- 7973 0e92 696E765F 		.ascii	"inv_enable_pickup\000"
- 7973      656E6162 
- 7973      6C655F70 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 186
+ 7969      4F525F57 
+ 7969      414B4555 
+ 7969      505F4745 
+ 7970              	.LASF81:
+ 7971 0ebf 414E4452 		.ascii	"ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR\000"
+ 7971      4F49445F 
+ 7971      53454E53 
+ 7971      4F525F47 
+ 7971      454F4D41 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 186
 
 
- 7973      69636B75 
- 7973      7000
- 7974              	.LASF190:
- 7975 0ea4 696E765F 		.ascii	"inv_androidSensorsOn_mask\000"
- 7975      616E6472 
- 7975      6F696453 
- 7975      656E736F 
- 7975      72734F6E 
- 7976              	.LASF219:
- 7977 0ebe 646D705F 		.ascii	"dmp_reset_pickup\000"
- 7977      72657365 
- 7977      745F7069 
- 7977      636B7570 
- 7977      00
- 7978              	.LASF143:
- 7979 0ecf 64617461 		.ascii	"data_rdy_status\000"
- 7979      5F726479 
- 7979      5F737461 
- 7979      74757300 
- 7980              	.LASF28:
- 7981 0edf 494E565F 		.ascii	"INV_SENSOR_ACTIVITY_CLASSIFIER\000"
- 7981      53454E53 
- 7981      4F525F41 
- 7981      43544956 
- 7981      4954595F 
- 7982              	.LASF49:
- 7983 0efe 494E565F 		.ascii	"INV_SENSOR_WAKEUP_NINEQ_accel\000"
- 7983      53454E53 
- 7983      4F525F57 
- 7983      414B4555 
- 7983      505F4E49 
- 7984              	.LASF6:
- 7985 0f1c 5F5F7569 		.ascii	"__uint8_t\000"
- 7985      6E74385F 
- 7985      7400
- 7986              	.LASF53:
- 7987 0f26 494E565F 		.ascii	"INV_SENSOR_INVALID\000"
+ 7972              	.LASF62:
+ 7973 0eea 414E4452 		.ascii	"ANDROID_SENSOR_ACCELEROMETER\000"
+ 7973      4F49445F 
+ 7973      53454E53 
+ 7973      4F525F41 
+ 7973      4343454C 
+ 7974              	.LASF189:
+ 7975 0f07 696E765F 		.ascii	"inv_sensor_control2\000"
+ 7975      73656E73 
+ 7975      6F725F63 
+ 7975      6F6E7472 
+ 7975      6F6C3200 
+ 7976              	.LASF181:
+ 7977 0f1b 696E765F 		.ascii	"inv_enable_pickup\000"
+ 7977      656E6162 
+ 7977      6C655F70 
+ 7977      69636B75 
+ 7977      7000
+ 7978              	.LASF190:
+ 7979 0f2d 696E765F 		.ascii	"inv_androidSensorsOn_mask\000"
+ 7979      616E6472 
+ 7979      6F696453 
+ 7979      656E736F 
+ 7979      72734F6E 
+ 7980              	.LASF219:
+ 7981 0f47 646D705F 		.ascii	"dmp_reset_pickup\000"
+ 7981      72657365 
+ 7981      745F7069 
+ 7981      636B7570 
+ 7981      00
+ 7982              	.LASF143:
+ 7983 0f58 64617461 		.ascii	"data_rdy_status\000"
+ 7983      5F726479 
+ 7983      5F737461 
+ 7983      74757300 
+ 7984              	.LASF28:
+ 7985 0f68 494E565F 		.ascii	"INV_SENSOR_ACTIVITY_CLASSIFIER\000"
+ 7985      53454E53 
+ 7985      4F525F41 
+ 7985      43544956 
+ 7985      4954595F 
+ 7986              	.LASF49:
+ 7987 0f87 494E565F 		.ascii	"INV_SENSOR_WAKEUP_NINEQ_accel\000"
  7987      53454E53 
- 7987      4F525F49 
- 7987      4E56414C 
- 7987      494400
- 7988              	.LASF213:
- 7989 0f39 696E765F 		.ascii	"inv_set_accel_divider\000"
- 7989      7365745F 
- 7989      61636365 
- 7989      6C5F6469 
- 7989      76696465 
- 7990              	.LASF121:
- 7991 0f4f 4D696E44 		.ascii	"MinDelayGenElementT\000"
- 7991      656C6179 
- 7991      47656E45 
- 7991      6C656D65 
- 7991      6E745400 
- 7992              	.LASF200:
- 7993 0f63 4D696E44 		.ascii	"MinDelayGenGyro5List\000"
- 7993      656C6179 
- 7993      47656E47 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 187
+ 7987      4F525F57 
+ 7987      414B4555 
+ 7987      505F4E49 
+ 7988              	.LASF6:
+ 7989 0fa5 5F5F7569 		.ascii	"__uint8_t\000"
+ 7989      6E74385F 
+ 7989      7400
+ 7990              	.LASF53:
+ 7991 0faf 494E565F 		.ascii	"INV_SENSOR_INVALID\000"
+ 7991      53454E53 
+ 7991      4F525F49 
+ 7991      4E56414C 
+ 7991      494400
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 187
 
 
- 7993      79726F35 
- 7993      4C697374 
- 7994              	.LASF218:
- 7995 0f78 696E765F 		.ascii	"inv_mems_allow_lpen_control\000"
- 7995      6D656D73 
- 7995      5F616C6C 
- 7995      6F775F6C 
- 7995      70656E5F 
- 7996              	.LASF205:
- 7997 0f94 646D705F 		.ascii	"dmp_set_tilt_enable\000"
- 7997      7365745F 
- 7997      74696C74 
- 7997      5F656E61 
- 7997      626C6500 
- 7998              	.LASF196:
- 7999 0fa8 4D696E44 		.ascii	"MinDelayGenAccel5List\000"
- 7999      656C6179 
- 7999      47656E41 
- 7999      6363656C 
- 7999      354C6973 
- 8000              	.LASF11:
- 8001 0fbe 73697A65 		.ascii	"sizetype\000"
- 8001      74797065 
- 8001      00
- 8002              	.LASF8:
- 8003 0fc7 6C6F6E67 		.ascii	"long unsigned int\000"
- 8003      20756E73 
- 8003      69676E65 
- 8003      6420696E 
- 8003      7400
- 8004              	.LASF151:
- 8005 0fd9 746D705F 		.ascii	"tmp_androidSensorsOn_mask\000"
- 8005      616E6472 
- 8005      6F696453 
- 8005      656E736F 
- 8005      72734F6E 
- 8006              	.LASF59:
- 8007 0ff3 4E554D5F 		.ascii	"NUM_ACCEL_CAL_PARAMS\000"
- 8007      41434345 
- 8007      4C5F4341 
- 8007      4C5F5041 
- 8007      52414D53 
- 8008              	.LASF208:
- 8009 1008 696E765F 		.ascii	"inv_get_accel_divider\000"
- 8009      6765745F 
- 8009      61636365 
- 8009      6C5F6469 
- 8009      76696465 
- 8010              	.LASF55:
- 8011 101e 61636365 		.ascii	"accel_cal_params\000"
- 8011      6C5F6361 
- 8011      6C5F7061 
- 8011      72616D73 
- 8011      00
- 8012              	.LASF215:
- 8013 102f 696E765F 		.ascii	"inv_get_gyro_fullscale\000"
+ 7992              	.LASF213:
+ 7993 0fc2 696E765F 		.ascii	"inv_set_accel_divider\000"
+ 7993      7365745F 
+ 7993      61636365 
+ 7993      6C5F6469 
+ 7993      76696465 
+ 7994              	.LASF121:
+ 7995 0fd8 4D696E44 		.ascii	"MinDelayGenElementT\000"
+ 7995      656C6179 
+ 7995      47656E45 
+ 7995      6C656D65 
+ 7995      6E745400 
+ 7996              	.LASF200:
+ 7997 0fec 4D696E44 		.ascii	"MinDelayGenGyro5List\000"
+ 7997      656C6179 
+ 7997      47656E47 
+ 7997      79726F35 
+ 7997      4C697374 
+ 7998              	.LASF218:
+ 7999 1001 696E765F 		.ascii	"inv_mems_allow_lpen_control\000"
+ 7999      6D656D73 
+ 7999      5F616C6C 
+ 7999      6F775F6C 
+ 7999      70656E5F 
+ 8000              	.LASF205:
+ 8001 101d 646D705F 		.ascii	"dmp_set_tilt_enable\000"
+ 8001      7365745F 
+ 8001      74696C74 
+ 8001      5F656E61 
+ 8001      626C6500 
+ 8002              	.LASF196:
+ 8003 1031 4D696E44 		.ascii	"MinDelayGenAccel5List\000"
+ 8003      656C6179 
+ 8003      47656E41 
+ 8003      6363656C 
+ 8003      354C6973 
+ 8004              	.LASF11:
+ 8005 1047 73697A65 		.ascii	"sizetype\000"
+ 8005      74797065 
+ 8005      00
+ 8006              	.LASF8:
+ 8007 1050 6C6F6E67 		.ascii	"long unsigned int\000"
+ 8007      20756E73 
+ 8007      69676E65 
+ 8007      6420696E 
+ 8007      7400
+ 8008              	.LASF151:
+ 8009 1062 746D705F 		.ascii	"tmp_androidSensorsOn_mask\000"
+ 8009      616E6472 
+ 8009      6F696453 
+ 8009      656E736F 
+ 8009      72734F6E 
+ 8010              	.LASF59:
+ 8011 107c 4E554D5F 		.ascii	"NUM_ACCEL_CAL_PARAMS\000"
+ 8011      41434345 
+ 8011      4C5F4341 
+ 8011      4C5F5041 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 188
+
+
+ 8011      52414D53 
+ 8012              	.LASF208:
+ 8013 1091 696E765F 		.ascii	"inv_get_accel_divider\000"
  8013      6765745F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 188
+ 8013      61636365 
+ 8013      6C5F6469 
+ 8013      76696465 
+ 8014              	.LASF55:
+ 8015 10a7 61636365 		.ascii	"accel_cal_params\000"
+ 8015      6C5F6361 
+ 8015      6C5F7061 
+ 8015      72616D73 
+ 8015      00
+ 8016              	.LASF215:
+ 8017 10b8 696E765F 		.ascii	"inv_get_gyro_fullscale\000"
+ 8017      6765745F 
+ 8017      6779726F 
+ 8017      5F66756C 
+ 8017      6C736361 
+ 8018              	.LASF193:
+ 8019 10cf 4D696E44 		.ascii	"MinDelayGenAccel2List\000"
+ 8019      656C6179 
+ 8019      47656E41 
+ 8019      6363656C 
+ 8019      324C6973 
+ 8020              	.LASF34:
+ 8021 10e5 494E565F 		.ascii	"INV_SENSOR_NINEQ_cpass\000"
+ 8021      53454E53 
+ 8021      4F525F4E 
+ 8021      494E4551 
+ 8021      5F637061 
+ 8022              	.LASF109:
+ 8023 10fc 53455455 		.ascii	"SETUP\000"
+ 8023      5000
+ 8024              	.LASF147:
+ 8025 1102 4F647244 		.ascii	"OdrDelay\000"
+ 8025      656C6179 
+ 8025      00
+ 8026              	.LASF124:
+ 8027 110b 48775361 		.ascii	"HwSampleRateDivider\000"
+ 8027      6D706C65 
+ 8027      52617465 
+ 8027      44697669 
+ 8027      64657200 
+ 8028              	.LASF2:
+ 8029 111f 756E7369 		.ascii	"unsigned char\000"
+ 8029      676E6564 
+ 8029      20636861 
+ 8029      7200
+ 8030              	.LASF7:
+ 8031 112d 5F5F7569 		.ascii	"__uint32_t\000"
+ 8031      6E743332 
+ 8031      5F7400
+ 8032              	.LASF153:
+ 8033 1138 696E765F 		.ascii	"inv_set_batch_mode_status\000"
+ 8033      7365745F 
+ 8033      62617463 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 189
 
 
- 8013      6779726F 
- 8013      5F66756C 
- 8013      6C736361 
- 8014              	.LASF193:
- 8015 1046 4D696E44 		.ascii	"MinDelayGenAccel2List\000"
- 8015      656C6179 
- 8015      47656E41 
- 8015      6363656C 
- 8015      324C6973 
- 8016              	.LASF34:
- 8017 105c 494E565F 		.ascii	"INV_SENSOR_NINEQ_cpass\000"
- 8017      53454E53 
- 8017      4F525F4E 
- 8017      494E4551 
- 8017      5F637061 
- 8018              	.LASF109:
- 8019 1073 53455455 		.ascii	"SETUP\000"
- 8019      5000
- 8020              	.LASF147:
- 8021 1079 4F647244 		.ascii	"OdrDelay\000"
- 8021      656C6179 
- 8021      00
- 8022              	.LASF124:
- 8023 1082 48775361 		.ascii	"HwSampleRateDivider\000"
- 8023      6D706C65 
- 8023      52617465 
- 8023      44697669 
- 8023      64657200 
- 8024              	.LASF2:
- 8025 1096 756E7369 		.ascii	"unsigned char\000"
- 8025      676E6564 
- 8025      20636861 
- 8025      7200
- 8026              	.LASF7:
- 8027 10a4 5F5F7569 		.ascii	"__uint32_t\000"
- 8027      6E743332 
- 8027      5F7400
- 8028              	.LASF153:
- 8029 10af 696E765F 		.ascii	"inv_set_batch_mode_status\000"
- 8029      7365745F 
- 8029      62617463 
- 8029      685F6D6F 
- 8029      64655F73 
- 8030              	.LASF160:
- 8031 10c9 74696D65 		.ascii	"timeout\000"
- 8031      6F757400 
- 8032              	.LASF132:
- 8033 10d1 44656C61 		.ascii	"Delay\000"
- 8033      7900
- 8034              	.LASF46:
- 8035 10d7 494E565F 		.ascii	"INV_SENSOR_WAKEUP_STEP_COUNTER\000"
- 8035      53454E53 
- 8035      4F525F57 
- 8035      414B4555 
- 8035      505F5354 
- 8036              	.LASF125:
- 8037 10f6 52657375 		.ascii	"Result\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 189
-
-
- 8037      6C7400
- 8038              	.LASF102:
- 8039 10fd 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_TILT_DETECTOR\000"
- 8039      4F49445F 
+ 8033      685F6D6F 
+ 8033      64655F73 
+ 8034              	.LASF160:
+ 8035 1152 74696D65 		.ascii	"timeout\000"
+ 8035      6F757400 
+ 8036              	.LASF132:
+ 8037 115a 44656C61 		.ascii	"Delay\000"
+ 8037      7900
+ 8038              	.LASF46:
+ 8039 1160 494E565F 		.ascii	"INV_SENSOR_WAKEUP_STEP_COUNTER\000"
  8039      53454E53 
  8039      4F525F57 
  8039      414B4555 
- 8040              	.LASF79:
- 8041 1121 414E4452 		.ascii	"ANDROID_SENSOR_STEP_DETECTOR\000"
- 8041      4F49445F 
- 8041      53454E53 
- 8041      4F525F53 
- 8041      5445505F 
- 8042              	.LASF44:
- 8043 113e 494E565F 		.ascii	"INV_SENSOR_WAKEUP_CALIB_GYRO\000"
+ 8039      505F5354 
+ 8040              	.LASF125:
+ 8041 117f 52657375 		.ascii	"Result\000"
+ 8041      6C7400
+ 8042              	.LASF102:
+ 8043 1186 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_TILT_DETECTOR\000"
+ 8043      4F49445F 
  8043      53454E53 
  8043      4F525F57 
  8043      414B4555 
- 8043      505F4341 
- 8044              	.LASF183:
- 8045 115b 696E765F 		.ascii	"inv_dmp_odr_delays\000"
- 8045      646D705F 
- 8045      6F64725F 
- 8045      64656C61 
- 8045      797300
- 8046              	.LASF32:
- 8047 116e 494E565F 		.ascii	"INV_SENSOR_NINEQ_accel\000"
+ 8044              	.LASF79:
+ 8045 11aa 414E4452 		.ascii	"ANDROID_SENSOR_STEP_DETECTOR\000"
+ 8045      4F49445F 
+ 8045      53454E53 
+ 8045      4F525F53 
+ 8045      5445505F 
+ 8046              	.LASF44:
+ 8047 11c7 494E565F 		.ascii	"INV_SENSOR_WAKEUP_CALIB_GYRO\000"
  8047      53454E53 
- 8047      4F525F4E 
- 8047      494E4551 
- 8047      5F616363 
- 8048              	.LASF231:
- 8049 1185 433A5C44 		.ascii	"C:\\Dropbox\\Projects\\George Posture Correction Pr"
- 8049      726F7062 
- 8049      6F785C50 
- 8049      726F6A65 
- 8049      6374735C 
- 8050 11b5 6F6A6563 		.ascii	"oject\\BackBone\\BackBone_Bootloadable.cydsn\000"
- 8050      745C4261 
- 8050      636B426F 
- 8050      6E655C42 
- 8050      61636B42 
- 8051              	.LASF20:
- 8052 11e0 494E565F 		.ascii	"INV_SENSOR_SIXQ\000"
- 8052      53454E53 
- 8052      4F525F53 
- 8052      49585100 
- 8053              	.LASF24:
- 8054 11f0 494E565F 		.ascii	"INV_SENSOR_PRESSURE\000"
- 8054      53454E53 
- 8054      4F525F50 
- 8054      52455353 
- 8054      55524500 
- 8055              	.LASF138:
- 8056 1204 6D656D73 		.ascii	"mems_put_to_sleep\000"
- 8056      5F707574 
- 8056      5F746F5F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 190
+ 8047      4F525F57 
+ 8047      414B4555 
+ 8047      505F4341 
+ 8048              	.LASF183:
+ 8049 11e4 696E765F 		.ascii	"inv_dmp_odr_delays\000"
+ 8049      646D705F 
+ 8049      6F64725F 
+ 8049      64656C61 
+ 8049      797300
+ 8050              	.LASF32:
+ 8051 11f7 494E565F 		.ascii	"INV_SENSOR_NINEQ_accel\000"
+ 8051      53454E53 
+ 8051      4F525F4E 
+ 8051      494E4551 
+ 8051      5F616363 
+ 8052              	.LASF20:
+ 8053 120e 494E565F 		.ascii	"INV_SENSOR_SIXQ\000"
+ 8053      53454E53 
+ 8053      4F525F53 
+ 8053      49585100 
+ 8054              	.LASF24:
+ 8055 121e 494E565F 		.ascii	"INV_SENSOR_PRESSURE\000"
+ 8055      53454E53 
+ 8055      4F525F50 
+ 8055      52455353 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 190
 
 
- 8056      736C6565 
- 8056      7000
- 8057              	.LASF223:
- 8058 1216 696E765F 		.ascii	"inv_sleep_mems\000"
- 8058      736C6565 
- 8058      705F6D65 
- 8058      6D7300
- 8059              	.LASF74:
- 8060 1225 414E4452 		.ascii	"ANDROID_SENSOR_AMBIENT_TEMPERATURE\000"
- 8060      4F49445F 
- 8060      53454E53 
- 8060      4F525F41 
- 8060      4D424945 
- 8061              	.LASF56:
- 8062 1248 41434345 		.ascii	"ACCEL_CAL_ALPHA_VAR\000"
- 8062      4C5F4341 
- 8062      4C5F414C 
- 8062      5048415F 
- 8062      56415200 
- 8063              	.LASF1:
- 8064 125c 7369676E 		.ascii	"signed char\000"
- 8064      65642063 
- 8064      68617200 
- 8065              	.LASF166:
- 8066 1268 68775F73 		.ascii	"hw_smplrt_divider\000"
- 8066      6D706C72 
- 8066      745F6469 
- 8066      76696465 
- 8066      7200
- 8067              	.LASF16:
- 8068 127a 494E565F 		.ascii	"INV_SENSOR_GYRO\000"
- 8068      53454E53 
- 8068      4F525F47 
- 8068      59524F00 
- 8069              	.LASF136:
- 8070 128a 64656C74 		.ascii	"delta\000"
- 8070      6100
- 8071              	.LASF4:
- 8072 1290 73686F72 		.ascii	"short unsigned int\000"
- 8072      7420756E 
- 8072      7369676E 
- 8072      65642069 
- 8072      6E7400
- 8073              	.LASF169:
- 8074 12a3 6765744D 		.ascii	"getMinDlyAccel\000"
- 8074      696E446C 
- 8074      79416363 
- 8074      656C00
- 8075              	.LASF83:
- 8076 12b2 414E4452 		.ascii	"ANDROID_SENSOR_PROXIMITY\000"
- 8076      4F49445F 
- 8076      53454E53 
- 8076      4F525F50 
- 8076      524F5849 
- 8077              	.LASF21:
- 8078 12cb 494E565F 		.ascii	"INV_SENSOR_NINEQ\000"
- 8078      53454E53 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 191
+ 8055      55524500 
+ 8056              	.LASF138:
+ 8057 1232 6D656D73 		.ascii	"mems_put_to_sleep\000"
+ 8057      5F707574 
+ 8057      5F746F5F 
+ 8057      736C6565 
+ 8057      7000
+ 8058              	.LASF223:
+ 8059 1244 696E765F 		.ascii	"inv_sleep_mems\000"
+ 8059      736C6565 
+ 8059      705F6D65 
+ 8059      6D7300
+ 8060              	.LASF74:
+ 8061 1253 414E4452 		.ascii	"ANDROID_SENSOR_AMBIENT_TEMPERATURE\000"
+ 8061      4F49445F 
+ 8061      53454E53 
+ 8061      4F525F41 
+ 8061      4D424945 
+ 8062              	.LASF56:
+ 8063 1276 41434345 		.ascii	"ACCEL_CAL_ALPHA_VAR\000"
+ 8063      4C5F4341 
+ 8063      4C5F414C 
+ 8063      5048415F 
+ 8063      56415200 
+ 8064              	.LASF1:
+ 8065 128a 7369676E 		.ascii	"signed char\000"
+ 8065      65642063 
+ 8065      68617200 
+ 8066              	.LASF166:
+ 8067 1296 68775F73 		.ascii	"hw_smplrt_divider\000"
+ 8067      6D706C72 
+ 8067      745F6469 
+ 8067      76696465 
+ 8067      7200
+ 8068              	.LASF16:
+ 8069 12a8 494E565F 		.ascii	"INV_SENSOR_GYRO\000"
+ 8069      53454E53 
+ 8069      4F525F47 
+ 8069      59524F00 
+ 8070              	.LASF136:
+ 8071 12b8 64656C74 		.ascii	"delta\000"
+ 8071      6100
+ 8072              	.LASF4:
+ 8073 12be 73686F72 		.ascii	"short unsigned int\000"
+ 8073      7420756E 
+ 8073      7369676E 
+ 8073      65642069 
+ 8073      6E7400
+ 8074              	.LASF169:
+ 8075 12d1 6765744D 		.ascii	"getMinDlyAccel\000"
+ 8075      696E446C 
+ 8075      79416363 
+ 8075      656C00
+ 8076              	.LASF83:
+ 8077 12e0 414E4452 		.ascii	"ANDROID_SENSOR_PROXIMITY\000"
+ 8077      4F49445F 
+ 8077      53454E53 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 191
 
 
- 8078      4F525F4E 
- 8078      494E4551 
- 8078      00
- 8079              	.LASF57:
- 8080 12dc 41434345 		.ascii	"ACCEL_CAL_A_VAR\000"
- 8080      4C5F4341 
- 8080      4C5F415F 
- 8080      56415200 
- 8081              	.LASF137:
- 8082 12ec 696E765F 		.ascii	"inv_enable_sensor_internal\000"
- 8082      656E6162 
- 8082      6C655F73 
- 8082      656E736F 
- 8082      725F696E 
- 8083              	.LASF116:
- 8084 1307 646F7562 		.ascii	"double\000"
- 8084      6C6500
- 8085              	.LASF209:
- 8086 130e 646D705F 		.ascii	"dmp_set_batchmode_params\000"
- 8086      7365745F 
- 8086      62617463 
- 8086      686D6F64 
- 8086      655F7061 
- 8087              	.LASF152:
- 8088 1327 696E765F 		.ascii	"inv_reGenerate_sensorControl\000"
- 8088      72654765 
- 8088      6E657261 
- 8088      74655F73 
- 8088      656E736F 
- 8089              	.LASF17:
- 8090 1344 494E565F 		.ascii	"INV_SENSOR_LPQ\000"
- 8090      53454E53 
- 8090      4F525F4C 
- 8090      505100
- 8091              	.LASF165:
- 8092 1353 696E765F 		.ascii	"inv_set_accel_quaternion_gain\000"
- 8092      7365745F 
- 8092      61636365 
- 8092      6C5F7175 
- 8092      61746572 
- 8093              	.LASF140:
- 8094 1371 696E765F 		.ascii	"inv_event_control\000"
- 8094      6576656E 
- 8094      745F636F 
- 8094      6E74726F 
- 8094      6C00
- 8095              	.LASF72:
- 8096 1383 414E4452 		.ascii	"ANDROID_SENSOR_ROTATION_VECTOR\000"
- 8096      4F49445F 
- 8096      53454E53 
- 8096      4F525F52 
- 8096      4F544154 
- 8097              	.LASF27:
- 8098 13a2 494E565F 		.ascii	"INV_SENSOR_STEP_COUNTER\000"
- 8098      53454E53 
- 8098      4F525F53 
- 8098      5445505F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccjTNAQQ.s 			page 192
+ 8077      4F525F50 
+ 8077      524F5849 
+ 8078              	.LASF21:
+ 8079 12f9 494E565F 		.ascii	"INV_SENSOR_NINEQ\000"
+ 8079      53454E53 
+ 8079      4F525F4E 
+ 8079      494E4551 
+ 8079      00
+ 8080              	.LASF57:
+ 8081 130a 41434345 		.ascii	"ACCEL_CAL_A_VAR\000"
+ 8081      4C5F4341 
+ 8081      4C5F415F 
+ 8081      56415200 
+ 8082              	.LASF137:
+ 8083 131a 696E765F 		.ascii	"inv_enable_sensor_internal\000"
+ 8083      656E6162 
+ 8083      6C655F73 
+ 8083      656E736F 
+ 8083      725F696E 
+ 8084              	.LASF116:
+ 8085 1335 646F7562 		.ascii	"double\000"
+ 8085      6C6500
+ 8086              	.LASF209:
+ 8087 133c 646D705F 		.ascii	"dmp_set_batchmode_params\000"
+ 8087      7365745F 
+ 8087      62617463 
+ 8087      686D6F64 
+ 8087      655F7061 
+ 8088              	.LASF152:
+ 8089 1355 696E765F 		.ascii	"inv_reGenerate_sensorControl\000"
+ 8089      72654765 
+ 8089      6E657261 
+ 8089      74655F73 
+ 8089      656E736F 
+ 8090              	.LASF17:
+ 8091 1372 494E565F 		.ascii	"INV_SENSOR_LPQ\000"
+ 8091      53454E53 
+ 8091      4F525F4C 
+ 8091      505100
+ 8092              	.LASF165:
+ 8093 1381 696E765F 		.ascii	"inv_set_accel_quaternion_gain\000"
+ 8093      7365745F 
+ 8093      61636365 
+ 8093      6C5F7175 
+ 8093      61746572 
+ 8094              	.LASF140:
+ 8095 139f 696E765F 		.ascii	"inv_event_control\000"
+ 8095      6576656E 
+ 8095      745F636F 
+ 8095      6E74726F 
+ 8095      6C00
+ 8096              	.LASF72:
+ 8097 13b1 414E4452 		.ascii	"ANDROID_SENSOR_ROTATION_VECTOR\000"
+ 8097      4F49445F 
+ 8097      53454E53 
+ 8097      4F525F52 
+ 8097      4F544154 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 192
 
 
- 8098      434F554E 
- 8099              	.LASF71:
- 8100 13ba 414E4452 		.ascii	"ANDROID_SENSOR_LINEAR_ACCELERATION\000"
- 8100      4F49445F 
- 8100      53454E53 
- 8100      4F525F4C 
- 8100      494E4541 
- 8101              	.LASF22:
- 8102 13dd 494E565F 		.ascii	"INV_SENSOR_GEOMAG\000"
- 8102      53454E53 
- 8102      4F525F47 
- 8102      454F4D41 
- 8102      4700
- 8103              	.LASF65:
- 8104 13ef 414E4452 		.ascii	"ANDROID_SENSOR_GYROSCOPE\000"
- 8104      4F49445F 
- 8104      53454E53 
- 8104      4F525F47 
- 8104      59524F53 
- 8105              	.LASF233:
- 8106 1408 4D696E44 		.ascii	"MinDelayGenActual\000"
- 8106      656C6179 
- 8106      47656E41 
- 8106      63747561 
- 8106      6C00
- 8107              	.LASF48:
- 8108 141a 494E565F 		.ascii	"INV_SENSOR_WAKEUP_SIXQ_accel\000"
- 8108      53454E53 
- 8108      4F525F57 
- 8108      414B4555 
- 8108      505F5349 
- 8109              	.LASF135:
- 8110 1437 73656E73 		.ascii	"sensor_control\000"
- 8110      6F725F63 
- 8110      6F6E7472 
- 8110      6F6C00
- 8111              	.LASF39:
- 8112 1446 494E565F 		.ascii	"INV_SENSOR_WAKEUP_SIXQ\000"
- 8112      53454E53 
- 8112      4F525F57 
- 8112      414B4555 
- 8112      505F5349 
- 8113              	.LASF85:
- 8114 145d 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD\000"
- 8114      4F49445F 
- 8114      53454E53 
- 8114      4F525F57 
- 8114      414B4555 
- 8115              	.LASF227:
- 8116 1482 696E765F 		.ascii	"inv_set_dmp_stepcounter_update_offset\000"
- 8116      7365745F 
- 8116      646D705F 
- 8116      73746570 
- 8116      636F756E 
- 8117              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
+ 8098              	.LASF27:
+ 8099 13d0 494E565F 		.ascii	"INV_SENSOR_STEP_COUNTER\000"
+ 8099      53454E53 
+ 8099      4F525F53 
+ 8099      5445505F 
+ 8099      434F554E 
+ 8100              	.LASF71:
+ 8101 13e8 414E4452 		.ascii	"ANDROID_SENSOR_LINEAR_ACCELERATION\000"
+ 8101      4F49445F 
+ 8101      53454E53 
+ 8101      4F525F4C 
+ 8101      494E4541 
+ 8102              	.LASF22:
+ 8103 140b 494E565F 		.ascii	"INV_SENSOR_GEOMAG\000"
+ 8103      53454E53 
+ 8103      4F525F47 
+ 8103      454F4D41 
+ 8103      4700
+ 8104              	.LASF65:
+ 8105 141d 414E4452 		.ascii	"ANDROID_SENSOR_GYROSCOPE\000"
+ 8105      4F49445F 
+ 8105      53454E53 
+ 8105      4F525F47 
+ 8105      59524F53 
+ 8106              	.LASF233:
+ 8107 1436 4D696E44 		.ascii	"MinDelayGenActual\000"
+ 8107      656C6179 
+ 8107      47656E41 
+ 8107      63747561 
+ 8107      6C00
+ 8108              	.LASF48:
+ 8109 1448 494E565F 		.ascii	"INV_SENSOR_WAKEUP_SIXQ_accel\000"
+ 8109      53454E53 
+ 8109      4F525F57 
+ 8109      414B4555 
+ 8109      505F5349 
+ 8110              	.LASF135:
+ 8111 1465 73656E73 		.ascii	"sensor_control\000"
+ 8111      6F725F63 
+ 8111      6F6E7472 
+ 8111      6F6C00
+ 8112              	.LASF39:
+ 8113 1474 494E565F 		.ascii	"INV_SENSOR_WAKEUP_SIXQ\000"
+ 8113      53454E53 
+ 8113      4F525F57 
+ 8113      414B4555 
+ 8113      505F5349 
+ 8114              	.LASF85:
+ 8115 148b 414E4452 		.ascii	"ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD\000"
+ 8115      4F49445F 
+ 8115      53454E53 
+ 8115      4F525F57 
+ 8115      414B4555 
+ 8116              	.LASF227:
+ 8117 14b0 696E765F 		.ascii	"inv_set_dmp_stepcounter_update_offset\000"
+ 8117      7365745F 
+ 8117      646D705F 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc40CKrd.s 			page 193
+
+
+ 8117      73746570 
+ 8117      636F756E 
+ 8118              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

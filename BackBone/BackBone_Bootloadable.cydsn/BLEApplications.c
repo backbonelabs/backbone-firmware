@@ -43,27 +43,18 @@
 #include <OTAMandatory.h>
 
 /**************************Variable Declarations*****************************/
+static const uint8 EnterBootloaderKey[8] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
+
 /* 'connectionHandle' stores connection parameters */
 CYBLE_CONN_HANDLE_T  connectionHandle;
-
-/* 'rgbHandle' stores RGB control data parameters */
-CYBLE_GATT_HANDLE_VALUE_PAIR_T		rgbHandle;	
 
 /*This flag is set when the Central device writes to CCCD (Client Characteristic 
 * Configuration Descriptor) of the CapSense slider Characteristic to enable 
 * notifications */
-uint8 sendCapSenseSliderNotifications = FALSE;	
 uint8 SendAccelNotifications = FALSE;
 uint8 SendGyroNotifications = FALSE;
 uint8 SendPedometerNotifications = FALSE;
-
-/*This flag is set when the Central device writes to CCCD of the 
-* RGB LED Characteristic to enable notifications */
-uint8 rgbledNotifications = FALSE;
-
-/* Array to store the present RGB LED control data. The 4 bytes 
-* of the array represents {R,G,B,Intensity} */
-uint8 RGBledData[RGB_CHAR_DATA_LEN];
+uint8 SendVersionInfoNotifications = FALSE;
 
 /* This flag is used by application to know whether a Central 
 * device has been connected. This is updated in BLE event callback 
@@ -72,11 +63,6 @@ uint8 deviceConnected = FALSE;
 
 /* 'restartAdvertisement' flag provided the present state of power mode in firmware */
 uint8 restartAdvertisement = FALSE;
-
-/*'enableCapSenseData' flag is set after the Connection LED off status is received.
-  This flag ensures that the CapSense related scanning does not increase the loop 
-  time of firmware, causing the LED to be always ON.*/
-uint8 enableCapSenseData = FALSE;	
 
 /* This flag is used to let application send a L2CAP connection update request
 * to Central device */
@@ -98,15 +84,6 @@ static CYBLE_GAP_CONN_UPDATE_PARAM_T ConnectionParam =
 * more power while LED usage */
 uint8 shut_down_led = TRUE;
 
-/* Counter to keep the LED ON for a selected period before shuting the LEDs down */
-uint8 led_timer = FALSE;
-
-/* Counter to allow an initial 3 second Status LED ON for indicating connection */
-uint8 timer_tick = FALSE;
-
-/* Flag to switch of the LED after connection */
-uint8 switch_off_status_led = FALSE;
-
 /* Status flag for the Stack Busy state. This flag is used to notify the application 
 * whether there is stack buffer free to push more data or not */
 uint8 busyStatus = 0;
@@ -117,16 +94,13 @@ uint8 RGBCCCDvalue[2];
 uint8 AccelCCCDValue[2];
 uint8 GyroCCCDValue[2];
 uint8 PedometerCCCDValue[2];
+uint8 VersionInfoCCCDValue[2];
 
 /* Handle value to update the CCCD */
-CYBLE_GATT_HANDLE_VALUE_PAIR_T CapSenseNotificationCCCDhandle;
-
-/* Handle value to update the CCCD */
-CYBLE_GATT_HANDLE_VALUE_PAIR_T RGBNotificationCCCDhandle;
-
 CYBLE_GATT_HANDLE_VALUE_PAIR_T AccelNotificationHandle;
 CYBLE_GATT_HANDLE_VALUE_PAIR_T GyroNotificationHandle;
 CYBLE_GATT_HANDLE_VALUE_PAIR_T PedometerNotificationHandle;
+CYBLE_GATT_HANDLE_VALUE_PAIR_T VersionInfoNotificationHandle;
 
 /****************************************************************************/
 
@@ -146,6 +120,9 @@ CYBLE_GATT_HANDLE_VALUE_PAIR_T PedometerNotificationHandle;
 *******************************************************************************/
 void CustomEventHandler(uint32 event, void * eventParam)
 {
+	uint8 i;
+	uint8 KeyMatch = 0;
+	
 	/* Local variable to store the data received as part of the Write request 
 	* events */
 	CYBLE_GATTS_WRITE_REQ_PARAM_T *wrReqParam;
@@ -208,6 +185,7 @@ void CustomEventHandler(uint32 event, void * eventParam)
 			
 			/* This flag is used in application to check connection status */
 			deviceConnected = TRUE;
+			
 			break;
         
         case CYBLE_EVT_GATT_DISCONNECT_IND:
@@ -222,24 +200,6 @@ void CustomEventHandler(uint32 event, void * eventParam)
 			SendGyroNotifications = FALSE;
 			SendPedometerNotifications = FALSE;
 			
-//			/* Update Accelerometer handle with notification status data */
-//			AccelNotificationHandle.attrHandle = CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
-//			BackBone_GetAccelerometerData(AccelNotificationHandle.value.val, ACCEL_DATA_LEN);
-//			AccelNotificationHandle.value.len = ACCEL_DATA_LEN;
-//			CyBle_GattsWriteAttributeValue(&AccelNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
-//			
-//			/* Update Gyroscope handle with notification status data */
-//			GyroNotificationHandle.attrHandle = CYBLE_BACKBONE_GYROSCOPE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
-//			BackBone_GetGyroscopeData(GyroNotificationHandle.value.val, GYRO_DATA_LEN);
-//			GyroNotificationHandle.value.len = GYRO_DATA_LEN;
-//			CyBle_GattsWriteAttributeValue(&GyroNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
-//			
-//			/* Update Pedometer handle with notification status data */
-//			PedometerNotificationHandle.attrHandle = CYBLE_BACKBONE_PEDOMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
-//			*(uint32*)&PedometerNotificationHandle.value.val = BackBone_GetStepCount();
-//			PedometerNotificationHandle.value.len = PEDOMETER_DATA_LEN;
-//			CyBle_GattsWriteAttributeValue(&PedometerNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
-
 			/* Reset the isConnectionUpdateRequested flag to allow sending
 			* connection parameter update request in next connection */
 			isConnectionUpdateRequested = TRUE;
@@ -250,10 +210,10 @@ void CustomEventHandler(uint32 event, void * eventParam)
 			break;
             
         case CYBLE_EVT_GATTS_WRITE_REQ:
+		{
 			/* This event is received when Central device sends a Write command on an Attribute */
             wrReqParam = (CYBLE_GATTS_WRITE_REQ_PARAM_T *) eventParam;
 
-			
 			if(CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == wrReqParam->handleValPair.attrHandle)
 			{
 				if(wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == TRUE)
@@ -326,6 +286,32 @@ void CustomEventHandler(uint32 event, void * eventParam)
 				CyBle_GattsWriteAttributeValue(&PedometerNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
 			}
 			
+			if(CYBLE_BACKBONE_VERSION_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == wrReqParam->handleValPair.attrHandle)
+			{
+				if(wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == TRUE)
+				{
+					SendVersionInfoNotifications = TRUE;	
+				}
+				else if(wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == FALSE)
+				{
+					SendVersionInfoNotifications = FALSE;	
+				}
+				else
+				{
+				}
+				
+				VersionInfoCCCDValue[0] = SendVersionInfoNotifications;
+				VersionInfoCCCDValue[1] = 0x00;
+				
+				VersionInfoNotificationHandle.attrHandle = CYBLE_BACKBONE_VERSION_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+				VersionInfoNotificationHandle.value.val = VersionInfoCCCDValue;
+				AccelNotificationHandle.value.len = VERSION_INFO_DATA_LEN;
+				
+				CyBle_GattsWriteAttributeValue(&VersionInfoNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
+				
+				BackBoneFlags |= VERSION_DATA_NEW;
+			}
+
 			/* */
 			if(CYBLE_BACKBONE_CONFIGDATA_CHAR_HANDLE == wrReqParam->handleValPair.attrHandle)
 			{
@@ -355,10 +341,31 @@ void CustomEventHandler(uint32 event, void * eventParam)
 				}
 			}
 			
+			if(CYBLE_BACKBONE_ENTERBOOTLOADER_CHAR_HANDLE == wrReqParam->handleValPair.attrHandle)
+			{
+				KeyMatch = 1;
+				
+				for(i=0; i<8; i++)
+				{
+					if (wrReqParam->handleValPair.value.val[i] != EnterBootloaderKey[i])
+					{
+						KeyMatch = 0;
+						break;
+					}
+				}
+				
+				if(KeyMatch)
+				{
+		            MotorPWM_Stop();
+					BootloaderSwitch();
+				}
+			}
+
 			/* Send the response to the write request received. */
 			CyBle_GattsWriteRsp(connectionHandle);
 			
 			break;
+		}
 			
 		case CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP:
 				/* If L2CAP connection parameter update response received, reset application flag */
@@ -378,39 +385,6 @@ void CustomEventHandler(uint32 event, void * eventParam)
 
        	 	break;
     }   	/* switch(event) */
-}
-
-/*******************************************************************************
-* Function Name: SendDataOverCapSenseNotification
-********************************************************************************
-* Summary:
-*        Send CapSense Slider data as BLE Notifications. This function updates
-* the notification handle with data and triggers the BLE component to send 
-* notification
-*
-* Parameters:
-*  CapSenseSliderData:	CapSense slider value	
-*
-* Return:
-*  void
-*
-*******************************************************************************/
-void SendDataOverCapSenseNotification(uint8 CapSenseSliderData)
-{
-	/* 'CapSensenotificationHandle' stores CapSense notification data parameters */
-	CYBLE_GATTS_HANDLE_VALUE_NTF_T		CapSensenotificationHandle;	
-	
-	/* If stack is not busy, then send the notification */
-	if(busyStatus == CYBLE_STACK_STATE_FREE)
-	{
-//		/* Update notification handle with CapSense slider data*/
-//		CapSensenotificationHandle.attrHandle = CYBLE_CAPSENSE_CAPSENSE_SLIDER_CHAR_HANDLE;				
-//		CapSensenotificationHandle.value.val = &CapSenseSliderData;
-//		CapSensenotificationHandle.value.len = CAPSENSE_SLIDER_NTF_DATA_LEN;
-//		
-//		/* Send the updated handle as part of attribute for notifications */
-//		CyBle_GattsNotification(connectionHandle,&CapSensenotificationHandle);
-	}
 }
 
 void SendAllNotifications(void)
@@ -461,39 +435,51 @@ void SendAllNotifications(void)
 			BackBoneFlags &= ~PEDO_DATA_NEW;
 		}
 	}
+	
+	if(BackBoneFlags & VERSION_DATA_NEW)
+	{
+		if(busyStatus == CYBLE_STACK_STATE_FREE)
+		{
+			NotificationHandle.attrHandle = CYBLE_BACKBONE_VERSION_CHAR_HANDLE;
+			NotificationHandle.value.val = VersionString;
+			NotificationHandle.value.len = sizeof(VersionString);
+			
+			/* Send the updated handle as part of attribute for notifications */
+			CyBle_GattsNotification(connectionHandle,&NotificationHandle);
+			
+			BackBoneFlags &= ~VERSION_DATA_NEW;
+		}
+	}
 }
 
 /*******************************************************************************
-* Function Name: SendDataOverRGBledNotification
+* Function Name: SendDataOverVersionInfoNotification
 ********************************************************************************
 * Summary:
-*        Send RGB LED data as BLE Notifications. This function updates
-* the notification handle with data and triggers the BLE component to send 
-* notification
+*        Send version information BLE notification
 *
 * Parameters:
-*  rgbLedData:	pointer to an array containing RGB color and Intensity values
-*  len: length of the array
+*  void	
 *
 * Return:
 *  void
 *
 *******************************************************************************/
-void SendDataOverRGBledNotification(uint8 *rgbLedData, uint8 len)
+void SendDataOverVersionInfoNotification(void)
 {
-	/* 'rgbLednotificationHandle' stores RGB LED notification data parameters */
-	CYBLE_GATTS_HANDLE_VALUE_NTF_T 	rgbLednotificationHandle;
+	/* 'CapSensenotificationHandle' stores CapSense notification data parameters */
+	CYBLE_GATTS_HANDLE_VALUE_NTF_T		VersionInfoHandle;	
 	
 	/* If stack is not busy, then send the notification */
 	if(busyStatus == CYBLE_STACK_STATE_FREE)
 	{
-//		/* Update notification handle will CapSense slider data*/
-//		rgbLednotificationHandle.attrHandle = CYBLE_RGB_LED_RGB_LED_CONTROL_CHAR_HANDLE;				
-//		rgbLednotificationHandle.value.val = rgbLedData;
-//		rgbLednotificationHandle.value.len = len;
-//		
-//		/* Send the updated handle as part of attribute for notifications */
-//		CyBle_GattsNotification(connectionHandle,&rgbLednotificationHandle);
+		/* Update notification handle with CapSense slider data*/
+		VersionInfoHandle.attrHandle = CYBLE_BACKBONE_VERSION_CHAR_HANDLE;				
+		VersionInfoHandle.value.val = VersionString;
+		VersionInfoHandle.value.len = sizeof(VersionString);
+		
+		/* Send the updated handle as part of attribute for notifications */
+		CyBle_GattsNotification(connectionHandle,&VersionInfoHandle);
 	}
 }
 
@@ -526,120 +512,6 @@ void UpdateConnectionParam(void)
 }
 
 
-/*******************************************************************************
-* Function Name: HandleStatusLED
-********************************************************************************
-* Summary:
-*        Handle LED status, such as blinking, ON or OFF depending on BLE state.
-*
-* Parameters:
-*  void
-*
-* Return:
-*  void
-*
-*******************************************************************************/
-void HandleStatusLED(void)
-{
-//	/* Local static counter to handle the periodic toggling of LED or keeping LED ON
-//	* for some time. */
-//	static uint32 led_counter = TRUE;
-//	
-//	/* Local static variable that stores the last BLE state in which firmware was */
-//	static uint8 state = 0xFF;
-//	
-//	/* Flag to indicate that the state of BLE has changed from the last known value */
-//	uint8 state_changed = FALSE;
-//	
-//	if(state != CyBle_GetState())
-//	{
-//		/* If the present BLE state is different from the new BLE state, set the 
-//		* state_changed flag and reset the local counter */
-//		state_changed = TRUE;
-//				
-//		if(CyBle_GetState() == CYBLE_STATE_ADVERTISING)
-//		{
-//			led_counter = TRUE;
-//		}
-//	}
-//	
-//	/* Store the new BLE state into the present state variable */
-//	state = CyBle_GetState();
-//		
-//	switch(state)
-//	{
-//		case CYBLE_STATE_CONNECTED:
-//			/* If the present BLE state is connected, keep the LED ON for
-//			* pre-determined time and then switch it OFF in WDT ISR */
-//			if(state_changed)
-//			{
-//				/* Reset the flag for state change */
-//				state_changed = FALSE;
-//				
-//				/* Set the drive mode of LED to Strong to allow driving the LED */
-//				RED_SetDriveMode(RED_DM_STRONG);
-//
-//				/* Put the Status LED to ON state */
-//				PrISM_1_WritePulse0(RGB_LED_ON);
-//				
-//				/* Set flag and counter for Connection indication on LED */
-//				switch_off_status_led = TRUE;
-//				timer_tick = LED_CONN_ON_TIME;
-//				
-//				/* Initialize the Watchdog for 1 second timing events. The watcdog 
-//				* is initialized after connection and disabled after disconnection.
-//				* This is done to ensure that Watchdog provided periodic wakeup only
-//				* when the system is connected and RGB LED control is required. During 
-//				* other times, it should not wakeup the syste, causing increase in power
-//				* consumption */
-//				InitializeWatchdog();
-//			}
-//		break;
-//		
-//		case CYBLE_STATE_ADVERTISING:
-//			/* If the present BLE state is advertising, toggle the LED
-//			* at pre-determined period to indicate advertising. */
-//			if((--led_counter) == FALSE)
-//			{
-//				/* Toggle Status LED for indicating Advertisement */
-//				if(PrISM_1_ReadPulse0() == RGB_LED_OFF)
-//				{
-//					PrISM_1_WritePulse0(RGB_LED_ON);
-//					RED_SetDriveMode(RED_DM_STRONG);
-//					
-//					led_counter	= LED_ADV_BLINK_PERIOD_ON;
-//				}
-//				else
-//				{
-//					PrISM_1_WritePulse0(RGB_LED_OFF);
-//					RED_SetDriveMode(RED_DM_ALG_HIZ);
-//					
-//					led_counter	= LED_ADV_BLINK_PERIOD_OFF;
-//				}
-//			}
-//		break;
-//		
-//		case CYBLE_STATE_DISCONNECTED:
-//			/* If the present BLE state is disconnected, switch off LED
-//			* and set the drive mode of LED to Hi-Z (Analog)*/
-//			PrISM_1_WritePulse0(RGB_LED_OFF);
-//			RED_SetDriveMode(RED_DM_ALG_HIZ);
-//			GREEN_SetDriveMode(GREEN_DM_ALG_HIZ);
-//			BLUE_SetDriveMode(BLUE_DM_ALG_HIZ);
-//			
-//			/* Disable Watchdog to prevent Watchdog waking system after
-//			*  disconnection */
-//			CyIntDisable(WATCHDOG_INT_VEC_NUM);
-//		break;
-//		
-//		default:
-//
-//		break;
-//	}
-//	
-//	/* Reset the state changed flag. */
-//	state_changed = FALSE;
-}
 
 /*******************************************************************************
 * Function Name: WDT_INT_Handler
@@ -753,28 +625,28 @@ void WDT_INT_Handler(void)
 *******************************************************************************/
 void InitializeWatchdog(void)
 {
-	/* Unlock the WDT registers for modification */
-	CySysWdtUnlock(); 
-	
-	/* Write Mode for Counter 0 as Interrupt on Match */
-    CySysWdtWriteMode(CY_SYS_WDT_COUNTER0, CY_SYS_WDT_MODE_INT);
-	
-	/* Set Clear on Match for Counter 0*/
-	CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, TRUE);
-    
-	/* Set Watchdog interrupt to lower priority */
-	CyIntSetPriority(WATCHDOG_INT_VEC_NUM, WATCHDOG_INT_VEC_PRIORITY);
-	
-	/* Enable Watchdog Interrupt using Interrupt number */
-    CyIntEnable(WATCHDOG_INT_VEC_NUM);
-	
-	/* Write the match value equal to 1 second in Counter 0 */
-	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WATCHDOG_ONE_SEC_COUNT_VAL);
-    
-	/* Enable Counter 0 */
-    CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);
-	
-	/* Lock Watchdog to prevent further changes */
-    CySysWdtLock();
+//	/* Unlock the WDT registers for modification */
+//	CySysWdtUnlock(); 
+//	
+//	/* Write Mode for Counter 0 as Interrupt on Match */
+//    CySysWdtWriteMode(CY_SYS_WDT_COUNTER0, CY_SYS_WDT_MODE_INT);
+//	
+//	/* Set Clear on Match for Counter 0*/
+//	CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, TRUE);
+//    
+//	/* Set Watchdog interrupt to lower priority */
+//	CyIntSetPriority(WATCHDOG_INT_VEC_NUM, WATCHDOG_INT_VEC_PRIORITY);
+//	
+//	/* Enable Watchdog Interrupt using Interrupt number */
+//    CyIntEnable(WATCHDOG_INT_VEC_NUM);
+//	
+//	/* Write the match value equal to 1 second in Counter 0 */
+//	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WATCHDOG_ONE_SEC_COUNT_VAL);
+//    
+//	/* Enable Counter 0 */
+//    CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);
+//	
+//	/* Lock Watchdog to prevent further changes */
+//    CySysWdtLock();
 }
 /* [] END OF FILE */

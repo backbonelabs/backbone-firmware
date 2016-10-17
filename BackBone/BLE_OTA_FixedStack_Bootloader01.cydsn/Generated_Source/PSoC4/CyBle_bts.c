@@ -22,16 +22,16 @@ uint8  *cyBle_btsBuffPtr;
 /* Generated code */
 const CYBLE_BTSS_T cyBle_btss =
 {
-    0x002Du,    /* Handle of the BTS service */
+    0x0035u,    /* Handle of the BTS service */
     {
         
         /* Command characteristic */
         {
-            0x002Fu, /* Handle of the Packet characteristic */ 
+            0x0037u, /* Handle of the Packet characteristic */ 
             
             /* Array of Descriptors handles */
             {
-                0x0030u, /* Handle of the Client Characteristic Configuration descriptor */ 
+                0x0038u, /* Handle of the Client Characteristic Configuration descriptor */ 
             }, 
         }, 
     },

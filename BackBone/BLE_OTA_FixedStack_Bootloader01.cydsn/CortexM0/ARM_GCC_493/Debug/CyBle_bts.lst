@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -50,19 +50,19 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
   22:.\Generated_Source\PSoC4/CyBle_bts.c **** /* Generated code */
   23:.\Generated_Source\PSoC4/CyBle_bts.c **** const CYBLE_BTSS_T cyBle_btss =
   24:.\Generated_Source\PSoC4/CyBle_bts.c **** {
-  25:.\Generated_Source\PSoC4/CyBle_bts.c ****     0x002Du,    /* Handle of the BTS service */
+  25:.\Generated_Source\PSoC4/CyBle_bts.c ****     0x0035u,    /* Handle of the BTS service */
   26:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
   27:.\Generated_Source\PSoC4/CyBle_bts.c ****         
   28:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Command characteristic */
   29:.\Generated_Source\PSoC4/CyBle_bts.c ****         {
-  30:.\Generated_Source\PSoC4/CyBle_bts.c ****             0x002Fu, /* Handle of the Packet characteristic */ 
+  30:.\Generated_Source\PSoC4/CyBle_bts.c ****             0x0037u, /* Handle of the Packet characteristic */ 
   31:.\Generated_Source\PSoC4/CyBle_bts.c ****             
   32:.\Generated_Source\PSoC4/CyBle_bts.c ****             /* Array of Descriptors handles */
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/CyBle_bts.c ****             {
-  34:.\Generated_Source\PSoC4/CyBle_bts.c ****                 0x0030u, /* Handle of the Client Characteristic Configuration descriptor */ 
+  34:.\Generated_Source\PSoC4/CyBle_bts.c ****                 0x0038u, /* Handle of the Client Characteristic Configuration descriptor */ 
   35:.\Generated_Source\PSoC4/CyBle_bts.c ****             }, 
   36:.\Generated_Source\PSoC4/CyBle_bts.c ****         }, 
   37:.\Generated_Source\PSoC4/CyBle_bts.c ****     },
@@ -110,127 +110,126 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
   70:.\Generated_Source\PSoC4/CyBle_bts.c ****     if(eventParam->handleValPair.attrHandle == cyBle_btss.btServiceInfo[0u].btServiceCharDescriptor
   35              		.loc 1 70 0
   36 0004 8389     		ldrh	r3, [r0, #12]
-  37 0006 302B     		cmp	r3, #48
-  38 0008 12D1     		bne	.L2
+  37 0006 382B     		cmp	r3, #56
+  38 0008 11D1     		bne	.L2
   71:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
   72:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Verify that notification property is enabled for Bootloader Characteristic */
   73:.\Generated_Source\PSoC4/CyBle_bts.c ****         if(CYBLE_IS_NOTIFICATION_SUPPORTED(cyBle_btss.btServiceInfo[0u].btServiceCharHandle))
   39              		.loc 1 73 0
-  40 000a E723     		mov	r3, #231
-  41 000c 9B00     		lsl	r3, r3, #2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 3
+  40 000a 184B     		ldr	r3, .L7
+  41 000c 1849     		ldr	r1, .L7+4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 3
 
 
-  42 000e 1749     		ldr	r1, .L7
-  43 0010 CB58     		ldr	r3, [r1, r3]
-  44 0012 DB04     		lsl	r3, r3, #19
-  45 0014 05D5     		bpl	.L5
+  42 000e CB58     		ldr	r3, [r1, r3]
+  43 0010 DB04     		lsl	r3, r3, #19
+  44 0012 05D5     		bpl	.L5
   74:.\Generated_Source\PSoC4/CyBle_bts.c ****         {   
   75:.\Generated_Source\PSoC4/CyBle_bts.c ****             gattErr = CyBle_GattsWriteAttributeValue(&eventParam->handleValPair, 0u, 
-  46              		.loc 1 75 0
-  47 0016 0430     		add	r0, r0, #4
-  48              	.LVL2:
-  49 0018 0021     		mov	r1, #0
-  50 001a 4023     		mov	r3, #64
-  51 001c FFF7FEFF 		bl	CyBle_GattsWriteAttributeValue
-  52              	.LVL3:
-  53 0020 00E0     		b	.L3
-  54              	.LVL4:
-  55              	.L5:
+  45              		.loc 1 75 0
+  46 0014 0430     		add	r0, r0, #4
+  47              	.LVL2:
+  48 0016 0021     		mov	r1, #0
+  49 0018 4023     		mov	r3, #64
+  50 001a FFF7FEFF 		bl	CyBle_GattsWriteAttributeValue
+  51              	.LVL3:
+  52 001e 00E0     		b	.L3
+  53              	.LVL4:
+  54              	.L5:
   76:.\Generated_Source\PSoC4/CyBle_bts.c ****                 &eventParam->connHandle, CYBLE_GATT_DB_PEER_INITIATED);
   77:.\Generated_Source\PSoC4/CyBle_bts.c ****         }
   78:.\Generated_Source\PSoC4/CyBle_bts.c ****         else
   79:.\Generated_Source\PSoC4/CyBle_bts.c ****         {
   80:.\Generated_Source\PSoC4/CyBle_bts.c ****             gattErr = CYBLE_GATT_ERR_REQUEST_NOT_SUPPORTED;
-  56              		.loc 1 80 0
-  57 0022 0620     		mov	r0, #6
-  58              	.LVL5:
-  59              	.L3:
+  55              		.loc 1 80 0
+  56 0020 0620     		mov	r0, #6
+  57              	.LVL5:
+  58              	.L3:
   81:.\Generated_Source\PSoC4/CyBle_bts.c ****         }
   82:.\Generated_Source\PSoC4/CyBle_bts.c **** 
   83:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Indicate that request was handled */
   84:.\Generated_Source\PSoC4/CyBle_bts.c ****         cyBle_eventHandlerFlag &= (uint8)~CYBLE_CALLBACK;
-  60              		.loc 1 84 0
-  61 0024 124A     		ldr	r2, .L7+4
-  62 0026 1378     		ldrb	r3, [r2]
-  63 0028 0121     		mov	r1, #1
-  64 002a 8B43     		bic	r3, r1
-  65 002c 1370     		strb	r3, [r2]
-  66 002e 1CE0     		b	.L4
-  67              	.LVL6:
-  68              	.L2:
+  59              		.loc 1 84 0
+  60 0022 144A     		ldr	r2, .L7+8
+  61 0024 1378     		ldrb	r3, [r2]
+  62 0026 0121     		mov	r1, #1
+  63 0028 8B43     		bic	r3, r1
+  64 002a 1370     		strb	r3, [r2]
+  65 002c 1CE0     		b	.L4
+  66              	.LVL6:
+  67              	.L2:
   85:.\Generated_Source\PSoC4/CyBle_bts.c ****     }
   86:.\Generated_Source\PSoC4/CyBle_bts.c ****     else if(eventParam->handleValPair.attrHandle == cyBle_btss.btServiceInfo[0u].btServiceCharHandl
-  69              		.loc 1 86 0
-  70 0030 2F2B     		cmp	r3, #47
-  71 0032 19D1     		bne	.L6
+  68              		.loc 1 86 0
+  69 002e 372B     		cmp	r3, #55
+  70 0030 19D1     		bne	.L6
   87:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
   88:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Write value to GATT database */
   89:.\Generated_Source\PSoC4/CyBle_bts.c ****         gattErr = CyBle_GattsWriteAttributeValue(&eventParam->handleValPair, 0u, 
-  72              		.loc 1 89 0
-  73 0034 0430     		add	r0, r0, #4
-  74              	.LVL7:
-  75 0036 0021     		mov	r1, #0
-  76 0038 1133     		add	r3, r3, #17
-  77 003a FFF7FEFF 		bl	CyBle_GattsWriteAttributeValue
-  78              	.LVL8:
+  71              		.loc 1 89 0
+  72 0032 0430     		add	r0, r0, #4
+  73              	.LVL7:
+  74 0034 0021     		mov	r1, #0
+  75 0036 0933     		add	r3, r3, #9
+  76 0038 FFF7FEFF 		bl	CyBle_GattsWriteAttributeValue
+  77              	.LVL8:
   90:.\Generated_Source\PSoC4/CyBle_bts.c ****                 &eventParam->connHandle, CYBLE_GATT_DB_PEER_INITIATED);
   91:.\Generated_Source\PSoC4/CyBle_bts.c ****         
   92:.\Generated_Source\PSoC4/CyBle_bts.c ****         cyBle_btsBuffPtr = 
   93:.\Generated_Source\PSoC4/CyBle_bts.c ****                 CYBLE_GATT_DB_ATTR_GET_ATTR_GEN_PTR(cyBle_btss.btServiceInfo[0u].btServiceCharHandl
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 4
+  78              		.loc 1 93 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 4
 
 
-  79              		.loc 1 93 0
-  80 003e EA23     		mov	r3, #234
-  81 0040 9B00     		lsl	r3, r3, #2
-  82 0042 0A4A     		ldr	r2, .L7
-  83 0044 D358     		ldr	r3, [r2, r3]
-  84 0046 5A68     		ldr	r2, [r3, #4]
+  79 003c 8923     		mov	r3, #137
+  80 003e DB00     		lsl	r3, r3, #3
+  81 0040 0B4A     		ldr	r2, .L7+4
+  82 0042 D358     		ldr	r3, [r2, r3]
+  83 0044 5A68     		ldr	r2, [r3, #4]
   92:.\Generated_Source\PSoC4/CyBle_bts.c ****                 CYBLE_GATT_DB_ATTR_GET_ATTR_GEN_PTR(cyBle_btss.btServiceInfo[0u].btServiceCharHandl
-  85              		.loc 1 92 0
-  86 0048 0A4B     		ldr	r3, .L7+8
-  87 004a 1A60     		str	r2, [r3]
+  84              		.loc 1 92 0
+  85 0046 0C4B     		ldr	r3, .L7+12
+  86 0048 1A60     		str	r2, [r3]
   94:.\Generated_Source\PSoC4/CyBle_bts.c **** 
   95:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Extract length of command data and add control bytes to data 
   96:.\Generated_Source\PSoC4/CyBle_bts.c ****         * length to get command length.
   97:.\Generated_Source\PSoC4/CyBle_bts.c ****         */
   98:.\Generated_Source\PSoC4/CyBle_bts.c ****         cyBle_cmdLength = (((uint16)(((uint16) cyBle_btsBuffPtr[CYBLE_BTS_COMMAND_DATA_LEN_OFFSET +
-  88              		.loc 1 98 0
-  89 004c D378     		ldrb	r3, [r2, #3]
-  90 004e 1B02     		lsl	r3, r3, #8
+  87              		.loc 1 98 0
+  88 004a D378     		ldrb	r3, [r2, #3]
+  89 004c 1B02     		lsl	r3, r3, #8
   99:.\Generated_Source\PSoC4/CyBle_bts.c ****                             (uint16) cyBle_btsBuffPtr[CYBLE_BTS_COMMAND_DATA_LEN_OFFSET]) +
-  91              		.loc 1 99 0
-  92 0050 9278     		ldrb	r2, [r2, #2]
+  90              		.loc 1 99 0
+  91 004e 9278     		ldrb	r2, [r2, #2]
   98:.\Generated_Source\PSoC4/CyBle_bts.c ****                             (uint16) cyBle_btsBuffPtr[CYBLE_BTS_COMMAND_DATA_LEN_OFFSET]) +
-  93              		.loc 1 98 0
-  94 0052 094C     		ldr	r4, .L7+12
-  95 0054 1343     		orr	r3, r2
-  96 0056 0733     		add	r3, r3, #7
-  97 0058 2380     		strh	r3, [r4]
+  92              		.loc 1 98 0
+  93 0050 0A4C     		ldr	r4, .L7+16
+  94 0052 1343     		orr	r3, r2
+  95 0054 0733     		add	r3, r3, #7
+  96 0056 2380     		strh	r3, [r4]
  100:.\Generated_Source\PSoC4/CyBle_bts.c ****                                 CYBLE_BTS_COMMAND_CONTROL_BYTES_NUM;
  101:.\Generated_Source\PSoC4/CyBle_bts.c **** 
  102:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Set flag for bootloader to know that command is received from host */
  103:.\Generated_Source\PSoC4/CyBle_bts.c ****         cyBle_cmdReceivedFlag = 1u;
-  98              		.loc 1 103 0
-  99 005a 0121     		mov	r1, #1
- 100 005c A170     		strb	r1, [r4, #2]
+  97              		.loc 1 103 0
+  98 0058 0121     		mov	r1, #1
+  99 005a A170     		strb	r1, [r4, #2]
  104:.\Generated_Source\PSoC4/CyBle_bts.c **** 
  105:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Indicate that request was handled */
  106:.\Generated_Source\PSoC4/CyBle_bts.c ****         cyBle_eventHandlerFlag &= (uint8)~CYBLE_CALLBACK;
- 101              		.loc 1 106 0
- 102 005e 044A     		ldr	r2, .L7+4
- 103 0060 1378     		ldrb	r3, [r2]
- 104 0062 8B43     		bic	r3, r1
- 105 0064 1370     		strb	r3, [r2]
- 106 0066 00E0     		b	.L4
- 107              	.LVL9:
- 108              	.L6:
+ 100              		.loc 1 106 0
+ 101 005c 054A     		ldr	r2, .L7+8
+ 102 005e 1378     		ldrb	r3, [r2]
+ 103 0060 8B43     		bic	r3, r1
+ 104 0062 1370     		strb	r3, [r2]
+ 105 0064 00E0     		b	.L4
+ 106              	.LVL9:
+ 107              	.L6:
   67:.\Generated_Source\PSoC4/CyBle_bts.c ****     
- 109              		.loc 1 67 0
- 110 0068 0020     		mov	r0, #0
- 111              	.LVL10:
- 112              	.L4:
+ 108              		.loc 1 67 0
+ 109 0066 0020     		mov	r0, #0
+ 110              	.LVL10:
+ 111              	.L4:
  107:.\Generated_Source\PSoC4/CyBle_bts.c ****     }
  108:.\Generated_Source\PSoC4/CyBle_bts.c ****     else
  109:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
@@ -238,19 +237,20 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  111:.\Generated_Source\PSoC4/CyBle_bts.c ****     
  112:.\Generated_Source\PSoC4/CyBle_bts.c ****     return(gattErr);
  113:.\Generated_Source\PSoC4/CyBle_bts.c **** }
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 5
+ 112              		.loc 1 113 0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 5
 
 
- 113              		.loc 1 113 0
- 114              		@ sp needed
- 115 006a 10BD     		pop	{r4, pc}
- 116              	.L8:
- 117              		.align	2
- 118              	.L7:
- 119 006c 00000000 		.word	cyBle_gattDB
- 120 0070 00000000 		.word	cyBle_eventHandlerFlag
- 121 0074 00000000 		.word	cyBle_btsBuffPtr
- 122 0078 00000000 		.word	.LANCHOR0
+ 113              		@ sp needed
+ 114 0068 10BD     		pop	{r4, pc}
+ 115              	.L8:
+ 116 006a C046     		.align	2
+ 117              	.L7:
+ 118 006c 3C040000 		.word	1084
+ 119 0070 00000000 		.word	cyBle_gattDB
+ 120 0074 00000000 		.word	cyBle_eventHandlerFlag
+ 121 0078 00000000 		.word	cyBle_btsBuffPtr
+ 122 007c 00000000 		.word	.LANCHOR0
  123              		.cfi_endproc
  124              	.LFE2:
  125              		.size	CyBle_BtsWriteEventHandler, .-CyBle_BtsWriteEventHandler
@@ -292,13 +292,13 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  141              		.loc 1 133 0
  142 0002 4368     		ldr	r3, [r0, #4]
  143 0004 1B89     		ldrh	r3, [r3, #8]
- 144 0006 2F2B     		cmp	r3, #47
+ 144 0006 372B     		cmp	r3, #55
  145 0008 0DD1     		bne	.L9
  134:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
  135:.\Generated_Source\PSoC4/CyBle_bts.c ****         if(eventParam->currentPrepWriteReqCount == 1u)
  146              		.loc 1 135 0
  147 000a 037A     		ldrb	r3, [r0, #8]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 6
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 6
 
 
  148 000c 012B     		cmp	r3, #1
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  152:.\Generated_Source\PSoC4/CyBle_bts.c **** * Function Name: CyBle_BtssExecuteWriteRequestEventHandler
  153:.\Generated_Source\PSoC4/CyBle_bts.c **** ***************************************************************************//**
  154:.\Generated_Source\PSoC4/CyBle_bts.c **** * 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 7
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 7
 
 
  155:.\Generated_Source\PSoC4/CyBle_bts.c **** *  Handles an Execute Write Request event for the Bootloader Service.
@@ -380,7 +380,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  189              		.loc 1 167 0
  190 0000 4368     		ldr	r3, [r0, #4]
  191 0002 1A89     		ldrh	r2, [r3, #8]
- 192 0004 2F2A     		cmp	r2, #47
+ 192 0004 372A     		cmp	r2, #55
  193 0006 1BD1     		bne	.L14
  168:.\Generated_Source\PSoC4/CyBle_bts.c ****     {        
  169:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Check the execWriteFlag before execute or cancel write long operation */
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  181:.\Generated_Source\PSoC4/CyBle_bts.c ****             if(cyBle_cmdLength > CYBLE_BTS_COMMAND_MAX_LENGTH)
  213              		.loc 1 181 0
  214 0024 0822     		mov	r2, #8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 8
 
 
  215 0026 FF32     		add	r2, r2, #255
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  197:.\Generated_Source\PSoC4/CyBle_bts.c **** * Function Name: CyBtldrCommStart
  198:.\Generated_Source\PSoC4/CyBle_bts.c **** ***************************************************************************//**
  199:.\Generated_Source\PSoC4/CyBle_bts.c **** * 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 9
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 9
 
 
  200:.\Generated_Source\PSoC4/CyBle_bts.c **** *  This function does nothing but it is required for code consistency.
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  279 0006 FFF7FEFF 		bl	CyBle_GapDisconnect
  280              	.LVL15:
  281 000a 0028     		cmp	r0, #0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 10
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 10
 
 
  282 000c 02D0     		beq	.L22
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  247:.\Generated_Source\PSoC4/CyBle_bts.c **** * 
  248:.\Generated_Source\PSoC4/CyBle_bts.c **** *  None.
  249:.\Generated_Source\PSoC4/CyBle_bts.c **** * 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 11
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 11
 
 
  250:.\Generated_Source\PSoC4/CyBle_bts.c **** * \return
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  337              		.cfi_def_cfa_offset 20
  338              		.cfi_offset 4, -20
  339              		.cfi_offset 5, -16
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 12
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 12
 
 
  340              		.cfi_offset 6, -12
@@ -676,101 +676,100 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  287:.\Generated_Source\PSoC4/CyBle_bts.c **** 
  288:.\Generated_Source\PSoC4/CyBle_bts.c ****     if(CYBLE_IS_NOTIFICATION_ENABLED(cyBle_btss.btServiceInfo[0u].btServiceCharDescriptors[0u]))
  349              		.loc 1 288 0
- 350 000a EF23     		mov	r3, #239
+ 350 000a 154B     		ldr	r3, .L32
  351              	.LVL20:
- 352 000c 9B00     		lsl	r3, r3, #2
- 353 000e 144A     		ldr	r2, .L32
- 354              	.LVL21:
- 355 0010 D358     		ldr	r3, [r2, r3]
- 356 0012 5868     		ldr	r0, [r3, #4]
- 357              	.LVL22:
- 358 0014 FFF7FEFF 		bl	CyBle_Get16ByPtr
- 359              	.LVL23:
- 360 0018 C307     		lsl	r3, r0, #31
- 361 001a 1ED5     		bpl	.L31
+ 352 000c 154A     		ldr	r2, .L32+4
+ 353              	.LVL21:
+ 354 000e D358     		ldr	r3, [r2, r3]
+ 355 0010 5868     		ldr	r0, [r3, #4]
+ 356              	.LVL22:
+ 357 0012 FFF7FEFF 		bl	CyBle_Get16ByPtr
+ 358              	.LVL23:
+ 359 0016 C307     		lsl	r3, r0, #31
+ 360 0018 1ED5     		bpl	.L31
  289:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
  290:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Get pointer to Bootloader Characteristic value to store response there */
  291:.\Generated_Source\PSoC4/CyBle_bts.c ****         btCmdCharacteristicPtr =
  292:.\Generated_Source\PSoC4/CyBle_bts.c ****             CYBLE_GATT_DB_ATTR_GET_ATTR_GEN_PTR(cyBle_btss.btServiceInfo[0u].btServiceCharHandle);
- 362              		.loc 1 292 0
- 363 001c EA23     		mov	r3, #234
- 364 001e 9B00     		lsl	r3, r3, #2
- 365 0020 0F4A     		ldr	r2, .L32
- 366 0022 D358     		ldr	r3, [r2, r3]
+ 361              		.loc 1 292 0
+ 362 001a 8923     		mov	r3, #137
+ 363 001c DB00     		lsl	r3, r3, #3
+ 364 001e 114A     		ldr	r2, .L32+4
+ 365 0020 D358     		ldr	r3, [r2, r3]
  291:.\Generated_Source\PSoC4/CyBle_bts.c ****             CYBLE_GATT_DB_ATTR_GET_ATTR_GEN_PTR(cyBle_btss.btServiceInfo[0u].btServiceCharHandle);
- 367              		.loc 1 291 0
- 368 0024 5F68     		ldr	r7, [r3, #4]
- 369              	.LVL24:
+ 366              		.loc 1 291 0
+ 367 0022 5F68     		ldr	r7, [r3, #4]
+ 368              	.LVL24:
  293:.\Generated_Source\PSoC4/CyBle_bts.c ****         
  294:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Prepare and send notification with the bootloader packet emulator
  295:.\Generated_Source\PSoC4/CyBle_bts.c ****         * response if notifications are enabled.
  296:.\Generated_Source\PSoC4/CyBle_bts.c ****         */
  297:.\Generated_Source\PSoC4/CyBle_bts.c ****         (void)memcpy((void *)btCmdCharacteristicPtr, (const void *)data, size);
- 370              		.loc 1 297 0
- 371 0026 381C     		mov	r0, r7
- 372 0028 311C     		mov	r1, r6
- 373 002a 221C     		mov	r2, r4
- 374 002c FFF7FEFF 		bl	memcpy
- 375              	.LVL25:
+ 369              		.loc 1 297 0
+ 370 0024 381C     		mov	r0, r7
+ 371 0026 311C     		mov	r1, r6
+ 372 0028 221C     		mov	r2, r4
+ 373 002a FFF7FEFF 		bl	memcpy
+ 374              	.LVL25:
  298:.\Generated_Source\PSoC4/CyBle_bts.c **** 
  299:.\Generated_Source\PSoC4/CyBle_bts.c ****         /* Fill notification parameters structure to be send with  
  300:.\Generated_Source\PSoC4/CyBle_bts.c ****         * CyBle_GattsNotification().
  301:.\Generated_Source\PSoC4/CyBle_bts.c ****         */
  302:.\Generated_Source\PSoC4/CyBle_bts.c ****         ntfParam.value.len = size;
- 376              		.loc 1 302 0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 13
+ 375              		.loc 1 302 0
+ 376 002e 01A9     		add	r1, sp, #4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 13
 
 
- 377 0030 01A9     		add	r1, sp, #4
- 378 0032 8C80     		strh	r4, [r1, #4]
+ 377 0030 8C80     		strh	r4, [r1, #4]
  303:.\Generated_Source\PSoC4/CyBle_bts.c ****         ntfParam.value.val = btCmdCharacteristicPtr;
- 379              		.loc 1 303 0
- 380 0034 0197     		str	r7, [sp, #4]
+ 378              		.loc 1 303 0
+ 379 0032 0197     		str	r7, [sp, #4]
  304:.\Generated_Source\PSoC4/CyBle_bts.c ****         ntfParam.attrHandle = cyBle_btss.btServiceInfo[0u].btServiceCharHandle;
- 381              		.loc 1 304 0
- 382 0036 2F23     		mov	r3, #47
- 383 0038 0B81     		strh	r3, [r1, #8]
+ 380              		.loc 1 304 0
+ 381 0034 3723     		mov	r3, #55
+ 382 0036 0B81     		strh	r3, [r1, #8]
  305:.\Generated_Source\PSoC4/CyBle_bts.c ****         
  306:.\Generated_Source\PSoC4/CyBle_bts.c ****         if(CyBle_GattsNotification(cyBle_connHandle, &ntfParam) == CYBLE_ERROR_OK)
- 384              		.loc 1 306 0
- 385 003a 0A4A     		ldr	r2, .L32+4
- 386 003c 1378     		ldrb	r3, [r2]
- 387 003e 5078     		ldrb	r0, [r2, #1]
- 388 0040 0002     		lsl	r0, r0, #8
- 389 0042 1843     		orr	r0, r3
- 390 0044 FFF7FEFF 		bl	CyBle_GattsNotification
- 391              	.LVL26:
- 392 0048 0028     		cmp	r0, #0
- 393 004a 01D1     		bne	.L30
+ 383              		.loc 1 306 0
+ 384 0038 0B4A     		ldr	r2, .L32+8
+ 385 003a 1378     		ldrb	r3, [r2]
+ 386 003c 5078     		ldrb	r0, [r2, #1]
+ 387 003e 0002     		lsl	r0, r0, #8
+ 388 0040 1843     		orr	r0, r3
+ 389 0042 FFF7FEFF 		bl	CyBle_GattsNotification
+ 390              	.LVL26:
+ 391 0046 0028     		cmp	r0, #0
+ 392 0048 01D1     		bne	.L30
  307:.\Generated_Source\PSoC4/CyBle_bts.c ****         {
  308:.\Generated_Source\PSoC4/CyBle_bts.c ****             *count = size;
- 394              		.loc 1 308 0
- 395 004c 2C80     		strh	r4, [r5]
- 396              	.LVL27:
- 397 004e 05E0     		b	.L29
- 398              	.LVL28:
- 399              	.L30:
+ 393              		.loc 1 308 0
+ 394 004a 2C80     		strh	r4, [r5]
+ 395              	.LVL27:
+ 396 004c 05E0     		b	.L29
+ 397              	.LVL28:
+ 398              	.L30:
  309:.\Generated_Source\PSoC4/CyBle_bts.c ****             locStatus = CYRET_SUCCESS;
  310:.\Generated_Source\PSoC4/CyBle_bts.c ****         }
  311:.\Generated_Source\PSoC4/CyBle_bts.c ****         else
  312:.\Generated_Source\PSoC4/CyBle_bts.c ****         {
  313:.\Generated_Source\PSoC4/CyBle_bts.c ****             *count = 0u;
- 400              		.loc 1 313 0
- 401 0050 0023     		mov	r3, #0
- 402 0052 2B80     		strh	r3, [r5]
- 403              	.LVL29:
+ 399              		.loc 1 313 0
+ 400 004e 0023     		mov	r3, #0
+ 401 0050 2B80     		strh	r3, [r5]
+ 402              	.LVL29:
  314:.\Generated_Source\PSoC4/CyBle_bts.c ****             locStatus = CYRET_UNKNOWN;
- 404              		.loc 1 314 0
- 405 0054 0120     		mov	r0, #1
- 406 0056 4042     		neg	r0, r0
- 407 0058 00E0     		b	.L29
- 408              	.LVL30:
- 409              	.L31:
+ 403              		.loc 1 314 0
+ 404 0052 0120     		mov	r0, #1
+ 405 0054 4042     		neg	r0, r0
+ 406 0056 00E0     		b	.L29
+ 407              	.LVL30:
+ 408              	.L31:
  284:.\Generated_Source\PSoC4/CyBle_bts.c ****     uint8 *btCmdCharacteristicPtr;
- 410              		.loc 1 284 0
- 411 005a 0420     		mov	r0, #4
- 412              	.LVL31:
- 413              	.L29:
+ 409              		.loc 1 284 0
+ 410 0058 0420     		mov	r0, #4
+ 411              	.LVL31:
+ 412              	.L29:
  315:.\Generated_Source\PSoC4/CyBle_bts.c ****         }
  316:.\Generated_Source\PSoC4/CyBle_bts.c ****     }
  317:.\Generated_Source\PSoC4/CyBle_bts.c **** 
@@ -778,23 +777,24 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  319:.\Generated_Source\PSoC4/CyBle_bts.c ****     if(timeOut != 0u)
  320:.\Generated_Source\PSoC4/CyBle_bts.c ****     {
  321:.\Generated_Source\PSoC4/CyBle_bts.c ****     }
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 14
-
-
  322:.\Generated_Source\PSoC4/CyBle_bts.c ****     
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 14
+
+
  323:.\Generated_Source\PSoC4/CyBle_bts.c ****     return(locStatus);
  324:.\Generated_Source\PSoC4/CyBle_bts.c **** }
- 414              		.loc 1 324 0
- 415 005c 05B0     		add	sp, sp, #20
- 416              		@ sp needed
- 417              	.LVL32:
- 418              	.LVL33:
- 419 005e F0BD     		pop	{r4, r5, r6, r7, pc}
- 420              	.L33:
- 421              		.align	2
- 422              	.L32:
- 423 0060 00000000 		.word	cyBle_gattDB
- 424 0064 00000000 		.word	cyBle_connHandle
+ 413              		.loc 1 324 0
+ 414 005a 05B0     		add	sp, sp, #20
+ 415              		@ sp needed
+ 416              	.LVL32:
+ 417              	.LVL33:
+ 418 005c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 419              	.L33:
+ 420 005e C046     		.align	2
+ 421              	.L32:
+ 422 0060 5C040000 		.word	1116
+ 423 0064 00000000 		.word	cyBle_gattDB
+ 424 0068 00000000 		.word	cyBle_connHandle
  425              		.cfi_endproc
  426              	.LFE8:
  427              		.size	CyBLE_CyBtldrCommWrite, .-CyBLE_CyBtldrCommWrite
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  354:.\Generated_Source\PSoC4/CyBle_bts.c **** * \sideeffect
  355:.\Generated_Source\PSoC4/CyBle_bts.c **** *  CyBle_ProcessEvents() is called as a part of this function.
  356:.\Generated_Source\PSoC4/CyBle_bts.c **** * 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 15
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 15
 
 
  357:.\Generated_Source\PSoC4/CyBle_bts.c **** ******************************************************************************/
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  472 0020 9A70     		strb	r2, [r3, #2]
  375:.\Generated_Source\PSoC4/CyBle_bts.c **** 
  376:.\Generated_Source\PSoC4/CyBle_bts.c ****             if(cyBle_cmdLength < size)
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 16
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 16
 
 
  473              		.loc 1 376 0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  508              		.loc 1 395 0
  509 004a 643C     		sub	r4, r4, #100
  510              	.LVL48:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 17
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 17
 
 
  511              	.L35:
@@ -1004,9 +1004,9 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  542              		.type	cyBle_btss, %object
  543              		.size	cyBle_btss, 6
  544              	cyBle_btss:
- 545 0000 2D00     		.short	45
- 546 0002 2F00     		.short	47
- 547 0004 3000     		.short	48
+ 545 0000 3500     		.short	53
+ 546 0002 3700     		.short	55
+ 547 0004 3800     		.short	56
  548 0006 0000     		.bss
  549              		.align	1
  550              		.set	.LANCHOR0,. + 0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  556              		.size	cyBle_cmdReceivedFlag, 1
  557              	cyBle_cmdReceivedFlag:
  558 0002 00       		.space	1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 18
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 18
 
 
  559 0003 00       		.text
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  613 0051 05       		.byte	0x5
  614 0052 3F0D0000 		.4byte	.LASF6
  615 0056 02       		.uleb128 0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 19
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 19
 
 
  616 0057 08       		.byte	0x8
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  670 00c1 4201     		.2byte	0x142
  671 00c3 7B020000 		.4byte	0x27b
  672 00c7 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 20
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 20
 
 
  673 00c8 13070000 		.4byte	.LASF17
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  727 0134 FD100000 		.4byte	.LASF35
  728 0138 2B       		.sleb128 43
  729 0139 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 21
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 21
 
 
  730 013a 2A180000 		.4byte	.LASF36
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  784 01b0 86070000 		.4byte	.LASF54
  785 01b4 CA00     		.sleb128 74
  786 01b6 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 22
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 22
 
 
  787 01b7 F4060000 		.4byte	.LASF55
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  841 0235 C5110000 		.4byte	.LASF73
  842 0239 F400     		.sleb128 116
  843 023b 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 23
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 23
 
 
  844 023c 730C0000 		.4byte	.LASF74
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  898 02af 69070000 		.4byte	.LASF90
  899 02b3 07       		.sleb128 7
  900 02b4 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 24
 
 
  901 02b5 EE0E0000 		.4byte	.LASF91
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  955 0321 D1080000 		.4byte	.LASF109
  956 0325 FE01     		.sleb128 254
  957 0327 08       		.uleb128 0x8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 25
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 25
 
 
  958 0328 B2090000 		.4byte	.LASF110
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1012 039a 08       		.sleb128 8
  1013 039b 08       		.uleb128 0x8
  1014 039c 740D0000 		.4byte	.LASF125
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 26
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 26
 
 
  1015 03a0 09       		.sleb128 9
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1069 0415 8101     		.sleb128 129
  1070 0417 08       		.uleb128 0x8
  1071 0418 5F040000 		.4byte	.LASF144
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 27
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 27
 
 
  1072 041c 8101     		.sleb128 129
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1126 0494 6B000000 		.4byte	0x6b
  1127 0498 01       		.byte	0x1
  1128 0499 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 28
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 28
 
 
  1129 049a 04       		.uleb128 0x4
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1183 050c 04       		.byte	0x4
  1184 050d E101     		.2byte	0x1e1
  1185 050f E3040000 		.4byte	0x4e3
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 29
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 29
 
 
  1186 0513 0B       		.uleb128 0xb
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1240 0580 64       		.byte	0x64
  1241 0581 6B000000 		.4byte	0x6b
  1242 0585 09       		.byte	0x9
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 30
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 30
 
 
  1243 0586 00       		.byte	0
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1297 05ef 87       		.byte	0x87
  1298 05f0 98050000 		.4byte	0x598
  1299 05f4 0F       		.uleb128 0xf
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 31
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 31
 
 
  1300 05f5 10       		.byte	0x10
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1354 065b E6060000 		.4byte	.LASF181
  1355 065f 06       		.byte	0x6
  1356 0660 D3       		.byte	0xd3
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 32
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 32
 
 
  1357 0661 77000000 		.4byte	0x77
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1411 06cd 02       		.byte	0x2
  1412 06ce 10       		.uleb128 0x10
  1413 06cf 50020000 		.4byte	.LASF189
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 33
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 33
 
 
  1414 06d3 06       		.byte	0x6
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1468 073f 07       		.byte	0x7
  1469 0740 2E       		.byte	0x2e
  1470 0741 5E070000 		.4byte	0x75e
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 34
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 34
 
 
  1471 0745 10       		.uleb128 0x10
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1525 07b1 08       		.uleb128 0x8
  1526 07b2 4D0D0000 		.4byte	.LASF207
  1527 07b6 08       		.sleb128 8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 35
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 35
 
 
  1528 07b7 08       		.uleb128 0x8
@@ -2077,7 +2077,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1561 07f8 41       		.byte	0x41
  1562 07f9 5E040000 		.4byte	0x45e
  1563 07fd 00000000 		.4byte	.LFB2
- 1564 0801 7C000000 		.4byte	.LFE2-.LFB2
+ 1564 0801 80000000 		.4byte	.LFE2-.LFB2
  1565 0805 01       		.uleb128 0x1
  1566 0806 9C       		.byte	0x9c
  1567 0807 6B080000 		.4byte	0x86b
@@ -2094,11 +2094,11 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1578 0821 5E040000 		.4byte	0x45e
  1579 0825 82000000 		.4byte	.LLST1
  1580 0829 18       		.uleb128 0x18
- 1581 082a 20000000 		.4byte	.LVL3
+ 1581 082a 1E000000 		.4byte	.LVL3
  1582 082e 3C0B0000 		.4byte	0xb3c
  1583 0832 52080000 		.4byte	0x852
  1584 0836 19       		.uleb128 0x19
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 36
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 36
 
 
  1585 0837 01       		.uleb128 0x1
@@ -2129,7 +2129,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1610 0850 04       		.uleb128 0x4
  1611 0851 00       		.byte	0
  1612 0852 1A       		.uleb128 0x1a
- 1613 0853 3E000000 		.4byte	.LVL8
+ 1613 0853 3C000000 		.4byte	.LVL8
  1614 0857 3C0B0000 		.4byte	0xb3c
  1615 085b 19       		.uleb128 0x19
  1616 085c 01       		.uleb128 0x1
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1639 087c 30000000 		.4byte	.LFE3-.LFB3
  1640 0880 01       		.uleb128 0x1
  1641 0881 9C       		.byte	0x9c
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 37
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 37
 
 
  1642 0882 A5080000 		.4byte	0x8a5
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1696 08f1 00000000 		.4byte	.LFB6
  1697 08f5 2C000000 		.4byte	.LFE6-.LFB6
  1698 08f9 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 38
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 38
 
 
  1699 08fa 9C       		.byte	0x9c
@@ -2247,7 +2247,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1722 0932 1A01     		.2byte	0x11a
  1723 0934 A4000000 		.4byte	0xa4
  1724 0938 00000000 		.4byte	.LFB8
- 1725 093c 68000000 		.4byte	.LFE8-.LFB8
+ 1725 093c 6C000000 		.4byte	.LFE8-.LFB8
  1726 0940 01       		.uleb128 0x1
  1727 0941 9C       		.byte	0x9c
  1728 0942 EF090000 		.4byte	0x9ef
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1753 0986 22       		.uleb128 0x22
  1754 0987 10020000 		.4byte	.LASF228
  1755 098b 01       		.byte	0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 39
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 39
 
 
  1756 098c 1C01     		.2byte	0x11c
@@ -2299,10 +2299,10 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1771 09b3 91       		.byte	0x91
  1772 09b4 5C       		.sleb128 -36
  1773 09b5 1F       		.uleb128 0x1f
- 1774 09b6 18000000 		.4byte	.LVL23
+ 1774 09b6 16000000 		.4byte	.LVL23
  1775 09ba A50B0000 		.4byte	0xba5
  1776 09be 18       		.uleb128 0x18
- 1777 09bf 30000000 		.4byte	.LVL25
+ 1777 09bf 2E000000 		.4byte	.LVL25
  1778 09c3 BB0B0000 		.4byte	0xbbb
  1779 09c7 DE090000 		.4byte	0x9de
  1780 09cb 19       		.uleb128 0x19
@@ -2325,7 +2325,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1797 09dc 00       		.sleb128 0
  1798 09dd 00       		.byte	0
  1799 09de 1A       		.uleb128 0x1a
- 1800 09df 48000000 		.4byte	.LVL26
+ 1800 09df 46000000 		.4byte	.LVL26
  1801 09e3 DF0B0000 		.4byte	0xbdf
  1802 09e7 19       		.uleb128 0x19
  1803 09e8 01       		.uleb128 0x1
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1810 09ef 09       		.uleb128 0x9
  1811 09f0 04       		.byte	0x4
  1812 09f1 F5090000 		.4byte	0x9f5
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 40
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 40
 
 
  1813 09f5 1C       		.uleb128 0x1c
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1867 0a86 910A0000 		.4byte	0xa91
  1868 0a8a 19       		.uleb128 0x19
  1869 0a8b 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 41
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 41
 
 
  1870 0a8c 50       		.byte	0x50
@@ -2431,7 +2431,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1897 0ac0 CB0A0000 		.4byte	0xacb
  1898 0ac4 14       		.uleb128 0x14
  1899 0ac5 B5000000 		.4byte	0xb5
- 1900 0ac9 2F       		.byte	0x2f
+ 1900 0ac9 37       		.byte	0x37
  1901 0aca 00       		.byte	0
  1902 0acb 25       		.uleb128 0x25
  1903 0acc E10E0000 		.4byte	.LASF234
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1924 0af9 00000000 		.4byte	cyBle_cmdLength
  1925 0afd 26       		.uleb128 0x26
  1926 0afe DA030000 		.4byte	.LASF237
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 42
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 42
 
 
  1927 0b02 01       		.byte	0x1
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  1981 0b7e 00       		.byte	0
  1982 0b7f 27       		.uleb128 0x27
  1983 0b80 F50B0000 		.4byte	.LASF242
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 43
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 43
 
 
  1984 0b84 0C       		.byte	0xc
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2038 0c00 C2130000 		.4byte	.LASF252
  2039 0c04 0D       		.byte	0xd
  2040 0c05 D8       		.byte	0xd8
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 44
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 44
 
 
  2041 0c06 28       		.uleb128 0x28
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2095 0030 3B       		.uleb128 0x3b
  2096 0031 05       		.uleb128 0x5
  2097 0032 49       		.uleb128 0x49
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 45
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 45
 
 
  2098 0033 13       		.uleb128 0x13
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2152 0069 0B       		.uleb128 0xb
  2153 006a 3B       		.uleb128 0x3b
  2154 006b 0B       		.uleb128 0xb
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 46
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 46
 
 
  2155 006c 01       		.uleb128 0x1
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2209 00a2 3B       		.uleb128 0x3b
  2210 00a3 0B       		.uleb128 0xb
  2211 00a4 49       		.uleb128 0x49
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 47
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 47
 
 
  2212 00a5 13       		.uleb128 0x13
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2266 00db 13       		.uleb128 0x13
  2267 00dc 00       		.byte	0
  2268 00dd 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 48
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 48
 
 
  2269 00de 13       		.uleb128 0x13
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2323 0115 49       		.uleb128 0x49
  2324 0116 13       		.uleb128 0x13
  2325 0117 02       		.uleb128 0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 49
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 49
 
 
  2326 0118 17       		.uleb128 0x17
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2380 0155 3A       		.uleb128 0x3a
  2381 0156 0B       		.uleb128 0xb
  2382 0157 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 50
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 50
 
 
  2383 0158 0B       		.uleb128 0xb
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2437 018f 40       		.uleb128 0x40
  2438 0190 18       		.uleb128 0x18
  2439 0191 9742     		.uleb128 0x2117
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 51
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 51
 
 
  2440 0193 19       		.uleb128 0x19
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2494 01cc 22       		.uleb128 0x22
  2495 01cd 34       		.uleb128 0x34
  2496 01ce 00       		.byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 52
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 52
 
 
  2497 01cf 03       		.uleb128 0x3
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2551 0205 13       		.uleb128 0x13
  2552 0206 3F       		.uleb128 0x3f
  2553 0207 19       		.uleb128 0x19
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 53
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 53
 
 
  2554 0208 3C       		.uleb128 0x3c
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2608 023e 03       		.uleb128 0x3
  2609 023f 0E       		.uleb128 0xe
  2610 0240 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 54
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 54
 
 
  2611 0241 0B       		.uleb128 0xb
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2665 0277 01       		.byte	0x1
  2666 0278 3F       		.uleb128 0x3f
  2667 0279 19       		.uleb128 0x19
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 55
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 55
 
 
  2668 027a 03       		.uleb128 0x3
@@ -3279,55 +3279,55 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2703              	.Ldebug_loc0:
  2704              	.LLST0:
  2705 0000 00000000 		.4byte	.LVL0
- 2706 0004 18000000 		.4byte	.LVL2
+ 2706 0004 16000000 		.4byte	.LVL2
  2707 0008 0100     		.2byte	0x1
  2708 000a 50       		.byte	0x50
- 2709 000b 18000000 		.4byte	.LVL2
- 2710 000f 1F000000 		.4byte	.LVL3-1
+ 2709 000b 16000000 		.4byte	.LVL2
+ 2710 000f 1D000000 		.4byte	.LVL3-1
  2711 0013 0100     		.2byte	0x1
  2712 0015 52       		.byte	0x52
- 2713 0016 1F000000 		.4byte	.LVL3-1
- 2714 001a 22000000 		.4byte	.LVL4
+ 2713 0016 1D000000 		.4byte	.LVL3-1
+ 2714 001a 20000000 		.4byte	.LVL4
  2715 001e 0400     		.2byte	0x4
  2716 0020 F3       		.byte	0xf3
  2717 0021 01       		.uleb128 0x1
  2718 0022 50       		.byte	0x50
  2719 0023 9F       		.byte	0x9f
- 2720 0024 22000000 		.4byte	.LVL4
- 2721 0028 24000000 		.4byte	.LVL5
+ 2720 0024 20000000 		.4byte	.LVL4
+ 2721 0028 22000000 		.4byte	.LVL5
  2722 002c 0100     		.2byte	0x1
  2723 002e 50       		.byte	0x50
- 2724 002f 24000000 		.4byte	.LVL5
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 56
+ 2724 002f 22000000 		.4byte	.LVL5
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 56
 
 
- 2725 0033 30000000 		.4byte	.LVL6
+ 2725 0033 2E000000 		.4byte	.LVL6
  2726 0037 0400     		.2byte	0x4
  2727 0039 F3       		.byte	0xf3
  2728 003a 01       		.uleb128 0x1
  2729 003b 50       		.byte	0x50
  2730 003c 9F       		.byte	0x9f
- 2731 003d 30000000 		.4byte	.LVL6
- 2732 0041 36000000 		.4byte	.LVL7
+ 2731 003d 2E000000 		.4byte	.LVL6
+ 2732 0041 34000000 		.4byte	.LVL7
  2733 0045 0100     		.2byte	0x1
  2734 0047 50       		.byte	0x50
- 2735 0048 36000000 		.4byte	.LVL7
- 2736 004c 3D000000 		.4byte	.LVL8-1
+ 2735 0048 34000000 		.4byte	.LVL7
+ 2736 004c 3B000000 		.4byte	.LVL8-1
  2737 0050 0100     		.2byte	0x1
  2738 0052 52       		.byte	0x52
- 2739 0053 3D000000 		.4byte	.LVL8-1
- 2740 0057 68000000 		.4byte	.LVL9
+ 2739 0053 3B000000 		.4byte	.LVL8-1
+ 2740 0057 66000000 		.4byte	.LVL9
  2741 005b 0400     		.2byte	0x4
  2742 005d F3       		.byte	0xf3
  2743 005e 01       		.uleb128 0x1
  2744 005f 50       		.byte	0x50
  2745 0060 9F       		.byte	0x9f
- 2746 0061 68000000 		.4byte	.LVL9
- 2747 0065 6A000000 		.4byte	.LVL10
+ 2746 0061 66000000 		.4byte	.LVL9
+ 2747 0065 68000000 		.4byte	.LVL10
  2748 0069 0100     		.2byte	0x1
  2749 006b 50       		.byte	0x50
- 2750 006c 6A000000 		.4byte	.LVL10
- 2751 0070 7C000000 		.4byte	.LFE2
+ 2750 006c 68000000 		.4byte	.LVL10
+ 2751 0070 80000000 		.4byte	.LFE2
  2752 0074 0400     		.2byte	0x4
  2753 0076 F3       		.byte	0xf3
  2754 0077 01       		.uleb128 0x1
@@ -3337,42 +3337,42 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2758 007e 00000000 		.4byte	0
  2759              	.LLST1:
  2760 0082 04000000 		.4byte	.LVL1
- 2761 0086 20000000 		.4byte	.LVL3
+ 2761 0086 1E000000 		.4byte	.LVL3
  2762 008a 0200     		.2byte	0x2
  2763 008c 30       		.byte	0x30
  2764 008d 9F       		.byte	0x9f
- 2765 008e 20000000 		.4byte	.LVL3
- 2766 0092 22000000 		.4byte	.LVL4
+ 2765 008e 1E000000 		.4byte	.LVL3
+ 2766 0092 20000000 		.4byte	.LVL4
  2767 0096 0100     		.2byte	0x1
  2768 0098 50       		.byte	0x50
- 2769 0099 22000000 		.4byte	.LVL4
- 2770 009d 24000000 		.4byte	.LVL5
+ 2769 0099 20000000 		.4byte	.LVL4
+ 2770 009d 22000000 		.4byte	.LVL5
  2771 00a1 0200     		.2byte	0x2
  2772 00a3 30       		.byte	0x30
  2773 00a4 9F       		.byte	0x9f
- 2774 00a5 24000000 		.4byte	.LVL5
- 2775 00a9 30000000 		.4byte	.LVL6
+ 2774 00a5 22000000 		.4byte	.LVL5
+ 2775 00a9 2E000000 		.4byte	.LVL6
  2776 00ad 0100     		.2byte	0x1
  2777 00af 50       		.byte	0x50
- 2778 00b0 30000000 		.4byte	.LVL6
- 2779 00b4 3E000000 		.4byte	.LVL8
+ 2778 00b0 2E000000 		.4byte	.LVL6
+ 2779 00b4 3C000000 		.4byte	.LVL8
  2780 00b8 0200     		.2byte	0x2
  2781 00ba 30       		.byte	0x30
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 57
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 57
 
 
  2782 00bb 9F       		.byte	0x9f
- 2783 00bc 3E000000 		.4byte	.LVL8
- 2784 00c0 68000000 		.4byte	.LVL9
+ 2783 00bc 3C000000 		.4byte	.LVL8
+ 2784 00c0 66000000 		.4byte	.LVL9
  2785 00c4 0100     		.2byte	0x1
  2786 00c6 50       		.byte	0x50
- 2787 00c7 68000000 		.4byte	.LVL9
- 2788 00cb 6A000000 		.4byte	.LVL10
+ 2787 00c7 66000000 		.4byte	.LVL9
+ 2788 00cb 68000000 		.4byte	.LVL10
  2789 00cf 0200     		.2byte	0x2
  2790 00d1 30       		.byte	0x30
  2791 00d2 9F       		.byte	0x9f
- 2792 00d3 6A000000 		.4byte	.LVL10
- 2793 00d7 7C000000 		.4byte	.LFE2
+ 2792 00d3 68000000 		.4byte	.LVL10
+ 2793 00d7 80000000 		.4byte	.LFE2
  2794 00db 0100     		.2byte	0x1
  2795 00dd 50       		.byte	0x50
  2796 00de 00000000 		.4byte	0
@@ -3393,15 +3393,15 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2811 0103 00000000 		.4byte	0
  2812              	.LLST3:
  2813 0107 00000000 		.4byte	.LVL18
- 2814 010b 14000000 		.4byte	.LVL22
+ 2814 010b 12000000 		.4byte	.LVL22
  2815 010f 0100     		.2byte	0x1
  2816 0111 50       		.byte	0x50
- 2817 0112 14000000 		.4byte	.LVL22
- 2818 0116 5E000000 		.4byte	.LVL33
+ 2817 0112 12000000 		.4byte	.LVL22
+ 2818 0116 5C000000 		.4byte	.LVL33
  2819 011a 0100     		.2byte	0x1
  2820 011c 56       		.byte	0x56
- 2821 011d 5E000000 		.4byte	.LVL33
- 2822 0121 68000000 		.4byte	.LFE8
+ 2821 011d 5C000000 		.4byte	.LVL33
+ 2822 0121 6C000000 		.4byte	.LFE8
  2823 0125 0400     		.2byte	0x4
  2824 0127 F3       		.byte	0xf3
  2825 0128 01       		.uleb128 0x1
@@ -3411,14 +3411,14 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2829 012f 00000000 		.4byte	0
  2830              	.LLST4:
  2831 0133 00000000 		.4byte	.LVL18
- 2832 0137 17000000 		.4byte	.LVL23-1
+ 2832 0137 15000000 		.4byte	.LVL23-1
  2833 013b 0100     		.2byte	0x1
  2834 013d 51       		.byte	0x51
- 2835 013e 17000000 		.4byte	.LVL23-1
- 2836 0142 68000000 		.4byte	.LFE8
+ 2835 013e 15000000 		.4byte	.LVL23-1
+ 2836 0142 6C000000 		.4byte	.LFE8
  2837 0146 0400     		.2byte	0x4
  2838 0148 F3       		.byte	0xf3
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 58
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 58
 
 
  2839 0149 01       		.uleb128 0x1
@@ -3428,15 +3428,15 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2843 0150 00000000 		.4byte	0
  2844              	.LLST5:
  2845 0154 00000000 		.4byte	.LVL18
- 2846 0158 10000000 		.4byte	.LVL21
+ 2846 0158 0E000000 		.4byte	.LVL21
  2847 015c 0100     		.2byte	0x1
  2848 015e 52       		.byte	0x52
- 2849 015f 10000000 		.4byte	.LVL21
- 2850 0163 5E000000 		.4byte	.LVL32
+ 2849 015f 0E000000 		.4byte	.LVL21
+ 2850 0163 5C000000 		.4byte	.LVL32
  2851 0167 0100     		.2byte	0x1
  2852 0169 55       		.byte	0x55
- 2853 016a 5E000000 		.4byte	.LVL32
- 2854 016e 68000000 		.4byte	.LFE8
+ 2853 016a 5C000000 		.4byte	.LVL32
+ 2854 016e 6C000000 		.4byte	.LFE8
  2855 0172 0400     		.2byte	0x4
  2856 0174 F3       		.byte	0xf3
  2857 0175 01       		.uleb128 0x1
@@ -3450,7 +3450,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2865 0188 0100     		.2byte	0x1
  2866 018a 53       		.byte	0x53
  2867 018b 0C000000 		.4byte	.LVL20
- 2868 018f 68000000 		.4byte	.LFE8
+ 2868 018f 6C000000 		.4byte	.LFE8
  2869 0193 0400     		.2byte	0x4
  2870 0195 F3       		.byte	0xf3
  2871 0196 01       		.uleb128 0x1
@@ -3460,43 +3460,43 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2875 019d 00000000 		.4byte	0
  2876              	.LLST7:
  2877 01a1 0A000000 		.4byte	.LVL19
- 2878 01a5 4E000000 		.4byte	.LVL27
+ 2878 01a5 4C000000 		.4byte	.LVL27
  2879 01a9 0200     		.2byte	0x2
  2880 01ab 34       		.byte	0x34
  2881 01ac 9F       		.byte	0x9f
- 2882 01ad 4E000000 		.4byte	.LVL27
- 2883 01b1 50000000 		.4byte	.LVL28
+ 2882 01ad 4C000000 		.4byte	.LVL27
+ 2883 01b1 4E000000 		.4byte	.LVL28
  2884 01b5 0200     		.2byte	0x2
  2885 01b7 30       		.byte	0x30
  2886 01b8 9F       		.byte	0x9f
- 2887 01b9 50000000 		.4byte	.LVL28
- 2888 01bd 54000000 		.4byte	.LVL29
+ 2887 01b9 4E000000 		.4byte	.LVL28
+ 2888 01bd 52000000 		.4byte	.LVL29
  2889 01c1 0200     		.2byte	0x2
  2890 01c3 34       		.byte	0x34
  2891 01c4 9F       		.byte	0x9f
- 2892 01c5 54000000 		.4byte	.LVL29
- 2893 01c9 5A000000 		.4byte	.LVL30
+ 2892 01c5 52000000 		.4byte	.LVL29
+ 2893 01c9 58000000 		.4byte	.LVL30
  2894 01cd 0300     		.2byte	0x3
  2895 01cf 09       		.byte	0x9
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 59
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 59
 
 
  2896 01d0 FF       		.byte	0xff
  2897 01d1 9F       		.byte	0x9f
- 2898 01d2 5A000000 		.4byte	.LVL30
- 2899 01d6 5C000000 		.4byte	.LVL31
+ 2898 01d2 58000000 		.4byte	.LVL30
+ 2899 01d6 5A000000 		.4byte	.LVL31
  2900 01da 0200     		.2byte	0x2
  2901 01dc 34       		.byte	0x34
  2902 01dd 9F       		.byte	0x9f
- 2903 01de 5C000000 		.4byte	.LVL31
- 2904 01e2 68000000 		.4byte	.LFE8
+ 2903 01de 5A000000 		.4byte	.LVL31
+ 2904 01e2 6C000000 		.4byte	.LFE8
  2905 01e6 0100     		.2byte	0x1
  2906 01e8 50       		.byte	0x50
  2907 01e9 00000000 		.4byte	0
  2908 01ed 00000000 		.4byte	0
  2909              	.LLST8:
- 2910 01f1 26000000 		.4byte	.LVL24
- 2911 01f5 5A000000 		.4byte	.LVL30
+ 2910 01f1 24000000 		.4byte	.LVL24
+ 2911 01f5 58000000 		.4byte	.LVL30
  2912 01f9 0100     		.2byte	0x1
  2913 01fb 57       		.byte	0x57
  2914 01fc 00000000 		.4byte	0
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  2950              	.LLST11:
  2951 025a 00000000 		.4byte	.LVL34
  2952 025e 0A000000 		.4byte	.LVL36
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 60
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 60
 
 
  2953 0262 0100     		.2byte	0x1
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3007 02e7 38000000 		.4byte	.LVL41
  3008 02eb 3C000000 		.4byte	.LVL43
  3009 02ef 0200     		.2byte	0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 61
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 61
 
 
  3010 02f1 30       		.byte	0x30
@@ -3637,7 +3637,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3043 000c 0000     		.2byte	0
  3044 000e 0000     		.2byte	0
  3045 0010 00000000 		.4byte	.LFB2
- 3046 0014 7C000000 		.4byte	.LFE2-.LFB2
+ 3046 0014 80000000 		.4byte	.LFE2-.LFB2
  3047 0018 00000000 		.4byte	.LFB3
  3048 001c 30000000 		.4byte	.LFE3-.LFB3
  3049 0020 00000000 		.4byte	.LFB4
@@ -3649,7 +3649,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3055 0038 00000000 		.4byte	.LFB7
  3056 003c 02000000 		.4byte	.LFE7-.LFB7
  3057 0040 00000000 		.4byte	.LFB8
- 3058 0044 68000000 		.4byte	.LFE8-.LFB8
+ 3058 0044 6C000000 		.4byte	.LFE8-.LFB8
  3059 0048 00000000 		.4byte	.LFB9
  3060 004c 64000000 		.4byte	.LFE9-.LFB9
  3061 0050 00000000 		.4byte	0
@@ -3657,8 +3657,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3063              		.section	.debug_ranges,"",%progbits
  3064              	.Ldebug_ranges0:
  3065 0000 00000000 		.4byte	.LFB2
- 3066 0004 7C000000 		.4byte	.LFE2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 62
+ 3066 0004 80000000 		.4byte	.LFE2
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 62
 
 
  3067 0008 00000000 		.4byte	.LFB3
@@ -3672,7 +3672,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3075 0028 00000000 		.4byte	.LFB7
  3076 002c 02000000 		.4byte	.LFE7
  3077 0030 00000000 		.4byte	.LFB8
- 3078 0034 68000000 		.4byte	.LFE8
+ 3078 0034 6C000000 		.4byte	.LFE8
  3079 0038 00000000 		.4byte	.LFB9
  3080 003c 64000000 		.4byte	.LFE9
  3081 0040 00000000 		.4byte	0
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3097      545F4741 
  3097      505F4E55 
  3097      4D455249 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 63
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 63
 
 
  3098              	.LASF172:
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3117      505F434F 
  3118              	.LASF105:
  3119 01d0 4359424C 		.ascii	"CYBLE_ERROR_MIC_AUTH_FAILED\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 64
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 64
 
 
  3119      455F4552 
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3139      7465645F 
  3139      536F7572 
  3139      63655C50 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 65
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 65
 
 
  3140              	.LASF158:
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3159      54545F45 
  3159      52525F41 
  3159      4E43535F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 66
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 66
 
 
  3160              	.LASF237:
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3179      455F4741 
  3179      54545F48 
  3179      414E444C 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 67
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 67
 
 
  3179      455F5641 
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3199      50454400 
  3200              	.LASF1:
  3201 05d9 756E7369 		.ascii	"unsigned char\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 68
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 68
 
 
  3201      676E6564 
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3221      7474724C 
  3221      656E6774 
  3221      6800
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 69
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 69
 
 
  3222              	.LASF55:
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3240 0815 454400   		.ascii	"ED\000"
  3241              	.LASF127:
  3242 0818 4359424C 		.ascii	"CYBLE_GATT_ERR_ATTRIBUTE_NOT_LONG\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 70
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 70
 
 
  3242      455F4741 
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3260      455F4379 
  3260      42746C64 
  3260      72436F6D 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 71
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 71
 
 
  3260      6D537461 
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3280      455F4556 
  3280      545F4741 
  3280      505F4155 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 72
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 72
 
 
  3280      54485F43 
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3298 0b9c 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
  3298      66756E63 
  3298      74696F6E 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 73
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 73
 
 
  3298      2D736563 
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3318      455F4556 
  3318      545F4741 
  3318      505F5041 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 74
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 74
 
 
  3318      53534B45 
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3338      42746C64 
  3338      72436F6D 
  3338      6D526561 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 75
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 75
 
 
  3339              	.LASF88:
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3360 0eee 4359424C 		.ascii	"CYBLE_ERROR_REPEATED_ATTEMPTS\000"
  3360      455F4552 
  3360      524F525F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 76
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 76
 
 
  3360      52455045 
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3382      455F4741 
  3382      54545F45 
  3382      52525F49 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 77
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 77
 
 
  3382      4E535546 
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3403              	.LASF56:
  3404 111c 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
  3404      455F4556 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 78
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 78
 
 
  3404      545F4741 
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3422      54545F45 
  3422      52525F4F 
  3422      55545F4F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 79
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 79
 
 
  3423              	.LASF23:
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3442      54545F45 
  3442      52525F4D 
  3442      49535349 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 80
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 80
 
 
  3443              	.LASF114:
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3464      52525F48 
  3464      54535F4F 
  3465              	.LASF168:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 81
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 81
 
 
  3466 13ec 636F6E6E 		.ascii	"connHandle\000"
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3486 14cb 4359424C 		.ascii	"CYBLE_STATE_DISCONNECTED\000"
  3486      455F5354 
  3486      4154455F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 82
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 82
 
 
  3486      44495343 
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3506      7200
  3507              	.LASF182:
  3508 15b5 61747447 		.ascii	"attGenericValLen\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 83
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 83
 
 
  3508      656E6572 
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3527      545F4741 
  3527      50435F53 
  3527      43414E5F 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 84
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 84
 
 
  3528              	.LASF154:
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3547      455F4150 
  3547      495F5245 
  3547      53554C54 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 85
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 85
 
 
  3547      5F5400
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3567      455F5354 
  3567      4154455F 
  3567      434F4E4E 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 86
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 86
 
 
  3567      45435445 
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 1
  3587      4C4F4E47 
  3588              	.LASF223:
  3589 19e9 64617461 		.ascii	"data\000"
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccOaJb3G.s 			page 87
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccODbWSf.s 			page 87
 
 
  3589      00

@@ -63,32 +63,15 @@ int main()
 
 
     packetRXFlag = 0u;
-//    UART_Start();
-//    
-//    DBG_PRINT_TEXT("\r\n");
-//    DBG_PRINT_TEXT("\r\n");
-//    DBG_PRINT_TEXT("> BLE OTA Fixed Stack Bootloader     Application Started\r\n");
-//    DBG_PRINT_TEXT("> Version: 1.30\r\n");
-//    DBG_PRINT_TEXT("> Compile Date and Time : " __DATE__ " " __TIME__ "\r\n");
-//    DBG_PRINT_TEXT("\r\n");
-//    DBG_PRINT_TEXT("\r\n");
-
     CyGlobalIntEnable;
 
-//    Bootloading_LED_Write(LED_OFF);
-//    Advertising_LED_1_Write(LED_OFF);
-//    Advertising_LED_2_Write(LED_OFF);
-
-    
     CyBle_Start(AppCallBack);
     
     /* Set Serial Number string not initialized in GUI */
     CyBle_DissSetCharacteristicValue(CYBLE_DIS_SERIAL_NUMBER, sizeof(serialNumber), (uint8 *)serialNumber);
 
-    //CyBle_GattsDisableAttribute(cyBle_hidss[0].serviceHandle);
     CyBle_GattsDisableAttribute(cyBle_diss.serviceHandle);
     CyBle_GattsDisableAttribute(cyBle_bass[0].serviceHandle);
-    //CyBle_GattsDisableAttribute(cyBle_scpss.serviceHandle);
 
     /* Force client to rediscover services in range of bootloader service */
     WriteAttrServChanged();
@@ -109,7 +92,6 @@ int main()
         Bootloader_Start();
     }
 }
-
 
 /*******************************************************************************
 * Function Name: AppCallBack()
@@ -143,7 +125,6 @@ void AppCallBack(uint32 event, void* eventParam)
             }
             break;
         case CYBLE_EVT_HARDWARE_ERROR:    /* This event indicates that some internal HW error has occurred. */
-//            DBG_PRINTF("CYBLE_EVT_HARDWARE_ERROR\r\n");
             break;
             
 
@@ -151,29 +132,18 @@ void AppCallBack(uint32 event, void* eventParam)
         *                       GAP Events
         ***********************************************************/
         case CYBLE_EVT_GAP_AUTH_REQ:
-//            DBG_PRINTF("CYBLE_EVT_AUTH_REQ: security=%x, bonding=%x, ekeySize=%x, err=%x \r\n",
-//                (*(CYBLE_GAP_AUTH_INFO_T *)eventParam).security,
-//                (*(CYBLE_GAP_AUTH_INFO_T *)eventParam).bonding,
-//                (*(CYBLE_GAP_AUTH_INFO_T *)eventParam).ekeySize,
-//                (*(CYBLE_GAP_AUTH_INFO_T *)eventParam).authErr);
             break;
         case CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST:
-//            DBG_PRINTF("CYBLE_EVT_PASSKEY_ENTRY_REQUEST press 'p' to enter passkey \r\n");
             break;
         case CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST:
-//            DBG_PRINTF("CYBLE_EVT_PASSKEY_DISPLAY_REQUEST %6.6ld \r\n", *(uint32 *)eventParam);
             break;
         case CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT:
-//            DBG_PRINTF("CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT \r\n");
             break;
         case CYBLE_EVT_GAP_AUTH_COMPLETE:
-//            DBG_PRINTF("AUTH_COMPLETE \r\n");
             break;
         case CYBLE_EVT_GAP_AUTH_FAILED:
-//            DBG_PRINTF("CYBLE_EVT_AUTH_FAILED: %x \r\n", *(uint8 *)eventParam);
             break;
         case CYBLE_EVT_GAP_DEVICE_CONNECTED:
-//            DBG_PRINTF("CYBLE_EVT_GAP_DEVICE_CONNECTED: %d \r\n", connHandle.bdHandle);
             if ((*(CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T *)eventParam).connIntv > 0x0006u)
             {
                 /* If connection settings do not match expected ones - request parameter update */
@@ -182,38 +152,26 @@ void AppCallBack(uint32 event, void* eventParam)
                 connUpdateParam.connLatency   = 0x0000u;
                 connUpdateParam.supervisionTO = 0x0064u;
                 apiResult = CyBle_L2capLeConnectionParamUpdateRequest(cyBle_connHandle.bdHandle, &connUpdateParam);
-//                DBG_PRINTF("CyBle_L2capLeConnectionParamUpdateRequest API: 0x%2.2x \r\n", apiResult);
             }
-//            Bootloading_LED_Write(LED_OFF);
             break;
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
-//            DBG_PRINTF("CYBLE_EVT_GAP_DEVICE_DISCONNECTED\r\n");
             apiResult = CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
-            if(apiResult != CYBLE_ERROR_OK)
-            {
-//                DBG_PRINTF("StartAdvertisement API Error: %d \r\n", apiResult);
-            }
             break;
         case CYBLE_EVT_GAP_ENCRYPT_CHANGE:
             DBG_PRINTF("CYBLE_EVT_GAP_ENCRYPT_CHANGE: %x \r\n", *(uint8 *)eventParam);
             break;
         case CYBLE_EVT_GAPC_CONNECTION_UPDATE_COMPLETE:
-//            DBG_PRINTF("CYBLE_EVT_CONNECTION_UPDATE_COMPLETE: %x \r\n", *(uint8 *)eventParam);
             break;
         case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP:
             if(CYBLE_STATE_DISCONNECTED == CyBle_GetState())
             {   
-                /* Fast and slow advertising period complete, go to low power  
-                 * mode (Hibernate mode) and wait for an external
-                 * user event to wake up the device again */
-//                DBG_PRINTF("Entering low power mode...\r\n");
-//                Bootloading_LED_Write(LED_ON);
-//                Advertising_LED_1_Write(LED_ON);
-//                Advertising_LED_2_Write(LED_ON);
-                Bootloader_Service_Activation_ClearInterrupt();
-                Wakeup_Interrupt_ClearPending();
-                Wakeup_Interrupt_Start();
-                CySysPmHibernate();
+                /* Fast and slow advertising period complete, Go to 
+				fast advertisement again.  This needs to be evaluated */
+	            apiResult = CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+//                Bootloader_Service_Activation_ClearInterrupt();
+//                Wakeup_Interrupt_ClearPending();
+//                Wakeup_Interrupt_Start();
+//                CySysPmHibernate();
             }
             break;
 
@@ -228,13 +186,11 @@ void AppCallBack(uint32 event, void* eventParam)
             connHandle.bdHandle = 0;
             break;
         case CYBLE_EVT_GATTS_WRITE_CMD_REQ:
-//            DBG_PRINTF("CYBLE_EVT_GATTS_WRITE_CMD_REQ\r\n");
             break;
         case CYBLE_EVT_GATTS_PREP_WRITE_REQ:
             (void)CyBle_GattsPrepWriteReqSupport(CYBLE_GATTS_PREP_WRITE_NOT_SUPPORT);
             break;
         case CYBLE_EVT_HCI_STATUS:
-//            DBG_PRINTF("CYBLE_EVT_HCI_STATUS\r\n");
         default:
             break;
         }

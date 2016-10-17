@@ -48,16 +48,10 @@ void BasCallBack(uint32 event, void *eventParam)
     uint8 locServiceIndex;
     
     locServiceIndex = ((CYBLE_BAS_CHAR_VALUE_T *)eventParam)->serviceIndex;
-    DBG_PRINTF("BAS event: %lx, ", event);
     
     switch(event)
     {
         case CYBLE_EVT_BASS_NOTIFICATION_ENABLED:
-            DBG_PRINTF("CYBLE_EVT_BASS_NOTIFICATION_ENABLED: %x \r\n", locServiceIndex);
-//            if(CYBLE_BATTERY_SERVICE_SIMULATE_SERVICE_INDEX == locServiceIndex)
-//            {
-//                batterySimulationNotify = ENABLED;
-//            }
             if(CYBLE_BATTERY_SERVICE_MEASURE_SERVICE_INDEX == locServiceIndex)
             {
                 batteryMeasureNotify = ENABLED;
@@ -65,11 +59,6 @@ void BasCallBack(uint32 event, void *eventParam)
             break;
                 
         case CYBLE_EVT_BASS_NOTIFICATION_DISABLED:
-            DBG_PRINTF("CYBLE_EVT_BASS_NOTIFICATION_DISABLED: %x \r\n", locServiceIndex);
-//            if(CYBLE_BATTERY_SERVICE_SIMULATE_SERVICE_INDEX == locServiceIndex)
-//            {
-//                batterySimulationNotify = DISABLED;
-//            }
             if(CYBLE_BATTERY_SERVICE_MEASURE_SERVICE_INDEX == locServiceIndex)
             {
                 batteryMeasureNotify = DISABLED;
@@ -84,7 +73,6 @@ void BasCallBack(uint32 event, void *eventParam)
         case CYBLE_EVT_BASC_WRITE_DESCR_RESPONSE:
             break;
 		default:
-            DBG_PRINTF("Not supported event\r\n");
 			break;
     }
 }
@@ -149,15 +137,6 @@ void MeasureBattery(void)
             batteryLevel = CYBLE_BAS_MAX_BATTERY_LEVEL_VALUE;
         }
         
-        if(batteryLevel < LOW_BATTERY_LIMIT)
-        {
-            LowPower_LED_Write(LED_ON);
-        }
-        else
-        {
-            LowPower_LED_Write(LED_OFF);
-        }
-        
         if(batteryMeasureNotify == ENABLED)
         {
             /* Update Battery Level characteristic value and send Notification */
@@ -173,12 +152,7 @@ void MeasureBattery(void)
             
         if(apiResult != CYBLE_ERROR_OK)
         {
-            DBG_PRINTF("API Error: %x \r\n", apiResult);
             batteryMeasureNotify = DISABLED;
-        }
-        else
-        {
-            DBG_PRINTF("MeasureBatteryLevelUpdate: %d \r\n",batteryLevel);
         }
     }
 }

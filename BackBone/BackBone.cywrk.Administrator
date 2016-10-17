@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BackBone\BLE_OTA_FixedStack_Bootloader01">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BackBone\BLE_OTA_FixedStack_Bootloader01\TopDesign">
 <ExpandedNodeIds>
 <v>BackBone</v>
 <v>BackBone\BackBone_Bootloadable</v>
@@ -104,7 +104,6 @@
 <v>BackBone\BackBone_Bootloadable\Source Files\OTAMandatory.c</v>
 <v>BackBone\BackBone_Bootloadable\Source Files\timeout.c</v>
 <v>BackBone\BackBone_Bootloadable\BLE_Battery_Level.pdf</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source</v>
 <v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4</v>
 <v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\ADC\ADC.c</v>
 <v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\ADC\ADC.h</v>
@@ -248,7 +247,6 @@
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\TopDesign</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\BLE_OTA_FixedStack_Bootloader01.cydwr</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Header Files</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Header Files\cyapicallbacks.h</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Header Files\Debug.h</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Header Files\main.h</v>
@@ -266,7 +264,6 @@
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files\OTAMandatory.c</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files\OTAOptional.c</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\BLE_OTA_FixedStack_Bootloader.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Generated_Source</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Generated_Source\PSoC4</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Generated_Source\PSoC4\Advertising_LED_1</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Generated_Source\PSoC4\Advertising_LED_1\Advertising_LED_1.c</v>
@@ -380,27 +377,6 @@
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
-<v>BackBone</v>
-<v>BackBone\BackBone_Bootloadable</v>
-<v>BackBone\BackBone_Bootloadable\TopDesign</v>
-<v>BackBone\BackBone_Bootloadable\BackBone_Bootloadable.cydwr</v>
-<v>BackBone\BackBone_Bootloadable\20648_Driver</v>
-<v>BackBone\BackBone_Bootloadable\Header Files</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\BackBone.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\bas.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\BLEApplications.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\common.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\cyapicallbacks.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\CyBle_custom.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\CyBle_gatt.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\i2c_comm.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\inv.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\main.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\OTAMandatory.h</v>
-<v>BackBone\BackBone_Bootloadable\Header Files\timeout.h</v>
-<v>BackBone\BackBone_Bootloadable\LinkerScripts</v>
-<v>BackBone\BackBone_Bootloadable\LinkerScripts\BootloaderSymbolsGcc.ld</v>
-<v>BackBone\BackBone_Bootloadable\LinkerScripts\cm0gcc.ld</v>
 <v>BackBone\BackBone_Bootloadable\LinkerScripts\Cm0Iar.icf</v>
 <v>BackBone\BackBone_Bootloadable\LinkerScripts\Cm0Mdk.scat</v>
 <v>BackBone\BackBone_Bootloadable\Source Files</v>
@@ -415,20 +391,22 @@
 <v>BackBone\BackBone_Bootloadable\Source Files\timeout.c</v>
 <v>BackBone\BackBone_Bootloadable\BLE_Battery_Level.pdf</v>
 <v>BackBone\BackBone_Bootloadable\Generated_Source</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\ADC</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\ADC_intClock</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\ADC_IRQ</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Advertising_LED</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Bootloadable</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Bootloadable\Bootloadable.c</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Bootloadable\Bootloadable.h</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Clock_1</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Clock_1\Clock_1.c</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Clock_1\Clock_1.h</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Clock_5</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Clock_5\Clock_5.c</v>
-<v>BackBone\BackBone_Bootloadable\Generated_Source\PSoC4\Clock_5\Clock_5.h</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\TopDesign</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\BLE_OTA_FixedStack_Bootloader01.cydwr</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Header Files</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Scripts</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Scripts\cm0gcc.ld</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Scripts\mk.bat</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Scripts\Section_list.txt</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Scripts\Symbol_list.txt</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files\Debug.c</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files\main.c</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files\OTAMandatory.c</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Source Files\OTAOptional.c</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\BLE_OTA_FixedStack_Bootloader.pdf</v>
+<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Generated_Source</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -618,25 +596,6 @@
 <v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\cyPm.lst</v>
 <v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\cyutils.lst</v>
 <v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\debug.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\Disconnect_LED.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\Disconnect_LED_PM.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\dmp3Default_20608D.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\dmp3Default_20648.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_BOOT.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\i2c_comm.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_I2C.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_I2C_BOOT.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_I2C_INT.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_I2C_MASTER.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_PM.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_SCB_IRQ.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_SCBCLK.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_scl.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_scl_PM.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_sda.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\I2C_sda_PM.lst</v>
-<v>BackBone\BackBone_Bootloadable\CortexM0\ARM_GCC_493\Debug\Listing Files\inv.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -725,23 +684,6 @@
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\PSoC 4 Architecture TRM</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\PRoC BLE Family Datasheet</v>
 <v>BackBone\BLE_OTA_FixedStack_Bootloader01\System Reference Guides</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\System Reference Guides\cy_boot_v5_40</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\System Reference Guides\cy_lfclk_v1_10</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\BLE_v3_10.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Bootloader_v1_50.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\cy_gsref_v2_0.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\cy_isr_v1_70</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\cy_pins_v2_20</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Gnd_v1_0.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\LED_v1_0</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\LED_v1_0\LED_v1_0.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Power_v1_0.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Resistor_v1_0</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\Resistor_v1_0\Resistor_v1_0.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\SW_Tx_UART_v1_50.pdf</v>
-<v>BackBone\BLE_OTA_FixedStack_Bootloader01\SwitchSPST_v1_0.pdf</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
@@ -776,6 +718,28 @@
 <name v=".\BackBone_Bootloadable.cydsn\BLEApplications.c" />
 <name v=".\BackBone_Bootloadable.cydsn\BLEApplications.h" />
 <name v=".\BackBone_Bootloadable.cydsn\BackBone.c" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\BackBone_Bootloadable.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\Scripts\mk.bat" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\main.c" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\OTAMandatory.c" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\OTAOptional.c" />
+<name v=".\BackBone_Bootloadable.cydsn\OTAMandatory.c" />
+<name v=".\BackBone_Bootloadable.cydsn\OTAMandatory.h" />
+<name v=".\BackBone_Bootloadable.cydsn\main.c" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\CyBle.h" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\CyBle_custom.h" />
+<name v=".\BackBone_Bootloadable.cydsn\common.h" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\main.h" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\CyBle_bas.h" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\CyBle_bts.h" />
+<name v=".\BackBone_Bootloadable.cydsn\LinkerScripts\cm0gcc.ld" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\cm0gcc.ld" />
+<name v=".\BackBone_Bootloadable.cydsn\BackBone.h" />
+<name v=".\BackBone_Bootloadable.cydsn\bas.h" />
+<name v=".\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\CyBle_gatt.h" />
+<name v=".\BackBone_Bootloadable.cydsn\i2c_comm.h" />
+<name v=".\BackBone_Bootloadable.cydsn\timeout.h" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

@@ -1,17 +1,14 @@
-/***************************************************************************//**
-* \file CYBLE_custom.h
-* \version 3.10
-* 
-* \brief
-*  Contains the function prototypes and constants for the Custom Service.
-* 
-********************************************************************************
-* \copyright
-* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
-* You may use this file only in accordance with the license, terms, conditions,
-* disclaimers, and limitations in the end user license agreement accompanying
-* the software package with which this file was provided.
-*******************************************************************************/
+/* ========================================
+ *
+ * Copyright YOUR COMPANY, THE YEAR
+ * All Rights Reserved
+ * UNPUBLISHED, LICENSED SOFTWARE.
+ *
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION
+ * WHICH IS THE PROPERTY OF your company.
+ *
+ * ========================================
+*/
 
 #if !defined(CY_BLE_CYBLE_CUSTOM_H)
 #define CY_BLE_CYBLE_CUSTOM_H
@@ -26,7 +23,7 @@
 /* Maximum supported Custom Services */
 #define CYBLE_CUSTOMS_SERVICE_COUNT                  (0x01u)
 #define CYBLE_CUSTOMC_SERVICE_COUNT                  (0x00u)
-#define CYBLE_CUSTOM_SERVICE_CHAR_COUNT              (0x05u)
+#define CYBLE_CUSTOM_SERVICE_CHAR_COUNT              (0x07u)
 #define CYBLE_CUSTOM_SERVICE_CHAR_DESCRIPTORS_COUNT  (0x02u)
 
 /* Below are the indexes and handles of the defined Custom Services and their characteristics */
@@ -46,6 +43,12 @@
 #define CYBLE_BACKBONE_CONFIGDATA_CHAR_INDEX   (0x04u) /* Index of ConfigData characteristic */
 #define CYBLE_BACKBONE_CONFIGDATA_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX   (0x00u) /* Index of Client Characteristic Configuration descriptor */
 #define CYBLE_BACKBONE_CONFIGDATA_CHARACTERISTIC_USER_DESCRIPTION_DESC_INDEX   (0x01u) /* Index of Characteristic User Description descriptor */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_CHAR_INDEX   (0x05u) /* Index of EnterBootloader characteristic */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX   (0x00u) /* Index of Client Characteristic Configuration descriptor */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_CHARACTERISTIC_USER_DESCRIPTION_DESC_INDEX   (0x01u) /* Index of Characteristic User Description descriptor */
+#define CYBLE_BACKBONE_VERSION_CHAR_INDEX   (0x06u) /* Index of Version characteristic */
+#define CYBLE_BACKBONE_VERSION_CHARACTERISTIC_USER_DESCRIPTION_DESC_INDEX   (0x00u) /* Index of Characteristic User Description descriptor */
+#define CYBLE_BACKBONE_VERSION_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX   (0x01u) /* Index of Client Characteristic Configuration descriptor */
 
 
 #define CYBLE_BACKBONE_SERVICE_HANDLE   (0x0018u) /* Handle of BackBone service */
@@ -69,6 +72,14 @@
 #define CYBLE_BACKBONE_CONFIGDATA_CHAR_HANDLE   (0x002Au) /* Handle of ConfigData characteristic */
 #define CYBLE_BACKBONE_CONFIGDATA_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE   (0x002Bu) /* Handle of Client Characteristic Configuration descriptor */
 #define CYBLE_BACKBONE_CONFIGDATA_CHARACTERISTIC_USER_DESCRIPTION_DESC_HANDLE   (0x002Cu) /* Handle of Characteristic User Description descriptor */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_DECL_HANDLE   (0x002Du) /* Handle of EnterBootloader characteristic declaration */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_CHAR_HANDLE   (0x002Eu) /* Handle of EnterBootloader characteristic */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE   (0x002Fu) /* Handle of Client Characteristic Configuration descriptor */
+#define CYBLE_BACKBONE_ENTERBOOTLOADER_CHARACTERISTIC_USER_DESCRIPTION_DESC_HANDLE   (0x0030u) /* Handle of Characteristic User Description descriptor */
+#define CYBLE_BACKBONE_VERSION_DECL_HANDLE   (0x0031u) /* Handle of Version characteristic declaration */
+#define CYBLE_BACKBONE_VERSION_CHAR_HANDLE   (0x0032u) /* Handle of Version characteristic */
+#define CYBLE_BACKBONE_VERSION_CHARACTERISTIC_USER_DESCRIPTION_DESC_HANDLE   (0x0033u) /* Handle of Characteristic User Description descriptor */
+#define CYBLE_BACKBONE_VERSION_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE   (0x0034u) /* Handle of Client Characteristic Configuration descriptor */
 
 
 

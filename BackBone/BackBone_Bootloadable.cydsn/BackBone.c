@@ -14,8 +14,8 @@
 #include <BackBone.h>
 #include <BLEApplications.h>
 
-ACCELEROMETER Accelerometer = {0};
-GYROSCOPE Gyroscope = {0};
+ACCELEROMETER Accelerometer = {0, 0, 0, 0};
+GYROSCOPE Gyroscope = {0, 0, 0};
 CONFIG_DATA ConfigData = {0};
 PEDOMETER Pedometer = {0};
 

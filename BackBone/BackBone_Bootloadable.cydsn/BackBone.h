@@ -55,10 +55,12 @@ typedef union
 #define GYRO_DATA_LEN						(12u)
 #define PEDOMETER_DATA_LEN					(4u)
 #define CONFIG_DATA_LEN						(18u)
+#define VERSION_INFO_DATA_LEN				(4u)
 
 #define ACCEL_DATA_NEW						(0x01)
 #define GYRO_DATA_NEW						(0x02)
 #define PEDO_DATA_NEW						(0x04)
+#define VERSION_DATA_NEW					(0x08)
 
 void BackBone_GetGyroscopeData(uint8* DestinationBuffer, uint8 Length);
 void BackBone_GetAccelerometerData(uint8* DestinationBuffer, uint8 Length);

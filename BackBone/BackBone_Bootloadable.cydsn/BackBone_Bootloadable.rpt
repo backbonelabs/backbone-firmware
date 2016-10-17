@@ -1,13 +1,13 @@
-Loading plugins phase: Elapsed time ==> 0s.392ms
+Loading plugins phase: Elapsed time ==> 0s.363ms
 Initializing data phase: Elapsed time ==> 0s.000ms
 <CYPRESSTAG name="CyDsfit arguments...">
-cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj -d CYBLE-022001-00 -s C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
+cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj -d CYBLE-222005-00 -s C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 3s.987ms
+Elaboration phase: Elapsed time ==> 4s.104ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
-HDL generation phase: Elapsed time ==> 0s.100ms
+HDL generation phase: Elapsed time ==> 0s.110ms
 <CYPRESSTAG name="Synthesis results...">
 
      | | | | | | |
@@ -41,7 +41,7 @@ Options  :    -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Dropbox\Pro
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Thu Sep 15 21:04:45 2016
+Thu Oct 06 11:30:01 2016
 
 
 ======================================================================
@@ -51,7 +51,7 @@ Options  :    -yv2 -q10 BackBone_Bootloadable.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Thu Sep 15 21:04:45 2016
+Thu Oct 06 11:30:01 2016
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\or_v1_0\or_v1_0.v'
@@ -94,7 +94,7 @@ Options  :    -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Dropbox\Pro
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Thu Sep 15 21:04:45 2016
+Thu Oct 06 11:30:01 2016
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -130,7 +130,7 @@ Options  :    -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Dropbox\Pro
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Thu Sep 15 21:04:46 2016
+Thu Oct 06 11:30:02 2016
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -714,14 +714,14 @@ CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\wa
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\warp\bin/warp.exe
 Warp Arguments : -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE -ya "-.fftprj=C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj" -dcpsoc3 BackBone_Bootloadable.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 1s.284ms
+Warp synthesis phase: Elapsed time ==> 1s.314ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.3.0.9604, Family: PSoC3, Started at: Thursday, 15 September 2016 21:04:46
-Options: -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj -d CYBLE-022001-00 BackBone_Bootloadable.v -verilog
+cyp3fit: V3.3.0.9604, Family: PSoC3, Started at: Thursday, 06 October 2016 11:30:02
+Options: -yv2 -q10 -yga -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Dropbox\Projects\George Posture Correction Project\BackBone\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj -d CYBLE-222005-00 BackBone_Bootloadable.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
-Design parsing phase: Elapsed time ==> 0s.030ms
+Design parsing phase: Elapsed time ==> 0s.020ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Tech mapping">
 <CYPRESSTAG name="Initial Mapping" icon="FILE_RPT_TECHM">
@@ -1380,7 +1380,7 @@ Resource Type                 : Used : Free :  Max :  % Used
 ============================================================
 Digital Clocks                :    1 :    3 :    4 : 25.00 %
 Interrupts                    :    4 :   28 :   32 : 12.50 %
-IO                            :   11 :    6 :   17 : 64.71 %
+IO                            :   11 :    5 :   16 : 68.75 %
 Segment LCD                   :    0 :    1 :    1 :  0.00 %
 CapSense                      :    0 :    1 :    1 :  0.00 %
 Die Temp                      :    0 :    1 :    1 :  0.00 %
@@ -1394,17 +1394,17 @@ DAC                           :      :      :      :
   8-bit IDAC                  :    0 :    1 :    1 :  0.00 %
 </CYPRESSTAG>
 Technology Mapping: Elapsed time ==> 0s.040ms
-Tech mapping phase: Elapsed time ==> 0s.090ms
+Tech mapping phase: Elapsed time ==> 0s.080ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 <CYPRESSTAG name="Analog Placement">
-Elapsed time ==> 0.0783883s
+Elapsed time ==> 0.0659394s
 </CYPRESSTAG>
-Analog Placement phase: Elapsed time ==> 0s.290ms
+Analog Placement phase: Elapsed time ==> 0s.230ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
 <CYPRESSTAG name="Analog Routing">
-Route success=True, Iterations=1 Elapsed=0.0026716 secs
+Route success=True, Iterations=1 Elapsed=0.0014540 secs
 </CYPRESSTAG>
 Analog Routing phase: Elapsed time ==> 0s.000ms
 </CYPRESSTAG>
@@ -1435,7 +1435,7 @@ Map of item to net {
 }
 Mux Info {
 }
-Analog Code Generation phase: Elapsed time ==> 0s.040ms
+Analog Code Generation phase: Elapsed time ==> 0s.030ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="Detailed placement messages">
@@ -1470,7 +1470,7 @@ PLD Packing: Elapsed time ==> 0s.000ms
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.010ms
+Partitioning: Elapsed time ==> 0s.020ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
 Annealing: Elapsed time ==> 0s.000ms
@@ -2309,17 +2309,17 @@ Port | Pin | Fixed |      Type |       Drive Mode |               Name | Connect
 </CYPRESSTAG>
 </CYPRESSTAG>
 Digital component placer commit/Report: Elapsed time ==> 0s.000ms
-Digital Placement phase: Elapsed time ==> 0s.570ms
+Digital Placement phase: Elapsed time ==> 0s.530ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Routing">
 Routing successful.
-Digital Routing phase: Elapsed time ==> 0s.700ms
+Digital Routing phase: Elapsed time ==> 0s.810ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 0s.660ms
+Bitstream and API generation phase: Elapsed time ==> 0s.734ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.060ms
+Bitstream verification phase: Elapsed time ==> 0s.100ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
 Timing report is in BackBone_Bootloadable_timing.html.
@@ -2329,11 +2329,11 @@ Static timing analysis phase: Elapsed time ==> 0s.280ms
 Data reporting phase: Elapsed time ==> 0s.000ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Database update...">
-Design database save phase: Elapsed time ==> 0s.240ms
+Design database save phase: Elapsed time ==> 0s.230ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 2s.980ms
+cydsfit: Elapsed time ==> 3s.064ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 3s.040ms
-API generation phase: Elapsed time ==> 2s.338ms
+Fitter phase: Elapsed time ==> 3s.124ms
+API generation phase: Elapsed time ==> 2s.576ms
 Dependency generation phase: Elapsed time ==> 0s.030ms
-Cleanup phase: Elapsed time ==> 0s.000ms
+Cleanup phase: Elapsed time ==> 0s.010ms

@@ -82,7 +82,7 @@
         #define CYBLE_MAX_RESOLVABLE_DEVICES        (0u)
         #define CYBLE_ENABLE_LL_PRIVACY             (0u)
     #endif /* CYBLE_M0S8BLESS_VERSION_2 */
-    #define CYBLE_GAP_SECURITY_LEVEL                (0x01u)
+    #define CYBLE_GAP_SECURITY_LEVEL                (0x00u)
 #else
     #if(CYBLE_M0S8BLESS_VERSION_2)
         #define CYBLE_MAX_RESOLVABLE_DEVICES        (CYBLE_DEFAULT_RPA_LIST_SZ)    

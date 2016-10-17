@@ -172,30 +172,6 @@ void InitializeBootloaderSRAM()
 
 
 /*******************************************************************************
-* Function Name: ConfigureSharedPins()
-********************************************************************************
-*
-* Summary:
-*   This function configures shared pins.
-*
-* Parameters:
-*   None
-*
-*******************************************************************************/
-void ConfigureSharedPins()
-{
-//    Disconnect_LED_SetDriveMode(LED_1_DM_RES_UP);
-//    Advertising_LED_SetDriveMode(LED_1_DM_RES_UP);
-//    CapsLock_LED_SetDriveMode(LED_1_DM_RES_UP);
-//    Disconnect_LED_Write(LED_OFF);
-//    Advertising_LED_Write(LED_OFF);
-//    CapsLock_LED_Write(LED_OFF);
-//    Bootloader_Service_Activation_SetDriveMode(LED_1_DM_RES_UP);
-//    Bootloader_Service_Activation_Write(1);
-}
-
-
-/*******************************************************************************
 * Function Name: BootloaderSwitch()
 ********************************************************************************
 *
@@ -209,25 +185,11 @@ void ConfigureSharedPins()
 *******************************************************************************/
 void BootloaderSwitch()
 {
-    if (Bootloader_Service_Activation_Read() == 0)
-    {
-        CyDelay(100);
-        if (Bootloader_Service_Activation_Read() == 0)
-        {
-//            DBG_PRINTF("Bootloader activation button pressed \r\n");
-//            DBG_PRINTF("Switching to bootloader application... \r\n");
-            CyDelay(500);
-            
-            
-            CyBle_Shutdown(); /* stop all ongoing activities */
-            CyBle_ProcessEvents(); /* process all pending events */
-            CyBle_SetState(CYBLE_STATE_STOPPED);
-            //CySysWdtUnlock();
-            //CySysWdtDisable(WDT_COUNTER_MASK);
-            CyGlobalIntDisable;
-            Bootloadable_Load();
-        }
-    }
+    CyBle_Shutdown(); /* stop all ongoing activities */
+    CyBle_ProcessEvents(); /* process all pending events */
+    CyBle_SetState(CYBLE_STATE_STOPPED);
+    CyGlobalIntDisable;
+    Bootloadable_Load();
 }
 
 

@@ -84,6 +84,28 @@ const CYBLE_CUSTOMS_T cyBle_customs[0x01u] = {
                     0x002Cu, /* Handle of the Characteristic User Description descriptor */ 
                 }, 
             },
+
+            /* EnterBootloader characteristic */
+            {
+                0x002Eu, /* Handle of the EnterBootloader characteristic */ 
+                
+                /* Array of Descriptors handles */
+                {
+                    0x002Fu, /* Handle of the Client Characteristic Configuration descriptor */ 
+                    0x0030u, /* Handle of the Characteristic User Description descriptor */ 
+                }, 
+            },
+
+            /* Version characteristic */
+            {
+                0x0032u, /* Handle of the Version characteristic */ 
+                
+                /* Array of Descriptors handles */
+                {
+                    0x0033u, /* Handle of the Characteristic User Description descriptor */ 
+                    0x0034u, /* Handle of the Client Characteristic Configuration descriptor */ 
+                }, 
+            },
         }, 
     },
 };

@@ -141,10 +141,10 @@ inv_error_t inv_start(void)
     dmp_reset_odr_counters();
 
 	/* Enable Step Detector */
-	dmp_reset_fifo();
-	hal.report |= PRINT_STEP_DETECTOR;
-    inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, !!(hal.report & PRINT_STEP_DETECTOR));
-    dmp_reset_odr_counters();
+//	dmp_reset_fifo();
+//	hal.report |= PRINT_STEP_DETECTOR;
+//    inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, !!(hal.report & PRINT_STEP_DETECTOR));
+//    dmp_reset_odr_counters();
 
 	/* Enable Step Counter */
 	dmp_reset_fifo();
@@ -159,6 +159,10 @@ inv_error_t inv_start(void)
 
 	/* Set output rate */
 	set_output_rates(5);
+	if(hal.report & PRINT_STEP_COUNTER) 
+	{
+		set_output_rates(112.5);
+	}
 	
 	/* Set up the INT1 pin ISR */ 
 	isr_INVN_INT_StartEx(INVN_INT_InterruptHandler);
@@ -929,7 +933,7 @@ void fifo_handler()
 
 					accel_accuracy = inv_get_accel_accuracy();
 					scale = (1 << inv_get_accel_fullscale()) * 2.f / (1L << 30); // Convert from raw units to g's
-					scale *= 9.80665f; // Convert to m/s^2
+					// scale *= 9.80665f; // Convert to m/s^2
 					inv_convert_dmp3_to_body(long_data, scale, accel_float);
 					
 					BackBone_SetAccelerometerData(accel_float[0], accel_float[1], accel_float[2], 0);
@@ -1169,7 +1173,7 @@ void fifo_handler()
                   }
                 }
 #if (MEMS_CHIP != HW_ICM20609)                
-                if (header & PED_STEPDET_SET){
+//                if (header & PED_STEPDET_SET){
 #else
 		if (int_read_back & DMP_INT_PED) {
 #endif
@@ -1186,7 +1190,7 @@ void fifo_handler()
 					old_steps = steps;
 				}
                         }
-		}
+//		}
 
 #if (MEMS_CHIP == HW_ICM20648)
                 if (int_read_back & BIT_MSG_DMP_INT_2) {

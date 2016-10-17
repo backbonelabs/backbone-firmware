@@ -1,18 +1,14 @@
-/*******************************************************************************
-* File Name: bas.h
-*
-* Version 1.0
-*
-* Description:
-*  Contains the function prototypes and constants available to the example
-*  project.
-*
-********************************************************************************
-* Copyright 2015, Cypress Semiconductor Corporation.  All rights reserved.
-* You may use this file only in accordance with the license, terms, conditions,
-* disclaimers, and limitations in the end user license agreement accompanying
-* the software package with which this file was provided.
-*******************************************************************************/
+/* ========================================
+ *
+ * Copyright YOUR COMPANY, THE YEAR
+ * All Rights Reserved
+ * UNPUBLISHED, LICENSED SOFTWARE.
+ *
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION
+ * WHICH IS THE PROPERTY OF your company.
+ *
+ * ========================================
+*/
 
 #include <project.h>
 
@@ -20,17 +16,15 @@
 *          Constants
 ***************************************/
 
-#define BATTERY_TIMEOUT             (3000u)       /* Counts depend on connection parameters */
+/* Counts depend on connection parameters */
+#define BATTERY_TIMEOUT             (3000u)       
 
-#define SIM_BATTERY_MIN             (2u)        /* Minimum simulated battery level measurement */
-#define SIM_BATTERY_MAX             (20u)       /* Maximum simulated battery level measurement */
-#define SIM_BATTERY_INCREMENT       (1u)        /* Value by which the battery level is incremented */                             
-
-#define MEASURE_BATTERY_MAX         (4200)      /* Use 3V as battery voltage starting */
-#define MEASURE_BATTERY_MID         (3500)      /* Use 2.8V as a knee point of discharge curve @ 29% */
+/* Various thresholds for battery voltage measurement */
+#define MEASURE_BATTERY_MAX         (4200)
+#define MEASURE_BATTERY_MID         (3500)
 #define MEASURE_BATTERY_MID_PERCENT (40)        
-#define MEASURE_BATTERY_MIN         (3000)      /* Use 2V as a cut-off of battery life */
-#define LOW_BATTERY_LIMIT           (10)        /* Low level limit in percent to switch on LED */
+#define MEASURE_BATTERY_MIN         (3000)
+#define LOW_BATTERY_LIMIT           (10)  
     
 #define ADC_VREF_MASK               (0x000000F0Lu)
 
@@ -47,6 +41,5 @@ void SimulateBattery(void);
 ***************************************/
 extern uint16 batterySimulationNotify;
 extern uint16 batteryMeasureNotify;
-
 
 /* [] END OF FILE */
