@@ -30,17 +30,16 @@
 ;* disclaimers, and limitations in the end user license agreement accompanying
 ;* the software package with which this file was provided.
 ;********************************************************************************/
-#include "..\Generated_Source\PSoC4\cyfitter.h"
-#include "..\Generated_Source\PSoC4\cycodeshareimport.scat"
-#include "BootloaderSymbols.h"
+#include "../Generated_Source\PSoC4\cyfitter.h"
+#include "../Generated_Source\PSoC4\cycodeshareimport.scat"
 
-#define CY_FLASH_SIZE                   131072
+#define CY_FLASH_SIZE                   262144
 #define CY_APPL_ORIGIN                  0
-#define CY_FLASH_ROW_SIZE               128
+#define CY_FLASH_ROW_SIZE               256
 #define CY_METADATA_SIZE                64
 
-#define CY_APPL_FOR_STACK_AND_COPIER    0
-#define CY_CHECKSUM_EXCLUDE_SIZE        AlignExpr(0, CY_FLASH_ROW_SIZE)
+#define CY_APPL_FOR_STACK_AND_COPIER    1
+#define CY_CHECKSUM_EXCLUDE_SIZE        AlignExpr(685, CY_FLASH_ROW_SIZE)
 #define CY_APPL_NUM                     1
 #define CY_APPL_MAX                     1
 
@@ -112,7 +111,7 @@ APPLICATION APPL_START (CY_FLASH_SIZE - APPL_START)
         }
     #endif
 
-    NOINIT_DATA Bootloader__Image$$DATA$$ZI$$Limit UNINIT
+    NOINIT_DATA Bootloader_Image$$DATA$$ZI$$Limit UNINIT
     {
         * (.noinit)
     }
@@ -122,11 +121,11 @@ APPLICATION APPL_START (CY_FLASH_SIZE - APPL_START)
         .ANY (+RW, +ZI)
     }
 
-    ARM_LIB_HEAP (0x20000000 + 16384 - 0x400 - 0x0800) EMPTY 0x400
+    ARM_LIB_HEAP (0x20000000 + 32768 - 0x400 - 0x0800) EMPTY 0x400
     {
     }
 
-    ARM_LIB_STACK (0x20000000 + 16384) EMPTY -0x0800
+    ARM_LIB_STACK (0x20000000 + 32768) EMPTY -0x0800
     {
     }
 }
@@ -137,7 +136,7 @@ APPLICATION APPL_START (CY_FLASH_SIZE - APPL_START)
 *******************************************************************************/
 #if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLE) || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
 
-    #if (0 != 0)
+    #if (417 != 0)
 
         /* General case */
         #if ((CYDEV_IS_EXPORTING_CODE == 0) && (CYDEV_IS_IMPORTING_CODE == 0))
@@ -157,7 +156,7 @@ APPLICATION APPL_START (CY_FLASH_SIZE - APPL_START)
             #endif
 
             /* App for SP+L */
-            #if ((CYDEV_IS_IMPORTING_CODE == 1) && (1 == 2))
+            #if ((CYDEV_IS_IMPORTING_CODE == 1) && (2 == 2))
                 #define CY_CHECKSUM_EXCLUDE_START           AlignExpr((CY_FLASH_SIZE - CY_FLASH_ROW_SIZE * 2) - CY_CHECKSUM_EXCLUDE_SIZE, CY_FLASH_ROW_SIZE)
             #endif
         #endif
@@ -170,7 +169,7 @@ APPLICATION APPL_START (CY_FLASH_SIZE - APPL_START)
             }
         }
 
-    #endif /* (0 != 0) */
+    #endif /* (417 != 0) */
 
 #endif
 
@@ -207,7 +206,7 @@ APPLICATION APPL_START (CY_FLASH_SIZE - APPL_START)
     #endif
 
     /* App for SP+L */
-    #if ((CYDEV_IS_IMPORTING_CODE == 1) && (1 == 2))
+    #if ((CYDEV_IS_IMPORTING_CODE == 1) && (2 == 2))
        #define CY_APPL_METADATA_SLOT_NUM        (1)
     #endif
 

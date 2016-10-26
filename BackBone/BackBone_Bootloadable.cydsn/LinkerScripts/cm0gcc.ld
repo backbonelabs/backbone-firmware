@@ -1,18 +1,20 @@
-/*******************************************************************************
-* Linker script for BLE OTA Fixed Stack example project
-*
-* Version: 1.30
-*
-******************************************************************************* 
-* Copyright 2014-2015, Cypress Semiconductor Corporation. All rights reserved.
-* This software is owned by Cypress Semiconductor Corporation and is protected
-* by and subject to worldwide patent and copyright laws and treaties.
-* Therefore, you may use this software only as provided in the license agreement
-* accompanying the software package from which you obtained this software.
-* CYPRESS AND ITS SUPPLIERS MAKE NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-* WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-*******************************************************************************/
+/* Linker script for ARM M-profile Simulator
+ *
+ * Version: Sourcery G++ Lite 2010q1-188
+ * Support: https://support.codesourcery.com/GNUToolchain/
+ *
+ * Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+ *
+ * The authors hereby grant permission to use, copy, modify, distribute,
+ * and license this software and its documentation for any purpose, provided
+ * that existing copyright notices are retained in all copies and that this
+ * notice is included verbatim in any distributions.  No written agreement,
+ * license, or royalty fee is required for any of the authorized uses.
+ * Modifications to this software may be copyrighted by their authors
+ * and need not follow the licensing terms described here, provided that
+ * the new terms are clearly indicated on the first page of each file where
+ * they apply.
+ */
 OUTPUT_FORMAT ("elf32-littlearm", "elf32-bigarm", "elf32-littlearm")
 ENTRY(Reset)
 SEARCH_DIR(.)
@@ -23,7 +25,6 @@ GROUP(-lgcc -lc -lnosys)
 INCLUDE cycodeshareexport.ld
 INCLUDE cycodeshareimport.ld
 
-INCLUDE BootloaderSymbolsGcc.ld
 
 MEMORY
 {
@@ -38,8 +39,8 @@ CY_APPL_NUM                     = 1;
 CY_APPL_MAX                     = 1;
 CY_METADATA_SIZE                = 64;
 CY_APPL_LOADABLE                = 1;
-CY_CHECKSUM_EXCLUDE_SIZE        = ALIGN(0, CY_FLASH_ROW_SIZE);
-CY_APP_FOR_STACK_AND_COPIER     = 0;
+CY_CHECKSUM_EXCLUDE_SIZE        = ALIGN(685, CY_FLASH_ROW_SIZE);
+CY_APP_FOR_STACK_AND_COPIER     = 1;
 
 
 /* These force the linker to search for particular symbols from
@@ -209,9 +210,10 @@ SECTIONS
         KEEP(*(.bootloaderruntype))
     }
 
+    BOOTLOADER_RAM_SIZE = (Bootloader___bss_end__ - 0x20000000); 
     .bootloader_data (NOLOAD) : ALIGN(8)
     {
-        . += BOOTLOADER_RAM_SIZE;
+      . += (BOOTLOADER_RAM_SIZE);
     }
 
     .noinit (NOLOAD) : ALIGN(8)
@@ -363,7 +365,7 @@ SECTIONS
      * | BTLDR                         |
      * |_______________________________|
      */
-    .cy_checksum_exclude ((LENGTH(rom) - CY_FLASH_ROW_SIZE * CY_APPL_MAX) - CY_CHECKSUM_EXCLUDE_SIZE): { KEEP(*(.cy_checksum_exclude)) }
+    .cy_checksum_exclude ((LENGTH(rom) - CY_FLASH_ROW_SIZE * 2) - CY_CHECKSUM_EXCLUDE_SIZE): { KEEP(*(.cy_checksum_exclude)) }
 
 
     /* Bootloadable applications only: verify that size of the data in the section is within the specified limit. */

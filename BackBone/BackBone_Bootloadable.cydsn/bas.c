@@ -90,7 +90,6 @@ void MeasureBattery(void)
 {
 	int16 adcResult;
     int32 mvolts;
-	uint32 sarControlReg;
     uint8 batteryLevel;
     CYBLE_API_RESULT_T apiResult;
     

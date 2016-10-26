@@ -8,7 +8,8 @@
 <files />
 <projects>
 <v>.\BackBone_Bootloadable.cydsn\BackBone_Bootloadable.cyprj</v>
-<v>.\BLE_OTA_FixedStack_Bootloader01.cydsn\BLE_OTA_FixedStack_Bootloader01.cyprj</v>
+<v>.\stack.cydsn\stack.cyprj</v>
+<v>.\launcher.cydsn\launcher.cyprj</v>
 </projects>
 <workspace_id v="b24670e9-79ff-489f-8ba5-28d69069eda7" />
 <WriteAppVersionLastSavedWith v="3.3.0.9604" />
