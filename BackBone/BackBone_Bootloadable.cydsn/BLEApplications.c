@@ -357,7 +357,10 @@ void CustomEventHandler(uint32 event, void * eventParam)
 				if(KeyMatch)
 				{
 		            MotorPWM_Stop();
-					BootloaderSwitch();
+                    //Switch to the Stack project, which enables OTA service
+                    Bootloadable_SetActiveApplication(0); 
+                    Bootloadable_Load(); 
+                    CySoftwareReset();
 				}
 			}
 

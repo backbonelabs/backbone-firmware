@@ -1,39 +1,52 @@
-/* ========================================
- *
- * Copyright YOUR COMPANY, THE YEAR
- * All Rights Reserved
- * UNPUBLISHED, LICENSED SOFTWARE.
- *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
- *
- * ========================================
-*/
-#ifndef __OTA_MANDATORY_H
-	
-#define __OTA_MANDATORY_H
-
+/*******************************************************************************
+* File Name: OTAMandatory.h
+* Version 1.10
+*
+* Description:
+*  Contains the function prototypes and constants available to the example
+*  project. They are mandatory for OTA functionality.
+*
+********************************************************************************
+* Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
+* You may use this file only in accordance with the license, terms, conditions,
+* disclaimers, and limitations in the end user license agreement accompanying
+* the software package with which this file was provided.
+*******************************************************************************/
 #include <cytypes.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\CyBle_gatt.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_custom.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_bas.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_bts.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_dis.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_eventhandler.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_hal_pvt.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stack.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stack_pvt.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackgap.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackgatt.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackgattclient.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackgattdb.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackgattserver.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackhostmain.h>
-#include <..\BLE_OTA_FixedStack_Bootloader01.cydsn\Generated_Source\PSoC4\cyble_stackl2cap.h>
+#include <project.h>
 
-void BootloaderSwitch();
-	
-#endif /* __OTA_MANDATORY_H */
+
+#define Loader_MD_SIZEOF                (64u)
+#define LENGHT_OF_UART_ROW              (20u)
+#define APP_FLAG_OFFSET                 (20u)
+
+#define APP_PRJ_MD_BASE_ADDR            (CYDEV_FLASH_BASE + \
+                                            (CYDEV_FLASH_SIZE - ((uint32)CYDEV_FLS_ROW_SIZE * 2u)))
+
+#define STACK_MD_BASE_ADDR              (CYDEV_FLASH_BASE + \
+                                            (CYDEV_FLASH_SIZE - ((uint32)CYDEV_FLS_ROW_SIZE)))
+
+#define STACK_UPDATE_FLAG_OFFSET        (STACK_MD_BASE_ADDR + APP_FLAG_OFFSET)
+#define UPDATE_FLAG_OFFSET              (APP_PRJ_MD_BASE_ADDR + APP_FLAG_OFFSET)
+
+#define LED_ON                          (0u)
+#define LED_OFF                         (1u)
+
+#define Bootloadable_MD_BTLDB_ACTIVE_1      (0x01u)
+#define Bootloadable_MD_SIZEOF              (64u)
+#define Bootloadable_MD_BASE_ADDR(appId)    (CYDEV_FLASH_BASE + (CYDEV_FLASH_SIZE - ((uint32)(appId) * CYDEV_FLS_ROW_SIZE) - \
+                                                                        Bootloadable_MD_SIZEOF))
+#define Bootloadable_MD_BTLDB_ACTIVE_OFFSET(appId) (Bootloadable_MD_BASE_ADDR(appId) + 16u)
+                                                                        
+
+cystatus Bootloadable_WriteFlashByte(const uint32 address, const uint8 inputValue);
+cystatus Bootloadable_SetActiveApplication(uint8 appId);
+
+void AfterImageUpdate(void);
+#if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
+    cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount);
+#endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
+
+
 
 /* [] END OF FILE */

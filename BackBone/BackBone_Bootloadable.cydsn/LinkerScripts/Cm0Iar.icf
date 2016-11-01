@@ -5,9 +5,9 @@
 define symbol __ICFEDIT_intvec_start__ = 0x00000000;
 /*-Memory Regions-*/
 define symbol __ICFEDIT_region_ROM_start__ = 0x0;
-define symbol __ICFEDIT_region_ROM_end__   = 131072 - 1;
+define symbol __ICFEDIT_region_ROM_end__   = 262144 - 1;
 define symbol __ICFEDIT_region_RAM_start__ = 0x20000000;
-define symbol __ICFEDIT_region_RAM_end__   = 0x20000000 + 16384 - 1;
+define symbol __ICFEDIT_region_RAM_end__   = 0x20000000 + 32768 - 1;
 /*-Sizes-*/
 define symbol __ICFEDIT_size_cstack__ = 0x0800;
 define symbol __ICFEDIT_size_heap__   = 0x400;
@@ -15,23 +15,23 @@ define symbol __ICFEDIT_size_heap__   = 0x400;
 
 
 /******** Definitions ********/
-define symbol CY_FLASH_SIZE     = 131072;
+define symbol CY_FLASH_SIZE     = 262144;
 define symbol CY_APPL_ORIGIN    = 0;
-define symbol CY_FLASH_ROW_SIZE = 128;
+define symbol CY_FLASH_ROW_SIZE = 256;
 define symbol CY_APPL_LOADABLE  = 1;
 define symbol CY_APPL_LOADER    = 0;
 define symbol CY_APPL_NUM       = 1;
 define symbol CY_METADATA_SIZE  = 64;
 define symbol CY_APPL_MAX       = 1;
-define symbol CY_CHECKSUM_EXCLUDE_SIZE = 0;
-define symbol CY_APPL_FOR_STACK_AND_COPIER  = 0;
-define symbol CY_FIRST_AVAILABLE_META_ROW   = 1;
+define symbol CY_CHECKSUM_EXCLUDE_SIZE = 685;
+define symbol CY_APPL_FOR_STACK_AND_COPIER  = 1;
+define symbol CY_FIRST_AVAILABLE_META_ROW   = 2;
 
-define symbol CYDEV_IS_IMPORTING_CODE = 0;
+define symbol CYDEV_IS_IMPORTING_CODE = 1;
 define symbol CYDEV_IS_EXPORTING_CODE = 0;
-include "BootloaderSymbolsIar.icf";
-include "..\Generated_Source\PSoC4\cybootloader.icf";
 
+
+include "..\Generated_Source\PSoC4\cybootloader.icf";
 if (!CY_APPL_LOADABLE) {
     define symbol CYDEV_BTLDR_SIZE = 0;
 
@@ -52,9 +52,9 @@ define region RAM_region   = mem:[from __ICFEDIT_region_RAM_start__   to __ICFED
 define block CSTACK     with alignment = 8, size = __ICFEDIT_size_cstack__   { };
 define block HEAP       with alignment = 8, size = __ICFEDIT_size_heap__     { };
 define block HSTACK     {block HEAP, last block CSTACK};
-define block BTLDRRAM   with alignment = 8, size = 0x2AFF { readwrite section .bootloaderram };
+define block BTLDRRAM   with alignment = 8, size = 0x2000 { readwrite section .bootloaderram };
 
-define block RAMVEC     with fixed order { readwrite section .ramvectors, readwrite section .bootloaderruntype, block BTLDRRAM };
+define block RAMVEC     with fixed order {readwrite section .ramvectors, readwrite section .bootloaderruntype, block BTLDRRAM };
 
 if (CY_APPL_LOADABLE)
 {
@@ -121,8 +121,15 @@ if ((CY_APPL_LOADER)&&!(CY_APPL_LOADABLE))
 }
 else
 {
-    /* Must be part of the image, but beyond rom memory. */
-     ".cyloadermeta"     : place at address mem : 0x90700000 { readonly section .cyloadermeta };
+     if ((CYDEV_IS_IMPORTING_CODE == 1) && (CY_FIRST_AVAILABLE_META_ROW == 2))
+     {
+          ".cyloadermeta"     : place at address mem : (CY_FLASH_SIZE - CY_METADATA_SIZE) { readonly section .cyloadermeta };
+     }
+     else
+     {
+          /* Must be part of the image, but beyond rom memory. */
+          ".cyloadermeta"     : place at address mem : 0x90700000 { readonly section .cyloadermeta };
+     }
 }
 
 
