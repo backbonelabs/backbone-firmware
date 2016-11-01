@@ -42,6 +42,10 @@
 #include <BLEApplications.h>
 #include <OTAMandatory.h>
 
+/* Value is from From the CYBLE-222005-00 Data Sheet.  Table 48 (Page 24).
+ * http://www.cypress.com/documentation/datasheets/cyble-222005-00-ez-bletm-proctm-module*/
+#define CAPACITOR_TRIM_VALUE       0x0000A0A0
+
 /**************************Variable Declarations*****************************/
 static const uint8 EnterBootloaderKey[8] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
 
@@ -79,11 +83,6 @@ static CYBLE_GAP_CONN_UPDATE_PARAM_T ConnectionParam =
     CONN_PARAM_UPDATE_SUPRV_TIMEOUT 			         	
 };
 
-/* This flag is used to switch between CPU Deep Sleep and Sleep, depending on
-* the status of RGB LED color values received. This method allows to conserve 
-* more power while LED usage */
-uint8 shut_down_led = TRUE;
-
 /* Status flag for the Stack Busy state. This flag is used to notify the application 
 * whether there is stack buffer free to push more data or not */
 uint8 busyStatus = 0;
@@ -120,7 +119,8 @@ CYBLE_GATT_HANDLE_VALUE_PAIR_T VersionInfoNotificationHandle;
 *******************************************************************************/
 void CustomEventHandler(uint32 event, void * eventParam)
 {
-	uint8 i;
+    CYBLE_BLESS_CLK_CFG_PARAMS_T clockConfig;
+    uint8 i;
 	uint8 KeyMatch = 0;
 	
 	/* Local variable to store the data received as part of the Write request 
@@ -130,48 +130,48 @@ void CustomEventHandler(uint32 event, void * eventParam)
     switch(event)
     {
         case CYBLE_EVT_STACK_ON:
-			/* This event is received when component is Started */
+            /* load capacitors on the ECO should be tuned and the tuned value
+             * must be set in the CY_SYS_XTAL_BLERD_BB_XO_CAPTRIM_REG  */
+            CY_SYS_XTAL_BLERD_BB_XO_CAPTRIM_REG = CAPACITOR_TRIM_VALUE;    
+        
+            /* Get the configured clock parameters for BLE sub-system */
+            CyBle_GetBleClockCfgParam(&clockConfig);    
+            
+            /* Update the sleep clock inaccuracy PPM based on WCO crystal used */
+            /* If you see frequent link disconnection, tune your WCO or update 
+             * the sleep clock accuracy here */
+            clockConfig.bleLlSca = CYBLE_LL_SCA_031_TO_050_PPM;
+            //clockConfig.bleLlSca = CYBLE_LL_SCA_021_TO_030_PPM;
+            //clockConfig.bleLlSca = CYBLE_LL_SCA_000_TO_020_PPM;
+            
+            /* set the clock configuration parameter of BLE sub-system with updated values*/
+            CyBle_SetBleClockCfgParam(&clockConfig);
+
+            /* Put the device into discoverable mode so that a central device can connect to it */
+            CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+            break;
 			
-			/* Set restartAdvertisement flag to allow calling Advertisement 
-			* API from main function */
-			restartAdvertisement = TRUE;
-			
-			break;
+        case CYBLE_EVT_GAP_DEVICE_CONNECTED:
+            break;
 			
 		case CYBLE_EVT_TIMEOUT:
-			/* Event Handling for Timeout  */
-	
+			/* Event Handling for Timeout  */	
 			break;
         
 		/**********************************************************
         *                       GAP Events
         ***********************************************************/
 		case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP:
-			
 			/* If the current BLE state is Disconnected, then the Advertisement
-			* Start Stop event implies that advertisement has stopped */
+ 			 * Start Stop event implies that advertisement has stopped */
 			if(CyBle_GetState() == CYBLE_STATE_DISCONNECTED)
 			{
-				/* Set restartAdvertisement flag to allow calling Advertisement 
-				* API from main function */
-				restartAdvertisement = TRUE;
+                CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
 			}
 			break;
-			
-		case CYBLE_EVT_GAP_DEVICE_CONNECTED: 					
-			/* This event is received when device is connected over GAP layer */
-			break;
-
-			
+						
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
-			/* This event is received when device is disconnected */
-			
-			/* Set restartAdvertisement flag to allow calling Advertisement 
-			* API from main function */
-			restartAdvertisement = TRUE;
-			
-			/* Set flag to allow system to go to Deep Sleep */
-			shut_down_led = TRUE;
+            CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
 			break;
         
 		/**********************************************************
@@ -203,9 +203,6 @@ void CustomEventHandler(uint32 event, void * eventParam)
 			/* Reset the isConnectionUpdateRequested flag to allow sending
 			* connection parameter update request in next connection */
 			isConnectionUpdateRequested = TRUE;
-			
-			/* Set the flag to allow system to go to Deep Sleep */
-			shut_down_led = TRUE;
 			
 			break;
             
@@ -531,86 +528,6 @@ void UpdateConnectionParam(void)
 *******************************************************************************/
 void WDT_INT_Handler(void)
 {
-//	/* If the Interrupt source is Counter 0 match, then process */
-//	if(CySysWdtGetInterruptSource() & CY_SYS_WDT_COUNTER0_INT)
-//	{
-//		/* Clear Watchdog Interrupt from Counter 0 */
-//		CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
-//		
-//		/* If switch_off_status_led is TRUE, then the Connection status LED 
-//		* is ON and it is required to shut it down after 3 seconds */
-//		if(switch_off_status_led)
-//		{
-//			/* If timer ticks for Connection ON LED period has expired, then switch
-//			* off LED */
-//			if(timer_tick == FALSE)
-//			{
-//				/* Switch of Status LED */
-//				PrISM_1_WritePulse0(RGB_LED_OFF);
-//				
-//				/* Set the drive mode of LED to Analog HiZ to prevent leakage current */
-//				RED_SetDriveMode(RED_DM_ALG_HIZ);
-//				
-//				/* Reset the Flag */
-//				switch_off_status_led = FALSE;
-//				
-//			}
-//			else
-//			{
-//				/* Decrement timer_tick as counting method */
-//				timer_tick--;
-//			}
-//		}
-//		/* If the LED activity for Connection LED ON is completed, then firmware is 
-//		* allowed to do timing for RGB LED Control operation after connection. This 
-//		* operation keeps the RGB LED ON for determined time (default 3 seconds) from
-//		* the last time RGB LED data was sent. This ensures that continuous usage of 
-//		* the kit in RGB mode does not consume too much power */
-//		else
-//		{
-//			/* After displaying color for predetermined time, switch off 
-//			* the LEDs to save power */
-//			if(FALSE == led_timer)
-//			{
-//				/* Set the flag to indicate to the Low power mode function that system 
-//				* can be put to Deep Sleep as no LED operation is required */
-//				shut_down_led= TRUE;
-//				
-//				/* Shut down LEDs*/
-//				RED_SetDriveMode(RED_DM_ALG_HIZ);
-//				GREEN_SetDriveMode(GREEN_DM_ALG_HIZ);
-//				BLUE_SetDriveMode(BLUE_DM_ALG_HIZ);
-//			}
-//			else
-//			{	
-//				/* Decrement the led_timer as counting method for RGB LED Control. During
-//				* this period, the PrISM is active and drives the signal to display the 
-//				* appropriate color */
-//				led_timer--;
-//			}
-//		}
-//		
-//		/* Unlock the WDT registers for modification */
-//		CySysWdtUnlock();
-//		
-//		/* Disable Counter 0 to allow modifications */
-//		CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK);
-//		
-//		/* Reset Counter 0 and give ~3 LFCLK cycles to take effect */
-//		CySysWdtResetCounters(CY_SYS_WDT_COUNTER0_RESET);
-//		CyDelayUs(WATCHDOG_REG_UPDATE_WAIT_TIME);
-//		
-//		/* Write the Counter 0 match value for 1 second and give ~3 LFCLK
-//		* cycles to take effect */
-//		CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WATCHDOG_ONE_SEC_COUNT_VAL);
-//		CyDelayUs(WATCHDOG_REG_UPDATE_WAIT_TIME);
-//		
-//		/* Enable Watchdog Counter 0 */
-//		CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);
-//		
-//		/* Lock Watchdog to prevent any further change */
-//	    CySysWdtLock();
-//	}
 }
 
 /*******************************************************************************
@@ -628,28 +545,5 @@ void WDT_INT_Handler(void)
 *******************************************************************************/
 void InitializeWatchdog(void)
 {
-//	/* Unlock the WDT registers for modification */
-//	CySysWdtUnlock(); 
-//	
-//	/* Write Mode for Counter 0 as Interrupt on Match */
-//    CySysWdtWriteMode(CY_SYS_WDT_COUNTER0, CY_SYS_WDT_MODE_INT);
-//	
-//	/* Set Clear on Match for Counter 0*/
-//	CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, TRUE);
-//    
-//	/* Set Watchdog interrupt to lower priority */
-//	CyIntSetPriority(WATCHDOG_INT_VEC_NUM, WATCHDOG_INT_VEC_PRIORITY);
-//	
-//	/* Enable Watchdog Interrupt using Interrupt number */
-//    CyIntEnable(WATCHDOG_INT_VEC_NUM);
-//	
-//	/* Write the match value equal to 1 second in Counter 0 */
-//	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WATCHDOG_ONE_SEC_COUNT_VAL);
-//    
-//	/* Enable Counter 0 */
-//    CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);
-//	
-//	/* Lock Watchdog to prevent further changes */
-//    CySysWdtLock();
 }
 /* [] END OF FILE */

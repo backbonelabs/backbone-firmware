@@ -1,24 +1,14 @@
-/*******************************************************************************
-* File Name: main.c
-*
-* Version: 1.0
-*
-* Description:
-*  BLE example project that measures the battery voltage using PSoC 4 BLE's 
-*  internal ADC and notifies the BLE central device on any change in battery 
-*  voltage.
-*
-* Note:
-*
-* Hardware Dependency:
-*  CY8CKIT-042 BLE
-* 
-********************************************************************************
-* Copyright 2015, Cypress Semiconductor Corporation.  All rights reserved.
-* You may use this file only in accordance with the license, terms, conditions,
-* disclaimers, and limitations in the end user license agreement accompanying
-* the software package with which this file was provided.
-*******************************************************************************/
+/* ===========================================
+ *
+ * Copyright BACKBONE LABS INC, 2016
+ * All Rights Reserved
+ * UNPUBLISHED, LICENSED SOFTWARE.
+ *
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
+ *
+ * ===========================================
+*/
 
 #include "common.h"
 #include "bas.h"
@@ -40,145 +30,133 @@ uint8 VersionString[4] = {HW_MAJOR_VERSION, HW_MINOR_VERSION, FW_MAJOR_VERSION, 
 extern uint8 deviceConnected;
 extern uint8 restartAdvertisement;
 
-
-
-/*******************************************************************************
-* Function Name: LowPowerImplementation()
-********************************************************************************
-* Summary:
-* Implements low power in the project.
-*
-* Parameters:
-* None
-*
-* Return:
-* None
-*
-* Theory:
-* The function tries to enter deep sleep as much as possible - whenever the 
-* BLE is idle and the UART transmission/reception is not happening. At all other
-* times, the function tries to enter CPU sleep.
-*
-*******************************************************************************/
-static void LowPowerImplementation(void)
+__inline void ManageSystemPower()
 {
-    CYBLE_LP_MODE_T bleMode;
-    uint8 interruptStatus;
+    CYBLE_BLESS_STATE_T blePower;
+    uint8 interruptStatus ;
     
-    /* For advertising and connected states, implement deep sleep 
-     * functionality to achieve low power in the system. For more details
-     * on the low power implementation, refer to the Low Power Application 
-     * Note.
-     */
-    if((CyBle_GetState() == CYBLE_STATE_ADVERTISING) || 
-       (CyBle_GetState() == CYBLE_STATE_CONNECTED))
+    interruptStatus = CyEnterCriticalSection();
+    
+    blePower = CyBle_GetBleSsState();
+    
+    /* System can enter DeepSleep only when BLESS and rest of the 
+     * application are in DeepSleep power modes */
+    if(blePower == CYBLE_BLESS_STATE_DEEPSLEEP || 
+       blePower == CYBLE_BLESS_STATE_ECO_ON)
     {
-        /* Request BLE subsystem to enter into Deep-Sleep mode between connection and advertising intervals */
-        bleMode = CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-        
-		/* Disable global interrupts */
-        interruptStatus = CyEnterCriticalSection();
-        
-		/* When BLE subsystem has been put into Deep-Sleep mode */
-        if((bleMode == CYBLE_BLESS_DEEPSLEEP) && (MotorFlag == 0) &&  (hal.new_gyro == 0))
-        {
-            /* And it is still there or ECO is on */
-            if((CyBle_GetBleSsState() == CYBLE_BLESS_STATE_ECO_ON) || 
-               (CyBle_GetBleSsState() == CYBLE_BLESS_STATE_DEEPSLEEP))
-            {
-                CySysPmDeepSleep();
-            }
-        }
-        else /* When BLE subsystem has been put into Sleep mode or is active */
-        {
-            /* And hardware doesn't finish Tx/Rx opeation - put the CPU into Sleep mode */
-            if(((CyBle_GetBleSsState() != CYBLE_BLESS_STATE_EVENT_CLOSE) || (MotorFlag != 0)) &&  (hal.new_gyro == 0))
-            {
-                CySysPmSleep();
-            }
-        }
-        
-		/* Enable global interrupt */
-        CyExitCriticalSection(interruptStatus);
+        CySysPmDeepSleep(); 
     }
+    else if(blePower != CYBLE_BLESS_STATE_EVENT_CLOSE)
+    {
+        /* change HF clock source from IMO to ECO, as IMO is not required 
+         * and can be stopped to save power */
+        CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO); 
+        /* stop IMO for reducing power consumption */
+        CySysClkImoStop();              
+        /* put the CPU to sleep */
+        CySysPmSleep();            
+        /* starts execution after waking up, start IMO */
+        CySysClkImoStart();
+        /* change HF clock source back to IMO */
+        CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
+    }
+    
+    CyExitCriticalSection(interruptStatus );
 }
 
+__inline void ManageApplicationPower()
+{
+    // put any application components to sleep.
+}
 
+__inline void RunApplication()
+{
+    // If there is data to read from the accelerometer, read it
+    // then go to deep sleep.
+    if (hal.new_gyro == 1)
+	{
+		hal.new_gyro = 0;
+        CyDelay(10);
+		fifo_handler();
+        BackBone_Task();
+	}
 
-/*******************************************************************************
-* Function Name: main()
-********************************************************************************
-* Summary:
-*  Main function for the project.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
-*
-* Theory:
-*  The function starts BLE and UART components.
-*  This function process all BLE events and also implements the low power 
-*  functionality.
-*
-*******************************************************************************/
+#if 0
+    if(TRUE == deviceConnected)
+	{
+		UpdateConnectionParam();
+       	MeasureBattery(); 
+	}
+#endif
+}
+
+__inline void ManageBlePower()
+{
+    CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+}
+
+void RunBle()
+{ 
+    CyBle_ProcessEvents(); 
+
+#if 0
+   /* Wait until BLESS is in ECO_STABLE state to push the notification data to the BLESS */
+   if(CyBle_GetBleSsState() == CYBLE_BLESS_STATE_ECO_STABLE)
+   {
+       // Send notifications.
+   }
+#endif
+}
+
+/**
+ * Main function of BackBone firmware.
+ *
+ * Implements the application main loop, procsses BLE events, handles high level
+ * application logic.  Puts the system into low power modes when there is no
+ * work to do.
+ *
+ * Architecture of this is based on App Note: AN92584 "Designing for Low Power
+ * and Estimating Battery Life for BLE Applications" 
+ * http://www.cypress.com/documentation/application-notes/an92584-designing-low-power-and-estimating-battery-life-ble
+ */
 int main()
-{	
+{
     CyGlobalIntEnable;  
-
     #if !defined(__ARMCC_VERSION)
         InitializeBootloaderSRAM();
     #endif
-
-    /* Checks if Self Project Image is updated and Runs for the First time */
+    
     AfterImageUpdate();
 
-	inv_start();
-	
-    CyBle_Start(CustomEventHandler);
-    CyBle_BasRegisterAttrCallback(BasCallBack);
+    /* Internal low power oscillator is stopped as it is not used in this 
+     * project */
+    CySysClkIloStop();
     
-	ADC_Start();
-	MotorPWM_Start();
+    /* Set the divider for ECO, ECO will be used as source when IMO is switched 
+     * off to save power */
+    CySysClkWriteEcoDiv(CY_SYS_CLK_ECO_DIV8);
 
-    while(1) 
-    {              
-        if (hal.new_gyro == 1)
-		{
-			hal.new_gyro = 0;
-            CyDelay(10);
-			fifo_handler();
-		}
-		
-		BackBone_Task();
-		
-		/* Process all the generated events. */
-        CyBle_ProcessEvents();                
+    CyBle_Start(CustomEventHandler);
+    CyBle_BasRegisterAttrCallback(BasCallBack);       
+    while (CyBle_GetState() == CYBLE_STATE_INITIALIZING)
+    {
+        CyBle_ProcessEvents(); 
+    }
+   
+	//inv_start();    
+	//ADC_Start();
+	//MotorPWM_Start();
 
-        #ifdef ENABLE_LOW_POWER_MODE
-			/* To achieve low power in the device */
-            if(restartAdvertisement==FALSE)
-            {
-	            LowPowerImplementation();
-            }
-		#endif
-
-        if(restartAdvertisement)
-		{
-			restartAdvertisement = FALSE;			
-			CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);            
-		}
+    while(1)
+    {
+        RunBle();
+        ManageBlePower();
         
-        if(TRUE == deviceConnected)
-		{
-			UpdateConnectionParam();	
-
-           	MeasureBattery(); 
-		}
-		
-	}   
-}  
-
+        RunApplication();
+        ManageApplicationPower();
+        
+        ManageSystemPower();
+    }
+}
 
 /* [] END OF FILE */
