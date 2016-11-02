@@ -15,11 +15,11 @@
 
 #include <project.h>
 #include <stdbool.h>
-
+	
 /* General Macros */
-#define BLE_TRUE                            1
-#define BLE_FALSE                           0
-#define BLE_ZERO                            0
+#define BLE_TRUE							1
+#define BLE_FALSE							0
+#define BLE_ZERO							0
 
 void ble_init();
 void ble_update_connection_parameters();
