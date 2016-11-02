@@ -17,6 +17,8 @@
 #include <main.h>
 #include <BleApplications.h>
 #include <OTAMandatory.h>
+#include "watchdog.h"
+#include "posture.h"
 
 extern void InitializeBootloaderSRAM();
 
@@ -69,6 +71,10 @@ __inline void ManageApplicationPower()
     // put any application components to sleep.
 }
 
+float y[] = {1.0, 1.0, 1.0, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.9};
+float z[] = {0.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.1};
+int aidx;
+
 __inline void RunApplication()
 {
     // If there is data to read from the accelerometer, read it
@@ -76,9 +82,22 @@ __inline void RunApplication()
     if (hal.new_gyro == 1)
 	{
 		hal.new_gyro = 0;
-        CyDelay(10);
-		fifo_handler();
-        BackBone_Task();
+        //CyDelay(10);
+        // TODO: Add this back when accelerometer is working
+		//fifo_handler();
+
+        // Remove this when accelerometer is working
+        LED_Green_Write(0); // on
+        CyDelay(50);
+        LED_Green_Write(1); // off
+        posture_update(y[aidx], z[aidx]);
+		BackBone_SetAccelerometerData(0, y[aidx], z[aidx], 0);
+        BackBone_SetDistanceData(posture_get_distance());
+        aidx += 1;
+        if (aidx >= 10) aidx = 0;
+        
+        // Keep this
+        BackBone_Task();        
 	}
 
 #if 0
@@ -121,6 +140,9 @@ void RunBle()
  */
 int main()
 {
+    aidx = 0;
+    watchdog_init();
+    
     CyGlobalIntEnable;  
     #if !defined(__ARMCC_VERSION)
         InitializeBootloaderSRAM();

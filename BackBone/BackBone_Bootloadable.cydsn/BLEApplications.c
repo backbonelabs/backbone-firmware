@@ -56,7 +56,7 @@ CYBLE_CONN_HANDLE_T  connectionHandle;
 * Configuration Descriptor) of the CapSense slider Characteristic to enable 
 * notifications */
 uint8 SendAccelNotifications = FALSE;
-uint8 SendGyroNotifications = FALSE;
+uint8 SendDistanceNotifications = FALSE;
 uint8 SendPedometerNotifications = FALSE;
 uint8 SendVersionInfoNotifications = FALSE;
 
@@ -91,13 +91,13 @@ uint8 busyStatus = 0;
 uint8 CapSenseCCCDvalue[2];
 uint8 RGBCCCDvalue[2];
 uint8 AccelCCCDValue[2];
-uint8 GyroCCCDValue[2];
+uint8 DistanceCCCDValue[2];
 uint8 PedometerCCCDValue[2];
 uint8 VersionInfoCCCDValue[2];
 
 /* Handle value to update the CCCD */
 CYBLE_GATT_HANDLE_VALUE_PAIR_T AccelNotificationHandle;
-CYBLE_GATT_HANDLE_VALUE_PAIR_T GyroNotificationHandle;
+CYBLE_GATT_HANDLE_VALUE_PAIR_T DistanceNotificationHandle;
 CYBLE_GATT_HANDLE_VALUE_PAIR_T PedometerNotificationHandle;
 CYBLE_GATT_HANDLE_VALUE_PAIR_T VersionInfoNotificationHandle;
 
@@ -197,7 +197,7 @@ void CustomEventHandler(uint32 event, void * eventParam)
 			/* Reset CapSense notification flag to prevent further notifications
 			 * being sent to Central device after next connection. */
 			SendAccelNotifications = FALSE;
-			SendGyroNotifications = FALSE;
+			SendDistanceNotifications = FALSE;
 			SendPedometerNotifications = FALSE;
 			
 			/* Reset the isConnectionUpdateRequested flag to allow sending
@@ -235,28 +235,25 @@ void CustomEventHandler(uint32 event, void * eventParam)
 				CyBle_GattsWriteAttributeValue(&AccelNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
 			}
 			
-			if(CYBLE_BACKBONE_GYROSCOPE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == wrReqParam->handleValPair.attrHandle)
+			if(CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == wrReqParam->handleValPair.attrHandle)
 			{
-				if(wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_GYROSCOPE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == TRUE)
+				if(wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == TRUE)
 				{
-					SendGyroNotifications = TRUE;	
+					SendDistanceNotifications = TRUE;	
 				}
-				else if (wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_GYROSCOPE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == FALSE)
+				else if (wrReqParam->handleValPair.value.val[CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == FALSE)
 				{
-					SendGyroNotifications = FALSE;	
-				}
-				else
-				{
+					SendDistanceNotifications = FALSE;	
 				}
 				
-				GyroCCCDValue[0] = SendGyroNotifications;
-				GyroCCCDValue[1] = 0x00;
+				DistanceCCCDValue[0] = SendDistanceNotifications;
+				DistanceCCCDValue[1] = 0x00;
 				
-				GyroNotificationHandle.attrHandle = CYBLE_BACKBONE_GYROSCOPE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
-				GyroNotificationHandle.value.val = GyroCCCDValue;
-				GyroNotificationHandle.value.len = GYRO_DATA_LEN;
+				DistanceNotificationHandle.attrHandle = CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+				DistanceNotificationHandle.value.val = DistanceCCCDValue;
+				DistanceNotificationHandle.value.len = DISTANCE_DATA_LEN;
 				
-				CyBle_GattsWriteAttributeValue(&GyroNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
+				CyBle_GattsWriteAttributeValue(&DistanceNotificationHandle, ZERO, &connectionHandle, CYBLE_GATT_DB_PEER_INITIATED);
 			}
 			
 			if(CYBLE_BACKBONE_PEDOMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == wrReqParam->handleValPair.attrHandle)
@@ -406,18 +403,21 @@ void SendAllNotifications(void)
 		}
 	}
 	
-	if(BackBoneFlags & GYRO_DATA_NEW)
+	if(BackBoneFlags & DISTANCE_DATA_NEW)
 	{
 		if(busyStatus == CYBLE_STACK_STATE_FREE)
 		{
-			NotificationHandle.attrHandle = CYBLE_BACKBONE_GYROSCOPE_CHAR_HANDLE;
-			NotificationHandle.value.val = Gyroscope.RawData;
-			NotificationHandle.value.len = GYRO_DATA_LEN;
+			NotificationHandle.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
+			NotificationHandle.value.val = Distance.RawData;
+			NotificationHandle.value.len = DISTANCE_DATA_LEN;
 			
 			/* Send the updated handle as part of attribute for notifications */
 			CyBle_GattsNotification(connectionHandle,&NotificationHandle);
 			
-			BackBoneFlags &= ~GYRO_DATA_NEW;
+			BackBoneFlags &= ~DISTANCE_DATA_NEW;
+            LED_Blue_Write(0); // on
+            CyDelay(50);
+            LED_Blue_Write(1); // off
 		}
 	}
 	

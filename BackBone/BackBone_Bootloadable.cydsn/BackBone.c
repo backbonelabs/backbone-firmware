@@ -15,7 +15,7 @@
 #include <BLEApplications.h>
 
 ACCELEROMETER Accelerometer = {0, 0, 0, 0};
-GYROSCOPE Gyroscope = {0, 0, 0};
+DISTANCE Distance = {0};
 CONFIG_DATA ConfigData = {0};
 PEDOMETER Pedometer = {0};
 
@@ -45,16 +45,11 @@ void BackBone_GetAccelerometerData(uint8* DestinationBuffer, uint8 Length)
 	}
 }
 
-void BackBone_GetGyroscopeData(uint8* DestinationBuffer, uint8 Length)
+void BackBone_SetDistanceData(float distance)
 {
-	uint8* pointer = DestinationBuffer;
-	uint8 i;
-	
-	for (i=0; i<Length; i++)
-	{
-		*pointer = Gyroscope.RawData[i];
-		pointer++;
-	}
+	Distance.DistanceData = distance;
+
+	BackBoneFlags |= DISTANCE_DATA_NEW;
 }
 
 void BackBone_SetAccelerometerData(float XAxis, float YAxis, float ZAxis, float RMS)
@@ -65,15 +60,6 @@ void BackBone_SetAccelerometerData(float XAxis, float YAxis, float ZAxis, float 
 	Accelerometer.AccelerometerData[3] = RMS;
 	
 	BackBoneFlags |= ACCEL_DATA_NEW;
-}
-
-void BackBone_SetGyroscopeData(float XAxis, float YAxis, float ZAxis)
-{
-	Gyroscope.GyroscopeData[0] = XAxis;
-	Gyroscope.GyroscopeData[1] = YAxis;
-	Gyroscope.GyroscopeData[2] = ZAxis;
-	
-	BackBoneFlags |= GYRO_DATA_NEW;
 }
 
 uint32 BackBone_GetStepCount(void)

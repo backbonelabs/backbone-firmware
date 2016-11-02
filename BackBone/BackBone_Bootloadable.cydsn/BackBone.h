@@ -23,9 +23,9 @@ typedef union
 	
 typedef union
 {
-	float GyroscopeData[3];
-	uint8 RawData[12];
-}GYROSCOPE;
+	float DistanceData;
+	uint8 RawData[4];
+}DISTANCE;
 
 typedef union
 {
@@ -52,13 +52,13 @@ typedef union
 }CONFIG_DATA;
 
 #define ACCEL_DATA_LEN						(16u)
-#define GYRO_DATA_LEN						(12u)
+#define DISTANCE_DATA_LEN					(4u)
 #define PEDOMETER_DATA_LEN					(4u)
 #define CONFIG_DATA_LEN						(18u)
 #define VERSION_INFO_DATA_LEN				(4u)
 
 #define ACCEL_DATA_NEW						(0x01)
-#define GYRO_DATA_NEW						(0x02)
+#define DISTANCE_DATA_NEW					(0x02)
 #define PEDO_DATA_NEW						(0x04)
 #define VERSION_DATA_NEW					(0x08)
 
@@ -67,12 +67,12 @@ void BackBone_GetAccelerometerData(uint8* DestinationBuffer, uint8 Length);
 uint32 BackBone_GetStepCount(void);
 void BackBone_SetStepCount(uint32 Count);
 void BackBone_SetAccelerometerData(float XAxis, float YAxis, float ZAxis, float RMS);
-void BackBone_SetGyroscopeData(float XAxis, float YAxis, float ZAxis);
+void BackBone_SetDistanceData(float distance);
 void BackBone_SetConfigData(uint8* SourceBuffer, uint8 Length);
 void BackBone_Task(void);
 
 extern ACCELEROMETER Accelerometer;
-extern GYROSCOPE Gyroscope;
+extern DISTANCE Distance;
 extern CONFIG_DATA ConfigData;
 extern PEDOMETER Pedometer;
 
