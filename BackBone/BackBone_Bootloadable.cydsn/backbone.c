@@ -11,8 +11,9 @@
 */
 
 #include <project.h>
-#include <BackBone.h>
-#include <BLEApplications.h>
+
+#include "ble.h"
+#include "backbone.h"
 
 uint8 accelerometer_cccd[2];
 uint8 distance_cccd[2];

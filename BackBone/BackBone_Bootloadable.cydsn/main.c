@@ -13,10 +13,10 @@
 #include "common.h"
 #include "bas.h"
 #include "inv.h"
-#include <timeout.h>
-#include <main.h>
-#include <BleApplications.h>
-#include <OTAMandatory.h>
+#include "timeout.h"
+#include "version.h"
+#include "ble.h"
+#include "OTAMandatory.h"
 #include "watchdog.h"
 #include "posture.h"
 #include "backbone.h"

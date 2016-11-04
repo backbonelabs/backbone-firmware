@@ -1,7 +1,7 @@
-#include <main.h>
-#include <BLEApplications.h>
-#include <OTAMandatory.h>
-#include "BackBone.h"
+#include "ble.h"
+#include "version.h"
+#include "OTAMandatory.h"
+#include "backbone.h"
 
 /* Value is from From the CYBLE-222005-00 Data Sheet.  Table 48 (Page 24).
  * http://www.cypress.com/documentation/datasheets/cyble-222005-00-ez-bletm-proctm-module*/

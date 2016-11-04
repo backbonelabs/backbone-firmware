@@ -16,8 +16,8 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "common.h"
 #include "bas.h"
+#include "common.h"
 #include <OTAMandatory.h>
 
 uint16 batterySimulationNotify = 0u;

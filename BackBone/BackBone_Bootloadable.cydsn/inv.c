@@ -12,7 +12,6 @@
 #include <project.h>
 #include <inv.h>
 #include ".\20648_driver\invn\inv_mems.h"
-#include <BackBone.h>
 
 static uint16 inv_flags = 0;
 
