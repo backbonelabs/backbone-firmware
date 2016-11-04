@@ -936,7 +936,8 @@ void fifo_handler()
 					// scale *= 9.80665f; // Convert to m/s^2
 					inv_convert_dmp3_to_body(long_data, scale, accel_float);
 					
-					BackBone_SetAccelerometerData(accel_float[0], accel_float[1], accel_float[2], 0);
+                    // TODO: Figure out what to do with this
+					//BackBone_SetAccelerometerData(accel_float[0], accel_float[1], accel_float[2], 0);
 				}
 
 
@@ -956,7 +957,8 @@ void fifo_handler()
                                         raw_data[2] = (long)short_data[2];
                                         inv_convert_dmp3_to_body(raw_data, scale, gyro_raw_float);
 					
-					BackBone_SetGyroscopeData(gyro_float[0], gyro_float[1], gyro_float[2]);
+                    //TODO: Anything to do?					
+					//BackBone_SetGyroscopeData(gyro_float[0], gyro_float[1], gyro_float[2]);
 										
 										
 #if ((MEMS_CHIP == HW_ICM30630) || (MEMS_CHIP == HW_ICM20648))
@@ -1182,7 +1184,8 @@ void fifo_handler()
 				static unsigned long old_steps;
 				dmp_get_pedometer_num_of_steps(&steps);
 				
-				BackBone_SetStepCount(steps);
+                // TODO: Figure out what to do with this
+				//BackBone_SetStepCount(steps);
 
 				if (steps != old_steps){
 //					INV_SPRINTF(tst, INV_TST_LEN, "\tStep Counter %d\r\n", steps);

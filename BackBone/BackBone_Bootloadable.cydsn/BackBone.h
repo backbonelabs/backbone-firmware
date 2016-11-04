@@ -14,67 +14,64 @@
 #define __BACKBONE_H
 
 #include <project.h>
+#include <stdbool.h>
+
+typedef enum
+{
+    BACKBONE_START_SESSION,
+    BACKBONE_RESUME_SESSION,
+    BACKBONE_PAUSE_SESSION,
+    BACKBONE_STOP_SESSION
+} backbone_session_control_t;
 
 typedef union
 {
-	float AccelerometerData[4];
-	uint8 RawData[16];
-}ACCELEROMETER;
+	float axis[4];
+	uint8 raw_data[16];
+} backbone_accelerometer_t;
+#define BACKBONE_ACCELEROMETER_DATA_LEN (16u)
 	
 typedef union
 {
-	float DistanceData;
-	uint8 RawData[4];
-}DISTANCE;
+	float distance;
+	uint8 raw_data[4];
+} backbone_distance_t;
+#define BACKBONE_DISTANCE_DATA_LEN (4u)
 
 typedef union
 {
-	uint32 StepCount;
-	uint8 RawData[4];
-}PEDOMETER;
+	uint8_t statistics[20];
+	uint8_t raw_data[20];
+} backbone_session_statistics_t;
+#define BACKBONE_SESSION_STATISTICS_DATA_LEN (4u)
 
-extern uint8 BackBoneFlags;
+void backbone_init();
 
-typedef union
-{
-	struct
-	{
-		uint16 Flags;
-		uint16 MotorStrength;
-		uint16 AccelerometerTransmissionRate;
-		uint16 GyroscopeTransmissionRate;
-		float PostureThreshold;
-		uint16 PostureReminderInterval;
-		uint16 InactivityDuration;
-		uint16 InactivityReminderInterval;
-	}Parameter;
-	uint8 RawData[18];
-}CONFIG_DATA;
+void backbone_set_accelerometer_data(CYBLE_CONN_HANDLE_T* connection,
+                                     backbone_accelerometer_t* data);
+void backbone_set_accelerometer_notification(CYBLE_CONN_HANDLE_T* connection,
+                                             bool enable);
+void backbone_notify_accelerometer(CYBLE_CONN_HANDLE_T* connection);
 
-#define ACCEL_DATA_LEN						(16u)
-#define DISTANCE_DATA_LEN					(4u)
-#define PEDOMETER_DATA_LEN					(4u)
-#define CONFIG_DATA_LEN						(18u)
-#define VERSION_INFO_DATA_LEN				(4u)
 
-#define ACCEL_DATA_NEW						(0x01)
-#define DISTANCE_DATA_NEW					(0x02)
-#define PEDO_DATA_NEW						(0x04)
-#define VERSION_DATA_NEW					(0x08)
 
-void BackBone_GetGyroscopeData(uint8* DestinationBuffer, uint8 Length);
-void BackBone_GetAccelerometerData(uint8* DestinationBuffer, uint8 Length);
-uint32 BackBone_GetStepCount(void);
-void BackBone_SetStepCount(uint32 Count);
-void BackBone_SetAccelerometerData(float XAxis, float YAxis, float ZAxis, float RMS);
-void BackBone_SetDistanceData(float distance);
-void BackBone_SetConfigData(uint8* SourceBuffer, uint8 Length);
-void BackBone_Task(void);
+void backbone_set_distance_data(CYBLE_CONN_HANDLE_T* connection,
+                                backbone_distance_t* data);
+void backbone_set_distance_notification(CYBLE_CONN_HANDLE_T* connection,
+                                        bool enable);
+void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection);
 
-extern ACCELEROMETER Accelerometer;
-extern DISTANCE Distance;
-extern CONFIG_DATA ConfigData;
-extern PEDOMETER Pedometer;
+
+void backbone_enterbootloader(uint8_t* data, uint16_t len);
+
+
+void backbone_controlsession(uint8_t* data, uint16_t len);
+
+
+
+void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connection,
+                                                  bool enable);
+void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection);
 
 #endif /* __BACKBONE_H */	
 

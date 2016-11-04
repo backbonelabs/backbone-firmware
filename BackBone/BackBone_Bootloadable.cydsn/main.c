@@ -19,18 +19,9 @@
 #include <OTAMandatory.h>
 #include "watchdog.h"
 #include "posture.h"
+#include "backbone.h"
 
 extern void InitializeBootloaderSRAM();
-
-uint8 BLEWriteData[4];
-uint8 BLEReadData[4];
-uint8 MotorFlag = 0;
-uint16 MotorPWMDutyCycle = 0;
-
-uint8 VersionString[4] = {HW_MAJOR_VERSION, HW_MINOR_VERSION, FW_MAJOR_VERSION, FW_MINOR_VERSION};
-
-extern uint8 deviceConnected;
-extern uint8 restartAdvertisement;
 
 __inline void ManageSystemPower()
 {
@@ -91,22 +82,33 @@ __inline void RunApplication()
         CyDelay(50);
         LED_Green_Write(1); // off
         posture_update(y[aidx], z[aidx]);
-		BackBone_SetAccelerometerData(0, y[aidx], z[aidx], 0);
-        BackBone_SetDistanceData(posture_get_distance());
         aidx += 1;
         if (aidx >= 10) aidx = 0;
         
-        // Keep this
-        BackBone_Task();        
-	}
+        if (ble_is_connected())
+        {
+            backbone_accelerometer_t accelerometer_data;
+            backbone_distance_t distance_data;
+            
+            accelerometer_data.axis[0] = 0;
+            accelerometer_data.axis[1] = y[aidx];
+            accelerometer_data.axis[2] = z[aidx];
+            accelerometer_data.axis[3] = 0;            
+            backbone_set_accelerometer_data(ble_get_connection(), &accelerometer_data);
 
-#if 0
-    if(TRUE == deviceConnected)
-	{
-		UpdateConnectionParam();
-       	MeasureBattery(); 
+            distance_data.distance = posture_get_distance();
+            backbone_set_distance_data(ble_get_connection(), &distance_data);
+            
+            backbone_notify_accelerometer(ble_get_connection());
+            backbone_notify_distance(ble_get_connection());
+            backbone_notify_session_statistics(ble_get_connection());
+            
+            
+            
+    		ble_update_connection_parameters();
+           	MeasureBattery(); 
+        }
 	}
-#endif
 }
 
 __inline void ManageBlePower()
@@ -158,7 +160,9 @@ int main()
      * off to save power */
     CySysClkWriteEcoDiv(CY_SYS_CLK_ECO_DIV8);
 
-    CyBle_Start(CustomEventHandler);
+    backbone_init();
+    ble_init();
+    CyBle_Start(ble_app_event_handler);
     CyBle_BasRegisterAttrCallback(BasCallBack);       
     while (CyBle_GetState() == CYBLE_STATE_INITIALIZING)
     {

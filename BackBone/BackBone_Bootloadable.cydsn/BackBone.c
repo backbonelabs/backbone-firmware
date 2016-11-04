@@ -14,67 +14,235 @@
 #include <BackBone.h>
 #include <BLEApplications.h>
 
-ACCELEROMETER Accelerometer = {0, 0, 0, 0};
-DISTANCE Distance = {0};
-CONFIG_DATA ConfigData = {0};
-PEDOMETER Pedometer = {0};
+uint8 accelerometer_cccd[2];
+uint8 distance_cccd[2];
+uint8 session_statistics_cccd[2];
 
-uint8 BackBoneFlags;
-
-void BackBone_SetConfigData(uint8* SourceBuffer, uint8 Length)
+void backbone_init()
 {
-	uint8* pointer = SourceBuffer;
-	uint8 i;
+}
+
+void backbone_set_accelerometer_data(CYBLE_CONN_HANDLE_T* connection,
+                                     backbone_accelerometer_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    
+    characteristic.attrHandle = CYBLE_BACKBONE_ACCELEROMETER_CHAR_HANDLE;
+    characteristic.value.val = data->raw_data;
+    characteristic.value.len = BACKBONE_ACCELEROMETER_DATA_LEN;
+
+    CyBle_GattsWriteAttributeValue(&characteristic, 
+                                   0, 
+                                   connection, 
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
+}
+
+void backbone_set_accelerometer_notification(CYBLE_CONN_HANDLE_T* connection,
+                                             bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+    
+	accelerometer_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+	accelerometer_cccd[1] = 0x00;
 	
-	for (i=0; i<Length; i++)
+	attribute.attrHandle = CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+	attribute.value.val = accelerometer_cccd;
+	attribute.value.len = sizeof(accelerometer_cccd);
+	
+	CyBle_GattsWriteAttributeValue(&attribute, 
+                                   0, 
+                                   connection, 
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_notify_accelerometer(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+	CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_accelerometer_t data;
+    
+    if (accelerometer_cccd[0] == BLE_TRUE)
+    {
+        LED_Blue_Write(0); // on
+        CyDelay(50);
+        LED_Blue_Write(1); // off
+        
+        characteristic.attrHandle = CYBLE_BACKBONE_ACCELEROMETER_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_ACCELEROMETER_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+    	notification.attrHandle = CYBLE_BACKBONE_ACCELEROMETER_CHAR_HANDLE;
+    	notification.value.val = data.raw_data;
+    	notification.value.len = BACKBONE_ACCELEROMETER_DATA_LEN;
+    	CyBle_GattsNotification(*connection, &notification);
+    }
+}
+
+
+
+void backbone_set_distance_data(CYBLE_CONN_HANDLE_T* connection,
+                                backbone_distance_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    
+    characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
+    characteristic.value.val = data->raw_data;
+    characteristic.value.len = BACKBONE_DISTANCE_DATA_LEN;
+
+    CyBle_GattsWriteAttributeValue(&characteristic, 
+                                   0, 
+                                   connection, 
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
+}
+
+void backbone_set_distance_notification(CYBLE_CONN_HANDLE_T* connection,
+                                        bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+    
+    distance_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+	distance_cccd[1] = 0x00;
+	
+	attribute.attrHandle = CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+	attribute.value.val = distance_cccd;
+	attribute.value.len = sizeof(distance_cccd);
+	
+	CyBle_GattsWriteAttributeValue(&attribute, 
+                                   0, 
+                                   connection, 
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+	CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_distance_t data;
+    
+    if (distance_cccd[0] == BLE_TRUE)
+    {
+        LED_Blue_Write(0); // on
+        CyDelay(50);
+        LED_Blue_Write(1); // off
+        
+        characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_DISTANCE_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+    	notification.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
+    	notification.value.val = data.raw_data;
+    	notification.value.len = BACKBONE_DISTANCE_DATA_LEN;
+    	CyBle_GattsNotification(*connection, &notification);
+    }
+}
+
+#include "OTAMandatory.h"
+void backbone_enterbootloader(uint8_t* data, uint16_t len)
+{
+    static const uint8 ENTER_BOOTLOADER_KEY[8] = 
+    {
+        0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
+    };
+    uint8 i;
+	uint8 key_match = 1;
+    
+    if (len == sizeof(ENTER_BOOTLOADER_KEY))
+    {
+    	for (i=0; i<sizeof(ENTER_BOOTLOADER_KEY); i++)
+    	{
+    		if (data[i] != ENTER_BOOTLOADER_KEY[i])
+    		{
+    			key_match = 0;
+    			break;
+    		}
+    	}
+    }
+    else
+    {
+        key_match = 0;
+	}
+    
+	if(key_match)
 	{
-		ConfigData.RawData[i] = *pointer;
-		pointer++;
+        //TODO: Add callback to notify main app to reset into the bootloader
+        
+        MotorPWM_Stop();
+        //Switch to the Stack project, which enables OTA service
+        Bootloadable_SetActiveApplication(0); 
+        Bootloadable_Load(); 
+        CySoftwareReset();
 	}
 }
 
-void BackBone_GetAccelerometerData(uint8* DestinationBuffer, uint8 Length)
+void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connection,
+                                                  bool enable)
 {
-	uint8* pointer = DestinationBuffer;
-	uint8 i;
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+    
+    session_statistics_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+	session_statistics_cccd[1] = 0x00;
 	
-	for (i=0; i<Length; i++)
-	{
-		*pointer = Accelerometer.RawData[i];
-		pointer++;
-	}
-}
-
-void BackBone_SetDistanceData(float distance)
-{
-	Distance.DistanceData = distance;
-
-	BackBoneFlags |= DISTANCE_DATA_NEW;
-}
-
-void BackBone_SetAccelerometerData(float XAxis, float YAxis, float ZAxis, float RMS)
-{
-	Accelerometer.AccelerometerData[0] = XAxis;	
-	Accelerometer.AccelerometerData[1] = YAxis;	
-	Accelerometer.AccelerometerData[2] = ZAxis;	
-	Accelerometer.AccelerometerData[3] = RMS;
+	attribute.attrHandle = CYBLE_BACKBONE_SESSION_STATISTICS_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+	attribute.value.val = session_statistics_cccd;
+	attribute.value.len = sizeof(session_statistics_cccd);
 	
-	BackBoneFlags |= ACCEL_DATA_NEW;
+	CyBle_GattsWriteAttributeValue(&attribute, 
+                                   0, 
+                                   connection, 
+                                   CYBLE_GATT_DB_PEER_INITIATED);
 }
 
-uint32 BackBone_GetStepCount(void)
+void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection)
 {
-	return Pedometer.StepCount;
-}	
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+	CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_session_statistics_t data;
+    
+    if (session_statistics_cccd[0] == BLE_TRUE)
+    {
+        LED_Blue_Write(0); // on
+        CyDelay(50);
+        LED_Blue_Write(1); // off
 
-void BackBone_SetStepCount(uint32 Count)
-{
-	Pedometer.StepCount = Count;
-	BackBoneFlags |= PEDO_DATA_NEW;
+        characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_SESSION_STATISTICS_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+    	notification.attrHandle = CYBLE_BACKBONE_SESSION_STATISTICS_CHAR_HANDLE;
+    	notification.value.val = data.raw_data;
+    	notification.value.len = BACKBONE_DISTANCE_DATA_LEN;
+    	CyBle_GattsNotification(*connection, &notification);
+    }
 }
 
-void BackBone_Task(void)
+void backbone_controlsession(uint8_t* data, uint16_t len)
 {
-	SendAllNotifications();
+    if (len < 1)
+    {
+        return;
+    }
+    
+    switch (data[0])
+    {
+        case BACKBONE_START_SESSION:
+            //posture_start();
+            break;
+        
+        case BACKBONE_STOP_SESSION:
+            //posture_stop();
+            break;
+        
+        case BACKBONE_PAUSE_SESSION:
+            //posture_pause();
+            break;
+
+        case BACKBONE_RESUME_SESSION:
+            //posture_resume();
+            break;
+    }
 }
+
 /* [] END OF FILE */
