@@ -10,8 +10,8 @@
 * ________________________________________________________________________________________________________
 */
 /** @defgroup mems_augmented_sensors augmented_sensors
-	@ingroup  Mems_driver
-	@{
+    @ingroup  Mems_driver
+    @{
 */
 #ifndef INV_MEMS_AUGMENTED_SENSORS__
 #define INV_MEMS_AUGMENTED_SENSORS__
@@ -44,9 +44,9 @@ inv_error_t inv_mems_augmented_sensors_get_linearacceleration(long linacc[3], co
 
 /** @brief Gets the 3 axis orientation value based on RV quaternion
 * @param[out] orientation  3 components resulting orientation in Q16 in degrees
-				The x field is azimuth, the angle between the magnetic north direction and the y axis around the the z axis.
-				The y field is pitch, the rotation arounf x axis, positive when the z axis moves toward the y axis.
-				The z field is roll, the rotation arount the y axis, positive when the x axis moves toward the z axis.
+                The x field is azimuth, the angle between the magnetic north direction and the y axis around the the z axis.
+                The y field is pitch, the rotation arounf x axis, positive when the z axis moves toward the y axis.
+                The z field is roll, the rotation arount the y axis, positive when the x axis moves toward the z axis.
 * @param[in] quat9axis_3e 3 components input AGM-based quaternion in Q30
 * @return 0 in case of success, -1 for any error
 * @warning MEMS_AUGMENTED_SENSORS preprocessor value must be defined to have the feature

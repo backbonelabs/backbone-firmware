@@ -26,22 +26,22 @@ typedef enum
 
 typedef union
 {
-	float axis[4];
-	uint8 raw_data[16];
+    float axis[4];
+    uint8 raw_data[16];
 } backbone_accelerometer_t;
 #define BACKBONE_ACCELEROMETER_DATA_LEN (16u)
-	
+
 typedef union
 {
-	float distance;
-	uint8 raw_data[4];
+    float distance;
+    uint8 raw_data[4];
 } backbone_distance_t;
 #define BACKBONE_DISTANCE_DATA_LEN (4u)
 
 typedef union
 {
-	uint8_t statistics[20];
-	uint8_t raw_data[20];
+    uint8_t statistics[20];
+    uint8_t raw_data[20];
 } backbone_session_statistics_t;
 #define BACKBONE_SESSION_STATISTICS_DATA_LEN (4u)
 
@@ -73,6 +73,6 @@ void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connectio
                                                   bool enable);
 void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection);
 
-#endif /* __BACKBONE_H */	
+#endif /* __BACKBONE_H */
 
 /* [] END OF FILE */

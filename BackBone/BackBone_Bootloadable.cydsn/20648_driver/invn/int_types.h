@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------- 
+//-----------------------------------------------------------------------------
 /*
     Copyright © 2014-2015 InvenSense Inc. Portions Copyright © 2014-2015 Movea. All rights reserved.
 
@@ -16,9 +16,9 @@
 #define INVN_COMMON_INT_TYPES_H_
 
 #ifdef _MSC_VER
-#  include "invn/common/msvc/inttypes.h"
+    #include "invn/common/msvc/inttypes.h"
 #else
-#  include <stdint.h>
+    #include <stdint.h>
 #endif
 
 //  Scalar 32 Signed
@@ -117,55 +117,55 @@ typedef uint16_t ufix16En15;
 
 
 //! \def INVN_FLT_TO_SFIX
-//!	Macro to convert a value from float to sfix32.
-#define INVN_FLT_TO_SFIX(value, shift)	( (int32_t)  ((float)(value)*(1ULL << (shift)) + ( (value>=0)-0.5f )) )
+//! Macro to convert a value from float to sfix32.
+#define INVN_FLT_TO_SFIX(value, shift)  ( (int32_t)  ((float)(value)*(1ULL << (shift)) + ( (value>=0)-0.5f )) )
 //! \def INVN_FLT_TO_UFIX
-//!	Macro to convert a value from float to ufix32.
-#define INVN_FLT_TO_UFIX(value, shift)	( (uint32_t) ((float)(value)*(1ULL << (shift)) + 0.5f) )
+//! Macro to convert a value from float to ufix32.
+#define INVN_FLT_TO_UFIX(value, shift)  ( (uint32_t) ((float)(value)*(1ULL << (shift)) + 0.5f) )
 //! \def INVN_DBL_TO_SFIX
-//!	Macro to convert a value from double to sfix32.
-#define INVN_DBL_TO_SFIX(value, shift)	( (int32_t)  ((double)(value)*(1ULL << (shift)) + ( (value>=0)-0.5 )) )
+//! Macro to convert a value from double to sfix32.
+#define INVN_DBL_TO_SFIX(value, shift)  ( (int32_t)  ((double)(value)*(1ULL << (shift)) + ( (value>=0)-0.5 )) )
 //! \def INVN_DBL_TO_UFIX
-//!	Macro to convert a value from double to ufix32.
-#define INVN_DBL_TO_UFIX(value, shift)	( (uint32_t) ((double)(value)*(1ULL << (shift)) + 0.5) )
+//! Macro to convert a value from double to ufix32.
+#define INVN_DBL_TO_UFIX(value, shift)  ( (uint32_t) ((double)(value)*(1ULL << (shift)) + 0.5) )
 
 //! \def INVN_SFIX_TO_FLT
-//!	Macro to convert a value from sfix32 to float.
-#define INVN_SFIX_TO_FLT(value, shift)	( (float)  (int32_t)(value) / (float)(1ULL << (shift)) )
+//! Macro to convert a value from sfix32 to float.
+#define INVN_SFIX_TO_FLT(value, shift)  ( (float)  (int32_t)(value) / (float)(1ULL << (shift)) )
 //! \def INVN_UFIX_TO_FLT
-//!	Macro to convert a value from ufix32 to float.
-#define INVN_UFIX_TO_FLT(value, shift)	( (float) (uint32_t)(value) / (float)(1ULL << (shift)) )
+//! Macro to convert a value from ufix32 to float.
+#define INVN_UFIX_TO_FLT(value, shift)  ( (float) (uint32_t)(value) / (float)(1ULL << (shift)) )
 //! \def INVN_SFIX_TO_DBL
-//!	Macro to convert a value from sfix32 to double.
-#define INVN_SFIX_TO_DBL(value, shift)	( (double)  (int32_t)(value) / (double)(1ULL << (shift)) )
+//! Macro to convert a value from sfix32 to double.
+#define INVN_SFIX_TO_DBL(value, shift)  ( (double)  (int32_t)(value) / (double)(1ULL << (shift)) )
 //! \def INVN_UFIX_TO_DBL
-//!	Macro to convert a value from ufix32 to double.
-#define INVN_UFIX_TO_DBL(value, shift)	( (double) (uint32_t)(value) / (double)(1ULL << (shift)) )
+//! Macro to convert a value from ufix32 to double.
+#define INVN_UFIX_TO_DBL(value, shift)  ( (double) (uint32_t)(value) / (double)(1ULL << (shift)) )
 
 //! \def INVN_CONVERT_FLT_TO_SFIX
-//!	Macro to convert float values from an address into sfix32 values, and copy them to another address.
-#define INVN_CONVERT_FLT_TO_SFIX(fltptr, fixptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_FLT_TO_SFIX((fltptr)[i], shift); }
+//! Macro to convert float values from an address into sfix32 values, and copy them to another address.
+#define INVN_CONVERT_FLT_TO_SFIX(fltptr, fixptr, length, shift) { int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_FLT_TO_SFIX((fltptr)[i], shift); }
 //! \def INVN_CONVERT_FLT_TO_UFIX
-//!	Macro to convert float values from an address into ufix32 values, and copy them to another address.
-#define INVN_CONVERT_FLT_TO_UFIX(fltptr, fixptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_FLT_TO_UFIX((fltptr)[i], shift); }
+//! Macro to convert float values from an address into ufix32 values, and copy them to another address.
+#define INVN_CONVERT_FLT_TO_UFIX(fltptr, fixptr, length, shift) { int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_FLT_TO_UFIX((fltptr)[i], shift); }
 //! \def INVN_CONVERT_DBL_TO_SFIX
-//!	Macro to convert double values from an address into sfix32 values, and copy them to another address.
-#define INVN_CONVERT_DBL_TO_SFIX(fltptr, fixptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_DBL_TO_SFIX((fltptr)[i], shift); }
+//! Macro to convert double values from an address into sfix32 values, and copy them to another address.
+#define INVN_CONVERT_DBL_TO_SFIX(fltptr, fixptr, length, shift) { int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_DBL_TO_SFIX((fltptr)[i], shift); }
 //! \def INVN_CONVERT_DBL_TO_UFIX
-//!	Macro to convert double values from an address into ufix32 values, and copy them to another address.
-#define INVN_CONVERT_DBL_TO_UFIX(fltptr, fixptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_DBL_TO_UFIX((fltptr)[i], shift); }
+//! Macro to convert double values from an address into ufix32 values, and copy them to another address.
+#define INVN_CONVERT_DBL_TO_UFIX(fltptr, fixptr, length, shift) { int i; for(i=0; i<(length); ++i) (fixptr)[i] = INVN_DBL_TO_UFIX((fltptr)[i], shift); }
 //! \def INVN_CONVERT_SFIX_TO_FLT
-//!	Macro to convert sfix32 values from an address into float values, and copy them to another address.
-#define INVN_CONVERT_SFIX_TO_FLT(fixptr, fltptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_SFIX_TO_FLT((fixptr)[i], shift); }
+//! Macro to convert sfix32 values from an address into float values, and copy them to another address.
+#define INVN_CONVERT_SFIX_TO_FLT(fixptr, fltptr, length, shift) { int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_SFIX_TO_FLT((fixptr)[i], shift); }
 //! \def INVN_CONVERT_UFIX_TO_FLT
-//!	Macro to convert ufix32 values from an address into float values, and copy them to another address.
-#define INVN_CONVERT_UFIX_TO_FLT(fixptr, fltptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_UFIX_TO_FLT((fixptr)[i], shift); }
+//! Macro to convert ufix32 values from an address into float values, and copy them to another address.
+#define INVN_CONVERT_UFIX_TO_FLT(fixptr, fltptr, length, shift) { int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_UFIX_TO_FLT((fixptr)[i], shift); }
 //! \def INVN_CONVERT_SFIX_TO_DBL
-//!	Macro to convert sfix32 values from an address into double values, and copy them to another address.
-#define INVN_CONVERT_SFIX_TO_DBL(fixptr, fltptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_SFIX_TO_DBL((fixptr)[i], shift); }
+//! Macro to convert sfix32 values from an address into double values, and copy them to another address.
+#define INVN_CONVERT_SFIX_TO_DBL(fixptr, fltptr, length, shift) { int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_SFIX_TO_DBL((fixptr)[i], shift); }
 //! \def INVN_CONVERT_UFIX_TO_DBL
-//!	Macro to convert ufix32 values from an address into double values, and copy them to another address.
-#define INVN_CONVERT_UFIX_TO_DBL(fixptr, fltptr, length, shift)	{ int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_UFIX_TO_DBL((fixptr)[i], shift); }
+//! Macro to convert ufix32 values from an address into double values, and copy them to another address.
+#define INVN_CONVERT_UFIX_TO_DBL(fixptr, fltptr, length, shift) { int i; for(i=0; i<(length); ++i) (fltptr)[i] = INVN_UFIX_TO_DBL((fixptr)[i], shift); }
 
 
 #endif // INVN_COMMON_INT_TYPES_H_

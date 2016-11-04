@@ -16,29 +16,29 @@
 
 #include ".\20648_driver\drivers\inv_mems_hw_config.h"
 #if defined MEMS_20630
-#include "dmp3/dmp3Default_20630.h"
-#include "dmp3/dmp3Driver.h"  
+    #include "dmp3/dmp3Default_20630.h"
+    #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_30630
-#include "dmp3/dmp3Default_30630.h"
-#include "dmp3/dmp3Driver.h"  
+    #include "dmp3/dmp3Default_30630.h"
+    #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_20645E
-#include "dmp3/dmp3Default_20645E.h"
-#include "dmp3/dmp3Driver.h"  
+    #include "dmp3/dmp3Default_20645E.h"
+    #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_20648
-#include ".\20648_driver\dmp3a\dmp3Default_20648.h"  
-#include ".\20648_driver\dmp3a\dmp3Driver.h"    
+    #include ".\20648_driver\dmp3a\dmp3Default_20648.h"
+    #include ".\20648_driver\dmp3a\dmp3Driver.h"
 #elif defined MEMS_20609
-#include "dmp3/dmp3Default_20608D.h"
-#include "dmp3a/dmp3Driver.h"
+    #include "dmp3/dmp3Default_20608D.h"
+    #include "dmp3a/dmp3Driver.h"
 #else
-#error "Unsupported configuration"
+    #error "Unsupported configuration"
 #endif
 
 
 // the step counter to be substracted
 static unsigned long sStepCounterToBeSubtracted = 0;
 
-// the old step 
+// the old step
 static unsigned long sOldSteps = 0;
 
 inv_error_t dmp_reset_odr_counters()
@@ -428,16 +428,16 @@ inv_error_t dmp_get_pedometer_get_all_steps(unsigned long *steps)
 
 inv_error_t dmp_get_pedometer_num_of_steps(unsigned long *steps)
 {
-	unsigned long lsteps = 0;
-	inv_error_t result;
+    unsigned long lsteps = 0;
+    inv_error_t result;
 
-	result = dmp_get_pedometer_get_all_steps(&lsteps);
+    result = dmp_get_pedometer_get_all_steps(&lsteps);
 
-	// need to subtract the steps accumulated while Step Counter sensor is not active.
-	*steps = lsteps - sStepCounterToBeSubtracted;
-	sOldSteps = *steps;
-	
-	return result;
+    // need to subtract the steps accumulated while Step Counter sensor is not active.
+    *steps = lsteps - sStepCounterToBeSubtracted;
+    sOldSteps = *steps;
+
+    return result;
 }
 
 inv_error_t inv_load_firmware(const unsigned char *dmp_image_sram)
@@ -527,9 +527,9 @@ inv_error_t dmp_set_accel_scale2(short accel_fsr)
 
 inv_error_t inv_set_dmp_stepcounter_update_offset(unsigned long steps)
 {
-	sStepCounterToBeSubtracted = steps - sOldSteps;
-	
-	return 0;
+    sStepCounterToBeSubtracted = steps - sOldSteps;
+
+    return 0;
 }
 
 // 5061: NEED TO MAKE SURE THIS IS FOR THE RIGHT CHIP
@@ -542,12 +542,12 @@ inv_error_t dmp_reset_pickup(void)
 #elif defined MEMS_20645E
     return INV_SUCCESS;             // should there be a function for this chip?
 #elif defined MEMS_20648
-    return INV_SUCCESS; 
+    return INV_SUCCESS;
 #elif defined MEMS_20609
     return INV_SUCCESS;
 #else
 #error "Unsupported configuration"
-#endif    
+#endif
 }
 
 //Function to reset the BAC states when bac is restarted.
@@ -560,12 +560,12 @@ inv_error_t dmp_reset_bac_states(void)
 #elif defined MEMS_20645E
     return INV_SUCCESS;             // should there be a function for this chip?
 #elif defined MEMS_20648
-    return dmp_reset_bac_states_20648(); 
+    return dmp_reset_bac_states_20648();
 #elif defined MEMS_20609
     return INV_SUCCESS;
 #else
 #error "Unsupported configuration"
-#endif    
+#endif
 }
 
 

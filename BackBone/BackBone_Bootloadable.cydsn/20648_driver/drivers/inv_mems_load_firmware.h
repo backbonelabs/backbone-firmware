@@ -15,8 +15,8 @@
 
 #include ".\20648_driver\common\mltypes.h"
 
-/** @defgroup	mems_load_firmware	load_firmware
-    @ingroup 	Mems_driver
+/** @defgroup   mems_load_firmware  load_firmware
+    @ingroup    Mems_driver
     @{
 */
 #ifdef __cplusplus
@@ -25,7 +25,7 @@ extern "C"
 #endif
 
 /** @brief Loads the DMP firmware from SRAM
-* @param[in] data  pointer where the image 
+* @param[in] data  pointer where the image
 * @param[in] size  size if the image
 * @param[in] load_addr  address to loading the image
 * @return 0 in case of success, -1 for any error

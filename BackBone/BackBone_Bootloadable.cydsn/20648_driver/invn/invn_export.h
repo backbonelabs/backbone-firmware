@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------- 
+//-----------------------------------------------------------------------------
 /*
     Copyright © 2015 InvenSense Inc. All rights reserved.
 
@@ -15,13 +15,13 @@
 #define INVN_EXPORT_H
 
 #ifdef _MSC_VER
-#  ifdef INVN_EXPORTS
-#    define INVN_API __declspec(dllexport)
-#  else
-#    define INVN_API __declspec(dllimport)
-#  endif
+    #ifdef INVN_EXPORTS
+        #define INVN_API __declspec(dllexport)
+    #else
+        #define INVN_API __declspec(dllimport)
+    #endif
 #else
-#  define INVN_API
+    #define INVN_API
 #endif
 
 #endif // INVN_EXPORT_H

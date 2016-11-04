@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------- 
+//-----------------------------------------------------------------------------
 /*
     Copyright © 2014-2015 InvenSense Inc. Portions Copyright © 2014-2015 Movea. All rights reserved.
 
@@ -15,11 +15,11 @@
 #ifndef INVN_COMMON_INVN_ASSERT_H_
 #define INVN_COMMON_INVN_ASSERT_H_
 
-#ifdef INVN_NO_STD_ASSERT 
-#  define invn_assert(x)
+#ifdef INVN_NO_STD_ASSERT
+    #define invn_assert(x)
 #else
-#  include <assert.h>
-#  define invn_assert(x) assert(x)
+    #include <assert.h>
+    #define invn_assert(x) assert(x)
 #endif
 
 #endif // INVN_COMMON_INVN_ASSERT_H_

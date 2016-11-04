@@ -10,8 +10,8 @@
 * ________________________________________________________________________________________________________
 */
 /** @defgroup inv_mems_drv_hook inv_drv_hook
-	@ingroup  Mems_common
-	@{
+    @ingroup  Mems_common
+    @{
 */
 #include ".\20648_driver\invn\int_types.h"
 
@@ -29,23 +29,23 @@
 * @param[in] reg        slave register address we want to write to
 * @param[in] length     length in bytes of data to be written
 * @param[in] data       pointer on where data to be written to SPI slave are stored
-* @return 				0 in case of success, -1 for any error, -2 in case a timeout occured during SPI transaction */
+* @return               0 in case of success, -1 for any error, -2 in case a timeout occured during SPI transaction */
 int inv_serial_interface_write_hook(uint16_t reg, uint32_t length, const uint8_t *data);
 
 /** @brief  Hook function to be implemented by at integration level to actually read to serial interface
 * @param[in] reg        slave register address we want to read from
 * @param[in] length     length in bytes of data to be read
 * @param[out] data      pointer on where data read is to be stored
-* @return 				0 in case of success, -1 for any error, -2 in case a timeout occured during SPI transaction */
+* @return               0 in case of success, -1 for any error, -2 in case a timeout occured during SPI transaction */
 int inv_serial_interface_read_hook(uint16_t reg, uint32_t length, uint8_t *data);
 
-/** @brief Function to be sleep nTime in ms 
-* @param[in] nTime	time to sleep in ms 
+/** @brief Function to be sleep nTime in ms
+* @param[in] nTime  time to sleep in ms
 */
 void inv_sleep(unsigned long nTime);
 
-/** @brief Function to be sleep nTime in 100 us 
-* @param[in] nTime	time to sleep in 100 us
+/** @brief Function to be sleep nTime in 100 us
+* @param[in] nTime  time to sleep in 100 us
 */
 void inv_sleep_100us(unsigned long nHowMany100MicroSecondsToSleep ); // time in 100 us
 

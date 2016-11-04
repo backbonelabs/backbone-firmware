@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------- 
+//-----------------------------------------------------------------------------
 /*
     Copyright © 2014-2015 InvenSense Inc. Portions Copyright © 2014-2015 Movea. All rights reserved.
 
@@ -40,7 +40,7 @@
 
 
 #ifndef REMOVE_INV_ERROR_T
-//typedef int inv_error_t;
+    //typedef int inv_error_t;
 #endif
 
 //typedef int mpu_error_t;
@@ -51,17 +51,17 @@ typedef long long mpu_time_t;
 typedef unsigned char inv_i2c_addr_t;
 
 #ifdef __IAR_SYSTEMS_ICC__
-// These are defined in standard C errno.h
-#define EINVAL                                  (22)
-#define EPERM                                   (1)
-#define ENOMEM                                  (12)
+    // These are defined in standard C errno.h
+    #define EINVAL                                  (22)
+    #define EPERM                                   (1)
+    #define ENOMEM                                  (12)
 #else
-#include "errno.h"
+    #include "errno.h"
 #endif
 
-#define INV_SUCCESS								(0)
-#define INV_ERROR_BASE							(0x20)
-#define INV_ERROR								(INV_ERROR_BASE) 
+#define INV_SUCCESS                             (0)
+#define INV_ERROR_BASE                          (0x20)
+#define INV_ERROR                               (INV_ERROR_BASE)
 #define INV_ERROR_FEATURE_NOT_ENABLED           (EPERM)
 #define INV_ERROR_FEATURE_NOT_IMPLEMENTED       (INV_ERROR_BASE + 4)
 #define INV_ERROR_INVALID_PARAMETER             (EINVAL)

@@ -9,8 +9,8 @@
 * agreement from InvenSense is strictly prohibited.
 * ________________________________________________________________________________________________________
 */
-/** @defgroup	inv_mems_transport	inv_transport
-    @ingroup 	Mems_driver
+/** @defgroup   inv_mems_transport  inv_transport
+    @ingroup    Mems_driver
     @{
 */
 #ifndef INV_MEMS_TRANSPORT_H__
@@ -22,44 +22,44 @@
 extern "C" {
 #endif
 
-/** @brief Writes data to a register in DMP memory 
-* @param[in] reg  	DMP memory address
+/** @brief Writes data to a register in DMP memory
+* @param[in] reg    DMP memory address
 * @param[in] length number of byte to be written
-* @param[out] data	output data from the register
-* @return 	   		0 in case of success, -1 for any error
+* @param[out] data  output data from the register
+* @return           0 in case of success, -1 for any error
 */
 inv_error_t inv_write_mems(unsigned short reg, unsigned int length, const unsigned char *data);
 
 
-/** @brief Reads data to a register in DMP memory 
-* @param[in] reg  	DMP memory address
+/** @brief Reads data to a register in DMP memory
+* @param[in] reg    DMP memory address
 * @param[in] length number of byte to be read
-* @param[out] data	output data from the register
-* @return 	   		0 in case of success, -1 for any error
+* @param[out] data  output data from the register
+* @return           0 in case of success, -1 for any error
 */
 inv_error_t inv_read_mems(unsigned short reg, unsigned int length, unsigned char *data);
 
 
 /** @brief Writes data from a register on mems.
-* @param[in] reg  	DMP memory address
+* @param[in] reg    DMP memory address
 * @param[in] length number of byte to be written
-* @param[out] data	output data from the register
-* @return 	   		0 in case of success, -1 for any error
+* @param[out] data  output data from the register
+* @return           0 in case of success, -1 for any error
 */
 inv_error_t inv_write_mems_reg(uint16_t reg, unsigned int length, const unsigned char *data);
 
 /** @brief Writes a single byte of data from a register on mems.
-* @param[in] reg  	DMP memory address
-* @param[out] data	Data to be written
-* @return 	   		0 in case of success, -1 for any error
+* @param[in] reg    DMP memory address
+* @param[out] data  Data to be written
+* @return           0 in case of success, -1 for any error
 */
 inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data);
 
 /** @brief Reads data from a register on mems.
-* @param[in]  	Register address
-* @param[in]  	Length of data
-* @param[out]  	output data from the register
-* @return 	   	0 in case of success, -1 for any error
+* @param[in]    Register address
+* @param[in]    Length of data
+* @param[out]   output data from the register
+* @return       0 in case of success, -1 for any error
 */
 inv_error_t inv_read_mems_reg(uint16_t reg, unsigned int length, unsigned char *data);
 

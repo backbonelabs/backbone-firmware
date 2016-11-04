@@ -15,39 +15,40 @@
 #include ".\20648_driver\common\inv_mems_drv_hook.h"
 #include ".\20648_driver\drivers\inv_mems_defines.h"
 #ifndef MEMS_20609
-#include ".\20648_driver\drivers\inv_mems_base_driver.h"
+    #include ".\20648_driver\drivers\inv_mems_base_driver.h"
 #else
-#include "driver/inv_mems_base_driver_20609.h"
+    #include "driver/inv_mems_base_driver_20609.h"
 #endif
 #include ".\20648_driver\drivers\inv_mems_hw_config.h"
 
-#if (MEMS_CHIP == HW_ICM20648) 
-#include ".\20648_driver\drivers\inv_mems_base_control.h"
+#if (MEMS_CHIP == HW_ICM20648)
+    #include ".\20648_driver\drivers\inv_mems_base_control.h"
 #endif
 static unsigned char lLastBankSelected=0xFF;
 
 static uint8_t check_reg_access_lp_disable(unsigned short reg)
 {
-    switch(reg){
-		case 0x05:   /** LP_CONFIG reg */
+    switch (reg)
+    {
+        case 0x05:   /** LP_CONFIG reg */
         case 0x06:   /** PWR_MGMT_1 reg */
-		case 0x07:   /** PWR_MGMT_2 reg */
-		case 0x0f:   /** INT_PIN_CFG reg */
-		case 0x10:   /** INT_ENABLE reg */
-		case 0x70:   /** FIFO_COUNTH reg */
-		case 0x71:   /** FIFO_COUNTL reg */
-		case 0x72:   /** FIFO_R_W reg */
-#if (MEMS_CHIP == HW_ICM20648) 
-			return inv_get_batch_mode_status();
+        case 0x07:   /** PWR_MGMT_2 reg */
+        case 0x0f:   /** INT_PIN_CFG reg */
+        case 0x10:   /** INT_ENABLE reg */
+        case 0x70:   /** FIFO_COUNTH reg */
+        case 0x71:   /** FIFO_COUNTL reg */
+        case 0x72:   /** FIFO_R_W reg */
+#if (MEMS_CHIP == HW_ICM20648)
+            return inv_get_batch_mode_status();
 #endif
-		case 0x76:   /** FIFO_CFG reg */
-		case 0x7e:   /** MEM_BANK_SEL reg */
-		case 0x7f:   /** REG_BANK_SEL reg */
-			return 0;
-			break;
-		default:
-			
-			break;
+        case 0x76:   /** FIFO_CFG reg */
+        case 0x7e:   /** MEM_BANK_SEL reg */
+        case 0x7f:   /** REG_BANK_SEL reg */
+            return 0;
+            break;
+        default:
+
+            break;
     }
     return 1;
 }
@@ -61,28 +62,28 @@ static uint8_t check_reg_access_lp_disable(unsigned short reg)
 static inv_error_t inv_set_bank(unsigned char bank)
 {
 #if (MEMS_CHIP != HW_ICM20609)
-        int result;
-	static unsigned char reg;
+    int result;
+    static unsigned char reg;
 
     //if bank reg was set before, just return
-	static unsigned char lastBank = 0x7E;
-    if(bank==lastBank) 
+    static unsigned char lastBank = 0x7E;
+    if (bank==lastBank)
         return 0;
-    else 
+    else
         lastBank = bank;
 
     result = inv_serial_interface_read_hook(REG_BANK_SEL, 1, &reg);
 
     if (result)
-		return result;
-    
-	reg &= 0xce;
-	reg |= (bank << 4);
+        return result;
+
+    reg &= 0xce;
+    reg |= (bank << 4);
     result = inv_serial_interface_write_hook(REG_BANK_SEL, 1, &reg);
 
-	return result;
+    return result;
 #else
-        return 0;
+    return 0;
 #endif
 }
 
@@ -98,35 +99,35 @@ static inv_error_t inv_set_bank(unsigned char bank)
 inv_error_t inv_write_mems_reg(uint16_t reg, unsigned int length, const unsigned char *data)
 {
     inv_error_t result = 0;
-	unsigned int bytesWrite = 0;
+    unsigned int bytesWrite = 0;
     unsigned char regOnly = (unsigned char)(reg & 0x7F);
 
     unsigned char power_state = inv_get_chip_power_state();
 
-    if((power_state & CHIP_AWAKE) == 0)   // Wake up chip since it is asleep
+    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
         result = inv_set_chip_power_state(CHIP_AWAKE, 1);
 
-    if(check_reg_access_lp_disable(reg))    // Check if register needs LP_EN to be disabled   
+    if (check_reg_access_lp_disable(reg))   // Check if register needs LP_EN to be disabled
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);  //Disable LP_EN
 
     result |= inv_set_bank(reg >> 7);
-    
-	while (bytesWrite<length) 
-	{
-		int thisLen = min(INV_MAX_SERIAL_WRITE, length-bytesWrite);
-        
+
+    while (bytesWrite<length)
+    {
+        int thisLen = min(INV_MAX_SERIAL_WRITE, length-bytesWrite);
+
         result |= inv_serial_interface_write_hook(regOnly+bytesWrite,thisLen, &data[bytesWrite]);
 
-		if (result)
-			return result;
-        
-		bytesWrite += thisLen;
-	}
+        if (result)
+            return result;
+
+        bytesWrite += thisLen;
+    }
     result |= inv_set_bank(0); // Restore Bank to 0
-    if(check_reg_access_lp_disable(reg))   //Enable LP_EN since we disabled it at begining of this function.
+    if (check_reg_access_lp_disable(reg))  //Enable LP_EN since we disabled it at begining of this function.
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
 
-	return result;
+    return result;
 }
 
 /**
@@ -143,15 +144,15 @@ inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data)
 
     unsigned char power_state = inv_get_chip_power_state();
 
-    if((power_state & CHIP_AWAKE) == 0)   // Wake up chip since it is asleep
+    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
         result = inv_set_chip_power_state(CHIP_AWAKE, 1);
 
-    if(check_reg_access_lp_disable(reg))   // Check if register needs LP_EN to be disabled
+    if (check_reg_access_lp_disable(reg))  // Check if register needs LP_EN to be disabled
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);  //Disable LP_EN
     result |= inv_set_bank(reg >> 7);
     result |= inv_serial_interface_write_hook(regOnly, 1, &data);
 
-    if(check_reg_access_lp_disable(reg))   //Enable LP_EN since we disabled it at begining of this function.
+    if (check_reg_access_lp_disable(reg))  //Enable LP_EN since we disabled it at begining of this function.
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
 
     return result;
@@ -167,56 +168,61 @@ inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data)
 inv_error_t inv_read_mems_reg(uint16_t reg, unsigned int length, unsigned char *data)
 {
     inv_error_t result = 0;
-	unsigned int bytesRead = 0;
+    unsigned int bytesRead = 0;
     unsigned char regOnly = (unsigned char)(reg & 0x7F);
-#if (MEMS_CHIP != HW_ICM30630) 
-	unsigned char i, dat[INV_MAX_SERIAL_READ+1];
+#if (MEMS_CHIP != HW_ICM30630)
+    unsigned char i, dat[INV_MAX_SERIAL_READ+1];
 #endif
     unsigned char power_state = inv_get_chip_power_state();
 
-    if((power_state & CHIP_AWAKE) == 0)   // Wake up chip since it is asleep
+    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
         result = inv_set_chip_power_state(CHIP_AWAKE, 1);
 
-    if(check_reg_access_lp_disable(reg))   // Check if register needs LP_EN to be disabled
+    if (check_reg_access_lp_disable(reg))  // Check if register needs LP_EN to be disabled
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);  //Disable LP_EN
 
     result |= inv_set_bank(reg >> 7);
-    
-	while (bytesRead<length) 
-	{
-		int thisLen = min(INV_MAX_SERIAL_READ, length-bytesRead);
-#if (MEMS_CHIP != HW_ICM30630) 
-		if(base_state.serial_interface == SERIAL_INTERFACE_SPI) {
-			result |= inv_serial_interface_read_hook(regOnly+bytesRead, thisLen, &dat[bytesRead]);
-		} else {
-			result |= inv_serial_interface_read_hook(regOnly+bytesRead,thisLen, &data[bytesRead]);
-		}
-#else        
+
+    while (bytesRead<length)
+    {
+        int thisLen = min(INV_MAX_SERIAL_READ, length-bytesRead);
+#if (MEMS_CHIP != HW_ICM30630)
+        if (base_state.serial_interface == SERIAL_INTERFACE_SPI)
+        {
+            result |= inv_serial_interface_read_hook(regOnly+bytesRead, thisLen, &dat[bytesRead]);
+        }
+        else
+        {
+            result |= inv_serial_interface_read_hook(regOnly+bytesRead,thisLen, &data[bytesRead]);
+        }
+#else
         result |= inv_serial_interface_read_hook(regOnly+bytesRead,thisLen, &data[bytesRead]);
 #endif
 
-		if (result)
-			return result;
-        
-		bytesRead += thisLen;
-	}
+        if (result)
+            return result;
 
-#if(MEMS_CHIP != HW_ICM30630) 
-	if(base_state.serial_interface == SERIAL_INTERFACE_SPI) {
-		for (i=0; i< length; i++) {
-			*data++= dat[i+1];
-		}
-	}
+        bytesRead += thisLen;
+    }
+
+#if(MEMS_CHIP != HW_ICM30630)
+    if (base_state.serial_interface == SERIAL_INTERFACE_SPI)
+    {
+        for (i=0; i< length; i++)
+        {
+            *data++= dat[i+1];
+        }
+    }
 #endif
 
-    if(check_reg_access_lp_disable(reg))   //Enable LP_EN since we disabled it at begining of this function.
+    if (check_reg_access_lp_disable(reg))  //Enable LP_EN since we disabled it at begining of this function.
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
 
-	return result;
+    return result;
 }
 
 /**
-*  @brief      Read data from a register in DMP memory 
+*  @brief      Read data from a register in DMP memory
 *  @param[in]  DMP memory address
 *  @param[in]  number of byte to be read
 *  @param[in]  input data from the register
@@ -227,31 +233,31 @@ inv_error_t inv_read_mems(unsigned short reg, unsigned int length, unsigned char
     int result=0;
     unsigned int bytesWritten = 0;
     unsigned int thisLen;
-#if(MEMS_CHIP != HW_ICM30630) 
-	unsigned char i, dat[INV_MAX_SERIAL_READ+1];
+#if(MEMS_CHIP != HW_ICM30630)
+    unsigned char i, dat[INV_MAX_SERIAL_READ+1];
 #endif
     unsigned char power_state = inv_get_chip_power_state();
     unsigned char lBankSelected;
     unsigned char lStartAddrSelected;
 
-    if(!data)
+    if (!data)
         return -1;
 
-    if((power_state & CHIP_AWAKE) == 0)   // Wake up chip since it is asleep
+    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
         result = inv_set_chip_power_state(CHIP_AWAKE, 1);
 
     result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);
 
-	result |= inv_set_bank(0);
+    result |= inv_set_bank(0);
     lBankSelected = (reg >> 8);
-	if (lBankSelected != lLastBankSelected)
-	{
-		result |= inv_serial_interface_write_hook(REG_MEM_BANK_SEL, 1, &lBankSelected);
-		if (result)
-			return result;
-		lLastBankSelected = lBankSelected;
-	}
-    while (bytesWritten < length) 
+    if (lBankSelected != lLastBankSelected)
+    {
+        result |= inv_serial_interface_write_hook(REG_MEM_BANK_SEL, 1, &lBankSelected);
+        if (result)
+            return result;
+        lLastBankSelected = lBankSelected;
+    }
+    while (bytesWritten < length)
     {
         lStartAddrSelected = (reg & 0xff);
         /* Sets the starting read or write address for the selected memory, inside of the selected page (see MEM_SEL Register).
@@ -261,43 +267,48 @@ inv_error_t inv_read_mems(unsigned short reg, unsigned int length, unsigned char
         result |= inv_serial_interface_write_hook(REG_MEM_START_ADDR, 1, &lStartAddrSelected);
         if (result)
             return result;
-        
+
         thisLen = min(INV_MAX_SERIAL_READ, length-bytesWritten);
 
-#if(MEMS_CHIP != HW_ICM30630) 
-		/* Write data */
-		if(base_state.serial_interface == SERIAL_INTERFACE_SPI) {
-			result |= inv_serial_interface_read_hook(REG_MEM_R_W, thisLen, &dat[bytesWritten]);
-		} else {
-			result |= inv_serial_interface_read_hook(REG_MEM_R_W, thisLen, &data[bytesWritten]);
-		}
-#else       
+#if(MEMS_CHIP != HW_ICM30630)
+        /* Write data */
+        if (base_state.serial_interface == SERIAL_INTERFACE_SPI)
+        {
+            result |= inv_serial_interface_read_hook(REG_MEM_R_W, thisLen, &dat[bytesWritten]);
+        }
+        else
+        {
+            result |= inv_serial_interface_read_hook(REG_MEM_R_W, thisLen, &data[bytesWritten]);
+        }
+#else
         /* Write data */
         result |= inv_serial_interface_read_hook(REG_MEM_R_W, thisLen, &data[bytesWritten]);
 #endif
         if (result)
             return result;
-        
+
         bytesWritten += thisLen;
         reg += thisLen;
     }
 
 #if(MEMS_CHIP != HW_ICM30630)
-	if(base_state.serial_interface == SERIAL_INTERFACE_SPI) {
-		for (i=0; i< length; i++) {
-			*data++= dat[i+1];
-		}
-	}
+    if (base_state.serial_interface == SERIAL_INTERFACE_SPI)
+    {
+        for (i=0; i< length; i++)
+        {
+            *data++= dat[i+1];
+        }
+    }
 #endif
 
     //Enable LP_EN since we disabled it at begining of this function.
     result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
 
-	return result;
+    return result;
 }
 
 /**
-*  @brief       Write data to a register in DMP memory 
+*  @brief       Write data to a register in DMP memory
 *  @param[in]   DMP memory address
 *  @param[in]   number of byte to be written
 *  @param[out]  output data from the register
@@ -310,27 +321,27 @@ inv_error_t inv_write_mems(unsigned short reg, unsigned int length, const unsign
     unsigned int thisLen;
     unsigned char lBankSelected;
     unsigned char lStartAddrSelected;
-    
+
     unsigned char power_state = inv_get_chip_power_state();
 
-    if(!data)
+    if (!data)
         return -1;
-    
-    if((power_state & CHIP_AWAKE) == 0)   // Wake up chip since it is asleep
+
+    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
         result = inv_set_chip_power_state(CHIP_AWAKE, 1);
 
     result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);
-            
-	result |= inv_set_bank(0);
+
+    result |= inv_set_bank(0);
     lBankSelected = (reg >> 8);
-	if (lBankSelected != lLastBankSelected)
-	{
-		result |= inv_serial_interface_write_hook(REG_MEM_BANK_SEL, 1, &lBankSelected);
-		if (result)
-			return result;
-		lLastBankSelected = lBankSelected;
-	}
-    while (bytesWritten < length) 
+    if (lBankSelected != lLastBankSelected)
+    {
+        result |= inv_serial_interface_write_hook(REG_MEM_BANK_SEL, 1, &lBankSelected);
+        if (result)
+            return result;
+        lLastBankSelected = lBankSelected;
+    }
+    while (bytesWritten < length)
     {
         lStartAddrSelected = (reg & 0xff);
         /* Sets the starting read or write address for the selected memory, inside of the selected page (see MEM_SEL Register).
@@ -340,14 +351,14 @@ inv_error_t inv_write_mems(unsigned short reg, unsigned int length, const unsign
         result |= inv_serial_interface_write_hook(REG_MEM_START_ADDR, 1, &lStartAddrSelected);
         if (result)
             return result;
-        
+
         thisLen = min(INV_MAX_SERIAL_WRITE, length-bytesWritten);
-        
-        /* Write data */ 
+
+        /* Write data */
         result |= inv_serial_interface_write_hook(REG_MEM_R_W, thisLen, &data[bytesWritten]);
         if (result)
             return result;
-        
+
         bytesWritten += thisLen;
         reg += thisLen;
     }

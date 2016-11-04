@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------- 
+//-----------------------------------------------------------------------------
 /*
     Copyright © 2014-2015 InvenSense Inc. Portions Copyright © 2014-2015 Movea. All rights reserved.
 
@@ -16,24 +16,25 @@
 #define INVN_COMMON_INVN_ENUMS_H_
 
 /** \defgroup InvnEnums Sensor Axis
-	\brief This file contains definitions of sensor axis
+    \brief This file contains definitions of sensor axis
 
-	\ingroup invn_types
+    \ingroup invn_types
  */
 
 /** \brief Sensor axis definitions.
 
     \ingroup SensorAxis
-	\sa \ref Conventions
+    \sa \ref Conventions
 */
-typedef enum {
-	INVN_SENSOR_AXIS_PLUS_X 	= 1,		/**< X axis */
-	INVN_SENSOR_AXIS_MINUS_X 	= -1,		/**< -X axis */
-	INVN_SENSOR_AXIS_PLUS_Y 	= 2,		/**< Y axis */
-	INVN_SENSOR_AXIS_MINUS_Y 	= -2,		/**< -Y axis */
-	INVN_SENSOR_AXIS_PLUS_Z 	= 3,		/**< Z axis */
-	INVN_SENSOR_AXIS_MINUS_Z 	= -3,		/**< -Z axis */
-	INVN_SENSOR_AXIS_UNKNOWN 	= 0,		/**< unknown axis */
+typedef enum
+{
+    INVN_SENSOR_AXIS_PLUS_X     = 1,        /**< X axis */
+    INVN_SENSOR_AXIS_MINUS_X    = -1,       /**< -X axis */
+    INVN_SENSOR_AXIS_PLUS_Y     = 2,        /**< Y axis */
+    INVN_SENSOR_AXIS_MINUS_Y    = -2,       /**< -Y axis */
+    INVN_SENSOR_AXIS_PLUS_Z     = 3,        /**< Z axis */
+    INVN_SENSOR_AXIS_MINUS_Z    = -3,       /**< -Z axis */
+    INVN_SENSOR_AXIS_UNKNOWN    = 0,        /**< unknown axis */
 } InvnSensorAxis;
 
 #endif // INVN_COMMON_INVN_ENUMS_H_
