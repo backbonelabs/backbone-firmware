@@ -12,6 +12,10 @@
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
+
+#ifndef OTA_MANDATORY_H_
+#define OTA_MANDATORY_H_
+
 #include <cytypes.h>
 #include <project.h>
 
@@ -43,7 +47,7 @@ cystatus Bootloadable_SetActiveApplication(uint8 appId);
 
 void AfterImageUpdate(void);
 #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
-cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount);
+    cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount);
 #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
 
-/* [] END OF FILE */
+#endif /* OTA_MANDATORY_H_ */

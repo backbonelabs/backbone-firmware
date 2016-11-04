@@ -473,5 +473,3 @@ cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount)
     return (rc);
 }
 #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
-
-/* [] END OF FILE */

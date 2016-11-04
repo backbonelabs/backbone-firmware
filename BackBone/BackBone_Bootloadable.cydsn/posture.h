@@ -1,16 +1,21 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
+
+#ifndef POSTURE_H_
+#define POSTURE_H_
 
 void posture_update(float y, float z);
-float posture_get_distance();
+float posture_get_distance(void);
+void posture_start(void);
+void posture_stop(void);
 
-/* [] END OF FILE */
+#endif /* POSTURE_H_ */

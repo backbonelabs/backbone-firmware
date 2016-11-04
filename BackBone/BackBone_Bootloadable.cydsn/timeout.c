@@ -1,14 +1,15 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
+
 #include <project.h>
 #include <timeout.h>
 
@@ -125,8 +126,3 @@ void I2CCommTimeout_ClearFlag(void)
 {
     TimeoutErrorFlags &= ~I2C_TIMEOUT;
 }
-
-
-
-
-/* [] END OF FILE */
