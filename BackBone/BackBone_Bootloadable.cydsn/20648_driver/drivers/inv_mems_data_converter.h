@@ -10,9 +10,9 @@
 * ________________________________________________________________________________________________________
 */
 /** @defgroup mems_data_converter data_converter
-	@ingroup  Mems_driver
-	@{
-*/	
+    @ingroup  Mems_driver
+    @{
+*/
 #ifndef INV_MEMS_DATA_CONVERTER_H__
 #define INV_MEMS_DATA_CONVERTER_H__
 
@@ -25,8 +25,8 @@ extern "C"
 #include ".\20648_driver\invn\ml_math_func.h"
 
 /** @brief Sets the transformation used for chip to body frame
-* @param[in] quat 	the quaternion used for the transformation
-*/	
+* @param[in] quat   the quaternion used for the transformation
+*/
 void inv_set_chip_to_body(long *quat);
 
 /** @brief Converts fixed point DMP rotation vector to floating point android notation
@@ -51,27 +51,27 @@ void inv_convert_rotation_vector_2(const long *quat, long *quat4_world);
 void inv_convert_rotation_vector_3(const long *quat4_world, float *values);
 
 /** @brief Converts the data in android values
-* @param[in] vec3 vector of the DMP 
+* @param[in] vec3 vector of the DMP
 * @param[in] scale scale calculated
 * @param[out] values in Android format
 */
 void inv_convert_dmp3_to_body(const long *vec3, float scale, float *values);
 
 /** @brief Converts the data in android quaternion values
-* @param[in] accel_gyro_matrix 	vector of the DMP 
-* @param[out] angle 			angle calculated
+* @param[in] accel_gyro_matrix  vector of the DMP
+* @param[out] angle             angle calculated
 */
 void inv_set_chip_to_body_axis_quaternion(signed char *accel_gyro_matrix, float angle);
 
 /** @brief Converts a 32-bit long to a little endian byte stream
-* @param[in] x 				the long to be converted
-* @param[in] little8 		little endian byte converted
-* @return 					0 on success, negative value on error.
-*/	
+* @param[in] x              the long to be converted
+* @param[in] little8        little endian byte converted
+* @return                   0 on success, negative value on error.
+*/
 unsigned char *inv_int32_to_little8(long x, unsigned char *little8);
 #ifdef __cplusplus
 }
 #endif
-#endif	/* INV_MEMS_DATA_CONVERTER_H__ */
+#endif  /* INV_MEMS_DATA_CONVERTER_H__ */
 
 /** @} */

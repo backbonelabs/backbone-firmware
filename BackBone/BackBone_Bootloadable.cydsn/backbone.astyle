@@ -1,0 +1,21 @@
+#Run this command from the directory "BackBone_Bootloadable.cydsn"
+#AStyle.exe --options=backbone.astyle *.c *.h
+
+#input file options
+--recursive
+--exclude=Generated_Source
+--exclude=codegentemp
+
+#formatting options
+--lineend=windows
+--style=allman
+--indent=spaces=4
+--indent-classes
+--indent-switches
+--indent-namespaces
+--indent-preproc-block
+--min-conditional-indent=0
+--max-instatement-indent=50
+--pad-header
+--convert-tabs
+

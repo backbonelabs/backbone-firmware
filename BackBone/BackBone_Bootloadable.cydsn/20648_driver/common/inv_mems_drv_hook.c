@@ -17,7 +17,7 @@ int inv_serial_interface_write_hook(uint16_t reg, uint32_t length, uint8_t *data
 {
     int result;
 
-	/* Replace with I2C write for PSoC4BLE */
+    /* Replace with I2C write for PSoC4BLE */
     result = Sensors_I2C_WriteRegister(IVORY_I2C_ADDRESS, (unsigned char)reg, (unsigned short)length, data);
 
     return result;
@@ -25,12 +25,12 @@ int inv_serial_interface_write_hook(uint16_t reg, uint32_t length, uint8_t *data
 
 int inv_serial_interface_read_hook(uint16_t reg, uint32_t length, uint8_t *data)
 {
-	int status;
-    
-	/* Replace with I2C read for PSoC4BLE */
-	status= Sensors_I2C_ReadRegister(IVORY_I2C_ADDRESS, (unsigned char)reg, (unsigned short)length, data);
+    int status;
 
-	return status;
+    /* Replace with I2C read for PSoC4BLE */
+    status= Sensors_I2C_ReadRegister(IVORY_I2C_ADDRESS, (unsigned char)reg, (unsigned short)length, data);
+
+    return status;
 }
 
 /**
@@ -38,7 +38,7 @@ int inv_serial_interface_read_hook(uint16_t reg, uint32_t length, uint8_t *data)
 **/
 void inv_sleep(unsigned long mSecs)
 {
-	CyDelay(mSecs);
+    CyDelay(mSecs);
 }
 
 void inv_sleep_100us(unsigned long nHowMany100MicroSecondsToSleep)

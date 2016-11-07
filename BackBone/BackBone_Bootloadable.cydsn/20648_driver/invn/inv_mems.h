@@ -24,19 +24,19 @@
 #include ".\20648_driver\drivers\inv_mems_slave_compass.h"
 #include ".\20648_driver\drivers\inv_mems_secondary_transport.h"
 #ifndef MEMS_20609
-#include ".\20648_driver\dmp3a\dmp3Default_20648.h"
-#include ".\20648_driver\drivers\inv_mems_base_control.h"
-#include ".\20648_driver\drivers\inv_mems_base_driver.h"
+    #include ".\20648_driver\dmp3a\dmp3Default_20648.h"
+    #include ".\20648_driver\drivers\inv_mems_base_control.h"
+    #include ".\20648_driver\drivers\inv_mems_base_driver.h"
 #else
-#include "dmp3/dmp3Default_20608D.h"
-#include "driver/inv_mems_base_control_20609.h"
-#include "driver/inv_mems_base_driver_20609.h"
+    #include "dmp3/dmp3Default_20608D.h"
+    #include "driver/inv_mems_base_control_20609.h"
+    #include "driver/inv_mems_base_driver_20609.h"
 #endif
 #if defined MEMS_AUGMENTED_SENSORS
-#include "driver/inv_mems_augmented_sensors.h"
+    #include "driver/inv_mems_augmented_sensors.h"
 #endif
 #if (MEMS_CHIP == HW_ICM20648)
-#include ".\20648_driver\drivers\inv_mems_mpu_selftest.h"
+    #include ".\20648_driver\drivers\inv_mems_mpu_selftest.h"
 #endif
 // dmp3 headers
 #include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"

@@ -35,18 +35,15 @@
 #define Bootloadable_MD_BTLDB_ACTIVE_1      (0x01u)
 #define Bootloadable_MD_SIZEOF              (64u)
 #define Bootloadable_MD_BASE_ADDR(appId)    (CYDEV_FLASH_BASE + (CYDEV_FLASH_SIZE - ((uint32)(appId) * CYDEV_FLS_ROW_SIZE) - \
-                                                                        Bootloadable_MD_SIZEOF))
+                                                Bootloadable_MD_SIZEOF))
 #define Bootloadable_MD_BTLDB_ACTIVE_OFFSET(appId) (Bootloadable_MD_BASE_ADDR(appId) + 16u)
-                                                                        
 
 cystatus Bootloadable_WriteFlashByte(const uint32 address, const uint8 inputValue);
 cystatus Bootloadable_SetActiveApplication(uint8 appId);
 
 void AfterImageUpdate(void);
 #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
-    cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount);
+cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount);
 #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
-
-
 
 /* [] END OF FILE */

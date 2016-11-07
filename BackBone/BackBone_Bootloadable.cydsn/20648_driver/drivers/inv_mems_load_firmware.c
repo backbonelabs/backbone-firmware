@@ -14,9 +14,9 @@
 #include ".\20648_driver\drivers\inv_mems_hw_config.h"
 #include ".\20648_driver\drivers\inv_mems_defines.h"
 #ifndef MEMS_20609
-#include ".\20648_driver\drivers\inv_mems_base_driver.h"
+    #include ".\20648_driver\drivers\inv_mems_base_driver.h"
 #else
-#include "driver/inv_mems_base_driver_20609.h"
+    #include "driver/inv_mems_base_driver_20609.h"
 #endif
 #include ".\20648_driver\drivers\inv_mems_transport.h"
 #include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
@@ -25,7 +25,7 @@
 
 
 inv_error_t inv_mems_firmware_load(const unsigned char *data_start, unsigned short size_start, unsigned short load_addr)
-{ 
+{
     int write_size;
     int result;
     unsigned short memaddr;
@@ -42,14 +42,16 @@ inv_error_t inv_mems_firmware_load(const unsigned char *data_start, unsigned sho
     data = data_start;
     size = size_start;
     memaddr = load_addr;
-    while (size > 0) {
+    while (size > 0)
+    {
         write_size = min(size, INV_MAX_SERIAL_WRITE);
-        if ((memaddr & 0xff) + write_size > 0x100) {
+        if ((memaddr & 0xff) + write_size > 0x100)
+        {
             // Moved across a bank
             write_size = (memaddr & 0xff) + write_size - 0x100;
         }
         result = inv_write_mems(memaddr, write_size, (unsigned char *)data);
-        if (result)  
+        if (result)
             return result;
         data += write_size;
         size -= write_size;
@@ -61,9 +63,11 @@ inv_error_t inv_mems_firmware_load(const unsigned char *data_start, unsigned sho
     data = data_start;
     size = size_start;
     memaddr = load_addr;
-    while (size > 0) {
+    while (size > 0)
+    {
         write_size = min(size, INV_MAX_SERIAL_READ);
-        if ((memaddr & 0xff) + write_size > 0x100) {
+        if ((memaddr & 0xff) + write_size > 0x100)
+        {
             // Moved across a bank
             write_size = (memaddr & 0xff) + write_size - 0x100;
         }
@@ -76,11 +80,11 @@ inv_error_t inv_mems_firmware_load(const unsigned char *data_start, unsigned sho
         size -= write_size;
         memaddr += write_size;
     }
-    
 
-#if defined(WIN32)   
-    if(!flag)
-      inv_log("DMP Firmware was updated successfully..\r\n");
+
+#if defined(WIN32)
+    if (!flag)
+        inv_log("DMP Firmware was updated successfully..\r\n");
 #endif
 
     return INV_SUCCESS;

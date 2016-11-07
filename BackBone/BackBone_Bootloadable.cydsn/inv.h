@@ -11,11 +11,12 @@
 */
 #include ".\20648_driver\invn\inv_mems.h"
 
-struct hal_s_ {
-	long report;          // What to report?
-	unsigned char  debug_reg_on;     // with '\' as a command this turns ON
-	int expected_data;
-	volatile unsigned char new_gyro;
+struct hal_s_
+{
+    long report;          // What to report?
+    unsigned char  debug_reg_on;     // with '\' as a command this turns ON
+    int expected_data;
+    volatile unsigned char new_gyro;
 };
 
 /*******************************************************************************/
@@ -37,48 +38,49 @@ struct hal_s_ {
 #define PRINT_CUBE_GRV      (0x10000)
 #define PRINT_CUBE_RV       (0x20000)
 #define PRINT_CUBE_GEOMAG   (0x40000)
-#define PRINT_LPQ           (0x80000)           
-#define PRINT_BAC			(0x100000)
-#define PRINT_FLIP_PICKUP	(0x200000)
-#define PRINT_TILT			(0x400000)
-#define PRINT_PROXIMITY		(0x800000)
-#define PRINT_HRM			(0x1000000)
-#define PRINT_SHAKE			(0x2000000)
-#define PRINT_B2S			(0x4000000)
+#define PRINT_LPQ           (0x80000)
+#define PRINT_BAC           (0x100000)
+#define PRINT_FLIP_PICKUP   (0x200000)
+#define PRINT_TILT          (0x400000)
+#define PRINT_PROXIMITY     (0x800000)
+#define PRINT_HRM           (0x1000000)
+#define PRINT_SHAKE         (0x2000000)
+#define PRINT_B2S           (0x4000000)
 
 #ifdef MEMS_20609
-#define DMP_INT_SMD		0x0400
-#define DMP_INT_PED		0x0800
-#endif 
+    #define DMP_INT_SMD     0x0400
+    #define DMP_INT_PED     0x0800
+#endif
 
 #ifdef _WIN32
-#define INV_SPRINTF(str, len, ...) sprintf_s(str, len, __VA_ARGS__)
+    #define INV_SPRINTF(str, len, ...) sprintf_s(str, len, __VA_ARGS__)
 #else
-#define INV_SPRINTF(str, len, ...) sprintf(str, __VA_ARGS__)
+    #define INV_SPRINTF(str, len, ...) sprintf(str, __VA_ARGS__)
 #endif
 
 /** @brief Set of flags for BAC state */
-#define BAC_DRIVE	0x01
-#define BAC_WALK	0x02
-#define BAC_RUN		0x04
-#define BAC_BIKE	0x08
-#define BAC_TILT	0x10
-#define BAC_STILL	0x20
+#define BAC_DRIVE   0x01
+#define BAC_WALK    0x02
+#define BAC_RUN     0x04
+#define BAC_BIKE    0x08
+#define BAC_TILT    0x10
+#define BAC_STILL   0x20
 
 #define INV_TST_LEN 256
 
 #define MAX_BUF_LENGTH  (18)
 
-enum packet_type_e {
-	PACKET_TYPE_ACCEL,
-	PACKET_TYPE_GYRO,
-	PACKET_TYPE_QUAT,
-	PACKET_TYPE_COMPASS = 7
+enum packet_type_e
+{
+    PACKET_TYPE_ACCEL,
+    PACKET_TYPE_GYRO,
+    PACKET_TYPE_QUAT,
+    PACKET_TYPE_COMPASS = 7
 };
 
 /* Status bits in InvFlags */
-#define INV_ERROR_INIT			(0x0001)
-#define INV_ERROR_SELF_TEST		(0x0002)
+#define INV_ERROR_INIT          (0x0001)
+#define INV_ERROR_SELF_TEST     (0x0002)
 
 
 extern struct hal_s_ hal;

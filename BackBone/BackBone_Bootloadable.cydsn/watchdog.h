@@ -9,11 +9,11 @@
  *
  * ========================================
 */
-#ifndef CYAPICALLBACKS_H
-#define CYAPICALLBACKS_H
 
-/*Define your macro callbacks here */
-/*For more information, refer to the Macro Callbacks topic in the PSoC Creator Help.*/
+#ifndef WATCHDOG_H_
+#define WATCHDOG_H_
 
-#endif /* CYAPICALLBACKS_H */
-/* [] */
+void watchdog_init();
+
+#endif
+/* [] END OF FILE */

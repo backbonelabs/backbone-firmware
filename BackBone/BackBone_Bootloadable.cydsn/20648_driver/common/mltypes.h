@@ -10,8 +10,8 @@
 * ________________________________________________________________________________________________________
 */
 /** @defgroup mems_mltypes mltypes
-	@ingroup  Mems_common
-	@{
+    @ingroup  Mems_common
+    @{
 */
 #ifndef MLTYPES_H
 #define MLTYPES_H
@@ -20,22 +20,22 @@
 # include ".\20648_driver\drivers\inv_mems_defines.h"
 
 #ifndef REMOVE_INV_ERROR_T
-/*---------------------------
- *    ML Types
- *--------------------------*/
+    /*---------------------------
+    *    ML Types
+    *--------------------------*/
 
-/**
- *  @struct inv_error_t mltypes.h "mltypes"
- *  @brief  The MPL Error Code return type.
- *
- *  @code
- *      typedef unsigned char inv_error_t;
- *  @endcode
- */
-//typedef unsigned char inv_error_t;
-typedef int inv_error_t;
+    /**
+    *  @struct inv_error_t mltypes.h "mltypes"
+    *  @brief  The MPL Error Code return type.
+    *
+    *  @code
+    *      typedef unsigned char inv_error_t;
+    *  @endcode
+    */
+    //typedef unsigned char inv_error_t;
+    typedef int inv_error_t;
 #endif
 
-#endif				/* MLTYPES_H */
+#endif              /* MLTYPES_H */
 
 /** @} */

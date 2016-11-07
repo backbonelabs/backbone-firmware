@@ -9,11 +9,8 @@
  *
  * ========================================
 */
-#ifndef CYAPICALLBACKS_H
-#define CYAPICALLBACKS_H
 
-/*Define your macro callbacks here */
-/*For more information, refer to the Macro Callbacks topic in the PSoC Creator Help.*/
+void posture_update(float y, float z);
+float posture_get_distance();
 
-#endif /* CYAPICALLBACKS_H */
-/* [] */
+/* [] END OF FILE */

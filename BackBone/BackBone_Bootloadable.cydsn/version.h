@@ -9,11 +9,12 @@
  *
  * ========================================
 */
-#ifndef CYAPICALLBACKS_H
-#define CYAPICALLBACKS_H
 
-/*Define your macro callbacks here */
-/*For more information, refer to the Macro Callbacks topic in the PSoC Creator Help.*/
+#include <project.h>
 
-#endif /* CYAPICALLBACKS_H */
-/* [] */
+#define HW_MAJOR_VERSION            (1u)
+#define HW_MINOR_VERSION            (0u)
+#define FW_MAJOR_VERSION            (1u)
+#define FW_MINOR_VERSION            (5u)
+
+/* [] END OF FILE */

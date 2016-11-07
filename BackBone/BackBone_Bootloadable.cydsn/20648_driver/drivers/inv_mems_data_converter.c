@@ -61,12 +61,15 @@ void inv_convert_rotation_vector(const long *quat, float *values)
 
     inv_compute_scalar_part(quat, quat4);
     inv_q_mult_q_qi(quat4, s_quat_chip_to_body, quat_body_to_world);
-    if (quat_body_to_world[0] >= 0) {
+    if (quat_body_to_world[0] >= 0)
+    {
         values[0] = quat_body_to_world[1] * INV_TWO_POWER_NEG_30;
         values[1] = quat_body_to_world[2] * INV_TWO_POWER_NEG_30;
         values[2] = quat_body_to_world[3] * INV_TWO_POWER_NEG_30;
         values[3] = quat_body_to_world[0] * INV_TWO_POWER_NEG_30;
-    } else {
+    }
+    else
+    {
         values[0] = -quat_body_to_world[1] * INV_TWO_POWER_NEG_30;
         values[1] = -quat_body_to_world[2] * INV_TWO_POWER_NEG_30;
         values[2] = -quat_body_to_world[3] * INV_TWO_POWER_NEG_30;
@@ -85,12 +88,15 @@ void inv_convert_rotation_vector_1(const long *quat, long *values)
 
     inv_compute_scalar_part(quat, quat4);
     inv_q_mult_q_qi(quat4, s_quat_chip_to_body, quat_body_to_world);
-    if (quat_body_to_world[0] >= 0) {
+    if (quat_body_to_world[0] >= 0)
+    {
         values[0] = quat_body_to_world[1];
         values[1] = quat_body_to_world[2];
         values[2] = quat_body_to_world[3];
         values[3] = quat_body_to_world[0];
-    } else {
+    }
+    else
+    {
         values[0] = -quat_body_to_world[1];
         values[1] = -quat_body_to_world[2];
         values[2] = -quat_body_to_world[3];
@@ -118,12 +124,15 @@ void inv_convert_rotation_vector_2(const long *quat, long *quat4_world)
 */
 void inv_convert_rotation_vector_3(const long *quat4_world, float *values)
 {
-    if (quat4_world[0] >= 0) {
+    if (quat4_world[0] >= 0)
+    {
         values[0] = quat4_world[1] * INV_TWO_POWER_NEG_30;
         values[1] = quat4_world[2] * INV_TWO_POWER_NEG_30;
         values[2] = quat4_world[3] * INV_TWO_POWER_NEG_30;
         values[3] = quat4_world[0] * INV_TWO_POWER_NEG_30;
-    } else {
+    }
+    else
+    {
         values[0] = -quat4_world[1] * INV_TWO_POWER_NEG_30;
         values[1] = -quat4_world[2] * INV_TWO_POWER_NEG_30;
         values[2] = -quat4_world[3] * INV_TWO_POWER_NEG_30;
@@ -137,7 +146,8 @@ void inv_set_chip_to_body_axis_quaternion(signed char *accel_gyro_matrix, float 
     float rot[9];
     long qcb[4],q_all[4];
     long q_adjust[4];
-    for (i=0; i<9; i++) {
+    for (i=0; i<9; i++)
+    {
         rot[i] = (float)accel_gyro_matrix[i];
     }
     // Convert Chip to Body transformation matrix to quaternion

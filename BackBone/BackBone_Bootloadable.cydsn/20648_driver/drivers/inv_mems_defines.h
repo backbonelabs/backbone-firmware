@@ -20,17 +20,17 @@
 #include ".\20648_driver\common\inv_mems_drv_hook.h"
 
 #if defined MEMS_20630
-#include "dmp3/dmp3Driver.h"  
+    #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_30630
-#include "dmp3/dmp3Driver.h"  
+    #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_20645E
-#include "dmp3/dmp3Driver.h"  
+    #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_20648
-#include ".\20648_driver\dmp3a\dmp3Driver.h"   
+    #include ".\20648_driver\dmp3a\dmp3Driver.h"
 #elif defined MEMS_20609
-#include "dmp3a/dmp3Driver.h"
+    #include "dmp3a/dmp3Driver.h"
 #else
-#error "Unsupported configuration"
+    #error "Unsupported configuration"
 #endif
 
 #ifdef __cplusplus
@@ -68,7 +68,7 @@ extern "C" {
 #define BIT_I2C_MST_EN                  0x20
 #define BIT_I2C_IF_DIS                  0x10
 #define BIT_DMP_RST                     0x08
-#define BIT_DIAMOND_DMP_RST			    0x04
+#define BIT_DIAMOND_DMP_RST             0x04
 
 #define REG_LP_CONFIG           (BANK_0 | 0x05)
 #define BIT_I2C_MST_CYCLE               0x40
@@ -123,12 +123,12 @@ extern "C" {
 #define BIT_MSG_DMP_INT_6               0x4000  // CIM Command - Look To See Gesture
 
 #define REG_INT_STATUS          (BANK_0 | 0x19)
-#define BIT_DMP_INT                     0x02 
+#define BIT_DMP_INT                     0x02
 
 #define REG_INT_STATUS_1        (BANK_0 | 0x1A)
 #define REG_INT_STATUS_2        (BANK_0 | 0x1B)
 
-#define REG_SINGLE_FIFO_PRIORITY_SEL        (BANK_0 | 0x26)	
+#define REG_SINGLE_FIFO_PRIORITY_SEL        (BANK_0 | 0x26)
 
 #define REG_GYRO_XOUT_H_SH      (BANK_0 | 0x33)
 
@@ -247,8 +247,8 @@ extern "C" {
 
 /* register for all banks */
 #define REG_BANK_SEL            0x7F
-    
-    /* data definitions */
+
+/* data definitions */
 #define BYTES_PER_SENSOR         6
 #define FIFO_COUNT_BYTE          2
 #define HARDWARE_FIFO_SIZE       1024
@@ -312,17 +312,17 @@ extern "C" {
 
 #endif
 /* Register defines for ICM20608D/20609 */
-  
+
 #if defined MEMS_20609
 
 /*dummy definitions*/
 
 #define REG_BANK_SEL            0x7F
 
-/*end dummy definition*/  
+/*end dummy definition*/
 /*register and associated bit definition*/
-#define REG_XA_OFFS_H		0x77
-#define REG_YA_OFFS_H		0x7A
+#define REG_XA_OFFS_H       0x77
+#define REG_YA_OFFS_H       0x7A
 #define REG_ZA_OFFS_H           0x7D
 #define REG_XA_OFFS_L_TC        0x7
 #define REG_PRODUCT_ID          0xC
@@ -335,22 +335,22 @@ extern "C" {
 #define REG_CONFIG              0x1A
 #define EXT_SYNC_SET                      8
 
-#define REG_GYRO_CONFIG		0x1B
-#define BITS_SELF_TEST_EN		0xE0
-#define SHIFT_GYRO_FS_SEL		0x03
+#define REG_GYRO_CONFIG     0x1B
+#define BITS_SELF_TEST_EN       0xE0
+#define SHIFT_GYRO_FS_SEL       0x03
 
-#define REG_ACCEL_CONFIG		0x1C
-#define SHIFT_ACCEL_FS			0x03
+#define REG_ACCEL_CONFIG        0x1C
+#define SHIFT_ACCEL_FS          0x03
 #define REG_ACCEL_MOT_THR       0x1F
 #define REG_ACCEL_MOT_DUR       0x20
 
 #define REG_ACCEL_CONFIG_2  0x1D
 #define BIT_ACCEL_FCHOCIE_B              0x08
 
-#define REG_FIFO_EN		0x23
+#define REG_FIFO_EN     0x23
 #define BITS_TEMP_FIFO_EN                   0x80
-#define BITS_GYRO_FIFO_EN		    0x70
-#define BIT_ACCEL_FIFO_EN	            0x08
+#define BITS_GYRO_FIFO_EN           0x70
+#define BIT_ACCEL_FIFO_EN               0x08
 #define BIT_SLV_0_FIFO_EN                   0x01
 
 #define REG_I2C_SLV0_ADDR       0x25
@@ -365,18 +365,18 @@ extern "C" {
 
 #define REG_I2C_SLV4_CTRL       0x34
 
-#define REG_FSYNC_INT		0x36
+#define REG_FSYNC_INT       0x36
 #define BIT_FSYNC_INT                   0x80
 
-#define REG_INT_PIN_CFG		0x37
-#define BIT_BYPASS_EN		0x2
+#define REG_INT_PIN_CFG     0x37
+#define BIT_BYPASS_EN       0x2
 
-#define REG_INT_ENABLE		0x38
-#define BIT_WOM_INT_EN		        0xe0
-#define BIT_FIFO_OFLOW_EN	        0x10
-#define BIT_FSYNC_INT_EN	        0x8
-#define BIT_DMP_INT_EN		        0x02
-#define BIT_DATA_RDY_EN		        0x01
+#define REG_INT_ENABLE      0x38
+#define BIT_WOM_INT_EN              0xe0
+#define BIT_FIFO_OFLOW_EN           0x10
+#define BIT_FSYNC_INT_EN            0x8
+#define BIT_DMP_INT_EN              0x02
+#define BIT_DATA_RDY_EN             0x01
 
 #define REG_DMP_INT_STATUS      0x39
 #define BIT_DMP_INT_CI          0x01
@@ -398,30 +398,30 @@ extern "C" {
 #define BIT_I2C_SLV0_DELAY_EN                   0x01
 
 #define REG_USER_CTRL            0x6A
-#define BIT_COND_RST				0x01
-#define BIT_FIFO_RST				0x04
-#define BIT_DMP_RST				0x08
-#define BIT_I2C_IF_DIS				0x10
+#define BIT_COND_RST                0x01
+#define BIT_FIFO_RST                0x04
+#define BIT_DMP_RST             0x08
+#define BIT_I2C_IF_DIS              0x10
 #define BIT_I2C_MST_EN                          0x20
-#define BIT_FIFO_EN				0x40
-#define BIT_DMP_EN				0x80
+#define BIT_FIFO_EN             0x40
+#define BIT_DMP_EN              0x80
 
-#define REG_PWR_MGMT_1	         0x6B
-#define BIT_H_RESET				0x80
-#define BIT_SLEEP				0x40
-#define BIT_LP_EN                       	0x20
-#define BIT_CLK_PLL				0x01
-#define BIT_CLK_MASK				0x07
+#define REG_PWR_MGMT_1           0x6B
+#define BIT_H_RESET             0x80
+#define BIT_SLEEP               0x40
+#define BIT_LP_EN                           0x20
+#define BIT_CLK_PLL             0x01
+#define BIT_CLK_MASK                0x07
 
-#define REG_PWR_MGMT_2			0x6C
-#define BIT_PWR_ACCEL_STBY		0x38
-#define BIT_PWR_GYRO_STBY		0x07
-#define BIT_PWR_ALL_OFF			0x3F
+#define REG_PWR_MGMT_2          0x6C
+#define BIT_PWR_ACCEL_STBY      0x38
+#define BIT_PWR_GYRO_STBY       0x07
+#define BIT_PWR_ALL_OFF         0x3F
 
-#define REG_MEM_BANK_SEL		0x6D
-#define REG_MEM_START_ADDR	0x6E
-#define REG_MEM_R_W				0x6F
-#define REG_PRGM_START_ADDRH	0x70
+#define REG_MEM_BANK_SEL        0x6D
+#define REG_MEM_START_ADDR  0x6E
+#define REG_MEM_R_W             0x6F
+#define REG_PRGM_START_ADDRH    0x70
 
 #define REG_FIFO_COUNT_H        0x72
 #define REG_FIFO_R_W            0x74
@@ -436,7 +436,7 @@ extern "C" {
 #define BIT_ACCEL_FCHOCIE_B              0x08
 #define BIT_FIFO_SIZE_1K                 0x40
 
-#define REG_LP_MODE_CFG		0x1E
+#define REG_LP_MODE_CFG     0x1E
 
 #define REG_6500_LP_ACCEL_ODR   0x1E
 #define REG_6500_ACCEL_WOM_THR  0x1F
@@ -497,7 +497,7 @@ extern "C" {
 #else
 #define DEFAULT_ACCURACY         1
 #endif
-  
+
 #define MPU_DEFAULT_DMP_FREQ     200
 #define PEDOMETER_FREQ           (MPU_DEFAULT_DMP_FREQ >> 2)
 
@@ -548,21 +548,22 @@ extern "C" {
 #define REG_I2C_MST_CTRL        0x24
 #define BIT_I2C_MST_P_NSR               0x10
 
-enum inv_filter_e {
-	INV_FILTER_256HZ_NOLPF2 = 0,
-	INV_FILTER_188HZ,
-	INV_FILTER_98HZ,
-	INV_FILTER_42HZ,
-	INV_FILTER_20HZ,
-	INV_FILTER_10HZ,
-	INV_FILTER_5HZ,
-	INV_FILTER_2100HZ_NOLPF,
-	NUM_FILTER
+enum inv_filter_e
+{
+    INV_FILTER_256HZ_NOLPF2 = 0,
+    INV_FILTER_188HZ,
+    INV_FILTER_98HZ,
+    INV_FILTER_42HZ,
+    INV_FILTER_20HZ,
+    INV_FILTER_10HZ,
+    INV_FILTER_5HZ,
+    INV_FILTER_2100HZ_NOLPF,
+    NUM_FILTER
 };
 #endif
-  
+
 /* Common definitions */
-  
+
 /* this is derived from 1000 divided by 55, which is the pedometer
    running frequency */
 #define MS_PER_PED_TICKS         18
@@ -601,7 +602,7 @@ enum inv_filter_e {
 /* init parameters */
 #define MPU_INIT_SMD_THLD        1500
 #ifdef MEMS_20648
-#define MPU_INIT_SENSOR_RATE     5     
+#define MPU_INIT_SENSOR_RATE     5
 #endif
 #define MPU_INIT_GYRO_SCALE      3
 #define MPU_INIT_ACCEL_SCALE     0
@@ -609,12 +610,12 @@ enum inv_filter_e {
 #define MPU_INIT_PED_STEP_THRESH 6
 #define COMPASS_SLAVEADDR_AKM_BASE      0x0C
 #define COMPASS_SLAVEADDR_AKM           0x0E
-    
-#define BIT(x) ( 1 << x )              
+
+#define BIT(x) ( 1 << x )
 
 #define ENABLE  1
 #define DISABLE 0
-    
+
 // interrupt configurations related to HW register
 #define FSYNC_INT   BIT(7)
 #define MOTION_INT  BIT(3)
@@ -625,13 +626,15 @@ enum inv_filter_e {
 #define CHIP_AWAKE          (0x01)
 #define CHIP_LP_ENABLE      (0x02)
 
-enum MEMS_SERIAL_INTERFACE {
+enum MEMS_SERIAL_INTERFACE
+{
     SERIAL_INTERFACE_I2C = 1,
     SERIAL_INTERFACE_SPI,
     SERIAL_INTERFACE_INVALID
 };
 
-enum mpu_accel_fs {
+enum mpu_accel_fs
+{
     MPU_FS_2G = 0,
     MPU_FS_4G,
     MPU_FS_8G,
@@ -639,83 +642,87 @@ enum mpu_accel_fs {
     NUM_MPU_AFS
 };
 
-enum mpu_gyro_fs {
-	MPU_FS_250dps = 0,
+enum mpu_gyro_fs
+{
+    MPU_FS_250dps = 0,
     MPU_FS_500dps,
     MPU_FS_1000dps,
     MPU_FS_2000dps,
     NUM_MPU_GFS
 };
 
-enum INV_ENGINE {
-	ENGINE_GYRO = 0,
-	ENGINE_ACCEL,
-	ENGINE_I2C,
-	ENGINE_NUM_MAX,
+enum INV_ENGINE
+{
+    ENGINE_GYRO = 0,
+    ENGINE_ACCEL,
+    ENGINE_I2C,
+    ENGINE_NUM_MAX,
 };
 
 /* enum for android sensor*/
-enum ANDROID_SENSORS {
-	ANDROID_SENSOR_META_DATA = 0,
-	ANDROID_SENSOR_ACCELEROMETER,
-	ANDROID_SENSOR_GEOMAGNETIC_FIELD,
-	ANDROID_SENSOR_ORIENTATION,
-	ANDROID_SENSOR_GYROSCOPE,
-	ANDROID_SENSOR_LIGHT,
-	ANDROID_SENSOR_PRESSURE,
-	ANDROID_SENSOR_TEMPERATURE,
-ANDROID_SENSOR_WAKEUP_PROXIMITY,
-	ANDROID_SENSOR_GRAVITY,
-	ANDROID_SENSOR_LINEAR_ACCELERATION,
-	ANDROID_SENSOR_ROTATION_VECTOR,
-	ANDROID_SENSOR_HUMIDITY,
-	ANDROID_SENSOR_AMBIENT_TEMPERATURE,
-	ANDROID_SENSOR_MAGNETIC_FIELD_UNCALIBRATED,
-	ANDROID_SENSOR_GAME_ROTATION_VECTOR,
-	ANDROID_SENSOR_GYROSCOPE_UNCALIBRATED,
-ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION,
-	ANDROID_SENSOR_STEP_DETECTOR,
-	ANDROID_SENSOR_STEP_COUNTER,
-	ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR,
-	ANDROID_SENSOR_HEART_RATE,
-	ANDROID_SENSOR_PROXIMITY,
+enum ANDROID_SENSORS
+{
+    ANDROID_SENSOR_META_DATA = 0,
+    ANDROID_SENSOR_ACCELEROMETER,
+    ANDROID_SENSOR_GEOMAGNETIC_FIELD,
+    ANDROID_SENSOR_ORIENTATION,
+    ANDROID_SENSOR_GYROSCOPE,
+    ANDROID_SENSOR_LIGHT,
+    ANDROID_SENSOR_PRESSURE,
+    ANDROID_SENSOR_TEMPERATURE,
+    ANDROID_SENSOR_WAKEUP_PROXIMITY,
+    ANDROID_SENSOR_GRAVITY,
+    ANDROID_SENSOR_LINEAR_ACCELERATION,
+    ANDROID_SENSOR_ROTATION_VECTOR,
+    ANDROID_SENSOR_HUMIDITY,
+    ANDROID_SENSOR_AMBIENT_TEMPERATURE,
+    ANDROID_SENSOR_MAGNETIC_FIELD_UNCALIBRATED,
+    ANDROID_SENSOR_GAME_ROTATION_VECTOR,
+    ANDROID_SENSOR_GYROSCOPE_UNCALIBRATED,
+    ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION,
+    ANDROID_SENSOR_STEP_DETECTOR,
+    ANDROID_SENSOR_STEP_COUNTER,
+    ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR,
+    ANDROID_SENSOR_HEART_RATE,
+    ANDROID_SENSOR_PROXIMITY,
 
-	ANDROID_SENSOR_WAKEUP_ACCELEROMETER,
-	ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD,
-	ANDROID_SENSOR_WAKEUP_ORIENTATION,
-	ANDROID_SENSOR_WAKEUP_GYROSCOPE,
-	ANDROID_SENSOR_WAKEUP_LIGHT,
-	ANDROID_SENSOR_WAKEUP_PRESSURE,
-	ANDROID_SENSOR_WAKEUP_GRAVITY,
-	ANDROID_SENSOR_WAKEUP_LINEAR_ACCELERATION,
-	ANDROID_SENSOR_WAKEUP_ROTATION_VECTOR,
-	ANDROID_SENSOR_WAKEUP_RELATIVE_HUMIDITY,
-	ANDROID_SENSOR_WAKEUP_AMBIENT_TEMPERATURE,
-	ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD_UNCALIBRATED,
-	ANDROID_SENSOR_WAKEUP_GAME_ROTATION_VECTOR,
-	ANDROID_SENSOR_WAKEUP_GYROSCOPE_UNCALIBRATED,
-	ANDROID_SENSOR_WAKEUP_STEP_DETECTOR,
-	ANDROID_SENSOR_WAKEUP_STEP_COUNTER,
-	ANDROID_SENSOR_WAKEUP_GEOMAGNETIC_ROTATION_VECTOR,
-	ANDROID_SENSOR_WAKEUP_HEART_RATE,
-	ANDROID_SENSOR_WAKEUP_TILT_DETECTOR,
-	ANDROID_SENSOR_NUM_MAX,
+    ANDROID_SENSOR_WAKEUP_ACCELEROMETER,
+    ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD,
+    ANDROID_SENSOR_WAKEUP_ORIENTATION,
+    ANDROID_SENSOR_WAKEUP_GYROSCOPE,
+    ANDROID_SENSOR_WAKEUP_LIGHT,
+    ANDROID_SENSOR_WAKEUP_PRESSURE,
+    ANDROID_SENSOR_WAKEUP_GRAVITY,
+    ANDROID_SENSOR_WAKEUP_LINEAR_ACCELERATION,
+    ANDROID_SENSOR_WAKEUP_ROTATION_VECTOR,
+    ANDROID_SENSOR_WAKEUP_RELATIVE_HUMIDITY,
+    ANDROID_SENSOR_WAKEUP_AMBIENT_TEMPERATURE,
+    ANDROID_SENSOR_WAKEUP_MAGNETIC_FIELD_UNCALIBRATED,
+    ANDROID_SENSOR_WAKEUP_GAME_ROTATION_VECTOR,
+    ANDROID_SENSOR_WAKEUP_GYROSCOPE_UNCALIBRATED,
+    ANDROID_SENSOR_WAKEUP_STEP_DETECTOR,
+    ANDROID_SENSOR_WAKEUP_STEP_COUNTER,
+    ANDROID_SENSOR_WAKEUP_GEOMAGNETIC_ROTATION_VECTOR,
+    ANDROID_SENSOR_WAKEUP_HEART_RATE,
+    ANDROID_SENSOR_WAKEUP_TILT_DETECTOR,
+    ANDROID_SENSOR_NUM_MAX,
 
     ANDROID_SENSOR_B2S,
-	ANDROID_SENSOR_FLIP_PICKUP,
-	ANDROID_SENSOR_ACTIVITY_CLASSIFICATON,
-	ANDROID_SENSOR_SCREEN_ROTATION,
-	SELF_TEST,
-	SETUP,
-	GENERAL_SENSORS_MAX
+    ANDROID_SENSOR_FLIP_PICKUP,
+    ANDROID_SENSOR_ACTIVITY_CLASSIFICATON,
+    ANDROID_SENSOR_SCREEN_ROTATION,
+    SELF_TEST,
+    SETUP,
+    GENERAL_SENSORS_MAX
 };
 
 
-enum SENSOR_ACCURACY {
-	SENSOR_ACCEL_ACCURACY = 0,
-	SENSOR_GYRO_ACCURACY,
-	SENSOR_COMPASS_ACCURACY,
-	SENSOR_ACCURACY_NUM_MAX,
+enum SENSOR_ACCURACY
+{
+    SENSOR_ACCEL_ACCURACY = 0,
+    SENSOR_GYRO_ACCURACY,
+    SENSOR_COMPASS_ACCURACY,
+    SENSOR_ACCURACY_NUM_MAX,
 };
 
 #ifndef min

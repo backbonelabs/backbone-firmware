@@ -12,8 +12,8 @@
 #ifndef __TIMEOUT_H
 #define __TIMEOUT_H
 
-#include <project.h>	
-	
+#include <project.h>
+
 /* Variable declaration */
 extern uint8 TimeoutEnableFlags;
 extern uint8 TimeoutErrorFlags;
@@ -21,7 +21,7 @@ extern uint8 I2CTimeoutCounter;
 extern uint16 BoostCircuitTimeoutCounter;
 
 /* Flags for the TimeoutEnableFlags and TimeoutErrorFlags variables */
-#define I2C_TIMEOUT				0x01
+#define I2C_TIMEOUT             0x01
 
 /* Function prototypes*/
 void Timeout_Start(void);

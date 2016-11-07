@@ -59,15 +59,15 @@ $
 #define D_EXT_GYRO_BIAS_X       (61 * 16)
 #define D_EXT_GYRO_BIAS_Y       ((61 * 16) + 4)
 #define D_EXT_GYRO_BIAS_Z       ((61 * 16) + 8)
-#define GYRO_BIAS_X	D_EXT_GYRO_BIAS_X
-#define GYRO_BIAS_Y	D_EXT_GYRO_BIAS_Y
-#define GYRO_BIAS_Z	D_EXT_GYRO_BIAS_Z
+#define GYRO_BIAS_X D_EXT_GYRO_BIAS_X
+#define GYRO_BIAS_Y D_EXT_GYRO_BIAS_Y
+#define GYRO_BIAS_Z D_EXT_GYRO_BIAS_Z
 
-#define D_EIS_ENABLE			(2 * 16 + 10)
+#define D_EIS_ENABLE            (2 * 16 + 10)
 
 #define D_SMD_ENABLE            (18 * 16)
 #define D_SMD_MOT_THLD          (21 * 16 + 8)
-#define SMD_VAR_TH	D_SMD_MOT_THLD
+#define SMD_VAR_TH  D_SMD_MOT_THLD
 
 #define D_SMD_DELAY_THLD        (21 * 16 + 4)
 #define D_SMD_DELAY2_THLD       (21 * 16 + 12)
@@ -86,11 +86,11 @@ $
 #define D_AUTH_IN               (996)
 #define D_AUTH_A                (1000)
 #define D_AUTH_B                (1004)
-#define D_DMP_AUTH_INPUT		(70 * 16 + 4)
-#define D_DMP_AUTH_OUTPUT		(70 * 16 + 0)
+#define D_DMP_AUTH_INPUT        (70 * 16 + 4)
+#define D_DMP_AUTH_OUTPUT       (70 * 16 + 0)
 
-#define SC_AUT_OUTPUT_20608D		D_DMP_AUTH_INPUT
-#define SC_AUT_INPUT_20608D		D_DMP_AUTH_OUTPUT
+#define SC_AUT_OUTPUT_20608D        D_DMP_AUTH_INPUT
+#define SC_AUT_INPUT_20608D     D_DMP_AUTH_OUTPUT
 
 #define D_PEDSTD_BP_B           (768 + 0x1C)
 #define D_PEDSTD_BP_A4          (768 + 0x40)
@@ -104,17 +104,17 @@ $
 #define D_PEDSTD_TIMH           (768 + 0x2E)
 #define D_PEDSTD_PEAK           (768 + 0X94)
 #define D_PEDSTD_STEPCTR        (768 + 0x60)
-#define PEDSTD_STEPCTR		D_PEDSTD_STEPCTR
+#define PEDSTD_STEPCTR      D_PEDSTD_STEPCTR
 #define D_PEDSTD_STEPCTR2       (58 * 16 + 8)
 #define D_PEDSTD_TIMECTR        (964)
-#define PEDSTD_TIMECTR		D_PEDSTD_TIMECTR
+#define PEDSTD_TIMECTR      D_PEDSTD_TIMECTR
 #define D_PEDSTD_DECI           (768 + 0xA0)
-#define D_PEDSTD_SB2			(60 * 16 + 14)
+#define D_PEDSTD_SB2            (60 * 16 + 14)
 #define D_STPDET_TIMESTAMP      (28 * 16 + 8)
-#define STPDET_TIMESTAMP	D_STPDET_TIMESTAMP
+#define STPDET_TIMESTAMP    D_STPDET_TIMESTAMP
 #define D_PEDSTD_DRIVE_STATE    (58)
-#define D_PEDSTEP_IND			(26*16 + 6)
-#define PEDSTEP_IND				D_PEDSTEP_IND
+#define D_PEDSTEP_IND           (26*16 + 6)
+#define PEDSTEP_IND             D_PEDSTEP_IND
 
 #define D_HOST_NO_MOT           (976)
 #define D_ACCEL_BIAS            (660)
@@ -122,15 +122,15 @@ $
 /* Batch mode */
 #define D_BM_BATCH_CNTR         (27*16+4)
 #define D_BM_BATCH_THLD         (27*16+12)
-#define BM_BATCH_CNTR		D_BM_BATCH_CNTR
-#define BM_BATCH_THLD		D_BM_BATCH_THLD
+#define BM_BATCH_CNTR       D_BM_BATCH_CNTR
+#define BM_BATCH_THLD       D_BM_BATCH_THLD
 
 #define D_BM_ENABLE             (28*16+6)
 #define D_BM_NUMWORD_TOFILL     (28*16+4)
 
 /* DMP running counter */
 #define D_DMP_RUN_CNTR          (24*16)
-#define DMPRATE_CNTR		D_DMP_RUN_CNTR
+#define DMPRATE_CNTR        D_DMP_RUN_CNTR
 
 /* Sensor's ODR */
 #define D_ODR_S2                (45*16+10)
@@ -138,10 +138,10 @@ $
 #define D_ODR_S4                (46*16+8)
 #define D_ODR_S5                (46*16+12)
 
-#define ODR_ACCEL			D_ODR_S4
-#define ODR_GYRO			D_ODR_S5
-#define ODR_QUAT6			D_ODR_S2
-#define ODR_PQUAT6			D_ODR_S3
+#define ODR_ACCEL           D_ODR_S4
+#define ODR_GYRO            D_ODR_S5
+#define ODR_QUAT6           D_ODR_S2
+#define ODR_PQUAT6          D_ODR_S3
 
 /* sensor output data rate counter */
 #define D_ODR_CNTR_S2           (45*16+2)
@@ -149,10 +149,10 @@ $
 #define D_ODR_CNTR_S4           (46*16)
 #define D_ODR_CNTR_S5           (46*16+4)
 
-#define ODR_CNTR_ACCEL				D_ODR_CNTR_S4
-#define ODR_CNTR_GYRO				D_ODR_CNTR_S5
-#define ODR_CNTR_QUAT6				D_ODR_CNTR_S2
-#define ODR_CNTR_PQUAT6			D_ODR_CNTR_S3
+#define ODR_CNTR_ACCEL              D_ODR_CNTR_S4
+#define ODR_CNTR_GYRO               D_ODR_CNTR_S5
+#define ODR_CNTR_QUAT6              D_ODR_CNTR_S2
+#define ODR_CNTR_PQUAT6         D_ODR_CNTR_S3
 
 /* DMP Fusion LP-Quat */
 #define D_FS_LPQ0               (59*16)
@@ -161,38 +161,38 @@ $
 #define D_FS_LPQ3               (59*16 + 12)
 
 /* DMP Fusion (Accel+Gyro) Quat */
-#define D_ACCEL_FB_GAIN			(6*16)
-#define D_GYRO_SF				(6*16 + 8)
-#define GYRO_SF		D_GYRO_SF
+#define D_ACCEL_FB_GAIN         (6*16)
+#define D_GYRO_SF               (6*16 + 8)
+#define GYRO_SF     D_GYRO_SF
 #define D_FS_Q0                 (12*16)
 #define D_FS_Q1                 (12*16 + 4)
 #define D_FS_Q2                 (12*16 + 8)
 #define D_FS_Q3                 (12*16 + 12)
 
 /* AK compass support */
-#define D_CPASS_STATUS_CHK		(22*16 + 8)
+#define D_CPASS_STATUS_CHK      (22*16 + 8)
 
 /* data packet size reg 1 */
-#define HEADER_SZ		2
-#define ACCEL_DATA_SZ	6
-#define GYRO_DATA_SZ	6
+#define HEADER_SZ       2
+#define ACCEL_DATA_SZ   6
+#define GYRO_DATA_SZ    6
 #define GYRO_BIAS_DATA_SZ 12
-#define QUAT6_DATA_SZ	14
-#define PQUAT6_DATA_SZ	6
-#define PED_STEPDET_TIMESTAMP_SZ	4
-#define FOOTER_SZ		2
-#define ACCEL_ACCURACY_SZ	2
-#define GYRO_ACCURACY_SZ	2
-#define CPASS_ACCURACY_SZ	2
-#define FSYNC_PK_SZ		2
+#define QUAT6_DATA_SZ   14
+#define PQUAT6_DATA_SZ  6
+#define PED_STEPDET_TIMESTAMP_SZ    4
+#define FOOTER_SZ       2
+#define ACCEL_ACCURACY_SZ   2
+#define GYRO_ACCURACY_SZ    2
+#define CPASS_ACCURACY_SZ   2
+#define FSYNC_PK_SZ     2
 
-#define ACCEL_SET				0x4000
-#define GYRO_SET				0x2000
-#define QUAT6_SET				0x0400
-#define PQUAT6_SET			0x0200
-#define PED_STEPDET_SET		0x0100
-#define HEADER2_SET			0x0008
-#define PED_STEPIND_SET		0x0007
+#define ACCEL_SET               0x4000
+#define GYRO_SET                0x2000
+#define QUAT6_SET               0x0400
+#define PQUAT6_SET          0x0200
+#define PED_STEPDET_SET     0x0100
+#define HEADER2_SET         0x0008
+#define PED_STEPIND_SET     0x0007
 #define FSYNC_HDR               0x7000
 
 /* high byte of motion event control */
@@ -218,8 +218,9 @@ $
 #define DMP_CODE_SIZE  DMP_IMAGE_SIZE_20608D-DMP_OFFSET
 
 #if !defined USE_DMP_LOAD_SRAM
-static const unsigned char dmp_memory[DMP_CODE_SIZE] = {
-    #include "dmp3Default_20608D.txt"
+static const unsigned char dmp_memory[DMP_CODE_SIZE] =
+{
+#include "dmp3Default_20608D.txt"
 };
 #endif
 
@@ -243,58 +244,59 @@ inv_error_t inv_load_firmware_20609(const unsigned char *dmp_image_sram)
 */
 void inv_get_dmp_start_address_20609(unsigned short *dmp_cnfg)
 {
-	*dmp_cnfg = DMP_START_ADDR_20608D;
+    *dmp_cnfg = DMP_START_ADDR_20608D;
 }
 
 inv_error_t dmp_reset_odr_counters_20609()
 {
-  inv_error_t result;
-  unsigned char data[4] = {0x00,0x00,0x00,0x00};
-  result = inv_dmpdriver_write_mems(ODR_CNTR_ACCEL, 4, data);
-  result |= inv_dmpdriver_write_mems(ODR_CNTR_GYRO, 4, data);
-  result |= inv_dmpdriver_write_mems(ODR_CNTR_QUAT6, 4, data);
-  result |= inv_dmpdriver_write_mems(ODR_CNTR_PQUAT6, 4, data);
-  return result;
+    inv_error_t result;
+    unsigned char data[4] = {0x00,0x00,0x00,0x00};
+    result = inv_dmpdriver_write_mems(ODR_CNTR_ACCEL, 4, data);
+    result |= inv_dmpdriver_write_mems(ODR_CNTR_GYRO, 4, data);
+    result |= inv_dmpdriver_write_mems(ODR_CNTR_QUAT6, 4, data);
+    result |= inv_dmpdriver_write_mems(ODR_CNTR_PQUAT6, 4, data);
+    return result;
 }
 
 /**
 * Sets sensor ODR.
-* @param[in] sensor		sensor number based on INV_SENSORS
-*	enum INV_SENSORS {
-*		INV_SENSOR_ACCEL = 0,
-*		INV_SENSOR_GYRO,        
-*		INV_SENSOR_SIXQ,
-*		INV_SENSOR_PEDQ
-*	};					
-* @param[in] divider	desired ODR = base engine rate/(divider + 1)
+* @param[in] sensor     sensor number based on INV_SENSORS
+*   enum INV_SENSORS {
+*       INV_SENSOR_ACCEL = 0,
+*       INV_SENSOR_GYRO,
+*       INV_SENSOR_SIXQ,
+*       INV_SENSOR_PEDQ
+*   };
+* @param[in] divider    desired ODR = base engine rate/(divider + 1)
 */
 inv_error_t dmp_set_sensor_rate_20609(int invSensor, short divider)
 {
-	inv_error_t result;
-    unsigned char big8[2]={0};
-	int odr_addr;
+    inv_error_t result;
+    unsigned char big8[2]= {0};
+    int odr_addr;
 
-    switch (invSensor) {
-		case INV_SENSOR_ACCEL:
-			odr_addr = ODR_ACCEL;
-			break;
-		case INV_SENSOR_GYRO:
-			odr_addr = ODR_GYRO;
-			break;
-		case INV_SENSOR_SIXQ:
-			odr_addr = ODR_QUAT6;
-			break;
-		case INV_SENSOR_PEDQ:
-			odr_addr = ODR_PQUAT6;
-			break;
-    }	
+    switch (invSensor)
+    {
+        case INV_SENSOR_ACCEL:
+            odr_addr = ODR_ACCEL;
+            break;
+        case INV_SENSOR_GYRO:
+            odr_addr = ODR_GYRO;
+            break;
+        case INV_SENSOR_SIXQ:
+            odr_addr = ODR_QUAT6;
+            break;
+        case INV_SENSOR_PEDQ:
+            odr_addr = ODR_PQUAT6;
+            break;
+    }
 
     result = inv_dmpdriver_write_mems(odr_addr, 2, inv_dmpdriver_int16_to_big8(divider, big8));
 
-	if (result)
+    if (result)
         return result;
 
-	return INV_SUCCESS;
+    return INV_SUCCESS;
 }
 
 /**
@@ -305,308 +307,322 @@ inv_error_t dmp_set_sensor_rate_20609(int invSensor, short divider)
 inv_error_t dmp_get_pedometer_num_of_steps_20609(unsigned long *steps)
 {
     inv_error_t result;
-	unsigned char big8[4]={0};
-    
-	result = inv_dmpdriver_read_mems(PEDSTD_STEPCTR, 4, big8);
-    if (result) 
+    unsigned char big8[4]= {0};
+
+    result = inv_dmpdriver_read_mems(PEDSTD_STEPCTR, 4, big8);
+    if (result)
         return result;
     *steps = (big8[0]*(1L<<24)) + (big8[1]*(1L<<16)) + (big8[2]*256) + big8[3];
-    
+
     return INV_SUCCESS;
 }
 
 int inv_enable_gyro_cal(int en)
 {
-	unsigned char reg[3] = {0xc2, 0xc5, 0xc7};
-	int result;
+    unsigned char reg[3] = {0xc2, 0xc5, 0xc7};
+    int result;
 
-	if (!en) {
-		reg[0] = 0xf1;
-		reg[1] = 0xf1;
-		reg[2] = 0xf1;
-	}
-        
-        
-	result = inv_dmpdriver_write_mems(CFG_EXT_GYRO_BIAS, 3, &reg[0]);
+    if (!en)
+    {
+        reg[0] = 0xf1;
+        reg[1] = 0xf1;
+        reg[2] = 0xf1;
+    }
 
-	return result;
+
+    result = inv_dmpdriver_write_mems(CFG_EXT_GYRO_BIAS, 3, &reg[0]);
+
+    return result;
 }
 
 int inv_enable_pedometer_interrupt(int en)
 {
-	unsigned char reg[3];
+    unsigned char reg[3];
 
-	if (en) {
-		reg[0] = 0xf4;
-		reg[1] = 0x44;
-		reg[2] = 0xf1;
+    if (en)
+    {
+        reg[0] = 0xf4;
+        reg[1] = 0x44;
+        reg[2] = 0xf1;
 
-	} else {
-		reg[0] = 0xf1;
-		reg[1] = 0xf1;
-		reg[2] = 0xf1;
-	}
+    }
+    else
+    {
+        reg[0] = 0xf1;
+        reg[1] = 0xf1;
+        reg[2] = 0xf1;
+    }
 
-	return inv_dmpdriver_write_mems(CFG_PED_INT, 3, reg);
+    return inv_dmpdriver_write_mems(CFG_PED_INT, 3, reg);
 }
 
 int inv_enable_pedometer(int en)
 {
-	unsigned char d[1];
+    unsigned char d[1];
 
-	if (en)
-		d[0] = 0xf1;
-	else
-		d[0] = 0xff;
+    if (en)
+        d[0] = 0xf1;
+    else
+        d[0] = 0xff;
 
-	return inv_dmpdriver_write_mems(CFG_PED_ENABLE, 1, d);
+    return inv_dmpdriver_write_mems(CFG_PED_ENABLE, 1, d);
 }
 
 int inv_send_stepdet_data(int enable)
 {
-	unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
-	int result;
+    unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
+    int result;
 
-	/* turning off step detect jumps to STEPDET_END */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (STEPDET_END >> 8) & 0xff;
-		reg[2] = STEPDET_END & 0xff;
-	}
+    /* turning off step detect jumps to STEPDET_END */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (STEPDET_END >> 8) & 0xff;
+        reg[2] = STEPDET_END & 0xff;
+    }
 
-	result = inv_dmpdriver_write_mems(CFG_OUT_STEPDET, 3, &reg[0]);
+    result = inv_dmpdriver_write_mems(CFG_OUT_STEPDET, 3, &reg[0]);
 
-	return result;
+    return result;
 }
 
 
 int inv_add_step_indicator(int enable)
 {
-	unsigned char reg[3] = {0xf3, 0xf3, 0xf3};
-	int result;
+    unsigned char reg[3] = {0xf3, 0xf3, 0xf3};
+    int result;
 
-	/* turning off step indicator jumps to PED_STEP_COUNT2_DETECTED */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (PED_STEP_COUNT2_DETECTED >> 8) & 0xff;
-		reg[2] = PED_STEP_COUNT2_DETECTED & 0xff;
-	}
+    /* turning off step indicator jumps to PED_STEP_COUNT2_DETECTED */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (PED_STEP_COUNT2_DETECTED >> 8) & 0xff;
+        reg[2] = PED_STEP_COUNT2_DETECTED & 0xff;
+    }
 
-	result = inv_dmpdriver_write_mems(CFG_PEDSTEP_DET, 3, reg);
+    result = inv_dmpdriver_write_mems(CFG_PEDSTEP_DET, 3, reg);
 
-	return result;
+    return result;
 }
 
 int inv_enable_smd(int en)
 {
-	unsigned char d[1];
+    unsigned char d[1];
 
-	if (en)
-		d[0] = 1;
-	else
-		d[0] = 0;
+    if (en)
+        d[0] = 1;
+    else
+        d[0] = 0;
 
-	return inv_dmpdriver_write_mems(D_SMD_ENABLE, 1, d);
+    return inv_dmpdriver_write_mems(D_SMD_ENABLE, 1, d);
 }
 
 
 int inv_send_gyro_data(int enable)
 {
-	unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
-	int result;
+    unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
+    int result;
 
-	/* turning off gyro jumps to PREV_PQUAT */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (PREV_PQUAT >> 8) & 0xff;
-		reg[2] = PREV_PQUAT & 0xff;
-	}
-        dmp_reset_odr_counters_internal();
-	result = inv_dmpdriver_write_mems(CFG_OUT_GYRO, 3, reg);
+    /* turning off gyro jumps to PREV_PQUAT */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (PREV_PQUAT >> 8) & 0xff;
+        reg[2] = PREV_PQUAT & 0xff;
+    }
+    dmp_reset_odr_counters_internal();
+    result = inv_dmpdriver_write_mems(CFG_OUT_GYRO, 3, reg);
 
-	return result;
+    return result;
 }
 
 static int inv_out_fsync(int enable)
 {
-	unsigned char reg[3] = {0xf3, 0xf3, 0xf3};
-	int result;
+    unsigned char reg[3] = {0xf3, 0xf3, 0xf3};
+    int result;
 
-	/* turning off fsync jumps to FSYNC_END */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (FSYNC_END >> 8) & 0xff;
-		reg[2] = FSYNC_END & 0xff;
-	}
+    /* turning off fsync jumps to FSYNC_END */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (FSYNC_END >> 8) & 0xff;
+        reg[2] = FSYNC_END & 0xff;
+    }
 
-	result = inv_dmpdriver_write_mems(CFG_OUT_FSYNC, 3, reg);
+    result = inv_dmpdriver_write_mems(CFG_OUT_FSYNC, 3, reg);
 
-	return result;
+    return result;
 }
 
 static int inv_enable_eis(int enable)
 {
-	unsigned char reg[2] = {0};
-	int result;
+    unsigned char reg[2] = {0};
+    int result;
 
-	if (enable)
-		reg[1] = 0x1;
-	result = inv_dmpdriver_write_mems(D_EIS_ENABLE, 2, reg);
+    if (enable)
+        reg[1] = 0x1;
+    result = inv_dmpdriver_write_mems(D_EIS_ENABLE, 2, reg);
 
-	return result;
+    return result;
 }
 
 int inv_send_accel_data(int enable)
 {
-	unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
-	int result;
+    unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
+    int result;
 
-	/* turning off accel jumps to GYRO_FIFO_RATE */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (GYRO_FIFO_RATE >> 8) & 0xff;
-		reg[2] = GYRO_FIFO_RATE & 0xff;
-	}
-        dmp_reset_odr_counters_internal();
-	result = inv_dmpdriver_write_mems(CFG_OUT_ACCL, 3, reg);
+    /* turning off accel jumps to GYRO_FIFO_RATE */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (GYRO_FIFO_RATE >> 8) & 0xff;
+        reg[2] = GYRO_FIFO_RATE & 0xff;
+    }
+    dmp_reset_odr_counters_internal();
+    result = inv_dmpdriver_write_mems(CFG_OUT_ACCL, 3, reg);
 
-	return result;
+    return result;
 }
 
 int inv_send_six_q_data(int enable)
 {
-	unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
-	int result;
+    unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
+    int result;
 
-	/* turning off 6-axis jumps to PQUAT_FIFO_RATE */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (PQUAT_FIFO_RATE >> 8) & 0xff;
-		reg[2] = PQUAT_FIFO_RATE & 0xff;
-	}
-	result = inv_dmpdriver_write_mems(CFG_OUT_6QUAT, 3, reg);
+    /* turning off 6-axis jumps to PQUAT_FIFO_RATE */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (PQUAT_FIFO_RATE >> 8) & 0xff;
+        reg[2] = PQUAT_FIFO_RATE & 0xff;
+    }
+    result = inv_dmpdriver_write_mems(CFG_OUT_6QUAT, 3, reg);
 
-	return result;
+    return result;
 }
 
 int inv_send_ped_q_data(int enable)
 {
-	unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
-	int result;
+    unsigned char reg[3] = {0xa3, 0xa3, 0xa3};
+    int result;
 
-	/* turning off pquat jumps to ACCEL_FIFO_RATE */
-	if (!enable) {
-		reg[0] = 0xf4;
-		reg[1] = (ACCEL_FIFO_RATE >> 8) & 0xff;
-		reg[2] = ACCEL_FIFO_RATE & 0xff;
-	}
-	result = inv_dmpdriver_write_mems(CFG_OUT_PQUAT, 3, reg);
+    /* turning off pquat jumps to ACCEL_FIFO_RATE */
+    if (!enable)
+    {
+        reg[0] = 0xf4;
+        reg[1] = (ACCEL_FIFO_RATE >> 8) & 0xff;
+        reg[2] = ACCEL_FIFO_RATE & 0xff;
+    }
+    result = inv_dmpdriver_write_mems(CFG_OUT_PQUAT, 3, reg);
 
-	return result;
+    return result;
 }
 
 int inv_enable_batch(int on)
 {
-	unsigned char d[] = {0};
-	int result;
+    unsigned char d[] = {0};
+    int result;
 
-	d[0] = on;
-	result = inv_dmpdriver_write_mems(D_BM_ENABLE, 1, d);
+    d[0] = on;
+    result = inv_dmpdriver_write_mems(D_BM_ENABLE, 1, d);
 
-	return result;
+    return result;
 }
 
 
 int dmp_set_dataout_control1_20609(uint16_t cntl1)
 {
-	int result = 0;
+    int result = 0;
 
-	if (cntl1 & ACCEL_SET)
-		result = inv_send_accel_data(1);
-	else
-		result = inv_send_accel_data(0);
+    if (cntl1 & ACCEL_SET)
+        result = inv_send_accel_data(1);
+    else
+        result = inv_send_accel_data(0);
 
-	if (cntl1 & GYRO_SET)
-		result |= inv_send_gyro_data(1);
-	else
-		result |= inv_send_gyro_data(0);
+    if (cntl1 & GYRO_SET)
+        result |= inv_send_gyro_data(1);
+    else
+        result |= inv_send_gyro_data(0);
 
-	if (cntl1 & QUAT6_SET)
-		result |= inv_send_six_q_data(1);
-	else
-		result |= inv_send_six_q_data(0);
+    if (cntl1 & QUAT6_SET)
+        result |= inv_send_six_q_data(1);
+    else
+        result |= inv_send_six_q_data(0);
 
-	if (cntl1 & PQUAT6_SET)
-		result |= inv_send_ped_q_data(1);
-	else
-		result |= inv_send_ped_q_data(0);
+    if (cntl1 & PQUAT6_SET)
+        result |= inv_send_ped_q_data(1);
+    else
+        result |= inv_send_ped_q_data(0);
 
-	if ((cntl1 & PED_STEPDET_SET)) {
-		result |= inv_enable_pedometer(1);
-		result |= inv_enable_pedometer_interrupt(1);
-		result |= inv_send_stepdet_data(1);
-	} else {
-		result |= inv_enable_pedometer(0);
-		result |= inv_enable_pedometer_interrupt(0);
-		result |= inv_send_stepdet_data(0);
-	}
+    if ((cntl1 & PED_STEPDET_SET))
+    {
+        result |= inv_enable_pedometer(1);
+        result |= inv_enable_pedometer_interrupt(1);
+        result |= inv_send_stepdet_data(1);
+    }
+    else
+    {
+        result |= inv_enable_pedometer(0);
+        result |= inv_enable_pedometer_interrupt(0);
+        result |= inv_send_stepdet_data(0);
+    }
 
-	return result;
+    return result;
 }
 
 int dmp_set_dataout_control2_20609(uint16_t cntl2)
 {
-	int result = 0;
-	int en;
+    int result = 0;
+    int en;
 
-	if (cntl2 & BATCH_MODE_EN)
-		en = 1;
-	else
-		en = 0;
-	result = inv_enable_batch(en);
-	if (result)
-		return result;
+    if (cntl2 & BATCH_MODE_EN)
+        en = 1;
+    else
+        en = 0;
+    result = inv_enable_batch(en);
+    if (result)
+        return result;
 
-	if (cntl2 & FSYNC_SET)
-		en = 1;
-	else
-		en = 0;
-	result = inv_enable_eis(en);
-	if (result)
-		return result;
+    if (cntl2 & FSYNC_SET)
+        en = 1;
+    else
+        en = 0;
+    result = inv_enable_eis(en);
+    if (result)
+        return result;
 
-	result = inv_out_fsync(en);
-	if (result)
-		return result;
+    result = inv_out_fsync(en);
+    if (result)
+        return result;
 
-	return result;
+    return result;
 }
 
 int dmp_set_motion_interrupt_control_20609(uint16_t motion_event_cntl)
 {
-	int result = 0;
+    int result = 0;
 
-	if (motion_event_cntl & PEDOMETER_EN)
-		result = inv_enable_pedometer(1);
-	else
-		result = inv_enable_pedometer(0);
+    if (motion_event_cntl & PEDOMETER_EN)
+        result = inv_enable_pedometer(1);
+    else
+        result = inv_enable_pedometer(0);
 
-	/*if (motion_event_cntl & PEDOMETER_INT_EN)
-		result = inv_enable_pedometer_interrupt(1);
-	else
-		result = inv_enable_pedometer_interrupt(0);*/
+    /*if (motion_event_cntl & PEDOMETER_INT_EN)
+        result = inv_enable_pedometer_interrupt(1);
+    else
+        result = inv_enable_pedometer_interrupt(0);*/
 
-	if (motion_event_cntl & SMD_EN)
-		result = inv_enable_smd(1);
-	else
-		result = inv_enable_smd(0);
+    if (motion_event_cntl & SMD_EN)
+        result = inv_enable_smd(1);
+    else
+        result = inv_enable_smd(0);
 
-	if (motion_event_cntl & GYRO_CAL_EN)
-		result = inv_enable_gyro_cal(1);
-	else
-		result = inv_enable_gyro_cal(0);
+    if (motion_event_cntl & GYRO_CAL_EN)
+        result = inv_enable_gyro_cal(1);
+    else
+        result = inv_enable_gyro_cal(0);
 
-	return result;
+    return result;
 }
 
 #endif
