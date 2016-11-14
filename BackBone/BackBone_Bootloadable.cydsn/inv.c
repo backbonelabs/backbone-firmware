@@ -1,21 +1,23 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
+
 #include <project.h>
 #include <inv.h>
+#include <stdbool.h>
 #include ".\20648_driver\invn\inv_mems.h"
 
 static uint16 inv_flags = 0;
 
-struct hal_s_ hal = { 0 };
+struct hal_s_ hal = { 0, 0, 0, 0 };
 
 int self_test_result = 0;
 int dmp_bias[9] = { 0 };
@@ -81,19 +83,37 @@ long SOFT_IRON_MATRIX[] = {1073741824,0,0,0,1073741824,0,0,0,1073741824};
 
 char tst[INV_TST_LEN] = { 0 };
 
-/* Every time new gyro data is available, this function is called in an
-* ISR context. In this example, it sets a flag protecting the FIFO read
-* function.
-*/
-void gyro_data_ready_cb(void)
-{
-    hal.new_gyro = 1;
-}
+inv_error_t set_output_rates(float rate);
+inv_error_t inv_perform_selftest(void);
 
 CY_ISR(INVN_INT_InterruptHandler)
 {
-    gyro_data_ready_cb();
+    hal.new_gyro = 1;
     INVN_INT_ClearInterrupt();
+    //LED_Blue_Write(0); // on
+    //CyDelay(5);
+    //LED_Blue_Write(1); // off
+}
+
+void inv_enable_accelerometer()
+{
+    dmp_reset_fifo();
+    hal.report |= PRINT_ACCEL;
+    inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, true);
+    dmp_reset_odr_counters();
+    set_output_rates(5);
+
+    isr_INVN_INT_StartEx(INVN_INT_InterruptHandler);
+}
+
+void inv_disable_accelerometer()
+{
+    dmp_reset_fifo();
+    hal.report &= ~PRINT_ACCEL;
+    inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, false);
+    dmp_reset_odr_counters();
+
+    isr_INVN_INT_Stop();
 }
 
 inv_error_t inv_start(void)
@@ -126,45 +146,6 @@ inv_error_t inv_start(void)
     {
         inv_flags |= INV_ERROR_SELF_TEST;
     }
-
-    /* Enable accelerometer */
-    dmp_reset_fifo();
-    hal.report |= PRINT_ACCEL;
-    inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, !!(hal.report & PRINT_ACCEL));
-    dmp_reset_odr_counters();
-
-    /* Enable Gyroscope */
-    dmp_reset_fifo();
-    hal.report |= PRINT_GYRO;
-    inv_enable_sensor(ANDROID_SENSOR_GYROSCOPE, !!(hal.report & PRINT_GYRO));
-    dmp_reset_odr_counters();
-
-    /* Enable Step Detector */
-//  dmp_reset_fifo();
-//  hal.report |= PRINT_STEP_DETECTOR;
-//    inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, !!(hal.report & PRINT_STEP_DETECTOR));
-//    dmp_reset_odr_counters();
-
-    /* Enable Step Counter */
-    dmp_reset_fifo();
-    hal.report |= PRINT_STEP_COUNTER;
-    inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, !!(hal.report & PRINT_STEP_COUNTER));
-    dmp_reset_odr_counters();
-
-//  dmp_reset_fifo();
-//  hal.report |= PRINT_TILT;
-//  inv_enable_sensor(ANDROID_SENSOR_WAKEUP_TILT_DETECTOR, !!(hal.report & PRINT_TILT));
-//  dmp_reset_odr_counters();
-
-    /* Set output rate */
-    set_output_rates(5);
-    if (hal.report & PRINT_STEP_COUNTER)
-    {
-        set_output_rates(112.5);
-    }
-
-    /* Set up the INT1 pin ISR */
-    isr_INVN_INT_StartEx(INVN_INT_InterruptHandler);
 
     return result;
 }
@@ -286,399 +267,6 @@ inv_error_t set_output_rates(float rate)
     dmp_reset_odr_counters();
 
     return result;
-}
-
-int handle_char_input(char c)
-{
-//#if (MEMS_CHIP != HW_ICM20609)
-//        inv_error_t result;
-//#endif
-//
-//  switch (c)
-//  {
-//  case 'a':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_ACCEL;
-//                inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, !!(hal.report & PRINT_ACCEL));
-//                dmp_reset_odr_counters();
-//                if(hal.report & PRINT_ACCEL) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "ACCEL....output toggled, now is: %s.\r\n", (hal.report & PRINT_ACCEL) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//  case 'g':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_GYRO;
-//      inv_enable_sensor(ANDROID_SENSOR_GYROSCOPE, !!(hal.report & PRINT_GYRO));
-//                dmp_reset_odr_counters();
-//                if(hal.report & PRINT_GYRO) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "GYRO....output toggled, now is: %s.\r\n", (hal.report & PRINT_GYRO) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//  case 'G':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_RAW_GYRO;
-//      inv_enable_sensor(ANDROID_SENSOR_GYROSCOPE_UNCALIBRATED, !!(hal.report & PRINT_RAW_GYRO));
-//                dmp_reset_odr_counters();
-//                if(hal.report & PRINT_RAW_GYRO) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "RAW GYRO....output toggled, now is: %s.\r\n", (hal.report & PRINT_RAW_GYRO) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//#if (MEMS_CHIP != HW_ICM20609)
-//        case 'c':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_COMPASS;
-//      inv_enable_sensor(ANDROID_SENSOR_GEOMAGNETIC_FIELD, !!(hal.report & PRINT_COMPASS));
-//                dmp_reset_odr_counters();
-//                if(hal.report & PRINT_COMPASS) set_output_rates(current_output_rate);
-//      if (hal.report & PRINT_COMPASS)
-//          result = inv_resume_akm();
-//      else
-//          result = inv_suspend_akm();
-//      //if (result)
-//      //  print_data_console("Compass resume/suspend error \n");
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Compass....output toggled, now is: %s.\r\n", (hal.report & PRINT_COMPASS) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//  case 'C':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_RAW_COMPASS;
-//      inv_enable_sensor(ANDROID_SENSOR_MAGNETIC_FIELD_UNCALIBRATED, !!(hal.report & PRINT_RAW_COMPASS));
-//                dmp_reset_odr_counters();
-//                if(hal.report & PRINT_RAW_COMPASS) set_output_rates(current_output_rate);
-//      if (hal.report & PRINT_RAW_COMPASS)
-//          result = inv_resume_akm();
-//      else
-//          result = inv_suspend_akm();
-//      //if (result)
-//      //  print_data_console("Compass resume/suspend error \n");
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Raw Compass....output toggled, now is: %s.\r\n", (hal.report & PRINT_RAW_COMPASS) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//#endif
-//  case 'r':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_GRV;
-//      inv_enable_sensor(ANDROID_SENSOR_GAME_ROTATION_VECTOR, !!(hal.report & PRINT_GRV));
-//                dmp_reset_odr_counters();
-//                if(hal.report & PRINT_GRV) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Game RV....output toggled, now is: %s.\r\n", (hal.report & PRINT_GRV) ? "ON" : "OFF");
-//        //        print_command_console(tst);
-//                break;
-//        case 'q':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_CUBE_GRV;
-//      inv_enable_sensor(ANDROID_SENSOR_GAME_ROTATION_VECTOR, !!(hal.report & PRINT_CUBE_GRV));
-//                dmp_reset_odr_counters();
-//      if(hal.report & PRINT_CUBE_GRV) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Cube Game RV....output toggled, now is: %s.\r\n", (hal.report & PRINT_CUBE_GRV) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//
-//      case 'd':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_STEP_DETECTOR;
-//      inv_enable_sensor(ANDROID_SENSOR_STEP_DETECTOR, !!(hal.report & PRINT_STEP_DETECTOR));
-//                dmp_reset_odr_counters();
-//#if (MEMS_CHIP == HW_ICM20609)
-//                if(hal.report & PRINT_STEP_DETECTOR) set_output_rates(50);
-//#elif (MEMS_CHIP == HW_ICM20630)
-//                if(hal.report & PRINT_STEP_DETECTOR) set_output_rates(51);
-//#else
-//      // pedometer always runs at half the rate of BAC, to run pedometer at 56Hz, run BAC at 112Hz as pedometer divider is always 2
-//      if(hal.report & PRINT_STEP_DETECTOR) set_output_rates(112.5);
-//#endif
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Step Detector....output toggled, now is: %s.\r\n", (hal.report & PRINT_STEP_DETECTOR) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//  case 'm':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_SMD;
-//      inv_enable_sensor(ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION, !!(hal.report & PRINT_SMD));
-//                dmp_reset_odr_counters();
-//#if (MEMS_CHIP == HW_ICM20609)
-//                if(hal.report & PRINT_SMD) set_output_rates(50);
-//#else
-//      // pedometer always runs at half the rate of BAC, to run pedometer at 56Hz, run BAC at 112Hz as pedometer divider is always 2
-//      if(hal.report & PRINT_SMD) set_output_rates(112.5);
-//#endif
-//      //INV_SPRINTF(tst, INV_TST_LEN, "SMD....output toggled, now is: %s.\r\n", (hal.report & PRINT_SMD) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//
-//  case 'p':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_STEP_COUNTER;
-//      inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, !!(hal.report & PRINT_STEP_COUNTER));
-//                dmp_reset_odr_counters();
-//#if (MEMS_CHIP == HW_ICM20609)
-//                if(hal.report & PRINT_STEP_COUNTER) set_output_rates(50);
-//#else
-//      // pedometer always runs at half the rate of BAC, to run pedometer at 56Hz, run BAC at 112Hz as pedometer divider is always 2
-//      if(hal.report & PRINT_STEP_COUNTER) set_output_rates(112.5);
-//#endif
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Step Counter....output toggled, now is: %s.\r\n", (hal.report & PRINT_STEP_COUNTER) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//#if (MEMS_CHIP != HW_ICM20609)
-//  case 'R':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_RV;
-//      inv_enable_sensor(ANDROID_SENSOR_ROTATION_VECTOR, !!(hal.report & PRINT_RV));
-//                dmp_reset_odr_counters();
-//      if(hal.report & PRINT_RV) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "RV....output toggled, now is: %s.\r\n", (hal.report & PRINT_RV) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//  case 'e':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_GEOMAG;
-//      inv_enable_sensor(ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR, !!(hal.report & PRINT_GEOMAG));
-//                dmp_reset_odr_counters();
-//      if(hal.report & PRINT_GEOMAG) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "GeoMAG RV....output toggled, now is: %s.\r\n", (hal.report & PRINT_GEOMAG) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//#if (MEMS_CHIP != HW_ICM20630)
-//  case 'b':
-//      dmp_reset_fifo();
-//                if(!(hal.report & PRINT_BAC))
-//                    dmp_reset_bac_states();
-//      hal.report ^= PRINT_BAC;
-//      inv_enable_sensor(ANDROID_SENSOR_ACTIVITY_CLASSIFICATON, !!(hal.report & PRINT_BAC));
-//                dmp_reset_odr_counters();
-//      if(hal.report & PRINT_BAC) set_output_rates(112.5);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "BAC....output toggled, now is: %s.\r\n", (hal.report & PRINT_BAC) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//  case 'T':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_TILT;
-//      inv_enable_sensor(ANDROID_SENSOR_WAKEUP_TILT_DETECTOR, !!(hal.report & PRINT_TILT));
-//                dmp_reset_odr_counters();
-//      if(hal.report & PRINT_TILT) set_output_rates(112.5);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Tilt....output toggled, now is: %s.\r\n", (hal.report & PRINT_TILT) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//  case 'F':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_FLIP_PICKUP;
-//      inv_enable_sensor(ANDROID_SENSOR_FLIP_PICKUP, !!(hal.report & PRINT_FLIP_PICKUP));
-//                dmp_reset_odr_counters();
-//      if(hal.report & PRINT_FLIP_PICKUP) set_output_rates(112.5);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Flip Pickup....output toggled, now is: %s.\r\n", (hal.report & PRINT_FLIP_PICKUP) ? "ON" : "OFF"); print_command_console(tst);
-//      break;
-//#endif
-//#endif
-//
-//        case '0':
-//          set_output_rates(1);
-//          current_output_rate = 1;
-//          break;
-//        case '1':
-//          set_output_rates(5);
-//          current_output_rate = 5;
-//          break;
-//        case '2':
-//          set_output_rates(15);
-//          current_output_rate = 15;
-//          break;
-//        case '3':
-//#if (MEMS_CHIP==HW_ICM20609)
-//          set_output_rates(50);
-//          current_output_rate = 50;
-//#elif (MEMS_CHIP==HW_ICM20648)
-//          set_output_rates(30);
-//          current_output_rate = 30;
-//#endif
-//          break;
-//        case '4':
-//#if (MEMS_CHIP==HW_ICM20609)
-//          set_output_rates(100);
-//          current_output_rate = 100;
-//#elif (MEMS_CHIP==HW_ICM20648)
-//          set_output_rates(51);
-//          current_output_rate = 51;
-//#endif
-//          break;
-//#if (MEMS_CHIP==HW_ICM20648)
-//        case '5':
-//          set_output_rates(56.5);
-//          current_output_rate = 56.5;
-//          break;
-//        case '6':
-//          set_output_rates(60);
-//          current_output_rate = 60;
-//          break;
-//        case '7':
-//          set_output_rates(102);
-//          current_output_rate = 102;
-//          break;
-//        case '8':
-//          set_output_rates(112.5);
-//          current_output_rate = 112.5;
-//          break;
-//        case '9':
-//          set_output_rates(225);
-//          current_output_rate = 225;
-//          break;
-//
-//  case 'k':
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Getting the DMP biases...\r\n"); print_data_console(tst);
-//      memset(dmp_bias, 0, sizeof(dmp_bias));
-//      dmp_get_bias(dmp_bias);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "DMP   Accel Bias: X=%d, Y=%d, Z=%d\r\n", dmp_bias[0], dmp_bias[1], dmp_bias[2]); print_data_console(tst);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "DMP   Gyro  Bias: X=%d, Y=%d, Z=%d\r\n", dmp_bias[3], dmp_bias[4], dmp_bias[5]); print_data_console(tst);
-//      break;
-//
-//  case 'Q':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_CUBE_RV;
-//      inv_enable_sensor(ANDROID_SENSOR_ROTATION_VECTOR, !!(hal.report & PRINT_CUBE_RV));
-//                dmp_reset_odr_counters();
-//      if (hal.report & PRINT_CUBE_RV) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Cube RV....output toggled, now is: %s.\r\n", (hal.report & PRINT_CUBE_RV) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//  case '@':
-//      dmp_reset_fifo();
-//      hal.report ^= PRINT_CUBE_GEOMAG;
-//      inv_enable_sensor(ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR, !!(hal.report & PRINT_CUBE_GEOMAG));
-//                dmp_reset_odr_counters();
-//      if (hal.report & PRINT_CUBE_GEOMAG) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Cube GeoMAG RV....output toggled, now is: %s.\r\n", (hal.report & PRINT_CUBE_GEOMAG) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//#endif
-//
-//  case 'v':
-//                dmp_reset_fifo();
-//      hal.report ^= PRINT_GRAVITY;
-//      inv_enable_sensor(ANDROID_SENSOR_GRAVITY, !!(hal.report & PRINT_GRAVITY));
-//                dmp_reset_odr_counters();
-//                if (hal.report & PRINT_GRAVITY) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Gravity....output toggled, now is: %s.\r\n", (hal.report & PRINT_GRAVITY) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//  case 'l':
-//                dmp_reset_fifo();
-//      hal.report ^= PRINT_LINEAR_ACCEL;
-//      inv_enable_sensor(ANDROID_SENSOR_LINEAR_ACCELERATION, !!(hal.report & PRINT_LINEAR_ACCEL));
-//                dmp_reset_odr_counters();
-//                if (hal.report & PRINT_LINEAR_ACCEL) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Linear Accel....output toggled, now is: %s.\r\n", (hal.report & PRINT_LINEAR_ACCEL) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//#if (MEMS_CHIP != HW_ICM20609)
-//  case 'o':
-//                dmp_reset_fifo();
-//      hal.report ^= PRINT_ORIENT;
-//      inv_enable_sensor(ANDROID_SENSOR_ORIENTATION, !!(hal.report & PRINT_ORIENT));
-//                dmp_reset_odr_counters();
-//                if (hal.report & PRINT_ORIENT) set_output_rates(current_output_rate);
-//      //INV_SPRINTF(tst, INV_TST_LEN, "Orientation....output toggled, now is: %s.\r\n", (hal.report & PRINT_ORIENT) ? "ON" : "OFF");
-//      //print_command_console(tst);
-//      break;
-//
-//  case 't':
-//      dmp_reset_fifo();
-//      {
-//          int sensors_bias[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//          char pass_str[] = { "PASS" };
-//          char fail_str[] = { "FAIL" };
-//
-//      //  INV_SPRINTF(tst, INV_TST_LEN, "Selftest...Started\r\n");
-//      //  print_command_console(tst);
-//
-//          self_test_result = inv_mems_run_selftest();
-//          //            self_test_result = 0x4 | 0x0 | 0x0;
-//          dmp_get_bias_20648(sensors_bias);
-//
-//          dmp_bias[0] = a_average[0] * (1 << 11);   // Change from LSB to format expected by DMP
-//          dmp_bias[1] = a_average[1] * (1 << 11);
-//          dmp_bias[2] = (a_average[2] - 16384)*(1 << 11); //remove the gravity and scale (FSR=2 in selftest)
-//          int scale = 2000 / 250; //self-test uses 250dps FSR, main() set the FSR to 2000dps
-//          dmp_bias[3] = (g_average[0] / scale)*(1 << 15);
-//          dmp_bias[4] = (g_average[1] / scale)*(1 << 15);
-//          dmp_bias[5] = (g_average[2] / scale)*(1 << 15);
-//
-//      //  INV_SPRINTF(tst, INV_TST_LEN, "Selftest...Done...Ret=%d\r\n", self_test_result);
-//      //  print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "Result: Compass=%s, Accel=%s, Gyro=%s\r\n", (self_test_result & 0x04) ? pass_str : fail_str, (self_test_result & 0x02) ? pass_str : fail_str, (self_test_result & 0x01) ? pass_str : fail_str);
-////            print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "Accel Average (LSB@FSR 2g)\r\n");
-////            print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "\tX:%d Y:%d Z:%d\r\n", a_average[0], a_average[1], a_average[2]);
-////            print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "Gyro Average (LSB@FSR 250dps)\r\n");
-////            print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "\tX:%d Y:%d Z:%d\r\n", g_average[0], g_average[1], g_average[2]);
-////            print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "Factory Cal - Accel DMP biases: \tX:%d Y:%d Z:%d\r\n", dmp_bias[0], dmp_bias[1], dmp_bias[2]);
-////            print_command_console(tst);
-////            INV_SPRINTF(tst, INV_TST_LEN, "Factory Cal - Gyro DMP biases:  \tX:%d Y:%d Z:%d\r\n", dmp_bias[3], dmp_bias[4], dmp_bias[5]);
-////            print_command_console(tst);
-//
-//          if ((self_test_result & 0x3) == 0x3) {//Acc-Gyro self-test is passed already
-////                INV_SPRINTF(tst, INV_TST_LEN, "\r\nSetting the DMP biases with one-axis factory calibration values...done\r\n"); print_command_console(tst);
-//              dmp_set_bias_20648(dmp_bias); //update the DMP biases
-//          }
-//
-////                        print_command_console("\n\n**RESTART BOARD**\n");
-//
-//      }
-//      break;
-//#endif
-//      //case SHOW_COMMANDS:
-//  default:
-////    print_command_console("\r\n");
-////        print_command_console("Press 'a' to toggle ACCEL output....................\r\n");
-////        print_command_console("Press 'g' to toggle Gyro output.....................\r\n");
-////        print_command_console("Press 'G' to toggle Raw Gyro output.................\r\n");
-////        print_command_console("Press 'p' to toggle Step Counter output.............\r\n");
-////        print_command_console("Press 'd' to toggle Step Detector output............\r\n");
-////        print_command_console("Press 'm' to toggle SMD Significant Motion output...\r\n");
-//#if (MEMS_CHIP != HW_ICM20609)
-////        print_command_console("Press 'c' to toggle Compass output..................\r\n");
-////        print_command_console("Press 'C' to toggle Raw Compass output..............\r\n");
-//#endif
-//#if (MEMS_CHIP != HW_ICM20630)
-//#if (MEMS_CHIP != HW_ICM20609)
-////        print_command_console("Press 'b' to toggle Basic Activity Classifier output...\r\n");
-////        print_command_console("Press 'T' to toggle Tilt output...\r\n");
-////        print_command_console("Press 'F' to toggle Flip Pickup output...\r\n");
-//#endif
-//#endif
-////        print_command_console("Press 'r' to toggle Game Rotation Vector output.....\r\n");
-//#if (MEMS_CHIP != HW_ICM20609)
-////        print_command_console("Press 'R' to toggle Rotation Vector output..........\r\n");
-////        print_command_console("Press 'e' to toggle GeoMag Vector output............\r\n");
-//#if defined MEMS_AUGMENTED_SENSORS
-//        print_command_console("Press 'l' to toggle Linear Acceleration output............\r\n");
-//        print_command_console("Press 'v' to toggle Gravity output............\r\n");
-//        print_command_console("Press 'o' to toggle Orientation output............\r\n");
-//#endif
-//
-////        print_command_console("Press 't' to invoke Self test.......................\r\n");
-////        print_command_console("Press 'k' to get the DMP Biases.................\r\n");
-//#endif
-////        print_command_console("Press '0' to set ODR @ 1Hz..........................\r\n");
-////        print_command_console("Press '1' to set ODR @ 5Hz..........................\r\n");
-////    print_command_console("Press '2' to set ODR @ 15Hz.........................\r\n");
-//#if (MEMS_CHIP == HW_ICM20609)
-//        print_command_console("Press '3' to set ODR @ 50Hz.........................\r\n");
-//        print_command_console("Press '4' to set ODR @ 100Hz.........................\r\n");
-//        print_command_console("Press '5' to set ODR @ 200Hz.........................\r\n");
-//#endif
-//#if (MEMS_CHIP != HW_ICM20609)
-////        print_command_console("Press '3' to set ODR @ 30Hz.........................\r\n");
-////        print_command_console("Press '4' to set ODR @ 51Hz.........................\r\n");
-////        print_command_console("Press '5' to set ODR @ 56Hz.........................\r\n");
-////        print_command_console("Press '6' to set ODR @ 60Hz.........................\r\n");
-////        print_command_console("Press '7' to set ODR @ 102Hz.........................\r\n");
-////        print_command_console("Press '8' to set ODR @ 112Hz.........................\r\n");
-////        print_command_console("Press '9' to set ODR @ 225Hz.........................\r\n");
-////        print_command_console("Press 'Q' to toggle Cube Rotation Vector output........\r\n");
-////        print_command_console("Press '@' to toggle Cube GeoMAG Vector output..........\r\n");
-//#endif
-////        print_command_console("Press 'q' to toggle Cube Game Rotation Vector output...\r\n");
-////        print_command_console("\r\n");
-//        break;
-//  }
-
-    return 1;
 }
 
 inv_error_t inv_perform_selftest(void)
@@ -902,6 +490,21 @@ void process_sensor_output()
     }
 
 
+}
+
+float inv_get_accelerometer_x()
+{
+    return accel_float[0];
+}
+
+float inv_get_accelerometer_y()
+{
+    return accel_float[1];
+}
+
+float inv_get_accelerometer_z()
+{
+    return accel_float[2];
 }
 
 void fifo_handler()
@@ -1250,4 +853,3 @@ void fifo_handler()
 #endif
     }
 }
-/* [] END OF FILE */

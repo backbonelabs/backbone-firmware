@@ -1,3 +1,15 @@
+/* ===========================================
+ *
+ * Copyright BACKBONE LABS INC, 2016
+ * All Rights Reserved
+ * UNPUBLISHED, LICENSED SOFTWARE.
+ *
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
+ *
+ * ===========================================
+ */
+
 #include "ble.h"
 #include "version.h"
 #include "OTAMandatory.h"
@@ -44,6 +56,16 @@ bool ble_is_connected()
 CYBLE_CONN_HANDLE_T* ble_get_connection()
 {
     return &m_connection;
+}
+
+static void indicate_services_changed()
+{
+    CYBLE_GATTS_HANDLE_VALUE_IND_T indication;
+
+    indication.attrHandle = CYBLE_UUID_CHAR_SERVICE_CHANGED;
+    indication.value.val = 0;
+    indication.value.len = 0;
+    CyBle_GattsIndication(m_connection, &indication);
 }
 
 void ble_app_event_handler(uint32 event, void* param)
@@ -106,9 +128,12 @@ void ble_app_event_handler(uint32 event, void* param)
             /* This event is received when device is connected over GATT level */
             m_connection = *(CYBLE_CONN_HANDLE_T*)param;
             m_is_connected = BLE_TRUE;
+            backbone_connected(&m_connection);
             backbone_set_accelerometer_notification(&m_connection, false);
             backbone_set_distance_notification(&m_connection, false);
             backbone_set_session_statistics_notification(&m_connection, false);
+
+            indicate_services_changed();
             break;
 
         case CYBLE_EVT_GATT_DISCONNECT_IND:
@@ -198,5 +223,3 @@ void ble_update_connection_parameters(void)
                                                   &ConnectionParam);
     }
 }
-
-/* [] END OF FILE */

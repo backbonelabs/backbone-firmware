@@ -1,17 +1,17 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
 
-#if !defined(BLEAPPLICATIONS_H)
-#define BLEAPPLICATIONS_H
+#ifndef BLE_H_
+#define BLE_H_
 
 #include <project.h>
 #include <stdbool.h>
@@ -27,5 +27,4 @@ bool ble_is_connected();
 CYBLE_CONN_HANDLE_T* ble_get_connection();
 void ble_app_event_handler(uint32 event, void* param);
 
-#endif
-/* [] END OF FILE */
+#endif /* BLE_H_ */

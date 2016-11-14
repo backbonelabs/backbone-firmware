@@ -62,10 +62,6 @@ __inline void ManageApplicationPower()
     // put any application components to sleep.
 }
 
-float y[] = {1.0, 1.0, 1.0, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.9};
-float z[] = {0.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.1};
-int aidx;
-
 __inline void RunApplication()
 {
     // If there is data to read from the accelerometer, read it
@@ -73,17 +69,13 @@ __inline void RunApplication()
     if (hal.new_gyro == 1)
     {
         hal.new_gyro = 0;
-        //CyDelay(10);
-        // TODO: Add this back when accelerometer is working
-        //fifo_handler();
+        CyDelay(10);
+        fifo_handler();
 
-        // Remove this when accelerometer is working
-        LED_Green_Write(0); // on
-        CyDelay(50);
-        LED_Green_Write(1); // off
-        posture_update(y[aidx], z[aidx]);
-        aidx += 1;
-        if (aidx >= 10) aidx = 0;
+        //LED_Green_Write(0); // on
+        //CyDelay(5);
+        //LED_Green_Write(1); // off
+        posture_update(inv_get_accelerometer_y(), inv_get_accelerometer_y());
 
         if (ble_is_connected())
         {
@@ -91,8 +83,8 @@ __inline void RunApplication()
             backbone_distance_t distance_data;
 
             accelerometer_data.axis[0] = 0;
-            accelerometer_data.axis[1] = y[aidx];
-            accelerometer_data.axis[2] = z[aidx];
+            accelerometer_data.axis[1] = inv_get_accelerometer_y();
+            accelerometer_data.axis[2] = inv_get_accelerometer_z();
             accelerometer_data.axis[3] = 0;
             backbone_set_accelerometer_data(ble_get_connection(), &accelerometer_data);
 
@@ -102,8 +94,6 @@ __inline void RunApplication()
             backbone_notify_accelerometer(ble_get_connection());
             backbone_notify_distance(ble_get_connection());
             backbone_notify_session_statistics(ble_get_connection());
-
-
 
             ble_update_connection_parameters();
             MeasureBattery();
@@ -142,7 +132,6 @@ void RunBle()
  */
 int main()
 {
-    aidx = 0;
     watchdog_init();
 
     CyGlobalIntEnable;
@@ -160,18 +149,24 @@ int main()
      * off to save power */
     CySysClkWriteEcoDiv(CY_SYS_CLK_ECO_DIV8);
 
+    /* Initialize the hardware first.  The InvenSense chip takes especially long
+     * (about 10 seconds) because the embedded motion processor firmware is
+     * loaded over I2C.  */
+    inv_start();
+    ADC_Start();
+    MotorPWM_Start();
+
+    /* Initialize BLE after the hardware so that firmware
+     * is able to respond to BLE requests. */
     backbone_init();
     ble_init();
     CyBle_Start(ble_app_event_handler);
     CyBle_BasRegisterAttrCallback(BasCallBack);
+
     while (CyBle_GetState() == CYBLE_STATE_INITIALIZING)
     {
         CyBle_ProcessEvents();
     }
-
-    //inv_start();
-    //ADC_Start();
-    //MotorPWM_Start();
 
     while (1)
     {
@@ -184,5 +179,3 @@ int main()
         ManageSystemPower();
     }
 }
-
-/* [] END OF FILE */

@@ -1,17 +1,17 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
 
-#ifndef __I2CCOMM_H
-#define __I2CCOMM_H
+#ifndef I2C_COMM_H_
+#define I2C_COMM_H_
 
 #include <project.h>
 
@@ -62,5 +62,4 @@ void I2CComm_Timeout_Stop(void);
 int Sensors_I2C_WriteRegister(unsigned char slave_addr, unsigned char reg_addr, unsigned short len, unsigned char *data_ptr);
 int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, unsigned short len, unsigned char *data_ptr);
 
-#endif   /* __I2CCOMM_H */
-//[] END OF FILE
+#endif   /* I2C_COMM_H_ */

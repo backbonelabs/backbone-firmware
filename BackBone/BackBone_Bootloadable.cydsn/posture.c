@@ -1,17 +1,19 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
+ * ===========================================
  */
 
 #include <stdbool.h>
 #include <math.h>
+
+#include "inv.h"
 
 typedef struct
 {
@@ -23,11 +25,17 @@ typedef struct
 
 static posture_t self;
 
-void posture_start()
+void posture_start(void)
 {
     self.calibrated = false;
     self.calibrated_y = 0.0;
     self.calibrated_z = 0.0;
+    inv_enable_accelerometer();
+}
+
+void posture_stop(void)
+{
+    inv_disable_accelerometer();
 }
 
 void posture_update(float y, float z)
@@ -47,7 +55,7 @@ void posture_update(float y, float z)
     }
 }
 
-float posture_get_distance()
+float posture_get_distance(void)
 {
     return self.distance;
 }
@@ -128,5 +136,4 @@ float posture_get_distance()
     // Emit posture data event
     [self emitPostureData];
 }
-/* [] END OF FILE */
 #endif

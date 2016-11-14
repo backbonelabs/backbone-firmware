@@ -1,20 +1,21 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
 
-#include <project.h>
+#ifndef VERSION_H_
+#define VERSION_H_
 
 #define HW_MAJOR_VERSION            (1u)
 #define HW_MINOR_VERSION            (0u)
 #define FW_MAJOR_VERSION            (1u)
-#define FW_MINOR_VERSION            (5u)
+#define FW_MINOR_VERSION            (8u)
 
-/* [] END OF FILE */
+#endif /* VERSION_H_*/

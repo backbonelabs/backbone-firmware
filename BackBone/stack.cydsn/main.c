@@ -122,6 +122,15 @@ int main()
     }
 }
 
+static void indicate_services_changed()
+{
+	CYBLE_GATTS_HANDLE_VALUE_IND_T indication;
+
+    indication.attrHandle = CYBLE_UUID_CHAR_SERVICE_CHANGED;
+    indication.value.val = 0;
+    indication.value.len = 0;
+    CyBle_GattsIndication(connHandle, &indication);
+}
 
 /*******************************************************************************
 * Function Name: AppCallBack()
@@ -213,6 +222,7 @@ void AppCallBack(uint32 event, void* eventParam)
         ***********************************************************/
         case CYBLE_EVT_GATT_CONNECT_IND:
             connHandle = *(CYBLE_CONN_HANDLE_T *)eventParam;
+            indicate_services_changed();
             break;
         case CYBLE_EVT_GATT_DISCONNECT_IND:
             connHandle.bdHandle = 0;

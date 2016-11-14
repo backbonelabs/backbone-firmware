@@ -1,17 +1,17 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
 
-#ifndef __BACKBONE_H
-#define __BACKBONE_H
+#ifndef BACKBONE_H_
+#define BACKBONE_H_
 
 #include <project.h>
 #include <stdbool.h>
@@ -43,9 +43,11 @@ typedef union
     uint8_t statistics[20];
     uint8_t raw_data[20];
 } backbone_session_statistics_t;
-#define BACKBONE_SESSION_STATISTICS_DATA_LEN (4u)
+#define BACKBONE_SESSION_STATISTICS_DATA_LEN (20u)
 
 void backbone_init();
+
+void backbone_connected(CYBLE_CONN_HANDLE_T* connection);
 
 void backbone_set_accelerometer_data(CYBLE_CONN_HANDLE_T* connection,
                                      backbone_accelerometer_t* data);
@@ -73,6 +75,4 @@ void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connectio
                                                   bool enable);
 void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection);
 
-#endif /* __BACKBONE_H */
-
-/* [] END OF FILE */
+#endif /* BACKBONE_H_ */

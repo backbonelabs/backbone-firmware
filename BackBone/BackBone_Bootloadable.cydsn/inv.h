@@ -1,14 +1,18 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
+
+#ifndef INV_H_
+#define INV_H_
+
 #include ".\20648_driver\invn\inv_mems.h"
 
 struct hal_s_
@@ -85,10 +89,12 @@ enum packet_type_e
 
 extern struct hal_s_ hal;
 
-void fifo_handler();
-void gyro_data_ready_cb(void);
-inv_error_t set_output_rates(float rate);
-inv_error_t inv_perform_selftest(void);
 inv_error_t inv_start(void);
+void inv_enable_accelerometer(void);
+void inv_disable_accelerometer(void);
+float inv_get_accelerometer_x(void);
+float inv_get_accelerometer_y(void);
+float inv_get_accelerometer_z(void);
+void fifo_handler(void);
 
-/* [] END OF FILE */
+#endif /* INV_H_ */

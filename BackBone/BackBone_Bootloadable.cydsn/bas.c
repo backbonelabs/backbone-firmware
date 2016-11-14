@@ -155,6 +155,3 @@ void MeasureBattery(void)
         }
     }
 }
-
-
-/* [] END OF FILE */

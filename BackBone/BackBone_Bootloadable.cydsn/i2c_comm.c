@@ -1,14 +1,15 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
+
 #include <project.h>
 #include <i2c_comm.h>
 #include <timeout.h>
@@ -220,6 +221,3 @@ int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, u
 
     return Status;
 }
-
-
-/* [] END OF FILE */

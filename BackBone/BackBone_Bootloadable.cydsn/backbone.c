@@ -1,19 +1,22 @@
-/* ========================================
+/* ===========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright BACKBONE LABS INC, 2016
  * All Rights Reserved
  * UNPUBLISHED, LICENSED SOFTWARE.
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION,
+ * WHICH IS THE PROPERTY OF BACKBONE LABS INC.
  *
- * ========================================
-*/
+ * ===========================================
+ */
 
 #include <project.h>
 
-#include "ble.h"
 #include "backbone.h"
+#include "ble.h"
+#include "OTAMandatory.h"
+#include "posture.h"
+#include "version.h"
 
 uint8 accelerometer_cccd[2];
 uint8 distance_cccd[2];
@@ -21,6 +24,21 @@ uint8 session_statistics_cccd[2];
 
 void backbone_init()
 {
+}
+
+void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    uint8_t data[] = {HW_MAJOR_VERSION, HW_MINOR_VERSION, FW_MAJOR_VERSION, FW_MINOR_VERSION};
+
+    characteristic.attrHandle = CYBLE_BACKBONE_VERSION_CHAR_HANDLE;
+    characteristic.value.val = data;
+    characteristic.value.len = sizeof(data);
+
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
 }
 
 void backbone_set_accelerometer_data(CYBLE_CONN_HANDLE_T* connection,
@@ -64,10 +82,6 @@ void backbone_notify_accelerometer(CYBLE_CONN_HANDLE_T* connection)
 
     if (accelerometer_cccd[0] == BLE_TRUE)
     {
-        LED_Blue_Write(0); // on
-        CyDelay(50);
-        LED_Blue_Write(1); // off
-
         characteristic.attrHandle = CYBLE_BACKBONE_ACCELEROMETER_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_ACCELEROMETER_DATA_LEN;
@@ -123,10 +137,6 @@ void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection)
 
     if (distance_cccd[0] == BLE_TRUE)
     {
-        LED_Blue_Write(0); // on
-        CyDelay(50);
-        LED_Blue_Write(1); // off
-
         characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_DISTANCE_DATA_LEN;
@@ -139,7 +149,6 @@ void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection)
     }
 }
 
-#include "OTAMandatory.h"
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
 {
     static const uint8 ENTER_BOOTLOADER_KEY[8] =
@@ -203,10 +212,6 @@ void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection)
 
     if (session_statistics_cccd[0] == BLE_TRUE)
     {
-        LED_Blue_Write(0); // on
-        CyDelay(50);
-        LED_Blue_Write(1); // off
-
         characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_SESSION_STATISTICS_DATA_LEN;
@@ -229,11 +234,11 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
     switch (data[0])
     {
         case BACKBONE_START_SESSION:
-            //posture_start();
+            posture_start();
             break;
 
         case BACKBONE_STOP_SESSION:
-            //posture_stop();
+            posture_stop();
             break;
 
         case BACKBONE_PAUSE_SESSION:
@@ -245,5 +250,3 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
             break;
     }
 }
-
-/* [] END OF FILE */
