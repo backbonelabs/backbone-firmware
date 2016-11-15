@@ -172,6 +172,11 @@ void ble_app_event_handler(uint32 event, void* param)
                 backbone_controlsession(request->handleValPair.value.val,
                                         request->handleValPair.value.len);
             }
+            else if (CYBLE_BACKBONE_CONTROL_MOTOR_CHAR_HANDLE == request->handleValPair.attrHandle)
+            {
+                backbone_control_motor(request->handleValPair.value.val,
+                                       request->handleValPair.value.len);
+            }
 
             /* Send the response to the write request received. */
             CyBle_GattsWriteRsp(m_connection);

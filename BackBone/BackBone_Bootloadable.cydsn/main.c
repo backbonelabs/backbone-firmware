@@ -20,6 +20,8 @@
 #include "watchdog.h"
 #include "posture.h"
 #include "backbone.h"
+#include "motor.h"
+#include "debug.h"
 
 extern void InitializeBootloaderSRAM();
 
@@ -32,26 +34,29 @@ __inline void ManageSystemPower()
 
     blePower = CyBle_GetBleSsState();
 
-    /* System can enter DeepSleep only when BLESS and rest of the
-     * application are in DeepSleep power modes */
-    if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP ||
-        blePower == CYBLE_BLESS_STATE_ECO_ON)
+    if (!motor_is_running())
     {
-        CySysPmDeepSleep();
-    }
-    else if (blePower != CYBLE_BLESS_STATE_EVENT_CLOSE)
-    {
-        /* change HF clock source from IMO to ECO, as IMO is not required
-         * and can be stopped to save power */
-        CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO);
-        /* stop IMO for reducing power consumption */
-        CySysClkImoStop();
-        /* put the CPU to sleep */
-        CySysPmSleep();
-        /* starts execution after waking up, start IMO */
-        CySysClkImoStart();
-        /* change HF clock source back to IMO */
-        CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
+        /* System can enter DeepSleep only when BLESS and rest of the
+         * application are in DeepSleep power modes */
+        if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP || 
+            blePower == CYBLE_BLESS_STATE_ECO_ON)
+        {
+            CySysPmDeepSleep();
+        }
+        else if (blePower != CYBLE_BLESS_STATE_EVENT_CLOSE)
+        {
+            /* change HF clock source from IMO to ECO, as IMO is not required
+             * and can be stopped to save power */
+            CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_ECO);
+            /* stop IMO for reducing power consumption */
+            CySysClkImoStop();
+            /* put the CPU to sleep */
+            CySysPmSleep();
+            /* starts execution after waking up, start IMO */
+            CySysClkImoStart();
+            /* change HF clock source back to IMO */
+            CySysClkWriteHfclkDirect(CY_SYS_CLK_HFCLK_IMO);
+        }
     }
 
     CyExitCriticalSection(interruptStatus );
@@ -72,9 +77,6 @@ __inline void RunApplication()
         CyDelay(10);
         fifo_handler();
 
-        //LED_Green_Write(0); // on
-        //CyDelay(5);
-        //LED_Green_Write(1); // off
         posture_update(inv_get_accelerometer_y(), inv_get_accelerometer_y());
 
         if (ble_is_connected())
@@ -141,6 +143,9 @@ int main()
 
     AfterImageUpdate();
 
+    DBG_PRINT_TEXT("> Backbone Firmware\r\n");
+    DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
+
     /* Internal low power oscillator is stopped as it is not used in this
      * project */
     CySysClkIloStop();
@@ -154,7 +159,7 @@ int main()
      * loaded over I2C.  */
     inv_start();
     ADC_Start();
-    MotorPWM_Start();
+    motor_init();
 
     /* Initialize BLE after the hardware so that firmware
      * is able to respond to BLE requests. */

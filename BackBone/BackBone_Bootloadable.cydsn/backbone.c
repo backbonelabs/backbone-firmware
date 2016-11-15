@@ -14,6 +14,7 @@
 
 #include "backbone.h"
 #include "ble.h"
+#include "motor.h"
 #include "OTAMandatory.h"
 #include "posture.h"
 #include "version.h"
@@ -248,5 +249,19 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
         case BACKBONE_RESUME_SESSION:
             //posture_resume();
             break;
+    }
+}
+
+void backbone_control_motor(uint8_t* data, uint16_t len)
+{
+    if (len > 0 && data[0] == 1)
+    {
+        uint8_t duty_cycle = len > 1 ? data[1] : 0x50;
+        uint16_t milliseconds = len > 3 ? data[2] << 8 | data[3] : 500;
+        motor_start(duty_cycle, milliseconds);
+    }
+    else
+    {
+        motor_stop();
     }
 }
