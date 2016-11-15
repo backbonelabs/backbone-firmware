@@ -51,9 +51,10 @@
 *******************************************************************************/
 int main()
 {
+#ifdef DISABLE_BOOTLOADER_FIRMWARE_UPGRADE
     uint8 metaBuf[CYDEV_FLS_ROW_SIZE];
     uint8 copyFlag;
-    
+
     copyFlag = Launcher_GetMetadata(Launcher_GET_BTLDB_COPY_FLAG, 
                                     Launcher_MD_BTLDB_ACTIVE_1);
     if (copyFlag)
@@ -68,7 +69,8 @@ int main()
         Launcher_SET_RUN_TYPE(Launcher_SCHEDULE_BTLDB);
         CySoftwareReset();
     }
-    
+#endif
+
     Launcher_Start();
     for(;;)
     {
