@@ -35,13 +35,14 @@
       <Data key="52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="Disconnect_LED" />
       <Data key="099c9a51-a3da-403d-9a3d-8076b16c756f" value="LowPower_LED" />
       <Data key="55497c92-2f77-47e8-8dab-a2fb6fbf7b29" value="Reserved" />
+      <Data key="179054c1-e42a-4cb1-a570-3138971faf36/52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="UART_tx" />
       <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="VIN" />
       <Data key="b6c4ba10-484f-4f12-9949-5dd0bc328ee3/23b8206d-1c77-4e61-be4a-b4037d5de5fc" value="UART_DEB_tx" />
       <Data key="b6c4ba10-484f-4f12-9949-5dd0bc328ee3/78e33e5d-45ea-4b75-88d5-73274e8a7ce4" value="UART_DEB_rx" />
       <Data key="bda22ab1-4eb8-40a6-b283-d8f51c2988b6" value="Connect" />
       <Data key="c8b14503-611e-4c93-9dce-3a4c1f060fd6" value="SW2" />
       <Data key="d705aeb9-258f-430b-ae5b-ef2b8547e6d1" value="Advertising_LED" />
-      <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="MOTOR" />
+      <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="MOTOR_PIN" />
       <Data key="ec74dd27-8fe2-44f1-814a-6af2de0a7c97" value="LowPower" />
     </Group>
   </Group>
@@ -3925,6 +3926,11 @@
     <Group key="55497c92-2f77-47e8-8dab-a2fb6fbf7b29">
       <Group key="0">
         <Data key="Port Format" value="4,1" />
+      </Group>
+    </Group>
+    <Group key="179054c1-e42a-4cb1-a570-3138971faf36/52f31aa9-2f0a-497d-9a1f-1424095e13e6">
+      <Group key="0">
+        <Data key="Port Format" value="1,5" />
       </Group>
     </Group>
     <Group key="77715107-f8d5-47e5-a629-0fb83101ac6b">
