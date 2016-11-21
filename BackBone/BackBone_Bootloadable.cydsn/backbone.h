@@ -64,7 +64,9 @@ void backbone_set_distance_notification(CYBLE_CONN_HANDLE_T* connection,
 void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection);
 
 
+
 void backbone_enterbootloader(uint8_t* data, uint16_t len);
+
 
 
 void backbone_controlsession(uint8_t* data, uint16_t len);
@@ -74,5 +76,9 @@ void backbone_controlsession(uint8_t* data, uint16_t len);
 void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connection,
                                                   bool enable);
 void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection);
+
+
+
+void backbone_control_motor(uint8_t* data, uint16_t len);
 
 #endif /* BACKBONE_H_ */
