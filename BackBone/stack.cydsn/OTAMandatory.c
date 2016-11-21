@@ -19,6 +19,7 @@
 * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
 * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 *******************************************************************************/
+#define CY_BOOTLOADER_Loader_H
 #include "cytypes.h"
 #include "OTAMandatory.h"
 

@@ -29,8 +29,10 @@
 * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 *******************************************************************************/
 
+#define CY_BOOTLOADER_Loader_H
 #include "project.h"
 #include "main.h"
+#include "AesLoader\AesLoader.h"
 
 CYBLE_CONN_HANDLE_T connHandle;
 
@@ -74,7 +76,7 @@ int main()
     /* If application image is present and valid but no metadata flag is set.
      * Assuming it is first launch.
      */
-    if ((CYRET_SUCCESS == Loader_ValidateApp(1u)) && \
+    if ((CYRET_SUCCESS == AesLoader_ValidateApp(1u)) && \
                                 (0u == (uint32) CY_GET_XTND_REG8((volatile uint8 *)APP_UPDATE_FLAG_OFFSET)))
     {
         Bootloadable_SetActiveApplication(1u);
@@ -108,12 +110,12 @@ int main()
     }
     
     /* Start Bootloader component in non-blocking mode. */
-    Loader_Initialize();
+    AesLoader_Initialize();
     
     for(;;)
     {
         CyBle_ProcessEvents();
-        Loader_HostLink(5u);
+        AesLoader_HostLink(5u);
         
         /* To have predictable timeout (~40 seconds). */
         CyDelay(5u);

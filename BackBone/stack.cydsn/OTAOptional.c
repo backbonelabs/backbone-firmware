@@ -19,8 +19,9 @@
 * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
 * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 *******************************************************************************/
+#define CY_BOOTLOADER_Loader_H
 #include "OTAOptional.h"
-
+#include "AesLoader\AesLoader.h"
 
 
 /*******************************************************************************
@@ -56,7 +57,7 @@ void AfterImageUpdate()
         #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
             
         /* Set byte in metadata row indicating that Stack project was started. */
-        Loader_SetFlashByte(UPDATE_FLAG_OFFSET, 1u);
+        AesLoader_SetFlashByte(UPDATE_FLAG_OFFSET, 1u);
     }
     
     #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
@@ -182,7 +183,7 @@ void TimeoutImplementation()
     
     if (counter > 0u)
     {
-        if ((Loader_isBootloading != Loader_BOOTLOADING_IN_PROGRESS) && (CyBle_GetState() != CYBLE_STATE_CONNECTED))
+        if ((AesLoader_isBootloading != AesLoader_BOOTLOADING_IN_PROGRESS) && (CyBle_GetState() != CYBLE_STATE_CONNECTED))
         {
             counter++;
         }
@@ -190,7 +191,7 @@ void TimeoutImplementation()
     
     if (counter == WARNING_TIMEOUT)
     {
-        if (CYRET_SUCCESS != Loader_ValidateApp(1u))
+        if (CYRET_SUCCESS != AesLoader_ValidateApp(1u))
         {
             /* If bootloadable image is invalid - wait for the valid image to be received. */
             counter = 0u;
