@@ -540,9 +540,11 @@ void MTK_init()
 #endif  // CYBLE_MTK_DUT && CYBLE_INTERFACE_ENABLED
     DTM_TX_end_delay = DEFAULT_DTM_TX_END_DELAY;
 
+#if 0
 #if (UART_INTERFACE_ENABLED == 1)
     CI_start();
 #endif  // UART_INTERFACE_ENABLED
+#endif
 
     Timer_ISR_StartEx(timer_ISR);
     initialize_BLE(false);
@@ -558,6 +560,7 @@ void MTK_init()
             break;
         }
     }
+    CySysTickStop();
 #endif // CYBLE_MTK_HOST
 
 #if (CYBLE_MTK_DUT == 1) && ((CYBLE_TESTS_ENABLED == 1))
@@ -1028,6 +1031,52 @@ static void execute_RRS(bool enable_output_printing)
 #endif  // CYBLE_MTK_HOST || (CYBLE_MTK_DUT && !CYBLE_INTERFACE_ENABLED)
 }
 
+static bool first_command;
+
+UART_CMDS_T get_command_txp(int32_t *argument_array, int32_t *num_args)
+{
+    if (first_command)
+    {
+        argument_array[0] = 17; // channel 17
+        argument_array[1] = 0;  // tx power = 0dbm
+        argument_array[2] = 1000; // number of packets
+        *num_args = 3;
+        first_command = false;
+        return TXP;
+    }
+    
+    return NO_CMD;
+}
+
+UART_CMDS_T get_command_txc(int32_t *argument_array, int32_t *num_args)
+{
+    if (first_command)
+    {
+        argument_array[0] = 17; // channel 17
+        argument_array[1] = 0;  // tx power = 0dbm
+        argument_array[2] = INT32_MAX; // timeout in milliseconds (24 days)
+        *num_args = 3;
+        first_command = false;
+        return TXC;
+    }
+    
+    return NO_CMD;
+}
+
+UART_CMDS_T get_command_rx(int32_t *argument_array, int32_t *num_args)
+{
+    if (first_command)
+    {
+        argument_array[0] = 17; // channel 17
+        argument_array[1] = INT32_MAX; // timeout in milliseconds (24 days)
+        *num_args = 2;
+        first_command = false;
+        return RXP;
+    }
+    
+    return NO_CMD;
+}
+
 /************************************************************************************************
  *
  *
@@ -1043,11 +1092,17 @@ uint8_t MTK_mode()
 #endif  // CYBLE_MTK_DUT || UART_INTERFACE_ENABLED
 
     MTK_init();
+    first_command = true;
 
     while(1)
     {
 #if (UART_INTERFACE_ENABLED == 1)
+#if 0
         command = CI_get_command(cmd_args, &args_length);
+#endif
+        //command = get_command_txp(cmd_args, &args_length);
+        //command = get_command_txc(cmd_args, &args_length);
+        command = get_command_rx(cmd_args, &args_length);
         if ((DTM_test_inprogress == true) && ((command == TXP) || (command == RXP) || (command == TXC)))
         {
             execute_RRS(false);
@@ -1211,6 +1266,7 @@ uint8_t MTK_mode()
 
             initialize_BLE_RF(true);
             DTM_rx_start(cmd_args[0]);
+            ms_timer_start(cmd_args[1]);
 
 #if ((CYBLE_MTK_HOST == 1) && (CYBLE_INTERFACE_ENABLED == 1))
             if (DTM_RX_end_delay >= 0)

@@ -19,6 +19,7 @@
 
 int32_t MTK_triggered()
 {
+#if 0
     if (MTK_Trigger_Read() == 0)
     {
         CyDelay(15);
@@ -26,19 +27,24 @@ int32_t MTK_triggered()
         return 1;
     }
     return 0;
+#endif
+    return 1;
 }
 
 int main()
 {
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+#if 0
     uint8_t var = MTK_MOD_SEL;
- 
+#endif
     CyGlobalIntEnable; /* Uncomment this line to enable global interrupts. */
 
     if (MTK_triggered())
     {
         while(1)
         {
+            MTK_mode();
+#if 0            
             if (var == MTK_MOD_SEL) 
             {
                 var = MTK_mode();
@@ -47,11 +53,14 @@ int main()
             {
                 var = Anritsu();
             }
+#endif
         }
     }
 
     /* Implement application here. */
+#if 0
     Red_LED_Write(0);
+#endif
     while (1);
  
     return 0;

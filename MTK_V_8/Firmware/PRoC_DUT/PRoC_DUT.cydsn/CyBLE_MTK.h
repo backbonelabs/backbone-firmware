@@ -40,7 +40,10 @@
 #define USER_SFLASH_WRITE_SUCCESSFUL                    0xA0000000     
 
 //#define UART_CI_DEBUG
+#if 0
 #define CAP_TRIM                                        0x3FFA
+#endif
+#define CAP_TRIM                                        0x0000A0A0
 
 #define CYBLE_MTK_HOST                                  0
 #define CYBLE_MTK_DUT                                   !CYBLE_MTK_HOST
