@@ -176,36 +176,57 @@ cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount)
 }
 #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
 
-
 void TimeoutImplementation()
 {
     static uint16 counter = 1u;
+    static CYBLE_STATE_T old_state = CYBLE_STATE_DISCONNECTED;
+    CYBLE_STATE_T new_state = CyBle_GetState();
     
-    if (counter > 0u)
+    if (new_state != old_state)
     {
-        if ((AesLoader_isBootloading != AesLoader_BOOTLOADING_IN_PROGRESS) && (CyBle_GetState() != CYBLE_STATE_CONNECTED))
-        {
-            counter++;
-        }
+        counter = 1u;
+        old_state = new_state;
     }
     
     if (counter == WARNING_TIMEOUT)
     {
         if (CYRET_SUCCESS != AesLoader_ValidateApp(1u))
         {
-            /* If bootloadable image is invalid - wait for the valid image to be received. */
+            // App is invalid.  So stay setting counter to 0 will 
+            // not timeout and stay in the bootloader
             counter = 0u;
         }
     }
-    else if (counter >= SWITCHING_TIMEOUT)
+    
+    if (new_state != CYBLE_STATE_CONNECTED)
     {
-        /* Automatical switch to the Application project will occur only if Application image is valid
-         * after ~40 seconds of inactivity.
-         */
-        CyDelay(500u);
-        Bootloadable_SetActiveApplication(1u);
-        CySoftwareReset();
-    }    
+        if (counter > 0u)
+        {
+            counter += 1;
+        }
+        
+        if (counter >= CONNECT_SWITCHING_TIMEOUT)
+        {
+            CyDelay(500u);
+            Bootloadable_SetActiveApplication(1u);
+            CySoftwareReset();
+        }
+    }
+    else
+    {
+        if (counter > 0 && 
+            AesLoader_isBootloading != AesLoader_BOOTLOADING_IN_PROGRESS)
+        {
+            counter++;
+        }
+        
+        if (counter >= BOOTLOADING_SWITCHING_TIMEOUT)
+        {
+            CyDelay(500u);
+            Bootloadable_SetActiveApplication(1u);
+            CySoftwareReset();
+        }
+    }
 }
 
 /* [] END OF FILE */
