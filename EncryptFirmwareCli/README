@@ -1,0 +1,79 @@
+PREREQUISITES:
+This should build on any sane flavor of Linux.
+
+Tested on a recent Arch Linux install.
+
+The only dependency for the application is the "crypto++" lib.  This is a well
+known open-source crypto library.  Major Linux distros should have packages
+for it.  Windows install of the library is TBD.
+Building the unit tests requires libcheck, which is a common 'C' unit testing
+library.  This will also have a package in any major Linux distribution.  This
+is NOT required for building/using the application though.
+
+Generating unit test coverage reports requires a tool called 'lcov'.  This is a
+slightly obscure tool; Arch has a package in the AUR.  I don't know about other
+distributions.  Coverage report generation relies on features specific to gcc,
+so it isn't going to work in Visual Studio.  Again, this is completely optional
+for building and running the application.  It was primarily useful during unit
+test development
+
+BUILDING:
+To build the application:
+make clean && make application
+
+To build and run the unit tests (OPTIONAL):
+make clean && make tests
+./run_tests.sh
+
+To generate a unit test coverage report (VERY OPTIONAL):
+make clean && make E=1 tests
+make coverage_report
+
+After generation, the unit test coverage report can be viewd by opening the
+following file in the web browser of your choice:
+./doc/lcov/coverage/index.html
+
+USING:
+Run from command line, giving two arguments -- the input and output files,
+ie:
+
+./encrypt_cyacd in.cyacd out.cyacd
+
+The input file is a standard cyacd file.  The output file is also a standard
+cyacd file, complete with correct metadata and checksums.  CySmart should
+happily burn this to a unit.  Only the actual firmware is encrypted.
+
+Since row numbers are also unencrypted, accidentally loading an encrypted
+application to a unit with an older bootloader shouldn't brick it... it won't
+do anything, though, since it will be executing garbage.
+
+KNOWN ISSUES
+Unit tests are not executing from the makefile; I have a simple manually
+created script to run them.  This is annoying, and it is easy to miss
+adding a new unit test file to the script.
+
+We aren't building in Windows yet.  This should be possible, but I need
+to figure out the best way to package up Crypto++ for this.
+
+There are some TODO's left in the unit tests; there are a couple of areas
+I would like to round off the unit test coverage.  This will help to ensure
+I didn't break anything during the Windows port.
+
+There are a couple of places where integrity checks need to be added to the
+input files.  There are TODO's in the appropriate places in the code.
+
+Encryption key is currently, literally, a random number.  This needs to be
+replaced with a hard coded encryption key.  We need to be very careful about
+how we distribute that.  If it gets out, our code is no longer protected.
+If we lose it, we'll lose the ability to update units in the field.
+
+LICENSE NOTES:
+Crypto++ uses the same license as the C++ Boost libraries.  This doesn't impose
+any legal requirements on us unless we actually distribute the binary of the
+encryption tool -- and in that case, the only requirement imposed is an
+acknowledgement that we used the library in our copyright statement.  It is a
+little more complex if we choose to open-source this tool for some reason, but
+I don't really see that happening.
+
+Checklib is LGPL.  This doesn't impose any requirements on us by linking against
+it, and in any case, we would never really need to distribute our unit tests.
