@@ -33,6 +33,7 @@
 #include "project.h"
 #include "main.h"
 #include "AesLoader\AesLoader.h"
+#include "debug.h"
 
 CYBLE_CONN_HANDLE_T connHandle;
 

@@ -22,7 +22,7 @@
 #define CY_BOOTLOADER_Loader_H
 #include "OTAOptional.h"
 #include "AesLoader\AesLoader.h"
-
+#include "debug.h"
 
 /*******************************************************************************
 * Function Name: AfterImageUpdate

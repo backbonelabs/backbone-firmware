@@ -111,6 +111,10 @@ __inline void ManageBlePower()
 void RunBle()
 {
     CyBle_ProcessEvents();
+    if(cyBle_pendingFlashWrite != 0u)
+    {
+        CyBle_StoreBondingData(0u);
+    }
 
 #if 0
     /* Wait until BLESS is in ECO_STABLE state to push the notification data to the BLESS */
@@ -145,7 +149,7 @@ int main()
 
     DBG_PRINT_TEXT("> Backbone Firmware\r\n");
     DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
-
+    
     /* Internal low power oscillator is stopped as it is not used in this
      * project */
     CySysClkIloStop();

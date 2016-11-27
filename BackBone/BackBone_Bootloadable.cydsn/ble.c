@@ -14,6 +14,7 @@
 #include "version.h"
 #include "OTAMandatory.h"
 #include "backbone.h"
+#include "debug.h"
 
 /* Value is from From the CYBLE-222005-00 Data Sheet.  Table 48 (Page 24).
  * http://www.cypress.com/documentation/datasheets/cyble-222005-00-ez-bletm-proctm-module*/
@@ -119,6 +120,11 @@ void ble_app_event_handler(uint32 event, void* param)
             break;
 
         case CYBLE_EVT_GAP_DEVICE_CONNECTED:
+            break;
+            
+        case CYBLE_EVT_GAP_AUTH_COMPLETE:
+            DBG_PRINT_TEXT("\r\n");
+            DBG_PRINT_TEXT("Authentication Complete\r\n");
             break;
 
         /**********************************************************
