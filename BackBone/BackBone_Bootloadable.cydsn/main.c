@@ -23,6 +23,10 @@
 #include "motor.h"
 #include "debug.h"
 
+#ifdef ENABLE_MTK
+    #include "CyBLE_MTK.h"
+#endif
+
 extern void InitializeBootloaderSRAM();
 
 __inline void ManageSystemPower()
@@ -138,6 +142,14 @@ void RunBle()
  */
 int main()
 {
+#ifdef ENABLE_MTK
+    CyGlobalIntEnable;
+    while(1)
+    {
+        MTK_mode();
+    }
+#endif
+    
     watchdog_init();
 
     CyGlobalIntEnable;

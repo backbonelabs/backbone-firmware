@@ -24,4 +24,6 @@
 
 #define PRINT_BOUNDING_DATA (NO)
 
+//#define ENABLE_MTK
+
 #endif /* OPTIONS_H_ */

@@ -91,7 +91,7 @@ static void set_power(CYBLE_BLESS_PWR_LVL_T power);
 static CYBLE_BLESS_PWR_LVL_T translate_power(int32_t power);
 
 static int RX_Count;
-static void UART_print_int(int32_t input);
+//static void UART_print_int(int32_t input);
 
 /************************************************************************************************
  *
@@ -606,19 +606,19 @@ static CYBLE_BLESS_PWR_LVL_T translate_power(int32_t power)
 #ifdef UART_CI_DEBUG
 void UART_print_int(int32_t input)
 #else
-static void UART_print_int(int32_t input)
+//static void UART_print_int(int32_t input)
 #endif  // UART_CI_DEBUG
-{
-    char temp[100];
-    int32_t i = 0;
-
-    temp[i] = '\0';
-    sprintf(temp, "%d", (int)input);
-    while (temp[i] != '\0')
-    {
-        UART_UartPutChar(temp[i++]);
-    }
-}
+//{
+//    char temp[100];
+//    int32_t i = 0;
+//
+//    temp[i] = '\0';
+//    sprintf(temp, "%d", (int)input);
+//    while (temp[i] != '\0')
+//    {
+//        UART_UartPutChar(temp[i++]);
+//    }
+//}
 #endif  // UART_INTERFACE_ENABLED
 
 /************************************************************************************************
@@ -673,7 +673,7 @@ void recover_from_TXC()
     CyDelayUs(120);
     DTM_test_inprogress = false;
 }
-
+#if 0
 static char HexToAscii(uint8 value, uint8 nibble)
 {
     if(nibble == 1)
@@ -712,6 +712,7 @@ static char HexToAscii(uint8 value, uint8 nibble)
     
     return value;
 }
+#endif
 
 /************************************************************************************************
  *
@@ -731,8 +732,8 @@ static void print_test_status()
         {
             temp += 2;
         }
-        UART_print_int(temp);
-        UART_UartPutString("\r\n");
+        //UART_print_int(temp);
+        //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
 
 #if (CYBLE_MTK_DUT == 1) && (CYBLE_INTERFACE_ENABLED == 1)
@@ -742,8 +743,8 @@ static void print_test_status()
     else if (prev_command == RXP)
     {
 #if (UART_INTERFACE_ENABLED == 1) && ((CYBLE_MTK_DUT == 1) || (CYBLE_MTK_HOST == 1))
-        UART_print_int(rx_count);
-        UART_UartPutString("\r\n");
+        //UART_print_int(rx_count);
+        //UART_UartPutString("\r\n");
 #endif  // CYBLE_MTK_HOST && CYBLE_MTK_DUT
 
 #if (CYBLE_MTK_DUT == 1) && (CYBLE_INTERFACE_ENABLED == 1)
@@ -759,8 +760,8 @@ static void print_test_status()
 #endif  // CYBLE_MTK_DUT
 
 #if (UART_INTERFACE_ENABLED == 1)
-        UART_print_int(get_packet_length());
-        UART_UartPutString("\r\n");
+        //UART_print_int(get_packet_length());
+        //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
     }
     else if (prev_command == SPT)
@@ -772,15 +773,15 @@ static void print_test_status()
 #endif  // CYBLE_MTK_DUT
 
 #if (UART_INTERFACE_ENABLED == 1)
-        UART_print_int(get_packet_type());
-        UART_UartPutString("\r\n");
+        //UART_print_int(get_packet_type());
+        //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
     }
     else if (prev_command == TXC)
     {
 #if (UART_INTERFACE_ENABLED == 1)
-        UART_print_int(msCount_backup);
-        UART_UartPutString("\r\n");
+        //UART_print_int(msCount_backup);
+        //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
 
 #if (CYBLE_MTK_DUT == 1) && (CYBLE_INTERFACE_ENABLED == 1)
@@ -798,32 +799,32 @@ static void print_test_status()
 //        UART_UartPutString("\r\n");
         for (i = 0; i < packet_count; i++)
         {
-            UART_print_int((int32_t)TX_buffer[i]);
-            UART_UartPutString("\r\n");
+            //UART_print_int((int32_t)TX_buffer[i]);
+            //UART_UartPutString("\r\n");
         }
 #endif  // UART_INTERFACE_ENABLED && CYBLE_MTK_DUT
     }
     else if (prev_command == STC)
     {
 #if (CYBLE_MTK_DUT == 1) && (UART_INTERFACE_ENABLED == 1)
-        UART_print_int(packet_count);
-        UART_UartPutString("\r\n");
+        //UART_print_int(packet_count);
+        //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED && CYBLE_MTK_DUT
     }
     else if (prev_command == RSX)
     {
-        UART_print_int(RSSIValue);
-        UART_UartPutString("dBm\n\r");
+        //UART_print_int(RSSIValue);
+        //UART_UartPutString("dBm\n\r");
     }
     else if (prev_command == WBA)
     {
         if (WBAResult)
         {
-            UART_UartPutString("SUCCESS\r\n");
+            //UART_UartPutString("SUCCESS\r\n");
         }
         else
         {
-            UART_UartPutString("ERROR\r\n");
+            //UART_UartPutString("ERROR\r\n");
         }
     }
     else if (prev_command == RBA)
@@ -834,26 +835,26 @@ static void print_test_status()
 
             for (i = (BDA_LENGTH - 1); i >= 0 ; i--)
             {
-                UART_UartPutChar(HexToAscii(BDAddress[i], 1));
-                UART_UartPutChar(HexToAscii(BDAddress[i], 0));
-                UART_UartPutString(" ");
+                //UART_UartPutChar(HexToAscii(BDAddress[i], 1));
+                //UART_UartPutChar(HexToAscii(BDAddress[i], 0));
+                //UART_UartPutString(" ");
             }
-            UART_UartPutString("\r\n");
+            //UART_UartPutString("\r\n");
         }
         else
         {
-            UART_UartPutString("ERROR\r\n");
+            //UART_UartPutString("ERROR\r\n");
         }
     }
     else if (prev_command == STR)
     {
         if (STRResult)
         {
-            UART_UartPutString("SUCCESS\r\n");
+            //UART_UartPutString("SUCCESS\r\n");
         }
         else
         {
-            UART_UartPutString("ERROR\r\n");
+            //UART_UartPutString("ERROR\r\n");
         }
     }
     else if (prev_command == LTR)
@@ -866,12 +867,12 @@ static void print_test_status()
 
             temp[i] = '\0';
             sprintf(temp, "%x", (int)TrimRegister);
-            UART_UartPutString(temp);
-            UART_UartPutString("\r\n");
+            //UART_UartPutString(temp);
+            //UART_UartPutString("\r\n");
         }
         else
         {
-            UART_UartPutString("ERROR\r\n");
+            //UART_UartPutString("ERROR\r\n");
         }
     }
 }
@@ -1340,8 +1341,8 @@ uint8_t MTK_mode()
 #endif  // CYBLE_MTK_HOST
 
 #if (UART_INTERFACE_ENABLED == 1)
-            UART_UartPutString(CYBLE_MTK_VERSION);
-            UART_UartPutString("\r\n");
+//            UART_UartPutString(CYBLE_MTK_VERSION);
+//            UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
 
 #if (CYBLE_MTK_HOST == 1)
@@ -1458,8 +1459,8 @@ uint8_t MTK_mode()
 #endif  // CYBLE_MTK_HOST
 
 #if (UART_INTERFACE_ENABLED == 1)
-            UART_UartPutString(WHO_AM_I);
-            UART_UartPutString("\r\n");
+            //UART_UartPutString(WHO_AM_I);
+            //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
 
 #if (CYBLE_MTK_HOST == 1)
@@ -1481,6 +1482,7 @@ uint8_t MTK_mode()
 #endif  // CYBLE_TESTS_ENABLED
         else if (command == CUS)
         {
+#if 0            
 #if (CYBLE_MTK_DUT == 1)
             int i;
 #endif  // CYBLE_MTK_DUT
@@ -1496,6 +1498,7 @@ uint8_t MTK_mode()
             }
             process_custom_command(cmd_args, TX_buffer, &packet_count);
 #endif  // CYBLE_MTK_DUT
+#endif
         }
         else if (command == ARU)
         {
@@ -1539,6 +1542,7 @@ uint8_t MTK_mode()
         }
         else if (command == WBA)
         {
+            #if 0
             uint32 buffer[2];
 
             backup_cmd_args();
@@ -1552,6 +1556,7 @@ uint8_t MTK_mode()
 
             while (0 != (UART_SpiUartGetTxBufferSize() + UART_GET_TX_FIFO_SR_VALID)) {};
             WBAResult = WriteUserSFlashRow(0, 0, buffer, 2);
+            #endif
         }
         else if (command == RBA)
         {
@@ -1569,8 +1574,8 @@ uint8_t MTK_mode()
 
             temp[i] = '\0';
             sprintf(temp, "%x", (int)TrimRegister);
-            UART_UartPutString(temp);
-            UART_UartPutString("\r\n");
+            //UART_UartPutString(temp);
+            //UART_UartPutString("\r\n");
 #endif  // UART_INTERFACE_ENABLED
         }
         else if (command == WTR)
@@ -1580,11 +1585,13 @@ uint8_t MTK_mode()
         }
         else if (command == STR)
         {
+            #if 0
             uint32 TrimRegister;
             backup_cmd_args();
             TrimRegister = CY_GET_XTND_REG32((void CYFAR *)(CYREG_BLE_BLERD_BB_XO_CAPTRIM));
             while (0 != (UART_SpiUartGetTxBufferSize() + UART_GET_TX_FIFO_SR_VALID)) {};
             STRResult = WriteUserSFlashRow(1, 0, &TrimRegister, 1);
+            #endif
         }
         else if (command == LTR)
         {
