@@ -1,0 +1,46 @@
+// "//" denotes start of comment. Only works for individual lines and not block of lines.
+// Each command has to be on individual lines.
+// SECTION always starts at the beginning of a line.
+// SECTION is always immediately followed by '.' and by the section name. For example 'SECTION.SerialPort'.
+// A SECTION ends where the next SECTION begins.
+// All leading and trailing white spaces will be removed for all statements within a SECTION.
+// Possible section names: SerialPort, Init, Measure, Stop
+
+SECTION.SerialPort		// All serial port (connected to frequency counter) configuraton is located under this section.
+// All leading and trailing white spaces will be removed for all statements within this SECTION.
+// Cannot have white spaces between parameter, assignment operator and the value.
+// No commands are possible in this section.
+// Possible parameters: PortName, BaudRate, Parity, DataBits, StopBits, Handshake
+PortName=COM10
+BaudRate=9600				// Default is 9600.
+Parity=None					// Possible values: Even, Mark, None, Odd, Space. Default is None.
+DataBits=8					// Possible values: 5 to 8.  Default is 8.
+StopBits=Two				// Possible values: None, One, OnePointFive, Two. Default is One.
+Handshake=None			// Possible values: None, RequestToSend, RequestToSendXOnXOff, XOnXOff. Default is None.
+
+SECTION.Init					// All equipment (Frequency counter = SR620) initialization command sequence is located under this section.
+// All leading and trailing white spaces will be removed for all statements within this SECTION.
+// SendString sends a set of charcters (string) between the double quotes to the serial port mentioned in SerialPort section.
+SendString("*RST")
+SendString("AUTM 0")
+SendString("MODE 3")
+SendString("JTTR 0")
+SendString("ARMM 4")
+SendString("SRCE 0")
+SendString("TMOD 0")
+SendString("LEVL 1, 1.5")
+SendString("TCPL 1, 0")
+SendString("TSLP 1, 0")
+SendString("TERM 1, 0")
+
+
+SECTION.Measure			// All equipment (Frequency counter = SR620) measurement command sequence is located under this section.
+// All leading and trailing white spaces will be removed for all statements within this SECTION.
+SendString("INIT:IMM.")
+DelayMS(2000)
+SendString("READ?.")
+ReceiveString("%d")
+
+SECTION.Stop               // All equipment (Frequency counter = SR620) stop  command sequence is located under this section.
+// All leading and trailing white spaces will be removed for all statements within this SECTION.
+SendString("*RST")

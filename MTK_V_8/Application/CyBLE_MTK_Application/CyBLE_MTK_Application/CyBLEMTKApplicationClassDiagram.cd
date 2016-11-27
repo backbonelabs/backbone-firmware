@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CyBLE_MTK_Application.TestProgramDialog">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACKBQQAGQRoQAAAACCgAYSAAhQAAAAgGAYBQAQACA=</HashCode>
+      <FileName>TestProgramDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.SerialPortSettingsDialog">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAIBAAAAACAwAASgAgAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>SerialPortSettingsDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.CyBLE_MTK">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="CyBLE_MTK_Application.CyBLE_MTK.SetTextCallback" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CyBLEMTKMainForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQAAEE1VCTeAxQAiSQnPQCACoEBhYyiQYnAqCTAAZCg=</HashCode>
+      <FileName>CyBLEMTKMainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.AboutMTKDialog">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kIAAAAgAACAgCAUAAACAAAADAAAAEIAAAAAAAAAAAAA=</HashCode>
+      <FileName>AboutMTKDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.AuthDialog">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIBAAACQRABAAAACAAAAiAEgAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>AuthDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.ChangePasswordDialog">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIBAAACABABAEABCAAAACAEgAAgAAEAAAAAAQAAA=</HashCode>
+      <FileName>ChangePasswordDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.MTKTestRXPER">
+    <Position X="2.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCgFIAAAAAABAAAAAJAAACAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>MTKTestRXPER.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.MTKTestTXCW">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgFIAAAAAABAAAgAJAAACAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>MTKTestTXCW.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.MTKTestTXPER">
+    <Position X="4.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCgFIAAAAAABAAAAAJAAACAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>MTKTestTXPER.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CyBLE_MTK_Application.MTKTest">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAGoBAAACAABBCAAACJAAwCAAwAAAAAAAAAAIAQAAA=</HashCode>
+      <FileName>MTKTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CyBLE_MTK_Application.TestProgramState">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAIAAAAAAAAAQAAAAAAAAAAIAAAAAAAAAAQ=</HashCode>
+      <FileName>CyBLEMTKMainForm.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
