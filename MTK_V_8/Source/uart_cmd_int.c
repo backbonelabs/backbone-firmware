@@ -21,9 +21,9 @@ static uint8_t rx_cmd, cmd_done_flag;
 static int32_t cmd_index, cmd_argument_array[MAX_CMD_ARG_LEN], rx_cmd_len;
 static uint8_t rx_data[4] = {'\0', '\0', '\0', '\0'}, negative_arg = 0, rx_data_neg_one = 0;
 
-static const CMD_DEF_T command_lookup[NUMBER_OF_COMMANDS - 1] = 
+static const CMD_DEF_T command_lookup[NUMBER_OF_COMMANDS - 1] =
 {
-/*       1    2  3    0,0          0,1    0,2     1,0          1,1    1,2    2,0          2,1         2,2*/
+    /*       1    2  3    0,0          0,1    0,2     1,0          1,1    1,2    2,0          2,1         2,2*/
     {"TXP", TXP,     INTEGER, 3, {{  0,           0,         39}, { -18,         -18,          3}, { -1,        1000,      65535}, {  0,           0,          0}, {   0,           0,          0}, {  0,           0,          0}}},
     {"RXP", RXP,     INTEGER, 2, {{  0,           0,         39}, {  -1,        1000,      65535}, {  0, ARG_DEF_VAL,          0}, {  0,           0,          0}, {   0,           0,          0}, {  0,           0,          0}}},
     {"RRS", RRS,   UNDEFINED, 0, {{  0, ARG_DEF_VAL,          0}, {   0, ARG_DEF_VAL,          0}, {  0, ARG_DEF_VAL,          0}, {  0,           0,          0}, {   0,           0,          0}, {  0,           0,          0}}},
@@ -159,16 +159,16 @@ void UART_RX_ISR()
             }
 
             if ((j >= MAX_CMD_LEN) && ((rx_data_neg_one == ' ') || (rx_data_neg_one == '\n') ||
-                (rx_data_neg_one == '\r') || (rx_data_neg_one == '\0') || (rx_data_neg_one == '\b')
-                || (rx_data_neg_one == '\t')))
+                                       (rx_data_neg_one == '\r') || (rx_data_neg_one == '\0') || (rx_data_neg_one == '\b')
+                                       || (rx_data_neg_one == '\t')))
             {
                 if ((command_lookup[i].number_of_arguments == 0) && ((rx_data[3] == ' ')
-                                                    || (rx_data[3] == '\t')))
+                        || (rx_data[3] == '\t')))
                 {
                     ignore_space = true;
                 }
-                else if (((command_lookup[i].number_of_arguments > 0) && (rx_data[3] == ' ')) || 
-                        (rx_data[3] == '\n') || (rx_data[3] == '\r') || (rx_data[3] == '\0'))
+                else if (((command_lookup[i].number_of_arguments > 0) && (rx_data[3] == ' ')) ||
+                         (rx_data[3] == '\n') || (rx_data[3] == '\r') || (rx_data[3] == '\0'))
                 {
                     cmd_done_flag = 0;
                     rx_cmd = command_lookup[i].cmd_ID;
@@ -183,7 +183,7 @@ void UART_RX_ISR()
                         return;
                     }
                     else if ((command_lookup[i].number_of_arguments > 0) && ((rx_data[3] == '\n') ||
-                            (rx_data[3] == '\r') || (rx_data[3] == '\0')))
+                             (rx_data[3] == '\r') || (rx_data[3] == '\0')))
                     {
                         int32_t k;
 
@@ -217,9 +217,9 @@ void UART_RX_ISR()
                 return;
             }
         }
-        
+
         if ((i >= (NUMBER_OF_COMMANDS - 1)) && ((rx_data[3] == '\n') ||
-                (rx_data[3] == '\r') || (rx_data[3] == '\0')))
+                                                (rx_data[3] == '\r') || (rx_data[3] == '\0')))
         {
             if ((rx_data[2] != '\r') && (rx_data[2] != '\0') && (rx_data[2] != '\n'))
             {
@@ -249,7 +249,7 @@ void UART_RX_ISR()
                     current_arg_value *= -1;
                 }
 
-                if ((cmd_param_index >= MAX_CMD_ARG_LEN) || 
+                if ((cmd_param_index >= MAX_CMD_ARG_LEN) ||
                     !validate_argument(current_arg_value, rx_cmd, cmd_param_index))
                 {
                     NAK_reset_UART_FSM();
@@ -274,10 +274,10 @@ void UART_RX_ISR()
                     for (k = cmd_param_index; k < command_lookup[cmd_index].number_of_arguments; k++)
                     {
                         cmd_argument_array[k] = command_lookup[cmd_index].argument[k][ARG_DEF_INDEX];
-    #ifdef UART_CI_DEBUG
+#ifdef UART_CI_DEBUG
                         UART_print_int(cmd_argument_array[k]);
                         UART_UartPutString("\r\n");
-    #endif  // UART_CI_DEBUG
+#endif  // UART_CI_DEBUG
                     }
                     ACK_reset_UART_FSM();
                     return;
@@ -320,18 +320,18 @@ void UART_RX_ISR()
         {
             current_arg_value *= (int32_t)0x10;
 
-            if((temp >= 0x30) && (temp <= 0x39))
-			{
-				current_arg_value += (int32_t)(temp - 0x30);
-			}
-			else if((temp >= 0x41) && (temp <= 0x46))
-			{
-	            current_arg_value += (int32_t)(temp - 0x41 + 10);
-			}
-			else if((temp >= 0x61) && (temp <= 0x66))
-			{
-	            current_arg_value += (int32_t)(temp - 0x61 + 10);
-			}
+            if ((temp >= 0x30) && (temp <= 0x39))
+            {
+                current_arg_value += (int32_t)(temp - 0x30);
+            }
+            else if ((temp >= 0x41) && (temp <= 0x46))
+            {
+                current_arg_value += (int32_t)(temp - 0x41 + 10);
+            }
+            else if ((temp >= 0x61) && (temp <= 0x66))
+            {
+                current_arg_value += (int32_t)(temp - 0x61 + 10);
+            }
             else
             {
                 NAK_reset_UART_FSM();
@@ -349,7 +349,7 @@ void UART_RX_ISR()
     else
     {
         CI_state = CI_STATE_CMD;
-    }    
+    }
 }
 
 /************************************************************************************************

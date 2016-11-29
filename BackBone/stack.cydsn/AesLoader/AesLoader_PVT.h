@@ -44,7 +44,7 @@ typedef struct
 */
 
 /** \addtogroup errorCodes Error Codes
- *  Error codes that are returned while communicating with Host 
+ *  Error codes that are returned while communicating with Host
  *  @{
  */
 /* Bootloader command responses */
@@ -86,7 +86,7 @@ typedef struct
 /** @}*/
 /** @}*/
 
-/* Bootloader response lengths */ 
+/* Bootloader response lengths */
 #define AesLoader_RSP_SIZE_0                 (0x00u)
 #define AesLoader_RSP_SIZE_VERIFY_CHKSM      (0x01u)
 #define AesLoader_RSP_SIZE_VERIFY_ROW_CHKSM  (0x01u)
@@ -181,11 +181,11 @@ AesLoader_ValidateBootloadable()
         #define AesLoader_IS_STACK_APPLICATION   (0u)
     #endif /* (0u != CYDEV_IS_EXPORTING_CODE) */
 #else
-    #define AesLoader_IS_STACK_APPLICATION   (0u)	
+    #define AesLoader_IS_STACK_APPLICATION   (0u)
 #endif /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
 
 /*******************************************************************************
-* The Metadata base address. In the case of the Bootloader application, 
+* The Metadata base address. In the case of the Bootloader application,
 * metadata is placed in row N-1; in the case of the Dual-application
 * bootloader, Bootloadable application number 1 will use row N-1, and
 * application number 2 will use row N-2 to store its metadata, where N is the
@@ -198,10 +198,10 @@ AesLoader_ValidateBootloadable()
 #define AesLoader_MD_FLASH_ARRAY_NUM         (AesLoader_NUM_OF_FLASH_ARRAYS - 1u)
 
 #if(!CY_PSOC4)
-    #define AesLoader_MD_ROW_NUM(appId)      ((CY_FLASH_NUMBER_ROWS / AesLoader_NUM_OF_FLASH_ARRAYS) - \
+#define AesLoader_MD_ROW_NUM(appId)      ((CY_FLASH_NUMBER_ROWS / AesLoader_NUM_OF_FLASH_ARRAYS) - \
                                                     1u - (uint32)(appId))
 #else
-    #define AesLoader_MD_ROW_NUM(appId)      (CY_FLASH_NUMBER_ROWS - 1u - (uint32)(appId))
+#define AesLoader_MD_ROW_NUM(appId)      (CY_FLASH_NUMBER_ROWS - 1u - (uint32)(appId))
 #endif /* (!CY_PSOC4) */
 
 
@@ -230,15 +230,15 @@ AesLoader_ValidateBootloadable()
 *******************************************************************************/
 #if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || \
      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER))
-    #define AesLoader_COPIER_SUPPORT_AVAIL_MASK             (0x01u)
-    #define AesLoader_COPIER_SUPPORT_SET_BIT                (0x01u)
-    #define AesLoader_NEED_TO_COPY_MASK                     (0x01u)
-    #define AesLoader_NEED_TO_COPY_SET_BIT                  (0x01u)
-    
-    #define AesLoader_MD_BUFFER_START_OFFSET                (CYDEV_FLS_ROW_SIZE - AesLoader_MD_SIZEOF)
-    #define AesLoader_MD_ACTIVE_APP_BYTE_OFFSET             (0x10u)
-    #define AesLoader_MD_FAST_VALID_BYTE_OFFSET             (0x11u)
-    #define AesLoader_MD_COPY_FLAG_BYTE_OFFSET              (0x1Cu)
+#define AesLoader_COPIER_SUPPORT_AVAIL_MASK             (0x01u)
+#define AesLoader_COPIER_SUPPORT_SET_BIT                (0x01u)
+#define AesLoader_NEED_TO_COPY_MASK                     (0x01u)
+#define AesLoader_NEED_TO_COPY_SET_BIT                  (0x01u)
+
+#define AesLoader_MD_BUFFER_START_OFFSET                (CYDEV_FLS_ROW_SIZE - AesLoader_MD_SIZEOF)
+#define AesLoader_MD_ACTIVE_APP_BYTE_OFFSET             (0x10u)
+#define AesLoader_MD_FAST_VALID_BYTE_OFFSET             (0x11u)
+#define AesLoader_MD_COPY_FLAG_BYTE_OFFSET              (0x1Cu)
 #endif /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || 
           (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)*/
 
@@ -290,9 +290,9 @@ AesLoader_ValidateBootloadable()
 *******************************************************************************/
 #if((1u == AesLoader_DUAL_APP_BOOTLOADER) || \
     (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-    #define AesLoader_MAX_NUM_OF_BTLDB       (0x02u)
+#define AesLoader_MAX_NUM_OF_BTLDB       (0x02u)
 #else
-    #define AesLoader_MAX_NUM_OF_BTLDB       (0x01u)
+#define AesLoader_MAX_NUM_OF_BTLDB       (0x01u)
 #endif  /* (1u == AesLoader_DUAL_APP_BOOTLOADER) ||
            (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
@@ -302,11 +302,11 @@ AesLoader_ValidateBootloadable()
 *******************************************************************************/
 #if ((0u != AesLoader_DUAL_APP_BOOTLOADER) || \
      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-    #define AesLoader_CONTAIN_METADATA(row)  \
+#define AesLoader_CONTAIN_METADATA(row)  \
                                         ((AesLoader_MD_ROW_NUM(AesLoader_MD_BTLDB_ACTIVE_0) == (row)) || \
                                          (AesLoader_MD_ROW_NUM(AesLoader_MD_BTLDB_ACTIVE_1) == (row)))
 #else
-    #define AesLoader_CONTAIN_METADATA(row)  \
+#define AesLoader_CONTAIN_METADATA(row)  \
                                         (AesLoader_MD_ROW_NUM(AesLoader_MD_BTLDB_ACTIVE_0) == (row))
 #endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) || 
            (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
@@ -320,12 +320,12 @@ AesLoader_ValidateBootloadable()
 *******************************************************************************/
 #if ((0u != AesLoader_DUAL_APP_BOOTLOADER) || \
      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-    #define AesLoader_GET_APP_ID(row)     \
+#define AesLoader_GET_APP_ID(row)     \
                                         ((AesLoader_MD_ROW_NUM(AesLoader_MD_BTLDB_ACTIVE_0) == (row)) ? \
                                           AesLoader_MD_BTLDB_ACTIVE_0 : \
                                           AesLoader_MD_BTLDB_ACTIVE_1)
 #else
-    #define AesLoader_GET_APP_ID(row)     (AesLoader_MD_BTLDB_ACTIVE_0)
+#define AesLoader_GET_APP_ID(row)     (AesLoader_MD_BTLDB_ACTIVE_0)
 #endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) || 
            (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
@@ -335,9 +335,9 @@ AesLoader_ValidateBootloadable()
 *******************************************************************************/
 #if ((1u == AesLoader_DUAL_APP_BOOTLOADER) || \
      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-    #define AesLoader_NUMBER_OF_METADATA_ROWS            (2u)
+#define AesLoader_NUMBER_OF_METADATA_ROWS            (2u)
 #else
-    #define AesLoader_NUMBER_OF_METADATA_ROWS            (1u)
+#define AesLoader_NUMBER_OF_METADATA_ROWS            (1u)
 #endif /* (0u == AesLoader_DUAL_APP_BOOTLOADER) ||
           (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
@@ -347,9 +347,9 @@ AesLoader_ValidateBootloadable()
 *******************************************************************************/
 #if ((1u == AesLoader_DUAL_APP_BOOTLOADER) || \
      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-    #define AesLoader_NUMBER_OF_BTLDBLE_APPS            (2u)
+#define AesLoader_NUMBER_OF_BTLDBLE_APPS            (2u)
 #else
-    #define AesLoader_NUMBER_OF_BTLDBLE_APPS            (1u)
+#define AesLoader_NUMBER_OF_BTLDBLE_APPS            (1u)
 #endif /* (0u == AesLoader_DUAL_APP_BOOTLOADER) ||
           (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
 

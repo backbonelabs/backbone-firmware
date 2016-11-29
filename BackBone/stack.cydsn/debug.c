@@ -48,7 +48,7 @@ int fputc(int ch, FILE *file)
 {
     int ret = EOF;
 
-    switch( file->handle )
+    switch ( file->handle )
     {
         case STDOUT_HANDLE:
             UART_PutChar(ch);
@@ -110,8 +110,8 @@ int _write(int file, char *ptr, int len)
 
 #endif  /* (__ARMCC_VERSION) */
 
-    
-    
+
+
 #if DEBUG_UART_USE_PRINTF_FORMAT == NO
 
 static uint32 divmod10(uint32 value, uint32 *reminder)
@@ -132,7 +132,8 @@ void DBG_PRINT_DEC(uint32 value)
         value = divmod10(value, &rem);
         buf[len] = '0' + rem;
         ++len;
-    } while (value != 0);
+    }
+    while (value != 0);
     for (i = 0; i < len; ++i)
     {
         char tmp = buf[len - i - 1];

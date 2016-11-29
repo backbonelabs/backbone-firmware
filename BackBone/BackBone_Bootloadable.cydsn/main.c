@@ -42,7 +42,7 @@ __inline void ManageSystemPower()
     {
         /* System can enter DeepSleep only when BLESS and rest of the
          * application are in DeepSleep power modes */
-        if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP || 
+        if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP ||
             blePower == CYBLE_BLESS_STATE_ECO_ON)
         {
             CySysPmDeepSleep();
@@ -115,7 +115,7 @@ __inline void ManageBlePower()
 void RunBle()
 {
     CyBle_ProcessEvents();
-    if(cyBle_pendingFlashWrite != 0u)
+    if (cyBle_pendingFlashWrite != 0u)
     {
         CyBle_StoreBondingData(0u);
     }
@@ -141,7 +141,7 @@ void RunBle()
  * http://www.cypress.com/documentation/application-notes/an92584-designing-low-power-and-estimating-battery-life-ble
  */
 int main()
-{    
+{
     watchdog_init();
 
     CyGlobalIntEnable;
@@ -153,7 +153,7 @@ int main()
 
     DBG_PRINT_TEXT("> Backbone Firmware\r\n");
     DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
-    
+
     /* Internal low power oscillator is stopped as it is not used in this
      * project */
     CySysClkIloStop();
@@ -163,12 +163,12 @@ int main()
     CySysClkWriteEcoDiv(CY_SYS_CLK_ECO_DIV8);
 
 #ifdef ENABLE_MTK
-    while(1)
+    while (1)
     {
         MTK_mode();
     }
 #endif
-    
+
     /* Initialize the hardware first.  The InvenSense chip takes especially long
      * (about 10 seconds) because the embedded motion processor firmware is
      * loaded over I2C.  */

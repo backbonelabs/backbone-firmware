@@ -38,7 +38,7 @@
 #define DEBUG_UART_USE_PRINTF_FORMAT  (NO)
 
 //#define DISABLE_BOOTLOADER_FIRMWARE_UPGRADE
-    
+
 #endif /* Options_H */
 
 

@@ -121,7 +121,7 @@ void ble_app_event_handler(uint32 event, void* param)
 
         case CYBLE_EVT_GAP_DEVICE_CONNECTED:
             break;
-            
+
         case CYBLE_EVT_GAP_AUTH_COMPLETE:
             DBG_PRINT_TEXT("\r\n");
             DBG_PRINT_TEXT("Authentication Complete\r\n");

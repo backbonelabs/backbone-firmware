@@ -24,13 +24,13 @@
 #include "OTAMandatory.h"
 
 #if defined(__ARMCC_VERSION)
-#include <cytypes.h> 
+#include <cytypes.h>
 
 /* Provide APIs to allow bootloadable to initialize SRAM for BLE without getting stuck in bootloader */
 __attribute__ ((section(".bootloaderruntype"), zero_init))
 volatile uint32 CyReturnToBootloaddableAddress;
 static void CyReturnToBootloaddable(uint32 appAddr);
-    
+
 __asm static void CyReturnToBootloaddable(uint32 appAddr)
 {
     BX  R0

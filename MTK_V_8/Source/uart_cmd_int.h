@@ -67,8 +67,8 @@ typedef struct cmd_def_t
 } CMD_DEF_T;
 
 #if (UART_INTERFACE_ENABLED == 1)
-extern void             CI_start(void);
-extern UART_CMDS_T      CI_get_command(int32_t *argument_array, int32_t *num_args);
+    extern void             CI_start(void);
+    extern UART_CMDS_T      CI_get_command(int32_t *argument_array, int32_t *num_args);
 #endif  // UART_INTERFACE_ENABLED
 
 #endif // __UART_CMD_INT_H__

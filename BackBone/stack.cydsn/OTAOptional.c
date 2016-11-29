@@ -42,60 +42,60 @@
 *******************************************************************************/
 void AfterImageUpdate()
 {
-    #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
-        #if (PRINT_BOUNDING_DATA == YES)
-            uint32 i;
-            uint32 j;
-        #endif
-    #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
-    
+#if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
+#if (PRINT_BOUNDING_DATA == YES)
+    uint32 i;
+    uint32 j;
+#endif
+#endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
+
     if (0u == (uint32) CY_GET_XTND_REG8((volatile uint8 *)UPDATE_FLAG_OFFSET))
     {
-        #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
-            /* Clean bounded device list. */
-            Clear_ROM_Array((uint8 *)&cyBle_flashStorage, sizeof(cyBle_flashStorage));
-        #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
-            
+#if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
+        /* Clean bounded device list. */
+        Clear_ROM_Array((uint8 *)&cyBle_flashStorage, sizeof(cyBle_flashStorage));
+#endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
+
         /* Set byte in metadata row indicating that Stack project was started. */
         AesLoader_SetFlashByte(UPDATE_FLAG_OFFSET, 1u);
     }
-    
-    #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
-        #if (PRINT_BOUNDING_DATA == YES)
-            /* Print bounding data if it was enabled in options.h */
-            if (CYBLE_GATT_DB_CCCD_COUNT > 0u)
+
+#if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
+#if (PRINT_BOUNDING_DATA == YES)
+    /* Print bounding data if it was enabled in options.h */
+    if (CYBLE_GATT_DB_CCCD_COUNT > 0u)
+    {
+        DBG_PRINT_TEXT("CCCD array(s):\r\n");
+        for (i = 0u; i <= CYBLE_GAP_MAX_BONDED_DEVICE; i++)
+        {
+            DBG_PRINTF("%lu: ", i);
+            for (j = 0u; j < CYBLE_GATT_DB_CCCD_COUNT; j++)
             {
-                DBG_PRINT_TEXT("CCCD array(s):\r\n");
-                for (i = 0u; i <= CYBLE_GAP_MAX_BONDED_DEVICE; i++)
-                {
-                    DBG_PRINTF("%lu: ", i);
-                    for (j = 0u; j < CYBLE_GATT_DB_CCCD_COUNT; j++)
-                    {
-                        DBG_PRINTF("0x%02x ", cyBle_flashStorage.attValuesCCCDFlashMemory[i][j]);
-                    }
-                    DBG_PRINT_TEXT("\r\n");
-                }
+                DBG_PRINTF("0x%02x ", cyBle_flashStorage.attValuesCCCDFlashMemory[i][j]);
             }
-            
-            DBG_PRINT_TEXT("\r\nBounding array:\r\n");
+            DBG_PRINT_TEXT("\r\n");
+        }
+    }
+
+    DBG_PRINT_TEXT("\r\nBounding array:\r\n");
+    j = 0u;
+    for (i = 0u; i < sizeof(cyBle_flashStorage.stackFlashptr); i++)
+    {
+        if (j < LENGHT_OF_UART_ROW)
+        {
+            DBG_PRINTF("0x%02x ", cyBle_flashStorage.stackFlashptr[i]);
+            j++;
+        }
+        else
+        {
+            DBG_PRINTF("0x%02x\r\n", cyBle_flashStorage.stackFlashptr[i]);
             j = 0u;
-            for (i = 0u; i < sizeof(cyBle_flashStorage.stackFlashptr); i++)
-            {
-                if (j < LENGHT_OF_UART_ROW)
-                {
-                    DBG_PRINTF("0x%02x ", cyBle_flashStorage.stackFlashptr[i]);
-                    j++;
-                }
-                else
-                {
-                    DBG_PRINTF("0x%02x\r\n", cyBle_flashStorage.stackFlashptr[i]);
-                    j = 0u;
-                }
-            }
-            DBG_PRINT_TEXT("\r\n");
-            DBG_PRINT_TEXT("\r\n");
-        #endif /* (PRINT_BOUNDING_DATA == YES) */
-    #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
+        }
+    }
+    DBG_PRINT_TEXT("\r\n");
+    DBG_PRINT_TEXT("\r\n");
+#endif /* (PRINT_BOUNDING_DATA == YES) */
+#endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
 }
 
 
@@ -127,9 +127,9 @@ cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount)
     cystatus rc;
     uint32 dataOffset;
     uint32 byteOffset;
-    
+
     dataOffset = (uint32)eepromPtr;
-    
+
     if (((uint32)eepromPtr + byteCount) < (CYDEV_FLASH_BASE+CYDEV_FLASH_SIZE))
     {
         rowId = (dataOffset / CY_FLASH_SIZEOF_ROW);
@@ -156,7 +156,7 @@ cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount)
             }
 
             rc = CySysFlashWriteRow(rowId, writeBuffer);
-            
+
             /* Go to the next row */
             rowId++;
         }
@@ -165,13 +165,13 @@ cystatus Clear_ROM_Array(const uint8 eepromPtr[], uint32 byteCount)
     {
         rc = CYRET_BAD_PARAM;
     }
-    
+
     /* Mask return codes from flash, if they are not supported */
     if ((CYRET_SUCCESS != rc) && (CYRET_BAD_PARAM != rc))
     {
         rc = CYRET_UNKNOWN;
     }
-    
+
     return (rc);
 }
 #endif /* ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)) */
@@ -181,30 +181,30 @@ void TimeoutImplementation()
     static uint16 counter = 1u;
     static CYBLE_STATE_T old_state = CYBLE_STATE_DISCONNECTED;
     CYBLE_STATE_T new_state = CyBle_GetState();
-    
+
     if (new_state != old_state)
     {
         counter = 1u;
         old_state = new_state;
     }
-    
+
     if (counter == WARNING_TIMEOUT)
     {
         if (CYRET_SUCCESS != AesLoader_ValidateApp(1u))
         {
-            // App is invalid.  So stay setting counter to 0 will 
+            // App is invalid.  So stay setting counter to 0 will
             // not timeout and stay in the bootloader
             counter = 0u;
         }
     }
-    
+
     if (new_state != CYBLE_STATE_CONNECTED)
     {
         if (counter > 0u)
         {
             counter += 1;
         }
-        
+
         if (counter >= CONNECT_SWITCHING_TIMEOUT)
         {
             CyDelay(500u);
@@ -214,12 +214,12 @@ void TimeoutImplementation()
     }
     else
     {
-        if (counter > 0 && 
+        if (counter > 0 &&
             AesLoader_isBootloading != AesLoader_BOOTLOADING_IN_PROGRESS)
         {
             counter++;
         }
-        
+
         if (counter >= BOOTLOADING_SWITCHING_TIMEOUT)
         {
             CyDelay(500u);

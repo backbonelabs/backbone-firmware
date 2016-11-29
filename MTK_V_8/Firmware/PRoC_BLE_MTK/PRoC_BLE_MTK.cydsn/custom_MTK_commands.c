@@ -23,7 +23,7 @@ int32_t process_custom_command(int32_t *command, uint8_t *output_buffer, int32_t
     {
         output_buffer[0] = Pin4_0_Read();
         output_buffer[0] <<= 1;
-        
+
         output_buffer[0] |= Pin4_1_Read();
         output_buffer[0] <<= 1;
 
@@ -46,7 +46,7 @@ int32_t process_custom_command(int32_t *command, uint8_t *output_buffer, int32_t
         /* output_buffer[1] */
         output_buffer[1] = Pin3_6_Read();
         output_buffer[1] <<= 1;
-        
+
         output_buffer[1] |= Pin3_7_Read();
 
         *output_buffer_length = 2;
@@ -58,7 +58,7 @@ int32_t process_custom_command(int32_t *command, uint8_t *output_buffer, int32_t
         output_buffer[0] = MTK_Trigger_Read();
         return NO_ERROR;
     }
-    
+
     return CMD_ERROR;
 }
 #endif  // CYBLE_MTK_DUT

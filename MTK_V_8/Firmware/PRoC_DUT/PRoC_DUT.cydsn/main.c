@@ -41,15 +41,15 @@ int main()
 
     if (MTK_triggered())
     {
-        while(1)
+        while (1)
         {
             MTK_mode();
-#if 0            
-            if (var == MTK_MOD_SEL) 
+#if 0
+            if (var == MTK_MOD_SEL)
             {
                 var = MTK_mode();
             }
-            else if(var == ANRITSU_SEL)
+            else if (var == ANRITSU_SEL)
             {
                 var = Anritsu();
             }
@@ -62,7 +62,7 @@ int main()
     Red_LED_Write(0);
 #endif
     while (1);
- 
+
     return 0;
 }
 

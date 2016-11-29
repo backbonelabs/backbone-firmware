@@ -20,9 +20,9 @@
 
 #define STACK_MD_BASE_ADDR              (CYDEV_FLASH_BASE + \
                                             (CYDEV_FLASH_SIZE - ((uint32)CYDEV_FLS_ROW_SIZE)))
-                                                        
+
 #define UPDATE_FLAG_OFFSET              (STACK_MD_BASE_ADDR + STACK_FLAG_OFFSET)
-                                                        
+
 #define APP_PRJ_MD_BASE_ADDR            (CYDEV_FLASH_BASE + \
                                             (CYDEV_FLASH_SIZE - ((uint32)CYDEV_FLS_ROW_SIZE * 2u)))
 
