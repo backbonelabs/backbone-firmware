@@ -18,10 +18,12 @@
 #include "OTAMandatory.h"
 #include "posture.h"
 #include "version.h"
+#include "debug.h"
+#include "watchdog.h"
 
-uint8 accelerometer_cccd[2];
-uint8 distance_cccd[2];
-uint8 session_statistics_cccd[2];
+static uint8 accelerometer_cccd[2];
+static uint8 distance_cccd[2];
+static uint8 session_statistics_cccd[2];
 
 void backbone_init()
 {
@@ -234,8 +236,16 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
 
     switch (data[0])
     {
+        // 00   00 00 00 3C   03 E8   00 05
         case BACKBONE_START_SESSION:
-            posture_start();
+            DBG_PRINT_TEXT("Start Session\r\n");
+            if (len == 9)
+            {
+                uint32_t duration = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
+                float distance_threshold = (float)((data[5] << 8 | data[6])) / 10000.0;
+                uint16_t time_threshold = data[7] << 8 | data[8];
+                posture_start(watchdog_get_time(), duration, distance_threshold, time_threshold);
+            }
             break;
 
         case BACKBONE_STOP_SESSION:
@@ -254,6 +264,7 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
 
 void backbone_control_motor(uint8_t* data, uint16_t len)
 {
+    //01 50 10 00
     if (len > 0 && data[0] == 1)
     {
         uint8_t duty_cycle = len > 1 ? data[1] : 0x50;

@@ -81,14 +81,21 @@ __inline void RunApplication()
         CyDelay(10);
         fifo_handler();
 
-        posture_update(inv_get_accelerometer_y(), inv_get_accelerometer_y());
-
+        posture_update(inv_get_accelerometer_y(), 
+                       inv_get_accelerometer_z(),
+                       watchdog_get_time());
+        
+        if (posture_is_notify_slouch())
+        {
+            motor_start(0x50, 500);
+        }
+        
         if (ble_is_connected())
         {
             backbone_accelerometer_t accelerometer_data;
             backbone_distance_t distance_data;
 
-            accelerometer_data.axis[0] = 0;
+            accelerometer_data.axis[0] = inv_get_accelerometer_x();
             accelerometer_data.axis[1] = inv_get_accelerometer_y();
             accelerometer_data.axis[2] = inv_get_accelerometer_z();
             accelerometer_data.axis[3] = 0;
@@ -100,10 +107,13 @@ __inline void RunApplication()
             backbone_notify_accelerometer(ble_get_connection());
             backbone_notify_distance(ble_get_connection());
             backbone_notify_session_statistics(ble_get_connection());
-
-            ble_update_connection_parameters();
-            MeasureBattery();
         }
+    }
+    
+    if (ble_is_connected())
+    {
+        ble_update_connection_parameters();
+        MeasureBattery();
     }
 }
 
