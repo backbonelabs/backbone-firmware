@@ -15,6 +15,9 @@
 #include <project.h>
 #include "uart_cmd_int.h"
 #include "stdbool.h"
+#include "options.h"
+    
+#ifdef ENABLE_MTK
 
 #define CYBLE_MTK_VERSION                               "1.8.6078"
 
@@ -118,6 +121,8 @@ extern bool     ReadUserSflash(uint8 userRowNumber, uint16 dataOffset, uint8 *da
 #ifdef UART_CI_DEBUG
 extern void     UART_print_int(int32_t input);
 #endif  // UART_CI_DEBUG
+
+#endif // ENABLE_MTK
 
 #endif  // __CYBLE_MTK_H__
 /* [] END OF FILE */

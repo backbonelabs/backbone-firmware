@@ -141,15 +141,7 @@ void RunBle()
  * http://www.cypress.com/documentation/application-notes/an92584-designing-low-power-and-estimating-battery-life-ble
  */
 int main()
-{
-#ifdef ENABLE_MTK
-    CyGlobalIntEnable;
-    while(1)
-    {
-        MTK_mode();
-    }
-#endif
-    
+{    
     watchdog_init();
 
     CyGlobalIntEnable;
@@ -170,6 +162,13 @@ int main()
      * off to save power */
     CySysClkWriteEcoDiv(CY_SYS_CLK_ECO_DIV8);
 
+#ifdef ENABLE_MTK
+    while(1)
+    {
+        MTK_mode();
+    }
+#endif
+    
     /* Initialize the hardware first.  The InvenSense chip takes especially long
      * (about 10 seconds) because the embedded motion processor firmware is
      * loaded over I2C.  */

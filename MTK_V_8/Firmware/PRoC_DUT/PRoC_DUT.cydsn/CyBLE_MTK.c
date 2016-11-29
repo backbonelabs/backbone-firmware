@@ -10,6 +10,10 @@
  * ========================================
 */
 #include <project.h>
+#include "options.h"
+
+#ifdef ENABLE_MTK
+
 #include "uart_cmd_int.h"
 #include "stdio.h"
 #include "CyBLE_MTK.h"
@@ -1886,7 +1890,6 @@ bool ReadUserSflash(uint8 userRowNumber, uint16 dataOffset,
 #pragma GCC reset_options
 #endif /* End of #if defined (__GNUC__) */
 
-/* [] END OF FILE */
-
+#endif // ENABLE_MTK
 
 /* [] END OF FILE */

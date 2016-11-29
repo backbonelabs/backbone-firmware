@@ -71,6 +71,9 @@ int main()
     
     CyGlobalIntEnable;
     
+    DBG_PRINT_TEXT("> Backbone Bootloader\r\n");
+    DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
+    
     /* Checks if Self Project Image is updated and Runs for the First time */
     AfterImageUpdate();
     

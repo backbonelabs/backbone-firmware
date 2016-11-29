@@ -27,13 +27,17 @@
 
 #include "project.h"
 #include "options.h"
-
+#include "debug.h"
 
 #if CYDEV_FLASH_SIZE != 0x00040000u
  #error "This design is specifically targeted to parts with 256k of flash. Please change project device to BLE\
  silicon that has 256K Flash array. For example CY8C4248LQI-BL483."
 #endif
 
+static void SetApp0Active()
+{
+    Launcher_SetFlashByte((uint32) Launcher_MD_BTLDB_ACTIVE_OFFSET(0), (uint8)1);    
+}
 
 /*******************************************************************************
 * Function Name: main
@@ -51,10 +55,13 @@
 *******************************************************************************/
 int main()
 {
+    DBG_PRINT_TEXT("> Backbone Launcher\r\n");
+    DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
+
 #ifdef DISABLE_BOOTLOADER_FIRMWARE_UPGRADE
     uint8 metaBuf[CYDEV_FLS_ROW_SIZE];
     uint8 copyFlag;
-
+    
     copyFlag = Launcher_GetMetadata(Launcher_GET_BTLDB_COPY_FLAG, 
                                     Launcher_MD_BTLDB_ACTIVE_1);
     if (copyFlag)
@@ -71,12 +78,19 @@ int main()
     }
 #endif
 
+    if ((CySysGetResetReason(0) & CY_SYS_RESET_SW) != CY_SYS_RESET_SW)
+    {
+        // if not a software reset
+        SetApp0Active();
+        Launcher_SET_RUN_TYPE(Launcher_SCHEDULE_BTLDR);    
+        CySoftwareReset();
+    }
+    
     Launcher_Start();
     for(;;)
     {
         /* Should newer get here. */
     }
 }
-
 
 /* [] END OF FILE */
