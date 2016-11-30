@@ -56,8 +56,7 @@ static void SetApp0Active()
 int main()
 {
     DBG_PRINT_TEXT("> Backbone Launcher\r\n");
-    DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "
-                   \r\n\r\n");
+    DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
 
 #ifdef DISABLE_BOOTLOADER_FIRMWARE_UPGRADE
     uint8 metaBuf[CYDEV_FLS_ROW_SIZE];
