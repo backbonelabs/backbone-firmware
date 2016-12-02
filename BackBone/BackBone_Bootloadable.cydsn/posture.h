@@ -13,9 +13,16 @@
 #ifndef POSTURE_H_
 #define POSTURE_H_
 
-void posture_update(float y, float z);
+#include <stdint.h>
+#include <stdbool.h>
+    
+void posture_update(float y, float z, uint32_t time);
 float posture_get_distance(void);
-void posture_start(void);
+bool posture_is_notify_slouch();
+void posture_start(uint32_t start_time, 
+                   uint32_t duration, 
+                   float distance_threshold, 
+                   uint16_t time_threshold);
 void posture_stop(void);
 
 #endif /* POSTURE_H_ */

@@ -90,9 +90,6 @@ CY_ISR(INVN_INT_InterruptHandler)
 {
     hal.new_gyro = 1;
     INVN_INT_ClearInterrupt();
-    //LED_Blue_Write(0); // on
-    //CyDelay(5);
-    //LED_Blue_Write(1); // off
 }
 
 void inv_enable_accelerometer()
@@ -558,9 +555,6 @@ void fifo_handler()
                     scale = (1 << inv_get_accel_fullscale()) * 2.f / (1L << 30); // Convert from raw units to g's
                     // scale *= 9.80665f; // Convert to m/s^2
                     inv_convert_dmp3_to_body(long_data, scale, accel_float);
-
-                    // TODO: Figure out what to do with this
-                    //BackBone_SetAccelerometerData(accel_float[0], accel_float[1], accel_float[2], 0);
                 }
 
 
