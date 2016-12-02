@@ -33,6 +33,7 @@
 #include "project.h"
 #include "main.h"
 #include "AesLoader\AesLoader.h"
+#include "debug.h"
 
 CYBLE_CONN_HANDLE_T connHandle;
 
@@ -62,32 +63,35 @@ int main()
 {
     CYBLE_API_RESULT_T apiResult;
     CYBLE_STACK_LIB_VERSION_T stackVersion;
-    
-    #if defined(__ARMCC_VERSION)    
-        keepMe = Image$$DATA$$ZI$$Limit;
-        CyReturnToBootloaddableAddress = 0u;
-    #endif /*__ARMCC_VERSION*/  
-    
+
+#if defined(__ARMCC_VERSION)
+    keepMe = Image$$DATA$$ZI$$Limit;
+    CyReturnToBootloaddableAddress = 0u;
+#endif /*__ARMCC_VERSION*/
+
     CyGlobalIntEnable;
-    
+
+    DBG_PRINT_TEXT("> Backbone Bootloader\r\n");
+    DBG_PRINT_TEXT("> Compile Date and Time: " __DATE__ " " __TIME__ "\r\n\r\n");
+
     /* Checks if Self Project Image is updated and Runs for the First time */
     AfterImageUpdate();
-    
+
     /* If application image is present and valid but no metadata flag is set.
      * Assuming it is first launch.
      */
     if ((CYRET_SUCCESS == AesLoader_ValidateApp(1u)) && \
-                                (0u == (uint32) CY_GET_XTND_REG8((volatile uint8 *)APP_UPDATE_FLAG_OFFSET)))
+        (0u == (uint32) CY_GET_XTND_REG8((volatile uint8 *)APP_UPDATE_FLAG_OFFSET)))
     {
         Bootloadable_SetActiveApplication(1u);
         CySoftwareReset();
     }
-    
+
     apiResult = CyBle_Start(AppCallBack);
-    
-    if(apiResult != CYBLE_ERROR_OK)
+
+    if (apiResult != CYBLE_ERROR_OK)
     {
-        if(apiResult == CYBLE_ERROR_MEMORY_ALLOCATION_FAILED)
+        if (apiResult == CYBLE_ERROR_MEMORY_ALLOCATION_FAILED)
         {
             /* Receiving this error is expected if system heap size is too small for BLE component to start.
              * Please read BLE component datasheet for more details on BLE component stack export mode
@@ -101,32 +105,32 @@ int main()
     else
     {
         apiResult = CyBle_GetStackLibraryVersion(&stackVersion);
-        if(apiResult != CYBLE_ERROR_OK)
+        if (apiResult != CYBLE_ERROR_OK)
         {
         }
         else
         {
         }
     }
-    
+
     /* Start Bootloader component in non-blocking mode. */
     AesLoader_Initialize();
-    
-    for(;;)
+
+    for (;;)
     {
         CyBle_ProcessEvents();
         AesLoader_HostLink(5u);
-        
+
         /* To have predictable timeout (~40 seconds). */
         CyDelay(5u);
-        
+
         TimeoutImplementation();
     }
 }
 
 static void indicate_services_changed()
 {
-	CYBLE_GATTS_HANDLE_VALUE_IND_T indication;
+    CYBLE_GATTS_HANDLE_VALUE_IND_T indication;
 
     indication.attrHandle = CYBLE_UUID_CHAR_SERVICE_CHANGED;
     indication.value.val = 0;
@@ -152,7 +156,7 @@ void AppCallBack(uint32 event, void* eventParam)
 {
     CYBLE_GAP_BD_ADDR_T localAddr;
     CYBLE_GAP_CONN_UPDATE_PARAM_T connUpdateParam;
-    
+
     switch (event)
     {
         /**********************************************************
@@ -166,7 +170,7 @@ void AppCallBack(uint32 event, void* eventParam)
             break;
         case CYBLE_EVT_HARDWARE_ERROR:    /* This event indicates that some internal HW error has occurred. */
             break;
-            
+
 
         /**********************************************************
         *                       GAP Events
@@ -205,12 +209,12 @@ void AppCallBack(uint32 event, void* eventParam)
         case CYBLE_EVT_GAPC_CONNECTION_UPDATE_COMPLETE:
             break;
         case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP:
-            if(CYBLE_STATE_DISCONNECTED == CyBle_GetState())
-            {   
-                /* Fast and slow advertising period complete, go to low power  
+            if (CYBLE_STATE_DISCONNECTED == CyBle_GetState())
+            {
+                /* Fast and slow advertising period complete, go to low power
                  * mode (Hibernate mode) and wait for an external
                  * user event to wake up the device again */
-                
+
                 /* NOTE: Backbone does not have an external user event.
                  * It would be possible to use the accelerometer to wakeup the
                  * processor but that requires pulling in the I2C component and
@@ -236,7 +240,7 @@ void AppCallBack(uint32 event, void* eventParam)
             break;
         default:
             break;
-        }
+    }
 }
 
 

@@ -33,12 +33,12 @@
 *******************************************************************************
 
 Summary:This function Enables DTM Tx Test for given parameters in BLESS
-    
+
 Parameters:
  length: Length of DTM packet
  payload_type: Pattern of the DTM value
  tx_freq: Transmit_Freq index
-               
+
 
 Return: None
 
@@ -46,22 +46,22 @@ Return: None
 ******************************************************************************/
 
 void CyBle_DtmTxTest
-    (
-        /* IN */ uint8 length,
-        /* IN */ uint8 payload_type,
-        /* IN */ uint8 tx_freq
-    );
+(
+    /* IN */ uint8 length,
+    /* IN */ uint8 payload_type,
+    /* IN */ uint8 tx_freq
+);
 
-    
+
 /******************************************************************************
 ##Function Name: CyBle_DtmRxTest
 *******************************************************************************
 
 Summary:This function Enables DTM Rx Test for given parameters in BLESS
-    
+
 Parameters:
  rx_freq: Transmit_Freq index
-               
+
 
 Return: None
 
@@ -75,10 +75,10 @@ void CyBle_DtmRxTest(/* IN */ uint8 rx_freq);
 
 Summary:This function Stops ongoing DTM Test in BLESS, and returns the # of
 packets that are relevant for Rx.
-    
+
 Parameters:
  rx_freq: Transmit_Freq index
-               
+
 
 Return: Numbers of packets received.
 

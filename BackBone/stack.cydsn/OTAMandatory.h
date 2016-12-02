@@ -16,8 +16,8 @@
 
 
 #if CYDEV_FLASH_SIZE != 0x00040000u
- #error "This design is specifically targeted to parts with 256k of flash. Please change project device to BLE\
- silicon that has 256K Flash array. For example CY8C4248LQI-BL483."
+#error "This design is specifically targeted to parts with 256k of flash. Please change project device to BLE\
+silicon that has 256K Flash array. For example CY8C4248LQI-BL483."
 #endif
 
 #if defined(__ARMCC_VERSION)

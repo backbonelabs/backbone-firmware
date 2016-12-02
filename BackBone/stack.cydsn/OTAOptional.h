@@ -20,16 +20,17 @@
 
 #define STACK_MD_BASE_ADDR              (CYDEV_FLASH_BASE + \
                                             (CYDEV_FLASH_SIZE - ((uint32)CYDEV_FLS_ROW_SIZE)))
-                                                        
+
 #define UPDATE_FLAG_OFFSET              (STACK_MD_BASE_ADDR + STACK_FLAG_OFFSET)
-                                                        
+
 #define APP_PRJ_MD_BASE_ADDR            (CYDEV_FLASH_BASE + \
                                             (CYDEV_FLASH_SIZE - ((uint32)CYDEV_FLS_ROW_SIZE * 2u)))
 
 #define APP_UPDATE_FLAG_OFFSET          (APP_PRJ_MD_BASE_ADDR + APP_FLAG_OFFSET)
 
-#define WARNING_TIMEOUT                 (0xA00)
-#define SWITCHING_TIMEOUT               (0xF00)
+#define WARNING_TIMEOUT                 (15)
+#define CONNECT_SWITCHING_TIMEOUT       (30)
+#define BOOTLOADING_SWITCHING_TIMEOUT   (60)
 
 void AfterImageUpdate(void);
 #if ((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))

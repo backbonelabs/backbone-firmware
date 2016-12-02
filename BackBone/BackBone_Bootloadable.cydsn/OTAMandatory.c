@@ -21,6 +21,7 @@
 *******************************************************************************/
 #include "cytypes.h"
 #include "OTAMandatory.h"
+#include "debug.h"
 
 
 #if CYDEV_FLASH_SIZE != 0x00040000u

@@ -15,6 +15,7 @@
     </Group>
     <Group key="Pin">
       <Data key="2e30177c-8c38-46a6-89ac-8e6c87c70fb4/52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="UART_tx" />
+      <Data key="179054c1-e42a-4cb1-a570-3138971faf36/52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="UART_tx" />
       <Data key="c8b14503-611e-4c93-9dce-3a4c1f060fd6" value="SW2_S" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="S_LED" />
     </Group>
@@ -3580,6 +3581,11 @@
   </Group>
   <Group key="Pin2">
     <Group key="2e30177c-8c38-46a6-89ac-8e6c87c70fb4/52f31aa9-2f0a-497d-9a1f-1424095e13e6">
+      <Group key="0">
+        <Data key="Port Format" value="1,5" />
+      </Group>
+    </Group>
+    <Group key="179054c1-e42a-4cb1-a570-3138971faf36/52f31aa9-2f0a-497d-9a1f-1424095e13e6">
       <Group key="0">
         <Data key="Port Format" value="1,5" />
       </Group>

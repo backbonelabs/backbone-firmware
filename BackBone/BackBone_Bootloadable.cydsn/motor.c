@@ -18,7 +18,7 @@ static volatile bool m_is_running;
 CY_ISR(motor_timer_timeout)
 {
     motor_stop();
-    MotorTimer_ClearInterrupt(MotorTimer_INTR_MASK_TC);   
+    MotorTimer_ClearInterrupt(MotorTimer_INTR_MASK_TC);
 }
 
 void motor_init(void)
@@ -30,11 +30,11 @@ void motor_init(void)
 void motor_start(uint8_t duty_cycle, uint16_t milliseconds)
 {
     m_is_running = true;
-    
+
     // turn on the motor
     MotorPWM_Start();
     MotorPWM_WriteCompare(duty_cycle);
-    
+
     // start the timer so the motor will not run indefinitely
     MotorTimer_WriteCounter(0);
     MotorTimer_Start();

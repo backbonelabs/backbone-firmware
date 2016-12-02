@@ -18,10 +18,10 @@
 
 #define CYBLE_MTK_VERSION                               "1.8.6078"
 
-/* SFlash row size for 128KB flash BLE device. For other PSoC 4 BLE devices 
- * with higher flash size, this example project might need some modification.    
- * Please check the device datasheet and TRM before using this code on non 128KB    
- * flash devices */    
+/* SFlash row size for 128KB flash BLE device. For other PSoC 4 BLE devices
+ * with higher flash size, this example project might need some modification.
+ * Please check the device datasheet and TRM before using this code on non 128KB
+ * flash devices */
 #if (CYBLE_FLASH_SIZE == 1)
     #define USER_SFLASH_ROW_SIZE                        (128u)
 #else
@@ -34,10 +34,10 @@
 #define USER_SFLASH_ROWS                                (4u)
 /* Starting address of user SFlash row for 128KB PSoC 4 BLE device */
 //#define USER_SFLASH_BASE_ADDRESS        (0x0FFFF200u)
-    
-#define LOAD_FLASH				                        0x80000004
-#define WRITE_USER_SFLASH_ROW	                        0x80000018
-#define USER_SFLASH_WRITE_SUCCESSFUL                    0xA0000000     
+
+#define LOAD_FLASH                                      0x80000004
+#define WRITE_USER_SFLASH_ROW                           0x80000018
+#define USER_SFLASH_WRITE_SUCCESSFUL                    0xA0000000
 
 //#define UART_CI_DEBUG
 #define CAP_TRIM                                        0x3FFA
@@ -46,19 +46,19 @@
 #define CYBLE_MTK_DUT                                   !CYBLE_MTK_HOST
 
 #if (CYBLE_MTK_HOST == 1)
-#define UART_INTERFACE_ENABLED                          1
-#define CYBLE_INTERFACE_ENABLED                         1
-#define CYBLE_TESTS_ENABLED                             0
-#define WHO_AM_I                                        "HOST"
+    #define UART_INTERFACE_ENABLED                          1
+    #define CYBLE_INTERFACE_ENABLED                         1
+    #define CYBLE_TESTS_ENABLED                             0
+    #define WHO_AM_I                                        "HOST"
 #endif  // CYBLE_MTK_HOST
 
 #if (CYBLE_MTK_DUT == 1)
-#define UART_INTERFACE_ENABLED                          1
-#define CYBLE_INTERFACE_ENABLED                         0
-#define CYBLE_TESTS_ENABLED                             1
-#define MTK_DUT_ADDRESS                                 {0x11, 0x22, 0x33, 0x44, 0x55, 0x66}
+    #define UART_INTERFACE_ENABLED                          1
+    #define CYBLE_INTERFACE_ENABLED                         0
+    #define CYBLE_TESTS_ENABLED                             1
+    #define MTK_DUT_ADDRESS                                 {0x11, 0x22, 0x33, 0x44, 0x55, 0x66}
 
-#define WHO_AM_I                                        "DUT"
+    #define WHO_AM_I                                        "DUT"
 #endif  // CYBLE_MTK_DUT
 
 #define DEFAULT_DTM_RX_TEST_DELAY                       625     // 1000 packets (in ms)
@@ -72,13 +72,13 @@
 
 /* L2CAP Connection Parameters */
 #if (CYBLE_MTK_HOST == 1)
-#define MTK_L2CAP_REMOTE_PSM_ID                         (0xF9)
-#define MTK_L2CAP_PSM_ID                                (0xF7)
+    #define MTK_L2CAP_REMOTE_PSM_ID                         (0xF9)
+    #define MTK_L2CAP_PSM_ID                                (0xF7)
 #endif  // CYBLE_MTK_HOST
 
 #if (CYBLE_MTK_DUT == 1)
-#define MTK_L2CAP_REMOTE_PSM_ID                         (0xF7)
-#define MTK_L2CAP_PSM_ID                                (0xF9)
+    #define MTK_L2CAP_REMOTE_PSM_ID                         (0xF7)
+    #define MTK_L2CAP_PSM_ID                                (0xF9)
 #endif  // CYBLE_MTK_DUT
 
 #define MTK_L2CAP_PSM_CREDIT_WATER_MARK                 (0x00)
@@ -113,7 +113,7 @@ extern bool     WriteUserSFlashRow(uint8 userRowNumber, uint16 dataOffset, uint3
 extern bool     ReadUserSflash(uint8 userRowNumber, uint16 dataOffset, uint8 *dataPointer, uint16 dataSize);
 
 #ifdef UART_CI_DEBUG
-extern void     UART_print_int(int32_t input);
+    extern void     UART_print_int(int32_t input);
 #endif  // UART_CI_DEBUG
 
 #endif  // __CYBLE_MTK_H__

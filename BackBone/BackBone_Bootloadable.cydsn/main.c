@@ -23,6 +23,10 @@
 #include "motor.h"
 #include "debug.h"
 
+#ifdef ENABLE_MTK
+    #include "CyBLE_MTK.h"
+#endif
+
 extern void InitializeBootloaderSRAM();
 
 __inline void ManageSystemPower()
@@ -38,7 +42,7 @@ __inline void ManageSystemPower()
     {
         /* System can enter DeepSleep only when BLESS and rest of the
          * application are in DeepSleep power modes */
-        if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP || 
+        if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP ||
             blePower == CYBLE_BLESS_STATE_ECO_ON)
         {
             CySysPmDeepSleep();
@@ -111,6 +115,10 @@ __inline void ManageBlePower()
 void RunBle()
 {
     CyBle_ProcessEvents();
+    if (cyBle_pendingFlashWrite != 0u)
+    {
+        CyBle_StoreBondingData(0u);
+    }
 
 #if 0
     /* Wait until BLESS is in ECO_STABLE state to push the notification data to the BLESS */
@@ -153,6 +161,13 @@ int main()
     /* Set the divider for ECO, ECO will be used as source when IMO is switched
      * off to save power */
     CySysClkWriteEcoDiv(CY_SYS_CLK_ECO_DIV8);
+
+#ifdef ENABLE_MTK
+    while (1)
+    {
+        MTK_mode();
+    }
+#endif
 
     /* Initialize the hardware first.  The InvenSense chip takes especially long
      * (about 10 seconds) because the embedded motion processor firmware is
