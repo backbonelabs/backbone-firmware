@@ -17,6 +17,7 @@
 #include "debug.h"
 
 static const float ALPHA = 0.4;
+static const uint32_t FILTER_INIT_TIME = 3;
 
 typedef struct
 {
@@ -77,8 +78,8 @@ void posture_update(float y, float z, uint32_t time)
         self.calibrated = true;
         self.distance = 0;
     }
-
-    if (self.calibrated)
+    
+    if (time - self.start_time > FILTER_INIT_TIME)
     {
         float y_diff = self.calibrated_y - self.filtered_y;
         float z_diff = self.calibrated_z - self.filtered_z;
