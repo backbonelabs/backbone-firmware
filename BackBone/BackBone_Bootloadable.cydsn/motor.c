@@ -31,8 +31,8 @@ void motor_start(uint8_t duty_cycle, uint16_t milliseconds)
 {
     m_is_running = true;
 
-    // turn on the motor
-    MotorPWM_Start();
+    MotorPWM_Init();
+    MotorPWM_Enable();
     MotorPWM_WriteCompare(duty_cycle);
 
     // start the timer so the motor will not run indefinitely
