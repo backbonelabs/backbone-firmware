@@ -19,6 +19,7 @@
 #include "CyBLE_MTK.h"
 #include "stdbool.h"
 #include "custom_MTK_commands.h"
+#include "debug.h"
 
 #if (!defined(CYBLE_INTERFACE_ENABLED) || (CYBLE_INTERFACE_ENABLED == 0)) && (!defined(UART_INTERFACE_ENABLED) || (UART_INTERFACE_ENABLED == 0))
     #error "No input method selected! Please select at least one input method for MTK."
@@ -496,6 +497,9 @@ void SysTickISRCallback(void)
         {
             stop_DTM_tests();
             rx_count = (uint16_t)CY_GET_XTND_REG32((void CYFAR *)(CYREG_BLE_BLELL_DTM_RX_PKT_COUNT));
+            DBG_PRINT_TEXT("RX Count = ");
+            DBG_PRINT_DEC(rx_count);
+            DBG_PRINT_TEXT("\r\n");
             rx_count_read = true;
         }
         else if (prev_command == DCW)
@@ -1048,7 +1052,7 @@ UART_CMDS_T get_command_txp(int32_t *argument_array, int32_t *num_args)
     {
         argument_array[0] = 17; // channel 17
         argument_array[1] = 0;  // tx power = 0dbm
-        argument_array[2] = 1000; // number of packets
+        argument_array[2] = 10000; // number of packets
         *num_args = 3;
         first_command = false;
         return TXP;
