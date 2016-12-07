@@ -125,10 +125,13 @@ __inline void ManageBlePower()
 void RunBle()
 {
     CyBle_ProcessEvents();
+
+    #if(CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)
     if (cyBle_pendingFlashWrite != 0u)
     {
         CyBle_StoreBondingData(0u);
     }
+    #endif
 
 #if 0
     /* Wait until BLESS is in ECO_STABLE state to push the notification data to the BLESS */
