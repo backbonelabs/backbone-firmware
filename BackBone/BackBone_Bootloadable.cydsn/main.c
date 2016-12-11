@@ -81,19 +81,24 @@ __inline void RunApplication()
         CyDelay(10);
         fifo_handler();
 
-        posture_update(inv_get_accelerometer_y(), 
+        posture_update(inv_get_accelerometer_x(),
+                       inv_get_accelerometer_y(),
                        inv_get_accelerometer_z(),
                        watchdog_get_time());
-        
+
         if (posture_is_notify_slouch())
         {
-            motor_start(0x50, 500);
+            motor_start(posture_get_duty_cycle(),
+                        posture_get_motor_on_time(),
+                        posture_get_vibration_pattern());
         }
-        
+
         if (ble_is_connected())
         {
             backbone_accelerometer_t accelerometer_data;
             backbone_distance_t distance_data;
+            backbone_slouch_t slouch_data;
+            backbone_session_statistics_t session_statistics_data;
 
             accelerometer_data.axis[0] = inv_get_accelerometer_x();
             accelerometer_data.axis[1] = inv_get_accelerometer_y();
@@ -104,12 +109,40 @@ __inline void RunApplication()
             distance_data.distance = posture_get_distance();
             backbone_set_distance_data(ble_get_connection(), &distance_data);
 
+            session_statistics_data.fields.flags = 1;
+            session_statistics_data.fields.total_time = posture_get_elapsed_time();
+            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+
+            slouch_data.slouch[0] = posture_is_slouch() ? 1 : 0;
+            backbone_set_slouch_data(ble_get_connection(), &slouch_data);
+
             backbone_notify_accelerometer(ble_get_connection());
             backbone_notify_distance(ble_get_connection());
-            backbone_notify_session_statistics(ble_get_connection());
+
+            if (posture_is_notify_slouch())
+            {
+                backbone_notify_slouch(ble_get_connection());
+            }
+        }
+
+        if (posture_get_elapsed_time() >= posture_get_session_duration())
+        {
+            posture_stop();
+
+            if (ble_is_connected())
+            {
+                backbone_session_statistics_t session_statistics_data;
+
+                session_statistics_data.fields.flags = 0;
+                session_statistics_data.fields.total_time = posture_get_elapsed_time();
+                session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+                backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+                backbone_notify_session_statistics(ble_get_connection());
+            }
         }
     }
-    
+
     if (ble_is_connected())
     {
         ble_update_connection_parameters();
@@ -126,12 +159,12 @@ void RunBle()
 {
     CyBle_ProcessEvents();
 
-    #if(CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)
+#if(CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES)
     if (cyBle_pendingFlashWrite != 0u)
     {
         CyBle_StoreBondingData(0u);
     }
-    #endif
+#endif
 
 #if 0
     /* Wait until BLESS is in ECO_STABLE state to push the notification data to the BLESS */

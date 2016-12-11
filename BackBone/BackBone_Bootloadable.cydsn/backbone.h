@@ -40,10 +40,22 @@ typedef union
 
 typedef union
 {
-    uint8_t statistics[20];
-    uint8_t raw_data[20];
+    struct
+    {
+        uint32_t flags;
+        uint32_t total_time;
+        uint32_t slouch_time;
+    } fields;
+    uint8_t raw_data[12];
 } backbone_session_statistics_t;
-#define BACKBONE_SESSION_STATISTICS_DATA_LEN (20u)
+#define BACKBONE_SESSION_STATISTICS_DATA_LEN (12u)
+
+typedef union
+{
+    uint8_t slouch[1];
+    uint8_t raw_data[1];
+} backbone_slouch_t;
+#define BACKBONE_SLOUCH_DATA_LEN (1u)
 
 void backbone_init();
 
@@ -65,6 +77,14 @@ void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection);
 
 
 
+void backbone_set_slouch_data(CYBLE_CONN_HANDLE_T* connection,
+                              backbone_slouch_t* data);
+void backbone_set_slouch_notification(CYBLE_CONN_HANDLE_T* connection,
+                                      bool enable);
+void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection);
+
+
+
 void backbone_enterbootloader(uint8_t* data, uint16_t len);
 
 
@@ -73,6 +93,8 @@ void backbone_controlsession(uint8_t* data, uint16_t len);
 
 
 
+void backbone_set_session_statistics_data(CYBLE_CONN_HANDLE_T* connection,
+                                          backbone_session_statistics_t* data);
 void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connection,
                                                   bool enable);
 void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection);
