@@ -23,6 +23,7 @@
 
 static uint8 accelerometer_cccd[2];
 static uint8 distance_cccd[2];
+static uint8 slouch_cccd[2];
 static uint8 session_statistics_cccd[2];
 
 void backbone_init()
@@ -152,6 +153,59 @@ void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection)
     }
 }
 
+void backbone_set_slouch_data(CYBLE_CONN_HANDLE_T* connection,
+                              backbone_slouch_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+
+    characteristic.attrHandle = CYBLE_BACKBONE_SLOUCH_CHAR_HANDLE;
+    characteristic.value.val = data->raw_data;
+    characteristic.value.len = BACKBONE_SLOUCH_DATA_LEN;
+
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
+}
+
+void backbone_set_slouch_notification(CYBLE_CONN_HANDLE_T* connection,
+                                      bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+
+    slouch_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+    slouch_cccd[1] = 0x00;
+
+    attribute.attrHandle = CYBLE_BACKBONE_SLOUCH_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+    attribute.value.val = slouch_cccd;
+    attribute.value.len = sizeof(slouch_cccd);
+
+    CyBle_GattsWriteAttributeValue(&attribute,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_slouch_t data;
+
+    if (slouch_cccd[0] == BLE_TRUE)
+    {
+        characteristic.attrHandle = CYBLE_BACKBONE_SLOUCH_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_SLOUCH_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+        notification.attrHandle = CYBLE_BACKBONE_SLOUCH_CHAR_HANDLE;
+        notification.value.val = data.raw_data;
+        notification.value.len = BACKBONE_SLOUCH_DATA_LEN;
+        CyBle_GattsNotification(*connection, &notification);
+    }
+}
+
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
 {
     static const uint8 ENTER_BOOTLOADER_KEY[8] =
@@ -179,14 +233,27 @@ void backbone_enterbootloader(uint8_t* data, uint16_t len)
 
     if (key_match)
     {
-        //TODO: Add callback to notify main app to reset into the bootloader
-
         MotorPWM_Stop();
         //Switch to the Stack project, which enables OTA service
         Bootloadable_SetActiveApplication(0);
         Bootloadable_Load();
         CySoftwareReset();
     }
+}
+
+void backbone_set_session_statistics_data(CYBLE_CONN_HANDLE_T* connection,
+                                          backbone_session_statistics_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+
+    characteristic.attrHandle = CYBLE_BACKBONE_SESSION_STATISTICS_CHAR_HANDLE;
+    characteristic.value.val = data->raw_data;
+    characteristic.value.len = BACKBONE_SESSION_STATISTICS_DATA_LEN;
+
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
 }
 
 void backbone_set_session_statistics_notification(CYBLE_CONN_HANDLE_T* connection,
@@ -215,14 +282,14 @@ void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection)
 
     if (session_statistics_cccd[0] == BLE_TRUE)
     {
-        characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
+        characteristic.attrHandle = CYBLE_BACKBONE_SESSION_STATISTICS_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_SESSION_STATISTICS_DATA_LEN;
         CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
 
         notification.attrHandle = CYBLE_BACKBONE_SESSION_STATISTICS_CHAR_HANDLE;
         notification.value.val = data.raw_data;
-        notification.value.len = BACKBONE_DISTANCE_DATA_LEN;
+        notification.value.len = BACKBONE_SESSION_STATISTICS_DATA_LEN;
         CyBle_GattsNotification(*connection, &notification);
     }
 }
@@ -236,28 +303,60 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
 
     switch (data[0])
     {
-        // 00   00 00 00 3C   03 E8   00 05
+        // cmd  duration(s)  distance_threshold  time_threshold  pattern  duty_cycle  motor_on_time
+        //  00  00 00 00 3C               03 E8           00 05       01          50             32
         case BACKBONE_START_SESSION:
-            DBG_PRINT_TEXT("Start Session\r\n");
-            if (len == 9)
+            if (len == 12)
             {
                 uint32_t duration = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
                 float distance_threshold = (float)((data[5] << 8 | data[6])) / 10000.0;
                 uint16_t time_threshold = data[7] << 8 | data[8];
-                posture_start(watchdog_get_time(), duration, distance_threshold, time_threshold);
+                uint8_t pattern = data[9];
+                uint8_t duty_cycle = data[10];
+                uint16_t motor_on_time = data[11] * 10;
+                posture_start(watchdog_get_time(),
+                              duration,
+                              distance_threshold,
+                              time_threshold,
+                              pattern,
+                              duty_cycle,
+                              motor_on_time);
             }
             break;
 
         case BACKBONE_STOP_SESSION:
             posture_stop();
+
+            backbone_session_statistics_t session_statistics_data;
+
+            session_statistics_data.fields.flags = 0;
+            session_statistics_data.fields.total_time = posture_get_elapsed_time();
+            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+            backbone_notify_session_statistics(ble_get_connection());
             break;
 
         case BACKBONE_PAUSE_SESSION:
-            //posture_pause();
+            posture_pause();
             break;
 
+        // cmd  distance_threshold  time_threshold  pattern  duty_cycle  motor_on_time
+        //  01               03 E8           00 05       01          50             32
         case BACKBONE_RESUME_SESSION:
-            //posture_resume();
+            if (len == 8)
+            {
+                float distance_threshold = (float)((data[1] << 8 | data[2])) / 10000.0;
+                uint16_t time_threshold = data[3] << 8 | data[4];
+                uint8_t pattern = data[5];
+                uint8_t duty_cycle = data[6];
+                uint16_t motor_on_time = data[7] * 10;
+                posture_resume(watchdog_get_time(),
+                               distance_threshold,
+                               time_threshold,
+                               pattern,
+                               duty_cycle,
+                               motor_on_time);
+            }
             break;
     }
 }
@@ -269,7 +368,7 @@ void backbone_control_motor(uint8_t* data, uint16_t len)
     {
         uint8_t duty_cycle = len > 1 ? data[1] : 0x50;
         uint16_t milliseconds = len > 3 ? data[2] << 8 | data[3] : 500;
-        motor_start(duty_cycle, milliseconds);
+        motor_start(duty_cycle, milliseconds, 1);
     }
     else
     {

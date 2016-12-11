@@ -17,7 +17,7 @@
 #include <stdint.h>
 
 void motor_init(void);
-void motor_start(uint8_t duty_cycle, uint16_t milliseconds);
+void motor_start(uint8_t duty_cycle, uint16_t milliseconds, uint8_t pattern);
 void motor_stop(void);
 bool motor_is_running(void);
 
