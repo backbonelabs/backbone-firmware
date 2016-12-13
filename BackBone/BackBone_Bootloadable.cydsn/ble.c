@@ -167,12 +167,12 @@ void ble_app_event_handler(uint32 event, void* param)
             else if (CYBLE_BACKBONE_SESSION_STATISTICS_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == request->handleValPair.attrHandle)
             {
                 backbone_set_session_statistics_notification(&m_connection,
-                                                             request->handleValPair.value.val[CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
+                                                             request->handleValPair.value.val[CYBLE_BACKBONE_SESSION_STATISTICS_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
             }
             else if (CYBLE_BACKBONE_SLOUCH_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == request->handleValPair.attrHandle)
             {
                 backbone_set_slouch_notification(&m_connection,
-                                                 request->handleValPair.value.val[CYBLE_BACKBONE_DISTANCE_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
+                                                 request->handleValPair.value.val[CYBLE_BACKBONE_SLOUCH_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
             }
             else if (CYBLE_BACKBONE_ENTER_BOOTLOADER_CHAR_HANDLE == request->handleValPair.attrHandle)
             {
