@@ -94,19 +94,23 @@ void posture_resume(uint32_t resume_time,
                     uint8_t duty_cycle,
                     uint16_t motor_on_time)
 {
-    self.start_time = resume_time - self.elapsed_time;
-    self.distance_threshold = distance_threshold;
-    self.time_threshold = time_threshold;
-    self.pattern = pattern;
-    self.duty_cycle = duty_cycle;
-    self.motor_on_time = motor_on_time;
+    if (self.start_time != 0)
+    {
+        self.start_time = resume_time - self.elapsed_time;
+        self.distance_threshold = distance_threshold;
+        self.time_threshold = time_threshold;
+        self.pattern = pattern;
+        self.duty_cycle = duty_cycle;
+        self.motor_on_time = motor_on_time;
 
-    inv_enable_accelerometer();
+        inv_enable_accelerometer();
+    }
 }
 
 void posture_stop(void)
 {
     inv_disable_accelerometer();
+    self.start_time = 0;
     if (self.slouch_elapsed_time != 0)
     {
         self.total_slouch_elapsed_time += self.slouch_elapsed_time;
