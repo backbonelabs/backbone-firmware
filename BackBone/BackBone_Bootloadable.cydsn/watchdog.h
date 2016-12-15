@@ -12,7 +12,7 @@
 
 #ifndef WATCHDOG_H_
 #define WATCHDOG_H_
-    
+
 #include <stdint.h>
 
 void watchdog_init();
