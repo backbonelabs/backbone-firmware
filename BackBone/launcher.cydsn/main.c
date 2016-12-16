@@ -78,9 +78,10 @@ int main()
     }
 #endif
 
-    if ((CySysGetResetReason(0) & CY_SYS_RESET_SW) != CY_SYS_RESET_SW)
+    uint32_t reason = CySysGetResetReason(CY_SYS_RESET_WDT | CY_SYS_RESET_SW);
+    if (reason & CY_SYS_RESET_WDT || reason == 0)
     {
-        // if not a software reset
+        // If watchdog or power on reset then load the bootloader
         SetApp0Active();
         Launcher_SET_RUN_TYPE(Launcher_SCHEDULE_BTLDR);
         CySoftwareReset();
