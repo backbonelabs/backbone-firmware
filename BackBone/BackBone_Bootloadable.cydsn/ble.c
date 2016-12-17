@@ -116,7 +116,11 @@ void ble_app_event_handler(uint32 event, void* param)
             break;
 
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
-            CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+            DBG_PRINT_TEXT("CYBLE_EVT_GAP_DEVICE_DISCONNECTED\r\n");
+            if (!backbone_is_reset_pending())
+            {
+                CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+            }
             break;
 
         case CYBLE_EVT_GAP_DEVICE_CONNECTED:
@@ -144,6 +148,7 @@ void ble_app_event_handler(uint32 event, void* param)
             break;
 
         case CYBLE_EVT_GATT_DISCONNECT_IND:
+            DBG_PRINT_TEXT("CYBLE_EVT_GATT_DISCONNECT_IND\r\n");
             /* This event is received when device is disconnected */
             m_is_connected = BLE_FALSE;
             m_is_connection_update = BLE_TRUE;

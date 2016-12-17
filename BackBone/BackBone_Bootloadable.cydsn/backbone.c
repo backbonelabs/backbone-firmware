@@ -25,9 +25,16 @@ static uint8 accelerometer_cccd[2];
 static uint8 distance_cccd[2];
 static uint8 slouch_cccd[2];
 static uint8 session_statistics_cccd[2];
+static bool m_reset_pending;
 
 void backbone_init()
 {
+    m_reset_pending = false;
+}
+
+bool backbone_is_reset_pending()
+{
+    return m_reset_pending;
 }
 
 void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
@@ -206,6 +213,29 @@ void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection)
     }
 }
 
+CY_ISR(reset_timeout2)
+{
+    MotorTimer_ClearInterrupt(MotorTimer_INTR_MASK_TC);
+
+    // Finally, switch to the bootloader / stack project
+    m_reset_pending = false;
+    Bootloadable_SetActiveApplication(0);
+    Bootloadable_Load();
+}
+
+CY_ISR(reset_timeout)
+{
+    MotorTimer_ClearInterrupt(MotorTimer_INTR_MASK_TC);
+    CyBle_GapDisconnectWithReason(ble_get_connection()->bdHandle, 0x15);
+
+    // Now wait a little bit for the disconnect request to process
+    MotorTimerInterrupt_StartEx(reset_timeout2);
+    MotorTimer_WriteCounter(0);
+    MotorTimer_Start();
+    MotorTimer_SetOneShot(1);
+    MotorTimer_WritePeriod(500);
+}
+
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
 {
     static const uint8 ENTER_BOOTLOADER_KEY[8] =
@@ -233,11 +263,17 @@ void backbone_enterbootloader(uint8_t* data, uint16_t len)
 
     if (key_match)
     {
-        MotorPWM_Stop();
-        //Switch to the Stack project, which enables OTA service
-        Bootloadable_SetActiveApplication(0);
-        Bootloadable_Load();
-        CySoftwareReset();
+        motor_stop();
+
+        // Now that the motor is stopped, we can reuse the motor timer to give
+        // a short delay before resetting into the bootloader.  First, wait a
+        // little bit for the response to this request to be sent.
+        MotorTimerInterrupt_StartEx(reset_timeout);
+        MotorTimer_WriteCounter(0);
+        MotorTimer_Start();
+        MotorTimer_SetOneShot(1);
+        MotorTimer_WritePeriod(1500);
+        m_reset_pending = true;
     }
 }
 

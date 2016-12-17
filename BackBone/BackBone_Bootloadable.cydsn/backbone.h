@@ -58,6 +58,7 @@ typedef union
 #define BACKBONE_SLOUCH_DATA_LEN (1u)
 
 void backbone_init();
+bool backbone_is_reset_pending();
 
 void backbone_connected(CYBLE_CONN_HANDLE_T* connection);
 
