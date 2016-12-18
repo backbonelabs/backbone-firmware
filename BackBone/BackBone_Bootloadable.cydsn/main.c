@@ -189,7 +189,6 @@ void RunBle()
 int main()
 {
     watchdog_init();
-
     CyGlobalIntEnable;
 #if !defined(__ARMCC_VERSION)
     InitializeBootloaderSRAM();
@@ -243,5 +242,10 @@ int main()
         ManageApplicationPower();
 
         ManageSystemPower();
+
+        if (watchdog_is_clear_requested())
+        {
+            watchdog_clear();
+        }
     }
 }
