@@ -263,6 +263,7 @@ void backbone_enterbootloader(uint8_t* data, uint16_t len)
 
     if (key_match)
     {
+        posture_stop();
         motor_stop();
 
         // Now that the motor is stopped, we can reuse the motor timer to give
