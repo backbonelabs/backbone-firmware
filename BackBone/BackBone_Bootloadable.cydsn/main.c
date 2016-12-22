@@ -38,7 +38,7 @@ __inline void ManageSystemPower()
 
     blePower = CyBle_GetBleSsState();
 
-    if (!motor_is_running())
+    if (!motor_is_running() && !backbone_is_reset_pending())
     {
         /* System can enter DeepSleep only when BLESS and rest of the
          * application are in DeepSleep power modes */
@@ -189,7 +189,6 @@ void RunBle()
 int main()
 {
     watchdog_init();
-
     CyGlobalIntEnable;
 #if !defined(__ARMCC_VERSION)
     InitializeBootloaderSRAM();
@@ -243,5 +242,10 @@ int main()
         ManageApplicationPower();
 
         ManageSystemPower();
+
+        if (watchdog_is_clear_requested())
+        {
+            watchdog_clear();
+        }
     }
 }
