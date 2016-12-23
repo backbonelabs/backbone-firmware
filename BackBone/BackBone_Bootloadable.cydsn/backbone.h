@@ -33,10 +33,14 @@ typedef union
 
 typedef union
 {
-    float distance;
-    uint8 raw_data[4];
+    struct
+    {
+        float distance;
+        uint32_t elapsed_time;
+    } fields;
+    uint8 raw_data[8];
 } backbone_distance_t;
-#define BACKBONE_DISTANCE_DATA_LEN (4u)
+#define BACKBONE_DISTANCE_DATA_LEN (8u)
 
 typedef union
 {
