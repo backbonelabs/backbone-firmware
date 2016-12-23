@@ -52,6 +52,7 @@
 #include "CyLFClk.h"
 // end
 #include <string.h>
+#include "watchdog.h"
 
 #if (CY_BOOT_VERSION < CY_BOOT_5_0)
     #error Component Bootloader_v1_50 requires cy_boot v5.00 or later
@@ -1738,6 +1739,11 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
             if (0u != timeOut)
             {
                 timeOutCnt--;
+            }
+
+            if (watchdog_is_clear_requested())
+            {
+                watchdog_clear();
             }
 
         }

@@ -3436,7 +3436,7 @@
         <Data key="derive_type" value="BUILTIN" />
         <Data key="desired_freq" value="24" />
         <Data key="desired_unit" value="6" />
-        <Data key="divider" value="0" />
+        <Data key="divider" value="1" />
         <Data key="enabled" value="True" />
         <Data key="minus_tolerance" value="0" />
         <Data key="name" value="ECO" />
@@ -3448,6 +3448,7 @@
         <Data key="src_clk_id" value="" />
         <Data key="src_clk_name" value="" />
         <Data key="start_on_reset" value="True" />
+        <Data key="undivided_freq_mhz" value="24" />
       </Group>
       <Group key="BA1FF31D-570B-4ee4-8086-5A1087FF2AD2">
         <Data key="check_tolerance" value="False" />
@@ -3474,7 +3475,7 @@
         <Data key="desired_unit" value="3" />
         <Data key="divider" value="0" />
         <Data key="enabled" value="True" />
-        <Data key="generate_isr" value="True" />
+        <Data key="generate_isr" value="False" />
         <Data key="minus_tolerance" value="0" />
         <Data key="name" value="Timer (WDT) ISR" />
         <Data key="netlist_name" value="Timer (WDT) ISR" />

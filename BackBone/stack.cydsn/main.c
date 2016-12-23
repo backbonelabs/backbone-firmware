@@ -34,6 +34,7 @@
 #include "main.h"
 #include "AesLoader\AesLoader.h"
 #include "debug.h"
+#include "watchdog.h"
 
 CYBLE_CONN_HANDLE_T connHandle;
 
@@ -69,6 +70,7 @@ int main()
     CyReturnToBootloaddableAddress = 0u;
 #endif /*__ARMCC_VERSION*/
 
+    watchdog_init();
     CyGlobalIntEnable;
 
     DBG_PRINT_TEXT("> Backbone Bootloader\r\n");
@@ -125,6 +127,11 @@ int main()
         CyDelay(5u);
 
         TimeoutImplementation();
+
+        if (watchdog_is_clear_requested())
+        {
+            watchdog_clear();
+        }
     }
 }
 
