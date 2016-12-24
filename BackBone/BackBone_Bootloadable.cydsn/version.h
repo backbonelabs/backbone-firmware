@@ -16,6 +16,6 @@
 #define HW_MAJOR_VERSION            (1u)
 #define HW_MINOR_VERSION            (0u)
 #define FW_MAJOR_VERSION            (1u)
-#define FW_MINOR_VERSION            (11u)
+#define FW_MINOR_VERSION            (12u)
 
 #endif /* VERSION_H_*/
