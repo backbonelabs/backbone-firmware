@@ -106,7 +106,8 @@ __inline void RunApplication()
             accelerometer_data.axis[3] = 0;
             backbone_set_accelerometer_data(ble_get_connection(), &accelerometer_data);
 
-            distance_data.distance = posture_get_distance();
+            distance_data.fields.distance = posture_get_distance();
+            distance_data.fields.elapsed_time = posture_get_elapsed_time();
             backbone_set_distance_data(ble_get_connection(), &distance_data);
 
             session_statistics_data.fields.flags = 1;
@@ -126,7 +127,8 @@ __inline void RunApplication()
             }
         }
 
-        if (posture_get_elapsed_time() >= posture_get_session_duration())
+        if (posture_get_elapsed_time() >= posture_get_session_duration() &&
+            posture_get_session_duration() != 0)
         {
             posture_stop();
 
