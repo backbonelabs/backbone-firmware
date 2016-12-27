@@ -20,7 +20,6 @@
 
 #include "cyapicallbacks.h"
 
-//#include "project.h"
 #include "cyfitter_cfg.h"
 #include "cydevice_trm.h"
 #include "cyfitter.h"
@@ -54,164 +53,59 @@
 #include <string.h>
 #include "watchdog.h"
 
-#if (CY_BOOT_VERSION < CY_BOOT_5_0)
-    #error Component Bootloader_v1_50 requires cy_boot v5.00 or later
-#endif /* (CY_BOOT_VERSION >= CY_BOOT_5_0) */
-
-/*******************************************************************************
-* The Checksum and SizeBytes are forcefully set in code. We then post process
-* the hex file from the linker and inject their values. When the hex file
-* is loaded into the device, these two variables should have valid values.
-* Because the compiler can do optimization to remove the constant
-* accesses, these should not be accessed directly. Instead, the variables
-* CyBtldr_ChecksumAccess & CyBtldr_SizeBytesAccess should be used to get the
-* proper values at the runtime.
-*******************************************************************************/
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-    #if defined(__ARMCC_VERSION) || defined (__GNUC__)
-        __attribute__((section (".bootloader"), used))
-    #elif defined (__ICCARM__)
-        #pragma location=".bootloader"
-    #endif  /* defined(__ARMCC_VERSION) || defined (__GNUC__) */
-
-    #if defined(__ARMCC_VERSION) || defined (__GNUC__) || defined (__C51__)
-        const uint8  CYCODE AesLoader_Checksum = 0u;
-    #elif defined (__ICCARM__)
-        __root const uint8  CYCODE AesLoader_Checksum = 0u;
-    #endif  /* defined(__ARMCC_VERSION) || defined (__GNUC__) || defined (__C51__) */
-    const uint8  CYCODE *AesLoader_ChecksumAccess  = (const uint8  CYCODE *)(&AesLoader_Checksum);
-
-    #if defined(__ARMCC_VERSION) || defined (__GNUC__)
-        __attribute__((section (".bootloader"), used))
-        const uint32 CYCODE AesLoader_SizeBytes = 0xFFFFFFFFu;
-    #elif defined (__ICCARM__)
-        #pragma location=".bootloader"
-        __root const uint32 CYCODE AesLoader_SizeBytes = 0xFFFFFFFFu;
-    #elif defined (__C51__)
-        const uint32 CYCODE AesLoader_SizeBytes = 0xFFFFFFFFu;
-    #endif  /* defined(__ARMCC_VERSION) || defined (__GNUC__) */
-
-    const uint32 CYCODE *AesLoader_SizeBytesAccess = (const uint32 CYCODE *)(&AesLoader_SizeBytes);
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
-
 /**
  \defgroup variables_group Variables
  @{
 */
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-    /**
-    *  This variable is intended to indicate that in-application
-    *  bootloading initialization is done. The initialization itself is performed in the
-    *  AesLoader_Initialize() function. Once the initialization is done,
-    *  the variable is set and this prevents the functionality from reinitialization.
-    */
-    uint8 AesLoader_initVar = AesLoader_BOOTLOADING_NOT_INITIALIZED;
 
-    /**
-    *  This variable is intended to keep the current application number. It applies
-    *  only to in-application bootloading.
-    */
-    uint8 AesLoader_runningApp = AesLoader_RUNNING_APPLICATION_UNKNOWN;
-
-    /**
-    *  This variable is intended to indicate that 'Enter bootloader' command has
-    *  been received. It applies only to in-application bootloading.
-    */
-    uint8 AesLoader_isBootloading = AesLoader_BOOTLOADING_COMPLETED;
-#endif /*CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER*/
-
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER)  || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-    /**
-    *  This variable is intended to keep the active application number. It applies
-    *  to Classic Dual-app Bootloader and in-application bootloading.
-    */
-    volatile uint8 AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_NONE;
-#else /*SINGLE-APP BOOTLOADER*/
-    #define AesLoader_activeApp      (AesLoader_MD_BTLDB_ACTIVE_0)
-#endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) */
-
-
-#if (0u != AesLoader_SECURITY_KEY_AVAIL)
 /**
- *  This variable holds the security key for additional safety during communication.
- */
-static const uint8 CYCODE AesLoader_securityKey[AesLoader_SECURITY_KEY_LENGTH] = {0x11u, 0x22u, 0x33u, 0x44u, 0x55u, 0x66u};
-#endif /*(0u != AesLoader_SECURITY_KEY_AVAIL)*/
+*  This variable is intended to indicate that in-application
+*  bootloading initialization is done. The initialization itself is performed in the
+*  AesLoader_Initialize() function. Once the initialization is done,
+*  the variable is set and this prevents the functionality from reinitialization.
+*/
+uint8 AesLoader_initVar = AesLoader_BOOTLOADING_NOT_INITIALIZED;
 
-#if ((CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER) && (!CY_PSOC3))
-    /**
-    *  This variable holds the pointer on the user's callback-function that implements the custom
-    *  bootloader command processing.
-    */
-    static AesLoader_callback_type AesLoader_callback = NULL;
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER) && (!CY_PSOC3)*/
+/**
+*  This variable is intended to keep the current application number. It applies
+*  only to in-application bootloading.
+*/
+uint8 AesLoader_runningApp = AesLoader_RUNNING_APPLICATION_UNKNOWN;
+
+/**
+*  This variable is intended to indicate that 'Enter bootloader' command has
+*  been received. It applies only to in-application bootloading.
+*/
+uint8 AesLoader_isBootloading = AesLoader_BOOTLOADING_COMPLETED;
+
+/**
+*  This variable is intended to keep the active application number. It applies
+*  to Classic Dual-app Bootloader and in-application bootloading.
+*/
+volatile uint8 AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_NONE;
+
+/**
+ *  This variable holds the pointer on the user's callback-function that implements the custom
+ *  bootloader command processing.
+ */
+static AesLoader_callback_type AesLoader_callback = NULL;
+
 /** @}*/
 
 /***************************************
 *     Function Prototypes
 ***************************************/
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-    static void  AesLoader_LaunchApplication(void) CYSMALL \
-    ;
-    #if(!CY_PSOC3)
-        /* Implementation for PSoC 3 resides in Bootloader_psoc3.a51 file.  */
-        static void     AesLoader_LaunchBootloadable(uint32 appAddr);
-    #endif  /* (!CY_PSOC3) */
-#endif /* CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER */
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)
-    static cystatus AesLoader_WritePacket(uint8 status, uint8 buffer[], uint16 size) CYSMALL \
-    ;
-
-    static uint16   AesLoader_CalcPacketChecksum(const uint8 buffer[], uint16 size) CYSMALL \
-    ;
-
-    #if (0u != AesLoader_CMD_VERIFY_FLS_ROW_AVAIL)
-        static uint8 AesLoader_VerifyRow(uint32 flashStart, const uint8* ramStart, uint16 size) \
-        CYSMALL ;
-    #endif /*(0u != AesLoader_CMD_VERIFY_FLS_ROW_AVAIL)*/
-
-    #if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-        static void AesLoader_HostLink(uint8 timeOut) CYLARGE ;
-    #endif /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)*/
-
-#if (((0u != AesLoader_DUAL_APP_BOOTLOADER) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)) \
-                                          || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row, uint16 rowNumInArray) CYSMALL \
-;
-#endif /*(((0u != AesLoader_DUAL_APP_BOOTLOADER) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)) \
-                                          || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))*/
-
-#if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || (0u != AesLoader_DUAL_APP_BOOTLOADER))
-    static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL \
-    ;
-#endif /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || (0u != AesLoader_DUAL_APP_BOOTLOADER) */
-
-#if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || \
-     (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER) || \
-     (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER))
-static uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
-;
-#endif /*((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || \
-          (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER) || \
-          (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)) */
-
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)
-    #if ((0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4))
-        static cystatus AesLoader_CopyRow(uint16 srcRowNum, uint16 dstRowNum) \
-        CYSMALL ;
-        static void AesLoader_Copier(void) CYSMALL ;
-    #endif /*(0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4)*/
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)*/
-
+static cystatus AesLoader_WritePacket(uint8 status, uint8 buffer[], uint16 size) CYSMALL;
+static uint16   AesLoader_CalcPacketChecksum(const uint8 buffer[], uint16 size) CYSMALL;
+static uint8 AesLoader_VerifyRow(uint32 flashStart, const uint8* ramStart, uint16 size) CYSMALL;
+static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row, uint16 rowNumInArray) CYSMALL;
+static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL;
+static uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL;
 
 /**
  \defgroup functions_group Functions
  @{
 */
-#if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || \
-                                  (0u != AesLoader_DUAL_APP_BOOTLOADER))
 /*******************************************************************************
 * Function Name: AesLoader_SetActiveAppInMetadata
 ****************************************************************************//**
@@ -240,12 +134,7 @@ static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL \
         }
     }
 }
-#endif /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || 
-                           (0u != AesLoader_DUAL_APP_BOOTLOADER) */
 
-#if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || \
-     (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER) || \
-     (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER))
 /*******************************************************************************
 * Function Name: AesLoader_GetActiveAppFromMetadata
 ****************************************************************************//**
@@ -301,11 +190,7 @@ static  uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
 
     return (result);
 }
-#endif /*((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) || \
-          (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER) || \
-          (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)) */
 
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
 /*******************************************************************************
 * Function Name: AesLoader_Initialize
 ****************************************************************************//**
@@ -332,7 +217,7 @@ static  uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
 void AesLoader_Initialize(void) CYSMALL \
 
 {
-    if (AesLoader_BOOTLOADING_NOT_INITIALIZED ==AesLoader_initVar)
+    if (AesLoader_BOOTLOADING_NOT_INITIALIZED == AesLoader_initVar)
     {
         AesLoader_activeApp = AesLoader_GetActiveAppFromMetadata();
 
@@ -350,6 +235,18 @@ void AesLoader_Initialize(void) CYSMALL \
             AesLoader_runningApp = AesLoader_RUNNING_APPLICATION_UNKNOWN;
         }
     }
+    
+#if (CY_BOOT_VERSION < CY_BOOT_5_0)
+    #error Component Bootloader_v1_50 requires cy_boot v5.00 or later
+#endif
+
+#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
+    #error This version of the bootloader only designed to work with hybrid bootloader
+#endif
+
+#if ((CY_PSOC3) || (!CY_PSOC4) || (CY_PSOC5))
+    #error This version of the bootloader only designed to work with PSoC4
+#endif
 }
 
 /*****************************************************************************
@@ -395,9 +292,7 @@ uint8 AesLoader_GetActiveAppStatus(void) CYSMALL \
 
     return (AesLoader_activeApp);
 }
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)
 /*******************************************************************************
 * Function Name: AesLoader_CalcPacketChecksum
 ****************************************************************************//**
@@ -420,50 +315,6 @@ uint8 AesLoader_GetActiveAppStatus(void) CYSMALL \
 static uint16 AesLoader_CalcPacketChecksum(const uint8 buffer[], uint16 size) \
 CYSMALL
 {
-#if(0u != AesLoader_PACKET_CHECKSUM_CRC)
-
-    uint16 CYDATA crc = AesLoader_CRC_CCITT_INITIAL_VALUE;
-    uint16 CYDATA tmp;
-    uint8  CYDATA i;
-    uint16 CYDATA tmpIndex = size;
-
-    if (0u == size)
-    {
-        crc = ~crc;
-    }
-    else
-    {
-        do
-        {
-            tmp = buffer[tmpIndex - size];
-
-            for (i = 0u; i < 8u; i++)
-            {
-                if (0u != ((crc & 0x0001u) ^ (tmp & 0x0001u)))
-                {
-                    crc = (crc >> 1u) ^ AesLoader_CRC_CCITT_POLYNOMIAL;
-                }
-                else
-                {
-                    crc >>= 1u;
-                }
-
-                tmp >>= 1u;
-            }
-
-            size--;
-        }
-        while (0u != size);
-
-        crc = ~crc;
-        tmp = crc;
-        crc = ( uint16 )(crc << 8u) | (tmp >> 8u);
-    }
-
-    return (crc);
-
-#else
-
     uint16 CYDATA sum = 0u;
 
     while (size > 0u)
@@ -473,11 +324,8 @@ CYSMALL
     }
 
     return (( uint16 )1u + ( uint16 )(~sum));
-
-#endif /* (0u != AesLoader_PACKET_CHECKSUM_CRC) */
 }
 
-#if (!CY_PSOC3)
 /*******************************************************************************
 * Function Name: AesLoader_InitCallback
 ****************************************************************************//**
@@ -494,10 +342,7 @@ CYSMALL
 {
     AesLoader_callback = userCallback;
 }
-#endif /* (!CY_PSOC3) */
 
-
-#if (0u != AesLoader_CMD_VERIFY_FLS_ROW_AVAIL)
 /*******************************************************************************
 * Function Name: AesLoader_VerifyRow
 ****************************************************************************//**
@@ -537,9 +382,6 @@ CYSMALL
 
     return (result);
 }
-#endif /*(0u != AesLoader_CMD_VERIFY_FLS_ROW_AVAIL)*/
-#endif /*CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER*/
-
 
 /*******************************************************************************
 * Function Name: AesLoader_Calc8BitSum
@@ -567,12 +409,7 @@ uint8 AesLoader_Calc8BitSum(uint32 baseAddr, uint32 start, uint32 size) \
 CYSMALL
 {
     uint8 CYDATA sum = 0u;
-
-#if(!CY_PSOC4)
-    CYASSERT((baseAddr == CY_EEPROM_BASE) || (baseAddr == CY_FLASH_BASE));
-#else
     CYASSERT(baseAddr == CY_FLASH_BASE);
-#endif  /* (!CY_PSOC4) */
 
     while (size > 0u)
     {
@@ -582,243 +419,6 @@ CYSMALL
 
     return (sum);
 }
-
-
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)
-#if ((0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4))
-/*******************************************************************************
-* Function Name: AesLoader_CopyRow
-****************************************************************************//**
-* \internal
-*
-* \brief
-*   This function performs copying of a specified row to specified
-*     location.
-*
-* \param
-*   srcRowNum - The number of a row to copy from.
-* \param
-*   dstRowNum - The number of a row to be copied to.
-*
-* \return
-*   \n CYRET_SUCCESS - If everything went right.
-*   \n Otherwise, produce an error code indicating a problem.
-*
-* \endinternal
-*******************************************************************************/
-static cystatus AesLoader_CopyRow(uint16 srcRowNum, uint16 dstRowNum) \
-CYSMALL
-{
-    /*Buffer for row copy procedure*/
-    uint8  rowBuffer[CYDEV_FLS_ROW_SIZE];
-    cystatus result = CYRET_SUCCESS;
-
-    uint32 srcBaseAddr = CYDEV_FLASH_BASE + srcRowNum * CYDEV_FLS_ROW_SIZE;
-    uint16 idx;
-
-    for (idx = 0u; idx < CYDEV_FLS_ROW_SIZE; idx++)
-    {
-        rowBuffer[idx] = AesLoader_GET_CODE_BYTE(srcBaseAddr + idx);
-    }
-
-    result = CySysFlashWriteRow((uint16) dstRowNum, rowBuffer);
-
-    return (result);
-}
-
-/*******************************************************************************
-* Function Name: AesLoader_Copier
-****************************************************************************//**
-*  \internal
-*
-*  \brief
-*    This option is specific for Launcher-Combination architecture only and to
-*    the case when there is a large communication component like BLE. To save
-*    flash space for the user application, such a large communication component
-*    is present only in the first application (Stack application) and is "shared"
-*    with the second application (the user's application actually) by "Code
-*    sharing feature" (See code sharing and BLE Upgradable Stack example project).
-*
-* \n If this option is enabled and the "need-to-copy" flag is set in the second
-*    application's metadata, Copier performs copying of a previously saved Stack
-*    application image from a "temporary location" to the app#1 flash
-*    space (over the current app#1).
-*
-* \n Before performing the copying operation the new Stack application image
-*    should be received and stored at the temporary location by the current
-*    Stack application. The "need-to-copy" flag should be set in app#2 metadata
-*    indicating that copying operation is required.
-*
-* \n The temporary location is half of the flash space that left after Launcher
-*    and 2 metadata rows. This implies that Stack application should fit in
-*    that half of the flash space.
-*
-* \n The destination for the copy operation is obtained as the first row after
-*    Launcher (from app#1 metadata).
-*
-* \n The source of copy operation is the first row of temporary location that
-*    is calculated by the following formula:
-* \n     srcRow = (((CY_FLASH_NUMBER_ROWS - dstRow - metaRows) / 2) + dstRow);
-* \n     where:
-*          - dstRow - the destination's first row (mentioned above);
-*          - CY_FLASH_NUMBER_ROWS - number of all flash rows;
-*          - metaRows - 2 metadata rows;
-*
-* \n Copying itself means row-by-row copying of the stored application's image.
-*    If it fails to copy some row, there is a defined number of attempts
-*    (AesLoader_MAX_ATTEMPTS) to try again. In case of no success,
-*    a user callback function Launcher_CopierCallback() is called.
-*    If it is not defined, then the device is going to be halted.
-*
-* \n After performing the application image copying, in case of success
-*    the app#2 metadata is copied in the stead of app#1 metadata and then
-*    app#2 metadata is cleared.
-*
-* \n A "need-to-copy" flag is cleared just after performing the app#1 image
-*    copying from the temporary location to avoid another consecutive
-*    copying operation.
-*
-* \endinternal
-*******************************************************************************/
-static void AesLoader_Copier(void) CYSMALL \
-
-{
-    uint16 idx = 0u;
-
-    /* Number of attempts to perform copying again */
-    uint8 copierAttempts;
-
-    /* "need-to-copy" flag from second application metadata */
-    uint8 copyFlag = AesLoader_GetMetadata(AesLoader_GET_BTLDB_COPY_FLAG, AesLoader_MD_BTLDB_ACTIVE_1);
-
-    /* Buffer to temporary hold metadata before flashing */
-    uint8 metaBuf[CYDEV_FLS_ROW_SIZE];
-
-    /* Launcher's last row number */
-    uint16 launcherLastRow = AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW, AesLoader_MD_BTLDB_ACTIVE_0);
-
-    /* Calculating destination's start row number (first row of app#1) */
-    uint16 dstRow = launcherLastRow + 1u;
-
-    /* Calculating the source's/temporary location's start row number */
-    uint16 srcRow = ((((CY_FLASH_NUMBER_ROWS - dstRow - 2u) + 1u) >> 1u) + dstRow);
-
-    /* Taking length from app#2's metadata*/
-    uint32 srcLength = AesLoader_GetMetadata(AesLoader_GET_BTLDB_LENGTH, AesLoader_MD_BTLDB_ACTIVE_1);
-
-    /* Copy operation status initialization */
-    cystatus copyStatus = CYRET_SUCCESS;
-
-    /* Calculating number of rows for copying */
-    uint16 numberOfRows = srcLength / CYDEV_FLS_ROW_SIZE;
-
-    if (0u != (srcLength % CYDEV_FLS_ROW_SIZE))
-    {
-        numberOfRows++;
-    }
-
-    /*************************************************************************
-    * Copying the number of rows from source (temporary location) to destination.
-    * If the operation is unsuccessful, there will be a few more attempts to
-    * perform the copying operation (a number is defined by AesLoader_MAX_ATTEMPTS)
-    ***************************************************************************/
-    for (idx = 0; idx < numberOfRows; idx++)
-    {
-        copierAttempts = AesLoader_MAX_ATTEMPTS;
-
-        do
-        {
-            /* Copying row */
-            copyStatus = AesLoader_CopyRow(srcRow + idx, dstRow + idx);
-
-            /* Decrementing counter of attempts to repeat copying operation */
-            copierAttempts--;
-        }
-        while ((CYRET_SUCCESS != copyStatus) && (0u != copierAttempts));
-
-
-        /*************************************************************************
-        * If a problem occurs, when a row can't be copied, "CopyFlag" should be
-        * cleared to prevent the recurrent copying that might follow the software reset.
-        ***************************************************************************/
-        if (CYRET_SUCCESS != copyStatus)
-        {
-            /* Clear copy flag in metadata#1 */
-            AesLoader_SetFlashByte(AesLoader_MD_BTLDB_COPY_FLAG_OFFSET(AesLoader_MD_BTLDB_ACTIVE_1),
-                                   (copyFlag & (~AesLoader_NEED_TO_COPY_SET_BIT)));
-
-            /* Callback macro definition */
-#if (0u != LAUNCHER_COPIER_CALLBACK)
-            AesLoader_CopierCallback();
-#endif /* 0u != LAUNCHER_COPIER_CALLBACK */
-
-            /*************************************************************************
-            * If the copying operation was unsuccessful after certain number of attempts
-            * and AesLoader_CopierCallback() is either undefined or returns, then the
-            * device should be halted.
-            *************************************************************************/
-            CyHalt(0x00u);
-        }
-    }
-
-    /* Copy metadata app#2 -> app#1*/
-    if (CYRET_SUCCESS == copyStatus)
-    {
-        /******************************************************************************
-        *                               Metadata#1 update
-        ******************************************************************************/
-        /* Getting start address of metadata #2 */
-        uint32 metaStartAddr = AesLoader_MD_BASE_ADDR(AesLoader_MD_BTLDB_ACTIVE_1) +
-                               AesLoader_MD_SIZEOF - CYDEV_FLS_ROW_SIZE;
-
-        /* Read all data from metadata #2 */
-        for (idx = 0u; idx < CYDEV_FLS_ROW_SIZE; idx++)
-        {
-            metaBuf[idx] = AesLoader_GET_CODE_BYTE(metaStartAddr + idx);
-        }
-
-        /* Setting 'Copier available' flag (copyFlag field) in buffer to be stored in metadata#1 */
-        metaBuf[AesLoader_MD_BUFFER_START_OFFSET + AesLoader_MD_COPY_FLAG_BYTE_OFFSET] = AesLoader_COPIER_SUPPORT_SET_BIT;
-
-        /* Set active app#1 */
-        AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_0;
-
-        /* Setting app#1 as active application in buffer to be stored in metadata#1 */
-        metaBuf[AesLoader_MD_BUFFER_START_OFFSET + AesLoader_MD_ACTIVE_APP_BYTE_OFFSET] = 0x01u;
-
-        /* Setting app#1 as valid for 'Fast validation' to be stored in metadata#1 */
-        metaBuf[AesLoader_MD_BUFFER_START_OFFSET + AesLoader_MD_FAST_VALID_BYTE_OFFSET] = 0x01u;
-
-        /* Update metadata#1 in flash */
-        copyStatus = CySysFlashWriteRow((uint16) (CY_FLASH_NUMBER_ROWS - 1u), metaBuf);
-
-        /******************************************************************************
-        *                               Metadata#2 update
-        * Clear the whole buffer for metadata#2, which will make it invalid.
-        * The 'Need-to-copy' flag will be cleared and app#2 will be set as non-active.
-        *******************************************************************************/
-        (void) memset(&metaBuf, 0x00u, sizeof(metaBuf));
-
-        /* Updating metadata#2 in flash */
-        copyStatus |= CySysFlashWriteRow((uint16) (CY_FLASH_NUMBER_ROWS - 2u), metaBuf);
-    }
-
-    if (CYRET_SUCCESS == copyStatus)
-    {
-        /* Schedule*/
-        AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDB);
-
-        /* Software reset */
-        CySoftwareReset();
-    }
-    else
-    {
-        /* Halt device */
-        CyHalt(0x00u);
-    }
-}
-#endif /*(0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4)*/
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)*/
 
 
 /*******************************************************************************
@@ -870,301 +470,22 @@ static void AesLoader_Copier(void) CYSMALL \
 *******************************************************************************/
 void AesLoader_Start(void) CYSMALL
 {
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-
-#if(0u != AesLoader_DUAL_APP_BOOTLOADER)
-    cystatus app0Status = CYRET_BAD_DATA;
-    cystatus app1Status = CYRET_BAD_DATA;
-#endif /*0u != AesLoader_DUAL_APP_BOOTLOADER*/
-
-    cystatus validApp  = CYRET_BAD_DATA;
-
-#if(0u != AesLoader_BOOTLOADER_APP_VALIDATION)
-    uint8 CYDATA calcedChecksum;
-#endif    /* (0u != AesLoader_BOOTLOADER_APP_VALIDATION) */
-
-#if(!CY_PSOC4)
-#if(0u != AesLoader_FAST_APP_VALIDATION)
-    /* Initialize flash subsystem for non-PSoC 4 devices */
-    if (CYRET_SUCCESS != CySetTemp())
-    {
-        CyHalt(0x00u);
-    }
-
-#if !defined(CY_BOOT_VERSION)
-    /* Not required with cy_boot 4.20 */
-    if (CYRET_SUCCESS != CySetFlashEEBuffer(AesLoader_flashBuffer))
-    {
-        CyHalt(0x00u);
-    }
-
-    uint8 CYXDATA AesLoader_flashBuffer[AesLoader_FROW_SIZE];
-#endif /* !defined(CY_BOOT_VERSION) */
-#endif  /* (0u != AesLoader_FAST_APP_VALIDATION) */
-#endif  /* (!CY_PSOC4) */
-
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)
-#if ((0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4))
-    /* Checking "need-to-copy" flag in metadata#1. If it is set, then copy operation is required*/
-    uint8 needToCopyFlag = AesLoader_GetMetadata(AesLoader_GET_BTLDB_COPY_FLAG,
-    AesLoader_MD_BTLDB_ACTIVE_1);
-
-    /* Checking "Need to copy" flag in metadata#1 */
-    if (0u != (needToCopyFlag & AesLoader_NEED_TO_COPY_MASK))
-    {
-        /* Note that this function never returns */
-        AesLoader_Copier();
-    }
-#endif  /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER) */
-#endif  /* (0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4)*/
-
-    /* Identify active Bootloadable/Combination application */
-#if (0u != AesLoader_DUAL_APP_BOOTLOADER)
-    app0Status = AesLoader_ValidateBootloadable(AesLoader_MD_BTLDB_ACTIVE_0);
-    app1Status = AesLoader_ValidateBootloadable(AesLoader_MD_BTLDB_ACTIVE_1);
-
-    /* Assumes no active Bootloadable application. Bootloader is active. */
-    AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_NONE;
-
-    /* Bootloadable app#1 is active */
-    if (AesLoader_GetMetadata(AesLoader_GET_BTLDB_ACTIVE, AesLoader_MD_BTLDB_ACTIVE_0) == \
-    AesLoader_MD_BTLDB_IS_ACTIVE)
-    {
-        /**********************************************************************************************************
-        * ---------------------------------------------------------------------------------------------------------
-        * |      |      app#1     |      app#2     |        Classic Dual-app       |     Launch-only Bootloader   |
-        * | Case |---------------------------------|          Bootloader           |           (Launcher)         |
-        * |      | Active | Valid | Active | Valid |                               |                              |
-        * |-------------------------------------------------------------------------------------------------------|
-        * |  9   |    1   |   0   |   0    |   0   | Bootloader                    | Launcher                     |
-        * |  10  |    1   |   0   |   0    |   1   | app#2, except if auto-app     | app#2                        |
-        * |      |        |       |        |       | switching is disabled, then   |                              |
-        * |      |        |       |        |       | stay in Bootloader            |                              |
-        * |  11  |    1   |   0   |   1    |   0   | Bootloader                    | Launcher                     |
-        * |  12  |    1   |   0   |   1    |   1   | app#2                         | app#2                        |
-        * |  13  |    1   |   1   |   0    |   0   | app#1                         | app#1                        |
-        * |  14  |    1   |   1   |   0    |   1   | app#1                         | app#1                        |
-        * |  15  |    1   |   1   |   1    |   0   | app#1                         | app#1                        |
-        * |  16  |    1   |   1   |   1    |   1   | app#1                         | app#1                        |
-        * ---------------------------------------------------------------------------------------------------------
-        **********************************************************************************************************/
-        if (CYRET_SUCCESS == app0Status)
-        {
-            /* Cases # 13,  14, 15, and 16 */
-            AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_0;
-            validApp = CYRET_SUCCESS;
-        }
-        else /*Bootloadable app#1 is not valid*/
-        {
-#if (((1u == AesLoader_AUTO_SWITCHING_AVAIL) &&  \
-                      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER)) || \
-                      (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER))
-            if (CYRET_SUCCESS == app1Status )
-            {
-                /* Cases # 10 and 12 */
-                AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_1;
-                validApp = CYRET_SUCCESS;
-            }
-#endif /*((1u == AesLoader_AUTO_SWITCHING_AVAIL) && 
-                          (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER)) || 
-                          (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)*/
-        }
-    }
-
-    /*  Active Bootloadable application is not identified */
-    if (AesLoader_activeApp == AesLoader_MD_BTLDB_ACTIVE_NONE)
-    {
-        /**********************************************************************************************************
-        * ---------------------------------------------------------------------------------------------------------
-        * |      |       app#1    |       app#2    |        Classic Dual-app       |     Launch-only Bootloader   |
-        * | Case |---------------------------------|          Bootloader           |           (Launcher)         |
-        * |      | Active | Valid | Active | Valid |                               |                              |
-        * |------|------------------------------------------------------------------------------------------------|
-        * |  1   |    0   |   0   |   0    |   0   | Bootloader                    | Launcher                     |
-        * |  2   |    0   |   0   |   0    |   1   | Bootloader                    | app#2                        |
-        * |  3   |    0   |   0   |   1    |   0   | Bootloader                    | Launcher                     |
-        * |  4   |    0   |   0   |   1    |   1   | app#2                         | app#2                        |
-        * |  5   |    0   |   1   |   0    |   0   | Bootloader                    | app#1                        |
-        * |  6   |    0   |   1   |   0    |   1   | Bootloader                    | app#1                        |
-        * |  7   |    0   |   1   |   1    |   0   | app#1, except if auto-app     | app#1                        |
-        * |      |        |       |        |       | switching is disabled, then   |                              |
-        * |      |        |       |        |       | stay in Bootloader            |                              |
-        * |  8   |    0   |   1   |   1    |   1   | app#2                         | app#2                        |
-        * ---------------------------------------------------------------------------------------------------------
-        **********************************************************************************************************/
-        if (AesLoader_GetMetadata(AesLoader_GET_BTLDB_ACTIVE, 1u) ==
-            AesLoader_MD_BTLDB_IS_ACTIVE)
-        {
-            /* Cases # 3, 4, 7, and 8 */
-            if (CYRET_SUCCESS == app1Status)
-            {
-                /* Cases # 4 and 8 */
-                AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_1;
-                validApp = CYRET_SUCCESS;
-            }
-            else
-            {
-#if (((1u == AesLoader_AUTO_SWITCHING_AVAIL) && \
-                       (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER)) \
-                    || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER))
-                if (CYRET_SUCCESS == app0Status)
-                {
-                    /* Cases # 7 */
-                    AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_0;
-                    validApp = CYRET_SUCCESS;
-                }
-#endif /*(((1u == AesLoader_AUTO_SWITCHING_AVAIL) && \
-                               (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER)) \
-                            || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER))*/
-            }
-        }
-    }
-
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)
-    /*None of applications is active*/
-    if (AesLoader_MD_BTLDB_ACTIVE_NONE ==AesLoader_activeApp)
-    {
-        /*case#5, case#6: pass control to Bootloadable app#1*/
-        if (CYRET_SUCCESS == app0Status)
-        {
-            AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_0;
-            validApp = CYRET_SUCCESS;
-        }
-        /*case#2: pass control to Bootloadable app#2*/
-        else if (CYRET_SUCCESS == app1Status)
-        {
-            AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_1;
-            validApp = CYRET_SUCCESS;
-        }
-        else
-        {
-            /* case#1, case#3, case#9, case#11: very bad situation, no valid application */
-            /* Do nothing, stay in Bootloader/Launcher */
-        }
-    }
-
-
-    /*********************************************************************************
-    * The next logic is an invalidation of the non-active application in the metadata
-    * section, because there could be a situation due to some error, when both
-    * applications are set active (cases #12,15,16). Only one application can be active.
-    * This logic also stores the active application number in the metadata section.
-    *********************************************************************************/
-    if (CYRET_SUCCESS == validApp)
-    {
-        AesLoader_SetActiveAppInMetadata(AesLoader_activeApp);
-    }
-#endif /* CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER */
-#else /*SINGLE_APP BOOTLOADER*/
-    if (CYRET_SUCCESS == AesLoader_ValidateBootloadable(AesLoader_MD_BTLDB_ACTIVE_0))
-    {
-        validApp = CYRET_SUCCESS;
-    }
-#endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) */
-
-
-    /***********************************************************************
-    * Bootloader Application Validation
-    *
-    * Halt the device if:
-    *  - A calculated checksum does not match the one stored in the metadata
-    *     section.
-    *  - There is an invalid pointer to the place where the Bootloader
-    *    application ends.
-    *  - The flash subsystem was not initialized correctly.
-    ***********************************************************************/
-#if(0u != AesLoader_BOOTLOADER_APP_VALIDATION)
-
-    /* Calculate Bootloader application checksum */
-    calcedChecksum = AesLoader_Calc8BitSum(CY_FLASH_BASE,
-                                           AesLoader_MD_BTLDR_ADDR_PTR,
-                                           *AesLoader_SizeBytesAccess - AesLoader_MD_BTLDR_ADDR_PTR);
-
-    /* We included checksum, so remove it */
-    calcedChecksum -= *AesLoader_ChecksumAccess;
-    calcedChecksum = ( uint8 )1u + ( uint8 )(~calcedChecksum);
-
-    /* Checksum and pointer to Bootloader verification */
-    if ((calcedChecksum != *AesLoader_ChecksumAccess) ||
-        (0u == *AesLoader_SizeBytesAccess))
-    {
-        /***********************************************************************
-        * If the Bootloader/Launcher application calculated checksum does not match
-        * the checksum stored in special AesLoader_Checksum constant
-        * (accessed through AesLoader_ChecksumAccess) constant or its size
-        * stored in AesLoader_SizeBytes constant (accessed through
-        * AesLoader_SizeBytesAccess) then CPU is halted, all software
-        * processing stops.
-        ***********************************************************************/
-        CyHalt(0x00u);
-    }
-
-#endif /* 0u != AesLoader_BOOTLOADER_APP_VALIDATION */
-#endif /* CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER*/
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)
     /***********************************************************************
     * If the active Bootloadable application is invalid or scheduled - do the following:
     *  - schedule the Bootloader application to be run after a software reset;
     *  - go to the communication subroutine. The HostLink() will wait for
     *    commands forever.
     ***********************************************************************/
-    if ((AesLoader_GET_RUN_TYPE == AesLoader_SCHEDULE_BTLDR)
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-        || (CYRET_SUCCESS != validApp)
-#endif
-       )
+    if (AesLoader_GET_RUN_TYPE == AesLoader_SCHEDULE_BTLDR)
     {
         AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDR_INIT_STATE);
-
         AesLoader_HostLink(AesLoader_WAIT_FOR_COMMAND_FOREVER);
     }
 
     /* Go to communication subroutine. Will wait for commands for specified time */
-#if(0u != AesLoader_WAIT_FOR_COMMAND)
-
     /* Timeout is in 100s of milliseconds */
     AesLoader_HostLink(AesLoader_WAIT_FOR_COMMAND_TIME);
-
-#endif  /* (0u != AesLoader_WAIT_FOR_COMMAND) */
-#else /* Launcher */
-    /* If none Bootloadable application is valid */
-    if (CYRET_SUCCESS != validApp)
-    {
-        CyHalt(0x00u);
-    }
-#endif /*CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER*/
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-    /* Schedule Bootloadable application and perform software reset */
-    AesLoader_LaunchApplication();
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 }
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-/*******************************************************************************
-* Function Name: AesLoader_LaunchApplication
-****************************************************************************//**
-* \internal
-*
-* \brief
-*  Schedules the Bootloadable application and resets the device.
-*
-* \return
-*  This method will never return.
-*
-* \endinternal
-*******************************************************************************/
-static void AesLoader_LaunchApplication(void) CYSMALL \
-
-{
-    /* Schedule Bootloadable to start after a reset */
-    AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDB);
-
-    CySoftwareReset();
-}
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
 /*******************************************************************************
 * Function Name: AesLoader_Exit
@@ -1211,12 +532,7 @@ void AesLoader_Exit(uint8 appId) CYSMALL
                 (uint8 )(idx == appId));
             }
 
-#if((0u != AesLoader_DUAL_APP_BOOTLOADER) || \
-            (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
             AesLoader_activeApp = appId;
-#endif /* (0u != AesLoader_DUAL_APP_BOOTLOADER) || 
-                  (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))*/
-
             AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDB);
         }
         else
@@ -1227,123 +543,6 @@ void AesLoader_Exit(uint8 appId) CYSMALL
 
     CySoftwareReset();
 }
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-/*******************************************************************************
-* Function Name: CyBtldr_CheckLaunch
-****************************************************************************//**
-* \internal
-*
-* \brief
-*  This routine checks if the Bootloader or Bootloadable application has to
-*  be run.  If the application has to be run, it will start executing.
-*  If the Bootloader has to be run, it will return, so the Bootloader can
-*  continue starting up.
-*
-* \return
-*  It will not return if it determines that the Bootloadable application should
-*  be run.
-*
-* \endinternal
-*******************************************************************************/
-void CyBtldr_CheckLaunch(void) CYSMALL
-{
-
-#if(CY_PSOC4)
-
-    /*******************************************************************************
-    * Set cyBtldrRunType to zero in the case of a non-software reset. This means
-    * that the Bootloader application is scheduled - the initial clean state. The
-    * value of cyBtldrRunType is valid only in the case of a software reset.
-    *******************************************************************************/
-    if (0u == (AesLoader_RES_CAUSE_REG & AesLoader_RES_CAUSE_RESET_SOFT))
-    {
-        cyBtldrRunType = AesLoader_SCHEDULE_BTLDR_INIT_STATE;
-    }
-
-#endif /* (CY_PSOC4) */
-
-
-    if (AesLoader_GET_RUN_TYPE == AesLoader_SCHEDULE_BTLDB)
-    {
-
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)
-        /*******************************************************************************
-        * Classic Single-app or Dual-app Bootloader use cases.
-        * The active application number is taken from AesLoader_activeApp not
-        * to break backward compatibility.
-        *******************************************************************************/
-        uint8 activeApp = AesLoader_activeApp;
-
-
-        /*******************************************************************************
-        * Classic Dual-app Bootloader with 2 Combination projects use case.
-        * In this use case Classic Dual-app Bootloader is not the only one, who switches
-        * between applications. So if there is no valid value for AesLoader_activeApp,
-        * then we should additionally check the metadata if one of the Combination application
-        * has set a value there.
-        *******************************************************************************/
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER)
-        if (activeApp >= AesLoader_MD_BTLDB_ACTIVE_NONE)
-        {
-            activeApp = AesLoader_GetActiveAppFromMetadata();
-        }
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER)*/
-#else
-        /* Launcher use case.  The active application number is taken from metadata. */
-        uint8 activeApp = AesLoader_GetActiveAppFromMetadata();
-#endif /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER) */
-
-        AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDR_INIT_STATE);
-
-        /*******************************************************************************
-        * Indicates that we have told ourselves to jump to the application because we have
-        * already told ourselves to jump, we do not do any expensive verification of the
-        * application. We just check to make sure that the value at CY_APP_ADDR_ADDRESS
-        * is something other than 0 and active application is valid.
-        *******************************************************************************/
-        if ((0u != AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR, activeApp))
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_BOOTLOADER)
-            && (activeApp < AesLoader_MD_BTLDB_ACTIVE_NONE)
-#endif /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_BOOTLOADER) */
-           )
-        {
-            /* Never returns from this method */
-            AesLoader_LaunchBootloadable(AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR,
-                                         activeApp));
-        }
-    }
-}
-
-
-/* Moves argument appAddr (RO) into PC, moving execution to appAddr */
-#if defined (__ARMCC_VERSION)
-
-__asm static void AesLoader_LaunchBootloadable(uint32 appAddr)
-{
-    BX  R0
-    ALIGN
-}
-
-#elif defined(__GNUC__)
-
-__attribute__((noinline)) /* Workaround for GCC toolchain bug with inlining */
-__attribute__((naked))
-static void AesLoader_LaunchBootloadable(uint32 appAddr)
-{
-    __asm volatile("    BX  R0\n");
-}
-
-#elif defined (__ICCARM__)
-
-static void AesLoader_LaunchBootloadable(uint32 appAddr)
-{
-    __asm volatile("    BX  R0\n");
-}
-
-#endif  /* (__ARMCC_VERSION) */
-#endif /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
 /*******************************************************************************
 * Function Name: AesLoader_ValidateBootloadable
@@ -1377,32 +576,11 @@ cystatus AesLoader_ValidateBootloadable(uint8 appId) CYSMALL \
 
 {
     uint32 CYDATA idx;
-
     uint32 CYDATA end   = AesLoader_FIRST_APP_BYTE(appId) +
     AesLoader_GetMetadata(AesLoader_GET_BTLDB_LENGTH, appId);
 
     CYBIT  valid = 0u; /* Assume bad flash image */
     uint8  CYDATA calcedChecksum = 0u;
-
-
-#if(0u != AesLoader_DUAL_APP_BOOTLOADER)
-
-    if (appId > 1u)
-    {
-        return (CYRET_BAD_DATA);
-    }
-
-#endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) */
-
-
-#if(0u != AesLoader_FAST_APP_VALIDATION)
-    if (AesLoader_GetMetadata(AesLoader_GET_BTLDB_STATUS, appId) ==
-    AesLoader_MD_BTLDB_IS_VERIFIED)
-    {
-        return (CYRET_SUCCESS);
-    }
-#endif  /* (0u != AesLoader_FAST_APP_VALIDATION) */
-
 
     /* Calculate checksum of bootloadable image */
     for (idx = AesLoader_FIRST_APP_BYTE(appId); idx < end; ++idx)
@@ -1417,29 +595,11 @@ cystatus AesLoader_ValidateBootloadable(uint8 appId) CYSMALL \
         calcedChecksum += curByte;
     }
 
-
     /***************************************************************************
     * We do not compute a checksum over the meta data section, so no need to
     * subtract App Verified or App Active information here like we do when
     * verifying a row.
     ***************************************************************************/
-
-#if((!CY_PSOC4) && (CYDEV_ECC_ENABLE == 0u))
-
-    /* Add ECC data to checksum */
-    idx = ((AesLoader_FIRST_APP_BYTE(appId)) >> 3u);
-
-    /* Flash may run into meta data, so ECC does not use full row */
-    end = (end == (CY_FLASH_SIZE - AesLoader_MD_SIZEOF))
-          ? (CY_FLASH_SIZE >> 3u)
-          : (end >> 3u);
-
-    for (; idx < end; ++idx)
-    {
-        calcedChecksum += CY_GET_XTND_REG8((volatile uint8 *)(CYDEV_ECC_BASE + idx));
-    }
-
-#endif  /* ((!CY_PSOC4) && (CYDEV_ECC_ENABLE == 0u)) */
 
     calcedChecksum = ( uint8 )1u + ( uint8 )(~calcedChecksum);
 
@@ -1449,18 +609,9 @@ cystatus AesLoader_ValidateBootloadable(uint8 appId) CYSMALL \
         return (CYRET_BAD_DATA);
     }
 
-
-#if(0u != AesLoader_FAST_APP_VALIDATION)
-    AesLoader_SetFlashByte((uint32) AesLoader_MD_BTLDB_VERIFIED_OFFSET(appId),
-                           AesLoader_MD_BTLDB_IS_VERIFIED);
-#endif  /* (0u != AesLoader_FAST_APP_VALIDATION) */
-
-
     return (CYRET_SUCCESS);
 }
 
-#if (((0u != AesLoader_DUAL_APP_BOOTLOADER) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)) \
-                                          || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
 /*******************************************************************************
 * Function Name: AesLoader_CheckImage
 ********************************************************************************
@@ -1527,9 +678,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
         * details (use cases description).
         ***********************************************************************************/
 
-
-#if ((CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) && \
-         (0u != AesLoader_IS_STACK_APPLICATION))
         /*******************************************************************************
         * The Upgradable Stack application case implies that only this application can
         * perform a bootloading operation (the other one can't). So a verification
@@ -1547,57 +695,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
         *******************************************************************************/
         lastRow = (uint16) AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
         AesLoader_USER_APPLICATION);
-
-#else /* Classic Dual-app and the general Launcher-Combination use cases */
-        /*******************************************************************************
-        * The number of flash rows available for both Bootloadable applications:
-        *
-        * The first Bootloadable application is active:
-        *  ---------------------------------------------------------------------------
-        * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        *                |<-------------------lastRow -------------------->|
-        *
-        * The second Bootloadable application is active:
-        *  ---------------------------------------------------------------------------
-        * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        *                                         |<-------lastRow-------->|
-        *******************************************************************************/
-        lastRow = (uint16)(CY_FLASH_NUMBER_ROWS - AesLoader_NUMBER_OF_METADATA_ROWS - firstRow);
-
-        /*******************************************************************************
-        * The number of flash rows available for the active Bootloadable application:
-        *
-        * The first Bootloadable application is active: the number of flash rows available
-        * for both Bootloadable applications should be divided by 2, meaning 2
-        * Bootloadable applications should fit there.
-        *
-        * The second Bootloadable application is active: the number of flash rows available
-        * for both Bootloadable applications should be divided by 1, meaning 1
-        * Bootloadable application should fit there.
-        *******************************************************************************/
-        lastRow = (uint16)(lastRow / (uint8)(AesLoader_NUMBER_OF_BTLDBLE_APPS - appNumber));
-
-        /*******************************************************************************
-        * The last row equals the first row plus the number of rows available for
-        * each Bootloadable application. That gives the flash row number right
-        * beyond the valid range, so we subtract 1.
-        *
-        * The first Bootloadable application is active:
-        *  ---------------------------------------------------------------------------
-        * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        * |<----------------lastRow ------------->|
-        *
-        * The second Bootloadable application is active:
-        *  ---------------------------------------------------------------------------
-        * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        * |<-----------------------------lastRow-------------------------->|
-        *******************************************************************************/
-        lastRow = (firstRow + lastRow) - 1u;
-#endif /*(0u == AesLoader_IS_STACK_APPLICATION)*/
 
         /*******************************************************************************
         * 1. Refuses to write a row within the range of the active application.
@@ -1635,10 +732,7 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
     return ackCode;
 }
-#endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) || \
-           (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
 
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)
 /*******************************************************************************
 * Function Name: AesLoader_HostLink
 ****************************************************************************//**
@@ -1675,7 +769,6 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
     uint32 app2StartAddress = AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR,
     AesLoader_MD_BTLDB_ACTIVE_1);
 
-
     uint8     packetBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
     uint8     dataBuffer  [AesLoader_SIZEOF_COMMAND_BUFFER];
 
@@ -1692,9 +785,9 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
         do
         {
             readStat = CyBtldrCommRead(packetBuffer,
-            AesLoader_SIZEOF_COMMAND_BUFFER,
-            &numberRead,
-            (0u == timeOut) ? 0xFFu : timeOut);
+                                       AesLoader_SIZEOF_COMMAND_BUFFER,
+                                       &numberRead,
+                                       (0u == timeOut) ? 0xFFu : timeOut);
             if (0u != timeOut)
             {
                 timeOutCnt--;
@@ -1708,14 +801,12 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
         }
         while ( (0u != timeOutCnt) && (readStat != CYRET_SUCCESS) );
 
-
         if ( readStat != CYRET_SUCCESS )
         {
             continue;
         }
 
-        if ((numberRead < AesLoader_MIN_PKT_SIZE) ||
-        (packetBuffer[AesLoader_SOP_ADDR] != AesLoader_SOP))
+        if ((numberRead < AesLoader_MIN_PKT_SIZE) || (packetBuffer[AesLoader_SOP_ADDR] != AesLoader_SOP))
         {
             ackCode = AesLoader_ERR_DATA;
         }
@@ -1723,7 +814,6 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
         {
             pktSize = ((uint16)((uint16)packetBuffer[AesLoader_SIZE_ADDR + 1u] << 8u)) |
             packetBuffer[AesLoader_SIZE_ADDR];
-
 
             /****************************************************************************************
             * If the whole packet length exceeds the number of bytes that have been read by the communication
@@ -1748,10 +838,6 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                 {
                     ackCode = AesLoader_ERR_CHECKSUM;
                 }
-                else
-                {
-                    /* Empty section */
-                }
             }
         }
 
@@ -1763,13 +849,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
             ackCode = AesLoader_ERR_DATA;
             switch (packetBuffer[AesLoader_CMD_ADDR])
             {
-
-
-                    /***************************************************************************
-                    *   Get metadata (0x3C)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Get metadata (0x3C)
+                ***************************************************************************/
                 case AesLoader_COMMAND_GET_METADATA:
-
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 1u))
                     {
                         if (btldrData >= AesLoader_MAX_NUM_OF_BTLDB)
@@ -1792,11 +875,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-                    /***************************************************************************
-                    *   Verify application checksum (0x31)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Verify application checksum (0x31)
+                ***************************************************************************/
                 case AesLoader_COMMAND_CHECKSUM:
-
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 0u))
                     {
                         packetBuffer[AesLoader_DATA_ADDR] =
@@ -1807,11 +889,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-                    /*****************************************************************************
-                    *   Verify row (0x45u)
-                    ***************************************************************************/
+                /*****************************************************************************
+                *   Verify row (0x45u)
+                ***************************************************************************/
                 case AesLoader_COMMAND_VERIFY_FLS_ROW:
-
                     /* Packet size is either 3 (data is already in buffer) or (3u + AesLoader_FROW_SIZE),
                      * then data is in packetBuffer[]*/
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && ((3u == pktSize) ||
@@ -1863,11 +944,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-                    /***************************************************************************
-                    *   Get flash size (0x32)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Get flash size (0x32)
+                ***************************************************************************/
                 case AesLoader_COMMAND_REPORT_SIZE:
-
                     /* btldrData - holds flash array ID sent by host */
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 1u))
                     {
@@ -1923,11 +1003,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-                    /***************************************************************************
-                    *   Get application status (0x33)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Get application status (0x33)
+                ***************************************************************************/
                 case AesLoader_COMMAND_APP_STATUS:
-
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (1u == pktSize))
                     {
 
@@ -1945,10 +1024,7 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                 /***************************************************************************
                 *   Program / Erase row (0x39 / 0x34)
                 ***************************************************************************/
-                case AesLoader_COMMAND_PROGRAM:
-
-                    /* btldrData variable holds Flash Array ID */
-
+                case AesLoader_COMMAND_PROGRAM: // Fall through
                 case AesLoader_COMMAND_ERASE:
                     if (AesLoader_COMMAND_ERASE == packetBuffer[AesLoader_CMD_ADDR])
                     {
@@ -1998,59 +1074,57 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                                 break;
                             }
 
-                            /* Metadata section resides in flash (cannot be in EEPROM). */
+                            /* btldrData  - holds flash array Id sent by host */
+                            /* dataOffset - holds flash row Id sent by host   */
+                            row = (uint16)(btldrData * AesLoader_NUMBER_OF_ROWS_IN_ARRAY) + dataOffset;
 
-                                /* btldrData  - holds flash array Id sent by host */
-                                /* dataOffset - holds flash row Id sent by host   */
-                                row = (uint16)(btldrData * AesLoader_NUMBER_OF_ROWS_IN_ARRAY) + dataOffset;
+                            /*******************************************************************************
+                            * Refuse to write to the row within range of the bootloader application
+                            *******************************************************************************/
 
-                                /*******************************************************************************
-                                * Refuse to write to the row within range of the bootloader application
-                                *******************************************************************************/
+                            /* First empty flash row after Bootloader application */
+                            if (AesLoader_RUNNING_APPLICATION_0 == AesLoader_runningApp)
+                            {
+                                btldrLastRow = (uint16)AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
+                                                                             AesLoader_MD_BTLDB_ACTIVE_1);
+                            }
+                            else /*(AesLoader_RUNNING_APPLICATION_1 == AesLoader_runningApp)*/
+                            {
+                                btldrLastRow = (uint16)AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
+                                                                             AesLoader_MD_BTLDB_ACTIVE_0);
+                            }
 
-                                /* First empty flash row after Bootloader application */
-                                if (AesLoader_RUNNING_APPLICATION_0 == AesLoader_runningApp)
+                            firstRow = (uint16)(btldrLastRow + 1u);
+
+                            /* Check to see if a row to be programmed will not corrupt the Bootloader application */
+                            if (row < firstRow)
+                            {
+                                ackCode = AesLoader_ERR_ROW;
+                                dataOffset = 0u;
+                                break;
+                            }
+
+                            /************************************************************************************
+                            * No check is required in case when there is no app#1 present in Upgradable Stack
+                            * use case (no user application downloaded yet).
+                            ************************************************************************************/
+                            if (0u != app2StartAddress)
+                            {
+                                if (AesLoader_activeApp < AesLoader_MD_BTLDB_ACTIVE_NONE)
                                 {
-                                    btldrLastRow = (uint16)AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
-                                                                                 AesLoader_MD_BTLDB_ACTIVE_1);
-                                }
-                                else /*(AesLoader_RUNNING_APPLICATION_1 == AesLoader_runningApp)*/
-                                {
-                                    btldrLastRow = (uint16)AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
-                                                                                 AesLoader_MD_BTLDB_ACTIVE_0);
-                                }
+                                    /* Refuse to write to active image */
+                                    ackCode = AesLoader_CheckImage(AesLoader_activeApp,
+                                                                   btldrData, /*array number*/
+                                                                   row,  /*row number*/
+                                                                   dataOffset); /*row number in scope of array*/
 
-                                firstRow = (uint16)(btldrLastRow + 1u);
-
-                                /* Check to see if a row to be programmed will not corrupt the Bootloader application */
-                                if (row < firstRow)
-                                {
-                                    ackCode = AesLoader_ERR_ROW;
-                                    dataOffset = 0u;
-                                    break;
-                                }
-
-                                /************************************************************************************
-                                * No check is required in case when there is no app#1 present in Upgradable Stack
-                                * use case (no user application downloaded yet).
-                                ************************************************************************************/
-                                if (0u != app2StartAddress)
-                                {
-                                    if (AesLoader_activeApp < AesLoader_MD_BTLDB_ACTIVE_NONE)
+                                    if (AesLoader_ERR_ACTIVE == ackCode)
                                     {
-                                        /* Refuse to write to active image */
-                                        ackCode = AesLoader_CheckImage(AesLoader_activeApp,
-                                                                       btldrData, /*array number*/
-                                                                       row,  /*row number*/
-                                                                       dataOffset); /*row number in scope of array*/
-
-                                        if (AesLoader_ERR_ACTIVE == ackCode)
-                                        {
-                                            dataOffset = 0u;
-                                            break;
-                                        }
+                                        dataOffset = 0u;
+                                        break;
                                     }
                                 }
+                            }
 
                             ackCode = (CYRET_SUCCESS != CySysFlashWriteRow((uint32) row, dataBuffer)) \
                                       ? AesLoader_ERR_ROW \
@@ -2066,12 +1140,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-
-                    /***************************************************************************
-                    *   Sync bootloader (0x35)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Sync bootloader (0x35)
+                ***************************************************************************/
                 case AesLoader_COMMAND_SYNC:
-
                     if (AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState)
                     {
                         /* If something failed, Host would send this command to reset Bootloader. */
@@ -2082,11 +1154,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-                    /***************************************************************************
-                    *   Set an active application (0x36)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Set an active application (0x36)
+                ***************************************************************************/
                 case AesLoader_COMMAND_APP_ACTIVE:
-
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 1u))
                     {
                         if (CYRET_SUCCESS == AesLoader_ValidateBootloadable(btldrData))
@@ -2102,11 +1173,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-                    /***************************************************************************
-                    *   Send data (0x37)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Send data (0x37)
+                ***************************************************************************/
                 case AesLoader_COMMAND_DATA:
-
                     if (AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState)
                     {
                         /*  Make sure that dataOffset is valid before copying data */
@@ -2132,7 +1202,6 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                 *   Enter bootloader (0x38)
                 ***************************************************************************/
                 case AesLoader_COMMAND_ENTER:
-
                     if (pktSize == 0u) /*Security key is not demanded*/
                     {
                         AesLoader_ENTER CYDATA BtldrVersion =
@@ -2158,12 +1227,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-
-                    /***************************************************************************
-                    *   Get row checksum (0x3A)
-                    ***************************************************************************/
+                /***************************************************************************
+                *   Get row checksum (0x3A)
+                ***************************************************************************/
                 case AesLoader_COMMAND_GET_ROW_CHKSUM:
-
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 3u))
                     {
                         /* Get flash/EEPROM row number */
@@ -2212,12 +1279,10 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                     }
                     break;
 
-
                 /***************************************************************************
                 *   Exit bootloader (0x3B)
                 ***************************************************************************/
                 case AesLoader_COMMAND_EXIT:
-
                     /*******************************************************************************
                     * Currently the copy flag is checked in the metadata for the second application.
                     * If it is set, then the copy operation is required and Launcher (BTLDR) should
@@ -2233,21 +1298,19 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                         AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDR);
                     }
                     else
+                    {
                         if (CYRET_SUCCESS == AesLoader_ValidateBootloadable(AesLoader_activeApp))
                         {
                             AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDB);
                         }
+                    }
 
                     AesLoader_isBootloading = AesLoader_BOOTLOADING_COMPLETED;
-
-
                     CyBtldrCommStop();
-
                     CySoftwareReset();
 
                     /* Will never get here */
                     break;
-
 
                 /***************************************************************************
                 *   Unsupported command
@@ -2299,7 +1362,6 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
     while ((0u == timeOut) || (AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState));
 }
 
-
 /*******************************************************************************
 * Function Name: AesLoader_WritePacket
 ****************************************************************************//**
@@ -2342,7 +1404,6 @@ static cystatus AesLoader_WritePacket(uint8 status, uint8 buffer[], uint16 size)
     /* Start packet transmit. */
     return (CyBtldrCommWrite(buffer, size + AesLoader_MIN_PKT_SIZE, &size, 150u));
 }
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LAUNCHER)*/
 
 /*******************************************************************************
 * Function Name: AesLoader_SetFlashByte
@@ -2361,17 +1422,7 @@ void AesLoader_SetFlashByte(uint32 address, uint8 runType)
 {
     uint32 flsAddr = address - CYDEV_FLASH_BASE;
     uint8  rowData[CYDEV_FLS_ROW_SIZE];
-
-#if !(CY_PSOC4)
-    uint8 arrayId = ( uint8 )(flsAddr / CYDEV_FLS_SECTOR_SIZE);
-#endif  /* !(CY_PSOC4) */
-
-#if (CY_PSOC4)
     uint16 rowNum = ( uint16 )(flsAddr / CYDEV_FLS_ROW_SIZE);
-#else
-    uint16 rowNum = ( uint16 )((flsAddr % CYDEV_FLS_SECTOR_SIZE) / CYDEV_FLS_ROW_SIZE);
-#endif  /* (CY_PSOC4) */
-
     uint32 baseAddr = address - (address % CYDEV_FLS_ROW_SIZE);
     uint16 idx;
 
@@ -2381,24 +1432,8 @@ void AesLoader_SetFlashByte(uint32 address, uint8 runType)
     }
 
     rowData[address % CYDEV_FLS_ROW_SIZE] = runType;
-
-#if(CY_PSOC4)
     (void) CySysFlashWriteRow((uint32) rowNum, rowData);
-#else
-    (void) CyWriteRowData(arrayId, rowNum, rowData);
-#endif  /* (CY_PSOC4) */
-
-#if(CY_PSOC5)
-    /***************************************************************************
-    * When writing to flash, data in the instruction cache can become stale.
-    * Therefore, the cache data does not correlate to the data just written to
-    * flash. A call to CyFlushCache() is required to invalidate the data in the
-    * cache and force fresh information to be loaded from flash.
-    ***************************************************************************/
-    CyFlushCache();
-#endif /* (CY_PSOC5) */
 }
-
 
 /*******************************************************************************
 * Function Name: AesLoader_GetMetadata
@@ -2433,9 +1468,7 @@ uint32 AesLoader_GetMetadata(uint8 field, uint8 appId)
 
         case AesLoader_GET_BTLDB_ADDR:
             fieldPtr  = AesLoader_MD_BTLDB_ADDR_OFFSET(appId);
-#if(!CY_PSOC3)
             fieldSize = 4u;
-#endif  /* (!CY_PSOC3) */
             break;
 
         case AesLoader_GET_BTLDR_LAST_ROW:
@@ -2444,9 +1477,7 @@ uint32 AesLoader_GetMetadata(uint8 field, uint8 appId)
 
         case AesLoader_GET_BTLDB_LENGTH:
             fieldPtr  = AesLoader_MD_BTLDB_LENGTH_OFFSET(appId);
-#if(!CY_PSOC3)
             fieldSize = 4u;
-#endif  /* (!CY_PSOC3) */
             break;
 
         case AesLoader_GET_BTLDB_ACTIVE:
@@ -2493,29 +1524,10 @@ uint32 AesLoader_GetMetadata(uint8 field, uint8 appId)
             break;
     }
 
-
     if (1u == fieldSize)
     {
         result =  (uint32) CY_GET_XTND_REG8((volatile uint8 *)fieldPtr);
     }
-
-#if(CY_PSOC3)   /* Big-endian */
-
-    if (2u == fieldSize)
-    {
-        result =  (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr + 1u));
-        result |= (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr     )) <<  8u;
-    }
-
-    if (4u == fieldSize)
-    {
-        result =  (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr + 3u));
-        result |= (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr + 2u)) <<  8u;
-        result |= (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr + 1u)) << 16u;
-        result |= (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr     )) << 24u;
-    }
-
-#else   /* PSoC 4 and PSoC 5: Little-endian */
 
     if (2u == fieldSize)
     {
@@ -2531,10 +1543,7 @@ uint32 AesLoader_GetMetadata(uint8 field, uint8 appId)
         result |= (uint32) CY_GET_XTND_REG8((volatile uint8 *)(fieldPtr + 3u)) << 24u;
     }
 
-#endif /* (CY_PSOC3) */
-
     return (result);
 }
-
 
 /* @} [] END OF FILE */
