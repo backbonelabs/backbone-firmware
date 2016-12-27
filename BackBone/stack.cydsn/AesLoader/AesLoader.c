@@ -737,7 +737,17 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
     uint32 app2StartAddress = AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR, AesLoader_MD_BTLDB_ACTIVE_1);
 
     uint8     packetBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
-    uint8     dataBuffer  [AesLoader_SIZEOF_COMMAND_BUFFER];
+    uint8     dataBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
+        
+    CYBLE_API_RESULT_T decryptResult;   
+    uint8     decryptBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
+    // TODO: Use actual encryption key
+    uint8     keyBuffer[16] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF,
+                                0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF };
+    // TODO: Use actual nonce
+    uint8     nonceBuffer[13] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
+                                  0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B };
+    uint8     micBuffer[4];
 
     /* Initialize communications channel. */
     CyBtldrCommStart();
@@ -899,7 +909,15 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                             {
                                 break;
                             }
-
+                            
+                            decryptResult = CyBle_AesCcmDecrypt(keyBuffer,
+                                                                nonceBuffer,
+                                                                dataBuffer,
+                                                                (uint8_t)AesLoader_FROW_SIZE,
+                                                                decryptBuffer,
+                                                                micBuffer);
+                            
+                            // TODO: Verify decryptBuffer instead of dataBuffer
                             ackCode = AesLoader_VerifyRow(startAddr, dataBuffer, (uint16)CYDEV_FLS_ROW_SIZE);
                         }
                         else
@@ -1092,6 +1110,15 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
                                 }
                             }
 
+                            decryptResult = CyBle_AesCcmDecrypt(keyBuffer,
+                                                                nonceBuffer,
+                                                                dataBuffer,
+                                                                (uint8_t)AesLoader_FROW_SIZE,
+                                                                decryptBuffer,
+                                                                micBuffer);
+                                
+                            // TODO: Load flash from decryptBuffer
+                            // TODO: Adjust ack code based on decryptResult
                             ackCode = (CYRET_SUCCESS != CySysFlashWriteRow((uint32) row, dataBuffer)) \
                                       ? AesLoader_ERR_ROW \
                                       : CYRET_SUCCESS;
