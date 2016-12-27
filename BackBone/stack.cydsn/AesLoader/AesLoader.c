@@ -1657,13 +1657,8 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 *  This function is public only for Launcher-Combination architecture. For
 *  Classic Bootloader it is static, meaning private.
 *******************************************************************************/
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-    static void AesLoader_HostLink(uint8 timeOut) CYLARGE
 
-#else
-    void AesLoader_HostLink(uint8 timeOut) CYLARGE
-
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
+void AesLoader_HostLink(uint8 timeOut) CYLARGE
 {
     uint16    CYDATA numberRead;
     uint16    CYDATA rspSize;
@@ -1673,52 +1668,16 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
     uint16    CYDATA pktSize    = 0u;
     uint8     CYDATA timeOutCnt = 10u;
 
-#if(0u != AesLoader_FAST_APP_VALIDATION)
-    uint8 CYDATA clearedMetaData = 0u;
-#endif  /* (0u != AesLoader_FAST_APP_VALIDATION) */
-
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
     static  CYBIT communicationState = AesLoader_COMMUNICATION_STATE_IDLE;
     static uint16 CYDATA dataOffset = 0u;
     uint16  CYDATA btldrLastRow = 0xFFFFu;
     uint8 needToCopyFlag = 0u;
     uint32 app2StartAddress = AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR,
     AesLoader_MD_BTLDB_ACTIVE_1);
-#else
-    CYBIT     communicationState = AesLoader_COMMUNICATION_STATE_IDLE;
-    uint16 CYDATA dataOffset = 0u;
-#endif /*CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER*/
+
 
     uint8     packetBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
     uint8     dataBuffer  [AesLoader_SIZEOF_COMMAND_BUFFER];
-
-
-#if(!CY_PSOC4)
-#if(0u == AesLoader_FAST_APP_VALIDATION)
-#if !defined(CY_BOOT_VERSION)
-
-    /* Not required with cy_boot 4.20 */
-    uint8 CYXDATA AesLoader_flashBuffer[AesLoader_FROW_SIZE];
-
-#endif /* !defined(CY_BOOT_VERSION) */
-#endif  /* (0u == AesLoader_FAST_APP_VALIDATION) */
-#endif  /* (CY_PSOC4) */
-
-
-
-#if(!CY_PSOC4)
-#if((0u == AesLoader_FAST_APP_VALIDATION) || \
-            (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-
-    /* Initialize flash subsystem for non-PSoC 4 devices */
-    if (CYRET_SUCCESS != CySetTemp())
-    {
-        CyHalt(0x00u);
-    }
-
-#endif  /* (0u == AesLoader_FAST_APP_VALIDATION) ||
-                   (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
-#endif  /* (CY_PSOC4) */
 
     /* Initialize communications channel. */
     CyBtldrCommStart();
@@ -1809,8 +1768,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     /***************************************************************************
                     *   Get metadata (0x3C)
                     ***************************************************************************/
-#if(0u != AesLoader_CMD_GET_METADATA)
-
                 case AesLoader_COMMAND_GET_METADATA:
 
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 1u))
@@ -1821,15 +1778,9 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         }
                         else if (CYRET_SUCCESS == AesLoader_ValidateBootloadable(btldrData))
                         {
-#if(CY_PSOC3)
-                            (void) memcpy(&packetBuffer[AesLoader_DATA_ADDR],
-                                          ((uint8  CYCODE *) (AesLoader_MD_BASE_ADDR(btldrData))),
-                                          AesLoader_GET_METADATA_RESPONSE_SIZE);
-#else
                             (void) memcpy(&packetBuffer[AesLoader_DATA_ADDR],
                                           (uint8 *) AesLoader_MD_BASE_ADDR(btldrData),
                                           AesLoader_GET_METADATA_RESPONSE_SIZE);
-#endif  /* (CY_PSOC3) */
 
                             rspSize = AesLoader_RSP_SIZE_GET_METADATA;
                             ackCode = CYRET_SUCCESS;
@@ -1841,13 +1792,9 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     }
                     break;
 
-#endif  /* (0u != AesLoader_CMD_GET_METADATA) */
-
-
                     /***************************************************************************
                     *   Verify application checksum (0x31)
                     ***************************************************************************/
-#if (0u != AesLoader_CMD_VERIFY_APP_CHKSUM_AVAIL)
                 case AesLoader_COMMAND_CHECKSUM:
 
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 0u))
@@ -1859,12 +1806,10 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         ackCode = CYRET_SUCCESS;
                     }
                     break;
-#endif /* (0u != AesLoader_CMD_VERIFY_APP_CHKSUM_AVAIL) */
 
                     /*****************************************************************************
                     *   Verify row (0x45u)
                     ***************************************************************************/
-#if(0u != AesLoader_CMD_VERIFY_FLS_ROW_AVAIL)
                 case AesLoader_COMMAND_VERIFY_FLS_ROW:
 
                     /* Packet size is either 3 (data is already in buffer) or (3u + AesLoader_FROW_SIZE),
@@ -1877,9 +1822,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
                         uint32 CYDATA startAddr;
                         uint16 upperRange = 0u;
-#if (!CY_PSOC4)
-                        uint16 CYDATA rowSize;
-#endif /*(!CY_PSOC4)*/
 
                         ackCode = CYRET_SUCCESS;
                         rspSize = AesLoader_RSP_SIZE_0;
@@ -1890,65 +1832,12 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         }
                         else
                         {
-#if (CY_PSOC3)
-                            /*Data is in packetBuffer[], needs to be copied to dataBuffer[]*/
-                            (void) memcpy(dataBuffer, &packetBuffer[AesLoader_DATA_ADDR + 3u],
-                                          (int16)pktSize - 3);
-#else
+
                             /*Data is in packetBuffer[], needs to be copied to dataBuffer[]*/
                             (void) memcpy(dataBuffer, &packetBuffer[AesLoader_DATA_ADDR + 3u],
                                           (uint32)pktSize - 3u);
-#endif /*CY_PSOC3)*/
                         }
 
-#if (!CY_PSOC4)
-                        if ((btldrData >= AesLoader_FIRST_EE_ARRAYID) &&
-                            (btldrData <= AesLoader_LAST_EE_ARRAYID))
-                        {
-                            /* EEPROM */
-                            /* Both PSoC 3 and PSoC 5LP architecture have one EEPROM array. */
-                            startAddr = CY_EEPROM_BASE + ((uint32)rowNum * CYDEV_EEPROM_ROW_SIZE);
-                            rowSize = CYDEV_EEPROM_ROW_SIZE;
-                            upperRange = AesLoader_NUMBER_OF_EEPROM_SECTORS * AesLoader_NUMBER_OF_ROWS_IN_EEPROM_SECTOR;
-                        }
-                        else if (btldrData < CY_FLASH_NUMBER_ARRAYS)
-                        {
-                            startAddr = CY_FLASH_BASE + ((uint32)btldrData * CYDEV_FLS_SECTOR_SIZE) +
-                                        ((uint32)rowNum * CYDEV_FLS_ROW_SIZE);
-                            rowSize = CYDEV_FLS_ROW_SIZE;
-                            upperRange = AesLoader_NUMBER_OF_ROWS_IN_ARRAY;
-                        }
-                        else
-                        {
-                            ackCode = AesLoader_ERR_ARRAY;
-                            break;
-                        }
-
-                        /*Checking if row number is within array address range*/
-                        ackCode = AesLoader_CHECK_ROW_NUMBER(rowNum, upperRange);
-
-                        if (CYRET_SUCCESS != ackCode)
-                        {
-                            break;
-                        }
-
-                        ackCode = AesLoader_VerifyRow(startAddr, dataBuffer, rowSize);
-
-                        /*******************************************************************************
-                        * If flash row check has completed successfully and ECC is disabled and there is
-                        * data in the buffer for ECC row.
-                        *******************************************************************************/
-#if (CYDEV_ECC_ENABLE == 0u)
-                        if ((CYRET_SUCCESS == ackCode) && (btldrData < CY_FLASH_NUMBER_ARRAYS) && (dataOffset > rowSize))
-                        {
-                            startAddr = CYDEV_ECC_BASE + ((uint32)btldrData * (CYDEV_FLS_SECTOR_SIZE / 8u)) +
-                                        ((uint32)rowNum * CYDEV_ECC_ROW_SIZE);
-
-                            ackCode = AesLoader_VerifyRow(startAddr, &dataBuffer[rowSize], (uint16)CYDEV_ECC_ROW_SIZE);
-                        }
-#endif /*(CYDEV_ECC_ENABLE == 0u)*/
-
-#else /*CY_PSOC4*/
                         if (btldrData < CY_FLASH_NUMBER_ARRAYS)
                         {
                             startAddr = CY_FLASH_BASE + ((uint32)btldrData * CYDEV_FLS_SECTOR_SIZE)
@@ -1971,17 +1860,12 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                             ackCode = AesLoader_ERR_ARRAY;
                             break;
                         }
-#endif  /* (!CY_PSOC4) */
-
                     }
                     break;
-#endif /*(0u != AesLoader_CMD_VERIFY_ROW_FLS_AVAIL)*/
 
                     /***************************************************************************
                     *   Get flash size (0x32)
                     ***************************************************************************/
-#if(0u != AesLoader_CMD_GET_FLASH_SIZE_AVAIL)
-
                 case AesLoader_COMMAND_REPORT_SIZE:
 
                     /* btldrData - holds flash array ID sent by host */
@@ -2006,15 +1890,7 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                             *   then we do not use the AesLoader_SizeBytes and AesLoader_SizeBytesAccess
                             *   variables, instead we take the Launcher's last row from metadata.
                             *******************************************************************************/
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-                            arrayIdBtlderEnds = (uint8) (*AesLoader_SizeBytesAccess / CY_FLASH_SIZEOF_ARRAY);
 
-                            if (btldrData == arrayIdBtlderEnds)
-                            {
-                                startRow = (uint16) (*AesLoader_SizeBytesAccess / CY_FLASH_SIZEOF_ROW) %
-                                           AesLoader_NUMBER_OF_ROWS_IN_ARRAY;
-                            }
-#else /*Combination project type*/
                             btldrLastRow = (uint16)(AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW, \
                                                                           AesLoader_MD_BTLDB_ACTIVE_0));
                             arrayIdBtlderEnds = (uint8) (((uint32)btldrLastRow * CY_FLASH_SIZEOF_ROW) / (uint32)CY_FLASH_SIZEOF_ARRAY);
@@ -2022,8 +1898,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                             {
                                 startRow = (uint16)((btldrLastRow) % AesLoader_NUMBER_OF_ROWS_IN_ARRAY);
                             }
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
-
                             else if (btldrData > arrayIdBtlderEnds)
                             {
                                 startRow = AesLoader_FIRST_ROW_IN_ARRAY;
@@ -2049,16 +1923,9 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     }
                     break;
 
-#endif  /* (0u != AesLoader_CMD_GET_FLASH_SIZE_AVAIL) */
-
-
                     /***************************************************************************
                     *   Get application status (0x33)
                     ***************************************************************************/
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER) || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-
-#if(0u != AesLoader_CMD_GET_APP_STATUS_AVAIL)
-
                 case AesLoader_COMMAND_APP_STATUS:
 
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (1u == pktSize))
@@ -2075,10 +1942,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     }
                     break;
 
-#endif  /* (0u != AesLoader_CMD_GET_APP_STATUS_AVAIL) */
-
-#endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER || (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)) */
-
                 /***************************************************************************
                 *   Program / Erase row (0x39 / 0x34)
                 ***************************************************************************/
@@ -2086,35 +1949,15 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
                     /* btldrData variable holds Flash Array ID */
 
-#if (0u != AesLoader_CMD_ERASE_ROW_AVAIL)
-
                 case AesLoader_COMMAND_ERASE:
                     if (AesLoader_COMMAND_ERASE == packetBuffer[AesLoader_CMD_ADDR])
                     {
                         if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 3u))
                         {
-#if(!CY_PSOC4)
-                            if ((btldrData >= AesLoader_FIRST_EE_ARRAYID) &&
-                                (btldrData <= AesLoader_LAST_EE_ARRAYID))
-                            {
-                                /* Size of EEPROM row */
-                                dataOffset = CY_EEPROM_SIZEOF_ROW;
-                            }
-                            else
-                            {
-                                /* Size of flash row (depends on ECC configuration) */
-                                dataOffset = AesLoader_FROW_SIZE;
-                            }
-#else
                             /* Size of flash row (no ECC available) */
                             dataOffset = AesLoader_FROW_SIZE;
-#endif  /* (!CY_PSOC4) */
 
-#if(CY_PSOC3)
-                            (void) memset(dataBuffer, (char8) 0, (int16) dataOffset);
-#else
                             (void) memset(dataBuffer, 0, (uint32) dataOffset);
-#endif  /* (CY_PSOC3) */
                         }
                         else
                         {
@@ -2122,58 +1965,26 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         }
                     }
 
-#endif  /* (0u != AesLoader_CMD_ERASE_ROW_AVAIL) */
-
-
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize >= 3u))
                     {
                         uint16 upperRange;
 
                         /* Command may be sent along with last block of data, to program row. */
-#if(CY_PSOC3)
-                        (void) memcpy(&dataBuffer[dataOffset],
-                                      &packetBuffer[AesLoader_DATA_ADDR + 3u],
-                                      (int16) pktSize - 3);
-#else
                         (void) memcpy(&dataBuffer[dataOffset],
                                       &packetBuffer[AesLoader_DATA_ADDR + 3u],
                                       (uint32) pktSize - 3u);
-#endif  /* (CY_PSOC3) */
 
                         dataOffset += (pktSize - 3u);
 
-#if(!CY_PSOC4)
-                        if ((btldrData >= AesLoader_FIRST_EE_ARRAYID) &&
-                            (btldrData <= AesLoader_LAST_EE_ARRAYID))
-                        {
-                            CyEEPROM_Start();
-
-                            /* Size of EEPROM row */
-                            pktSize = CY_EEPROM_SIZEOF_ROW;
-                            upperRange = AesLoader_NUMBER_OF_EEPROM_SECTORS * AesLoader_NUMBER_OF_ROWS_IN_EEPROM_SECTOR;
-                        }
-                        else
-                        {
-                            /* Size of flash row (depends on ECC configuration) */
-                            pktSize = AesLoader_FROW_SIZE;
-                            upperRange = AesLoader_NUMBER_OF_ROWS_IN_ARRAY;
-                        }
-#else
                         /* Size of flash row (no ECC available) */
                         pktSize = AesLoader_FROW_SIZE;
                         upperRange = AesLoader_NUMBER_OF_ROWS_IN_ARRAY;
-#endif  /* (!CY_PSOC4) */
 
                         /* Check if we have all data to program */
                         if (dataOffset == pktSize)
                         {
                             uint16 row;
                             uint16 firstRow;
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER) && \
-                          (1u == AesLoader_GOLDEN_IMAGE_AVAIL))
-                            cystatus goldenImageValid;
-#endif /*(((0u != AesLoader_DUAL_APP_BOOTLOADER) &&
-                               (1u == AesLoader_GOLDEN_IMAGE_AVAIL))*/
 
                             /* Get flash/EEPROM row number inside array */
                             dataOffset = ((uint16)((uint16)packetBuffer[AesLoader_DATA_ADDR + 2u] << 8u)) |
@@ -2188,10 +1999,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                             }
 
                             /* Metadata section resides in flash (cannot be in EEPROM). */
-#if(!CY_PSOC4)
-                            if (btldrData <= AesLoader_LAST_FLASH_ARRAYID)
-                            {
-#endif  /* (!CY_PSOC4) */
 
                                 /* btldrData  - holds flash array Id sent by host */
                                 /* dataOffset - holds flash row Id sent by host   */
@@ -2202,14 +2009,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                                 *******************************************************************************/
 
                                 /* First empty flash row after Bootloader application */
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-                                firstRow = (uint16) (*AesLoader_SizeBytesAccess / CYDEV_FLS_ROW_SIZE);
-                                if ((*AesLoader_SizeBytesAccess % CYDEV_FLS_ROW_SIZE) != 0u)
-                                {
-                                    firstRow++;
-                                }
-#else /*Combination project type*/
-
                                 if (AesLoader_RUNNING_APPLICATION_0 == AesLoader_runningApp)
                                 {
                                     btldrLastRow = (uint16)AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
@@ -2222,7 +2021,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                                 }
 
                                 firstRow = (uint16)(btldrLastRow + 1u);
-#endif /*(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
                                 /* Check to see if a row to be programmed will not corrupt the Bootloader application */
                                 if (row < firstRow)
@@ -2232,18 +2030,12 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                                     break;
                                 }
 
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER) || \
-                             (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-
                                 /************************************************************************************
                                 * No check is required in case when there is no app#1 present in Upgradable Stack
                                 * use case (no user application downloaded yet).
                                 ************************************************************************************/
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
                                 if (0u != app2StartAddress)
                                 {
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
-
                                     if (AesLoader_activeApp < AesLoader_MD_BTLDB_ACTIVE_NONE)
                                     {
                                         /* Refuse to write to active image */
@@ -2258,130 +2050,11 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                                             break;
                                         }
                                     }
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-                                }
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
-
-                                /*This option is available for classic Dual-app bootloader only*/
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER) && \
-                                 (1u == AesLoader_GOLDEN_IMAGE_AVAIL))
-                                /* Check if this is an attempt to overwrite Golden image */
-                                ackCode = AesLoader_CheckImage(AesLoader_GOLDEN_IMAGE,
-                                                               btldrData, /*array number*/
-                                                               row, /*row number*/
-                                                               dataOffset); /*row number in scope of array*/
-
-
-                                /************************************************************************
-                                * If an image to write is intended to update the Golden image and Golden image
-                                * itself is valid, then give an error that it is active/Golden, otherwise
-                                * (invalid Golden image) let the Golden image to be overwritten.
-                                *************************************************************************/
-                                goldenImageValid = AesLoader_ValidateBootloadable(AesLoader_GOLDEN_IMAGE);
-                                if ((AesLoader_ERR_ACTIVE == ackCode) && (CYRET_SUCCESS == goldenImageValid))
-                                {
-                                    dataOffset = 0u;
-                                    break;
-                                }
-                                else /* It is OK to overwrite corrupted Golden image */
-                                {
-                                    ackCode = CYRET_SUCCESS;
-                                }
-#endif /*((0u != AesLoader_DUAL_APP_BOOTLOADER) &&
-                                      (1u == AesLoader_GOLDEN_IMAGE_AVAIL)) */
-#endif /*(0u != AesLoader_DUAL_APP_BOOTLOADER) ||
-                                 (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
-
-
-                                /*******************************************************************************
-                                * Clear a row that contains metadata, when the "Fast bootloadable application
-                                * validation" option is enabled.
-                                *
-                                * If the "Fast bootloadable application validation" option is enabled, the
-                                * bootloader only computes the checksum the first time and assumes that it
-                                * remains valid in each future startup. The metadata row is cleared because the
-                                * Bootloadable application might become corrupted during update, while
-                                * the "Bootloadable Application Verification Status" field will still report that
-                                * the application is valid.
-                                *******************************************************************************/
-#if(0u != AesLoader_FAST_APP_VALIDATION)
-
-                                if (0u == clearedMetaData)
-                                {
-                                    /* Metadata section must be filled with zeros */
-
-                                    uint8 erase[AesLoader_FROW_SIZE];
-                                    uint8 AesLoader_notActiveApp;
-
-
-#if(CY_PSOC3)
-                                    (void) memset(erase, (char8) 0, (int16) AesLoader_FROW_SIZE);
-#else
-                                    (void) memset(erase, 0, AesLoader_FROW_SIZE);
-#endif  /* (CY_PSOC3) */
-
-
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER) || \
-                                     (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-                                    if (AesLoader_MD_BTLDB_ACTIVE_0 == AesLoader_activeApp)
-                                    {
-                                        AesLoader_notActiveApp = AesLoader_MD_BTLDB_ACTIVE_1;
-                                    }
-                                    else
-                                    {
-                                        AesLoader_notActiveApp = AesLoader_MD_BTLDB_ACTIVE_0;
-                                    }
-#else
-                                    AesLoader_notActiveApp = AesLoader_MD_BTLDB_ACTIVE_0;
-#endif /* (0u != AesLoader_DUAL_APP_BOOTLOADER) */
-
-
-#if(CY_PSOC4)
-                                    (void) CySysFlashWriteRow(
-                                        AesLoader_MD_ROW_NUM(AesLoader_notActiveApp),
-                                        erase);
-#else
-                                    (void) CyWriteRowFull(
-                                        (uint8)  AesLoader_MD_FLASH_ARRAY_NUM,
-                                        (uint16) AesLoader_MD_ROW_NUM(AesLoader_notActiveApp),
-                                        erase,
-                                        AesLoader_FROW_SIZE);
-#endif  /* (CY_PSOC4) */
-
-                                    /* PSoC 5: Do not care about flushing cache as flash row has been erased. */
-
-                                    /* Set up flag that metadata was cleared */
-                                    clearedMetaData = 1u;
                                 }
 
-#endif  /* (0u != AesLoader_FAST_APP_VALIDATION) */
-
-
-#if(!CY_PSOC4)
-                            }   /* (btldrData <= AesLoader_LAST_FLASH_ARRAYID) */
-#endif  /* (!CY_PSOC4) */
-
-
-#if(CY_PSOC4)
                             ackCode = (CYRET_SUCCESS != CySysFlashWriteRow((uint32) row, dataBuffer)) \
                                       ? AesLoader_ERR_ROW \
                                       : CYRET_SUCCESS;
-#else
-                            ackCode = (CYRET_SUCCESS != CyWriteRowFull(btldrData, dataOffset, dataBuffer, pktSize)) \
-                                      ? AesLoader_ERR_ROW \
-                                      : CYRET_SUCCESS;
-#endif  /* (CY_PSOC4) */
-
-
-#if(CY_PSOC5)
-                            /***************************************************************************
-                            * When writing to flash, data in the instruction cache can become stale.
-                            * Therefore, the cache data does not correlate to the data just written to
-                            * flash. A call to CyFlushCache() is required to invalidate the data in the
-                            * cache and force fresh information to be loaded from flash.
-                            ***************************************************************************/
-                            CyFlushCache();
-#endif /* (CY_PSOC5) */
 
                         }
                         else
@@ -2397,8 +2070,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     /***************************************************************************
                     *   Sync bootloader (0x35)
                     ***************************************************************************/
-#if(0u != AesLoader_CMD_SYNC_BOOTLOADER_AVAIL)
-
                 case AesLoader_COMMAND_SYNC:
 
                     if (AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState)
@@ -2411,15 +2082,9 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     }
                     break;
 
-#endif  /* (0u != AesLoader_CMD_SYNC_BOOTLOADER_AVAIL) */
-
-
                     /***************************************************************************
                     *   Set an active application (0x36)
                     ***************************************************************************/
-#if ((0u != AesLoader_DUAL_APP_BOOTLOADER) || \
-                 (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
-
                 case AesLoader_COMMAND_APP_ACTIVE:
 
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 1u))
@@ -2437,15 +2102,9 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     }
                     break;
 
-#endif  /* (0u != AesLoader_DUAL_APP_BOOTLOADER) || 
-                       (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
-
-
                     /***************************************************************************
                     *   Send data (0x37)
                     ***************************************************************************/
-#if (0u != AesLoader_CMD_SEND_DATA_AVAIL)
-
                 case AesLoader_COMMAND_DATA:
 
                     if (AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState)
@@ -2455,15 +2114,9 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         {
                             ackCode = CYRET_SUCCESS;
 
-#if(CY_PSOC3)
-                            (void) memcpy(&dataBuffer[dataOffset],
-                                          &packetBuffer[AesLoader_DATA_ADDR],
-                                          ( int16 )pktSize);
-#else
                             (void) memcpy(&dataBuffer[dataOffset],
                                           &packetBuffer[AesLoader_DATA_ADDR],
                                           (uint32) pktSize);
-#endif  /* (CY_PSOC3) */
 
                             dataOffset += pktSize;
                         }
@@ -2475,73 +2128,27 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
                     break;
 
-#endif  /* (0u != AesLoader_CMD_SEND_DATA_AVAIL) */
-
-
                 /***************************************************************************
                 *   Enter bootloader (0x38)
                 ***************************************************************************/
                 case AesLoader_COMMAND_ENTER:
 
-#if (AesLoader_SECURITY_KEY_AVAIL == 1u)
-                    if (pktSize == 6u) /*Security key*/
-#else
                     if (pktSize == 0u) /*Security key is not demanded*/
-#endif /*(AesLoader_SECURITY_KEY_AVAIL == 1u)*/
                     {
-#if(CY_PSOC3)
-
-                        AesLoader_ENTER CYDATA BtldrVersion =
-                        {CYSWAP_ENDIAN32(CYDEV_CHIP_JTAG_ID), CYDEV_CHIP_REV_EXPECT, AesLoader_VERSION};
-
-#else
-
                         AesLoader_ENTER CYDATA BtldrVersion =
                         {CYDEV_CHIP_JTAG_ID, CYDEV_CHIP_REV_EXPECT, AesLoader_VERSION};
-#endif  /* (CY_PSOC3) */
 
-#if (AesLoader_SECURITY_KEY_AVAIL == 1u)
-
-                        /*Security key checking*/
-                        uint8 idx = AesLoader_SECURITY_KEY_LENGTH;
-                        ackCode = CYRET_SUCCESS;
-
-                        do
-                        {
-                            idx--;
-                            if (AesLoader_securityKey[idx] != packetBuffer[AesLoader_DATA_ADDR + idx])
-                            {
-                                ackCode = AesLoader_ERR_DATA;
-                                break;
-                            }
-
-                        }
-                        while (0u != idx);
-
-                        if (AesLoader_ERR_DATA == ackCode)
-                        {
-                            break;
-                        }
-#endif /*(AesLoader_SECURITY_KEY_AVAIL == 1u)*/
-
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
                         AesLoader_isBootloading = AesLoader_BOOTLOADING_IN_PROGRESS;
-#endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
+
 
                         communicationState = AesLoader_COMMUNICATION_STATE_ACTIVE;
 
                         rspSize = sizeof(AesLoader_ENTER);
                         dataOffset = 0u;
 
-#if(CY_PSOC3)
-                        (void) memcpy(&packetBuffer[AesLoader_DATA_ADDR],
-                                      &BtldrVersion,
-                                      ( int16 )rspSize);
-#else
                         (void) memcpy(&packetBuffer[AesLoader_DATA_ADDR],
                                       &BtldrVersion,
                                       (uint32) rspSize);
-#endif  /* (CY_PSOC3) */
 
                         ackCode = CYRET_SUCCESS;
                     }
@@ -2555,8 +2162,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     /***************************************************************************
                     *   Get row checksum (0x3A)
                     ***************************************************************************/
-#if (0u != AesLoader_CMD_GET_ROW_CHKSUM_AVAIL)
-
                 case AesLoader_COMMAND_GET_ROW_CHKSUM:
 
                     if ((AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState) && (pktSize == 3u))
@@ -2566,48 +2171,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                                                packetBuffer[AesLoader_DATA_ADDR + 1u];
 
                         uint16 CYDATA tmpRowNum;
-#if(!CY_PSOC4)
-
-                        uint32 CYDATA rowAddr;
-                        uint8 CYDATA checksum;
-
-                        if ((btldrData >= AesLoader_FIRST_EE_ARRAYID) &&
-                            (btldrData <= AesLoader_LAST_EE_ARRAYID))
-                        {
-                            /* EEPROM */
-                            /* Both PSoC 3 and PSoC 5LP architecture have one EEPROM array. */
-                            rowAddr = (uint32)rowNum * CYDEV_EEPROM_ROW_SIZE;
-
-                            /* Checking if row number is within array address range */
-                            ackCode = AesLoader_CHECK_ROW_NUMBER(rowNum,
-                                                                 (AesLoader_NUMBER_OF_EEPROM_SECTORS * AesLoader_NUMBER_OF_ROWS_IN_EEPROM_SECTOR));
-
-                            if (CYRET_SUCCESS != ackCode)
-                            {
-                                break;
-                            }
-
-                            checksum = AesLoader_Calc8BitSum(CY_EEPROM_BASE, rowAddr, CYDEV_EEPROM_ROW_SIZE);
-                        }
-                        else
-                        {
-                            /* flash */
-                            rowAddr = ((uint32)btldrData * CYDEV_FLS_SECTOR_SIZE)
-                                      + ((uint32)rowNum * CYDEV_FLS_ROW_SIZE);
-
-                            /* Checking if row number is within array address range */
-                            ackCode = AesLoader_CHECK_ROW_NUMBER(rowNum,
-                                                                 AesLoader_NUMBER_OF_ROWS_IN_ARRAY);
-
-                            if (CYRET_SUCCESS != ackCode)
-                            {
-                                break;
-                            }
-
-                            checksum = AesLoader_Calc8BitSum(CY_FLASH_BASE, rowAddr, CYDEV_FLS_ROW_SIZE);
-                        }
-
-#else
 
                         uint32 CYDATA rowAddr = ((uint32)btldrData * CYDEV_FLS_SECTOR_SIZE)
                                                 + ((uint32)rowNum * CYDEV_FLS_ROW_SIZE);
@@ -2625,38 +2188,13 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
                         checksum = AesLoader_Calc8BitSum(CY_FLASH_BASE, rowAddr, CYDEV_FLS_ROW_SIZE);
 
-#endif  /* (!CY_PSOC4) */
-
-
-                        /* Calculate checksum on data from ECC */
-#if(!CY_PSOC4) && (CYDEV_ECC_ENABLE == 0u)
-
-                        if (btldrData <= AesLoader_LAST_FLASH_ARRAYID)
-                        {
-                            uint16 CYDATA tmpIndex;
-
-                            rowAddr = CYDEV_ECC_BASE + ((uint32)btldrData * (CYDEV_FLS_SECTOR_SIZE / 8u))
-                                      + ((uint32)rowNum * CYDEV_ECC_ROW_SIZE);
-
-                            for (tmpIndex = 0u; tmpIndex < CYDEV_ECC_ROW_SIZE; tmpIndex++)
-                            {
-                                checksum += CY_GET_XTND_REG8((uint8 CYFAR *)(rowAddr + tmpIndex));
-                            }
-                        }
-
-#endif  /* (!CY_PSOC4) && (CYDEV_ECC_ENABLE == 0u) */
-
-
                         /*******************************************************************************
                         * App Verified & App Active are information updated in flash at the runtime.
                         * Remove these items from the checksum to allow the host to verify if everything is
                         * correct.
                          ******************************************************************************/
-#if(!CY_PSOC4)
-                        tmpRowNum = rowNum;
-#else
+
                         tmpRowNum = rowNum + ((uint16)(AesLoader_NUMBER_OF_ROWS_IN_ARRAY * btldrData));
-#endif
 
                         if ((AesLoader_MD_FLASH_ARRAY_NUM == btldrData) && (AesLoader_CONTAIN_METADATA(tmpRowNum)))
                         {
@@ -2674,8 +2212,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     }
                     break;
 
-#endif /* (0u != AesLoader_CMD_GET_ROW_CHKSUM_AVAIL) */
-
 
                 /***************************************************************************
                 *   Exit bootloader (0x3B)
@@ -2687,7 +2223,7 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                     * If it is set, then the copy operation is required and Launcher (BTLDR) should
                     * be scheduled.
                     *******************************************************************************/
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
+
                     needToCopyFlag = AesLoader_GetMetadata(AesLoader_GET_BTLDB_COPY_FLAG,
                                                            AesLoader_MD_BTLDB_ACTIVE_1);
 
@@ -2697,16 +2233,13 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDR);
                     }
                     else
-#endif /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
-
                         if (CYRET_SUCCESS == AesLoader_ValidateBootloadable(AesLoader_activeApp))
                         {
                             AesLoader_SET_RUN_TYPE(AesLoader_SCHEDULE_BTLDB);
                         }
 
-#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
                     AesLoader_isBootloading = AesLoader_BOOTLOADING_COMPLETED;
-#endif /* CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER */
+
 
                     CyBtldrCommStop();
 
@@ -2720,8 +2253,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                 *   Unsupported command
                 ***************************************************************************/
                 default:
-
-#if (!CY_PSOC3)
                     if ((NULL != AesLoader_callback) && (AesLoader_COMMUNICATION_STATE_ACTIVE == communicationState))
                     {
                         AesLoader_in_packet_type AesLoader_inPacket;
@@ -2754,7 +2285,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                         }
                     }
                     else /* No callback function defined, so return "Error Command" status */
-#endif /* (!CY_PSOC3) */
                     {
                         ackCode = AesLoader_ERR_CMD;
                     }
