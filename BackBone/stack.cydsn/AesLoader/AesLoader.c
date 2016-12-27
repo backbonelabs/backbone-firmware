@@ -49,14 +49,23 @@
 #include "cytypes.h"
 #include "cypins.h"
 #include "CyLFClk.h"
-// end
+
 #include <string.h>
 #include "watchdog.h"
 
-/**
- \defgroup variables_group Variables
- @{
-*/
+// We have only considered/tested on PSoC 4 with a hybrid bootloader.  We enforce those
+// assumptions here to warn anyone who tries to change these later.
+#if (CY_BOOT_VERSION < CY_BOOT_5_0)
+    #error Component Bootloader_v1_50 requires cy_boot v5.00 or later
+#endif
+
+#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
+    #error This version of the bootloader only designed to work with hybrid bootloader
+#endif
+
+#if ((CY_PSOC3) || (!CY_PSOC4) || (CY_PSOC5))
+    #error This version of the bootloader only designed to work with PSoC4
+#endif
 
 /**
 *  This variable is intended to indicate that in-application
@@ -90,8 +99,6 @@ volatile uint8 AesLoader_activeApp = AesLoader_MD_BTLDB_ACTIVE_NONE;
  */
 static AesLoader_callback_type AesLoader_callback = NULL;
 
-/** @}*/
-
 /***************************************
 *     Function Prototypes
 ***************************************/
@@ -102,10 +109,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL;
 static uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL;
 
-/**
- \defgroup functions_group Functions
- @{
-*/
 /*******************************************************************************
 * Function Name: AesLoader_SetActiveAppInMetadata
 ****************************************************************************//**
@@ -121,8 +124,7 @@ static uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL;
 *
 * \endinternal
 *******************************************************************************/
-static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL \
-
+static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL
 {
     if (AesLoader_MD_BTLDB_ACTIVE_NONE > activeApp)
     {
@@ -130,7 +132,7 @@ static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL \
         for (idx = 0u; idx < AesLoader_MAX_NUM_OF_BTLDB; idx++)
         {
             (void)AesLoader_SetFlashByte((uint32) AesLoader_MD_BTLDB_ACTIVE_OFFSET(idx),
-            (uint8)(idx == activeApp));
+                                         (uint8)(idx == activeApp));
         }
     }
 }
@@ -152,26 +154,24 @@ static void AesLoader_SetActiveAppInMetadata(uint8 activeApp) CYSMALL \
 *
 * \endinternal
 *******************************************************************************/
-static  uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
-
+static  uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL
 {
-    uint8 CYDATA result;
     uint8 CYDATA app0 = (uint8)AesLoader_GetMetadata(AesLoader_GET_BTLDB_ACTIVE,
-    AesLoader_MD_BTLDB_ACTIVE_0);
+                                                     AesLoader_MD_BTLDB_ACTIVE_0);
     uint8 CYDATA app1 = (uint8)AesLoader_GetMetadata(AesLoader_GET_BTLDB_ACTIVE,
-    AesLoader_MD_BTLDB_ACTIVE_1);
+                                                     AesLoader_MD_BTLDB_ACTIVE_1);
 
     if (0u != app0)
     {
         if (0u == app1)
         {
             /* app0 is active */
-            result = AesLoader_MD_BTLDB_ACTIVE_0;
+            return AesLoader_MD_BTLDB_ACTIVE_0;
         }
         else
         {
             /* Both are active */
-            result = AesLoader_BOTH_ACTIVE;
+            return AesLoader_BOTH_ACTIVE;
         }
     }
     else /* (0u == app0) */
@@ -179,16 +179,14 @@ static  uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
         if (0u != app1)
         {
             /* app1 is active */
-            result = AesLoader_MD_BTLDB_ACTIVE_1;
+            return AesLoader_MD_BTLDB_ACTIVE_1;
         }
         else
         {
             /* Neither app is active. */
-            result = AesLoader_MD_BTLDB_ACTIVE_NONE;
+            return AesLoader_MD_BTLDB_ACTIVE_NONE;
         }
     }
-
-    return (result);
 }
 
 /*******************************************************************************
@@ -214,8 +212,7 @@ static  uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
 *   This API should be called first to be able to capture the active application
 *   number that is actually the running application number.
 *******************************************************************************/
-void AesLoader_Initialize(void) CYSMALL \
-
+void AesLoader_Initialize(void) CYSMALL
 {
     if (AesLoader_BOOTLOADING_NOT_INITIALIZED == AesLoader_initVar)
     {
@@ -235,18 +232,6 @@ void AesLoader_Initialize(void) CYSMALL \
             AesLoader_runningApp = AesLoader_RUNNING_APPLICATION_UNKNOWN;
         }
     }
-    
-#if (CY_BOOT_VERSION < CY_BOOT_5_0)
-    #error Component Bootloader_v1_50 requires cy_boot v5.00 or later
-#endif
-
-#if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
-    #error This version of the bootloader only designed to work with hybrid bootloader
-#endif
-
-#if ((CY_PSOC3) || (!CY_PSOC4) || (CY_PSOC5))
-    #error This version of the bootloader only designed to work with PSoC4
-#endif
 }
 
 /*****************************************************************************
@@ -263,12 +248,10 @@ void AesLoader_Initialize(void) CYSMALL \
 *     other values indicate "not defined".
 *
 *******************************************************************************/
-uint8 AesLoader_GetRunningAppStatus(void) CYSMALL \
-
+uint8 AesLoader_GetRunningAppStatus(void) CYSMALL
 {
     return (AesLoader_runningApp);
 }
-
 
 /*******************************************************************************
 * Function Name: AesLoader_GetActiveAppStatus
@@ -284,8 +267,7 @@ uint8 AesLoader_GetRunningAppStatus(void) CYSMALL \
 *     indicate "not defined".
 *
 *******************************************************************************/
-uint8 AesLoader_GetActiveAppStatus(void) CYSMALL \
-
+uint8 AesLoader_GetActiveAppStatus(void) CYSMALL
 {
     /* Read active application number from metadata */
     AesLoader_activeApp = AesLoader_GetActiveAppFromMetadata();
@@ -312,8 +294,7 @@ uint8 AesLoader_GetActiveAppStatus(void) CYSMALL \
 *
 *  \endinternal
 *******************************************************************************/
-static uint16 AesLoader_CalcPacketChecksum(const uint8 buffer[], uint16 size) \
-CYSMALL
+static uint16 AesLoader_CalcPacketChecksum(const uint8 buffer[], uint16 size) CYSMALL
 {
     uint16 CYDATA sum = 0u;
 
@@ -337,8 +318,7 @@ CYSMALL
 *  The user's callback function.
 *
 *******************************************************************************/
-void AesLoader_InitCallback(AesLoader_callback_type userCallback) \
-CYSMALL
+void AesLoader_InitCallback(AesLoader_callback_type userCallback) CYSMALL
 {
     AesLoader_callback = userCallback;
 }
@@ -365,8 +345,7 @@ CYSMALL
 *
 * \endinternal
 *******************************************************************************/
-static uint8 AesLoader_VerifyRow(uint32 flashStart, const uint8* ramStart, uint16 size) \
-CYSMALL
+static uint8 AesLoader_VerifyRow(uint32 flashStart, const uint8* ramStart, uint16 size) CYSMALL
 {
     uint8 CYDATA result = CYRET_SUCCESS;
     uint16 CYDATA idx;
@@ -380,7 +359,7 @@ CYSMALL
         }
     }
 
-    return (result);
+    return result;
 }
 
 /*******************************************************************************
@@ -405,8 +384,7 @@ CYSMALL
 *   An 8-bit sum for the provided data.
 *
 *******************************************************************************/
-uint8 AesLoader_Calc8BitSum(uint32 baseAddr, uint32 start, uint32 size) \
-CYSMALL
+uint8 AesLoader_Calc8BitSum(uint32 baseAddr, uint32 start, uint32 size) CYSMALL
 {
     uint8 CYDATA sum = 0u;
     CYASSERT(baseAddr == CY_FLASH_BASE);
@@ -417,9 +395,8 @@ CYSMALL
         sum += (*((uint8  *)(baseAddr + start + size)));
     }
 
-    return (sum);
+    return sum;
 }
-
 
 /*******************************************************************************
 * Function Name: AesLoader_Start
@@ -572,11 +549,10 @@ void AesLoader_Exit(uint8 appId) CYSMALL
 *  CYRET_BAD_DATA is returned if the input parameter is out of the specified range
 *      or the calculated checksum does not match the stored checksum.
 *******************************************************************************/
-cystatus AesLoader_ValidateBootloadable(uint8 appId) CYSMALL \
-
+cystatus AesLoader_ValidateBootloadable(uint8 appId) CYSMALL
 {
     uint32 CYDATA idx;
-    uint32 CYDATA end   = AesLoader_FIRST_APP_BYTE(appId) +
+    uint32 CYDATA end = AesLoader_FIRST_APP_BYTE(appId) +
     AesLoader_GetMetadata(AesLoader_GET_BTLDB_LENGTH, appId);
 
     CYBIT  valid = 0u; /* Assume bad flash image */
@@ -637,100 +613,93 @@ cystatus AesLoader_ValidateBootloadable(uint8 appId) CYSMALL \
 *
 * \endinternal
 *******************************************************************************/
-static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row, uint16 rowNumInArray) CYSMALL \
-
+static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row, uint16 rowNumInArray) CYSMALL
 {
     uint16 CYDATA firstRow = 0xFFFFu;
     uint16 CYDATA lastRow = 0xFFFFu;
-    uint8 CYDATA ackCode = CYRET_SUCCESS;
 
-    if (appNumber < AesLoader_MAX_NUM_OF_BTLDB)
+    if (appNumber >= AesLoader_MAX_NUM_OF_BTLDB)
     {
-        /*******************************************************************************
-        * For the first Bootloadable application - gets the last flash row occupied by
-        * the Bootloader application image:
-        *  ---------------------------------------------------------------------------
-        * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        * |<--firstRow---|>
-        *
-        * For the second Bootloadable application - gets the last flash row occupied by
-        * the first Bootloadable application:
-        *  ---------------------------------------------------------------------------
-        * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        * |<-------------firstRow-----------------|>
-        *
-        * Incremented by 1 to get the first available row.
-        *
-        * NOTE M1 and M2 stand for metadata # 1 and metadata # 2, metadata
-        * sections for the 1st and 2nd Bootloadable applications.
-        *******************************************************************************/
-        firstRow = (uint16) 1u +
-        (uint16) AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,  appNumber);
-
-
-        /***********************************************************************************
-        * If this is the Upgradable Stack use case, then Stack application and User application
-        * do not occupy the half of flash each, as the other applications do for Classic Dual-app
-        * and the general Launcher-Combination use cases. Another approach for calculation
-        * lastRow is used for the Upgradable Stack use case. See Bootloader datasheet for more
-        * details (use cases description).
-        ***********************************************************************************/
-
-        /*******************************************************************************
-        * The Upgradable Stack application case implies that only this application can
-        * perform a bootloading operation (the other one can't). So a verification
-        * will be run to check if the Stack application is not overwritten.
-        *
-        * The Stack application is defined as the first application.
-          * The User application is defined as the second application.
-        *
-        * This check is intended for the case when the Stack application is active
-        * and performs bootloading for the User application:
-        *  ---------------------------------------------------------------------------
-        * |   Launcher   |       Stack     |           User app            | M2 | M1 |
-        *  ---------------------------------------------------------------------------
-        *                |<-------------------lastRow -------------------->|
-        *******************************************************************************/
-        lastRow = (uint16) AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW,
-        AesLoader_USER_APPLICATION);
-
-        /*******************************************************************************
-        * 1. Refuses to write a row within the range of the active application.
-        *
-        *  The first Bootloadable application is active:
-        *   ---------------------------------------------------------------------------
-        *  | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *   ---------------------------------------------------------------------------
-        *  |<----------------lastRow ------------->|
-        *  |<--firstRow---|>
-        *                 |<-------protected------>|
-        *
-        *  the second Bootloadable application is active:
-        *   ---------------------------------------------------------------------------
-        *  | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
-        *   ---------------------------------------------------------------------------
-        *  |<-------------firstRow-----------------|>
-        *  |<-----------------------------lastRow-------------------------->|
-        *                                          |<-------protected------>|
-        *
-        * 2. Refuses to write to the row that contains metadata of the active
-        *    Bootloadable application.
-        *
-        *******************************************************************************/
-        if (((row >= firstRow) && (row <= lastRow)) || ((arrayNumber == AesLoader_MD_FLASH_ARRAY_NUM) && \
-        (rowNumInArray == AesLoader_MD_ROW_NUM(appNumber))))
-        {
-            ackCode = AesLoader_ERR_ACTIVE;
-        }
+        return AesLoader_ERR_ACTIVE;
     }
-    else /*(appNumber < AesLoader_MAX_NUM_OF_BTLDB)*/
+    
+    /*******************************************************************************
+    * For the first Bootloadable application - gets the last flash row occupied by
+    * the Bootloader application image:
+    *  ---------------------------------------------------------------------------
+    * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
+    *  ---------------------------------------------------------------------------
+    * |<--firstRow---|>
+    *
+    * For the second Bootloadable application - gets the last flash row occupied by
+    * the first Bootloadable application:
+    *  ---------------------------------------------------------------------------
+    * | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
+    *  ---------------------------------------------------------------------------
+    * |<-------------firstRow-----------------|>
+    *
+    * Incremented by 1 to get the first available row.
+    *
+    * NOTE M1 and M2 stand for metadata # 1 and metadata # 2, metadata
+    * sections for the 1st and 2nd Bootloadable applications.
+    *******************************************************************************/
+    firstRow = (uint16) 1u + (uint16) AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW, appNumber);
+
+    /***********************************************************************************
+    * If this is the Upgradable Stack use case, then Stack application and User application
+    * do not occupy the half of flash each, as the other applications do for Classic Dual-app
+    * and the general Launcher-Combination use cases. Another approach for calculation
+    * lastRow is used for the Upgradable Stack use case. See Bootloader datasheet for more
+    * details (use cases description).
+    ***********************************************************************************/
+
+    /*******************************************************************************
+    * The Upgradable Stack application case implies that only this application can
+    * perform a bootloading operation (the other one can't). So a verification
+    * will be run to check if the Stack application is not overwritten.
+    *
+    * The Stack application is defined as the first application.
+      * The User application is defined as the second application.
+    *
+    * This check is intended for the case when the Stack application is active
+    * and performs bootloading for the User application:
+    *  ---------------------------------------------------------------------------
+    * |   Launcher   |       Stack     |           User app            | M2 | M1 |
+    *  ---------------------------------------------------------------------------
+    *                |<-------------------lastRow -------------------->|
+    *******************************************************************************/
+    lastRow = (uint16) AesLoader_GetMetadata(AesLoader_GET_BTLDR_LAST_ROW, AesLoader_USER_APPLICATION);
+
+    /*******************************************************************************
+    * 1. Refuses to write a row within the range of the active application.
+    *
+    *  The first Bootloadable application is active:
+    *   ---------------------------------------------------------------------------
+    *  | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
+    *   ---------------------------------------------------------------------------
+    *  |<----------------lastRow ------------->|
+    *  |<--firstRow---|>
+    *                 |<-------protected------>|
+    *
+    *  the second Bootloadable application is active:
+    *   ---------------------------------------------------------------------------
+    *  | Bootloader   | Bootloadable # 1 |     | Bootloadable # 2 |     | M2 | M1 |
+    *   ---------------------------------------------------------------------------
+    *  |<-------------firstRow-----------------|>
+    *  |<-----------------------------lastRow-------------------------->|
+    *                                          |<-------protected------>|
+    *
+    * 2. Refuses to write to the row that contains metadata of the active
+    *    Bootloadable application.
+    *
+    *******************************************************************************/
+    if (((row >= firstRow) && (row <= lastRow)) || ((arrayNumber == AesLoader_MD_FLASH_ARRAY_NUM) && \
+    (rowNumInArray == AesLoader_MD_ROW_NUM(appNumber))))
     {
-        ackCode = AesLoader_ERR_ACTIVE;
+        return AesLoader_ERR_ACTIVE;
     }
 
-    return ackCode;
+    return CYRET_SUCCESS;
 }
 
 /*******************************************************************************
@@ -751,7 +720,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 *  This function is public only for Launcher-Combination architecture. For
 *  Classic Bootloader it is static, meaning private.
 *******************************************************************************/
-
 void AesLoader_HostLink(uint8 timeOut) CYLARGE
 {
     uint16    CYDATA numberRead;
@@ -766,8 +734,7 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
     static uint16 CYDATA dataOffset = 0u;
     uint16  CYDATA btldrLastRow = 0xFFFFu;
     uint8 needToCopyFlag = 0u;
-    uint32 app2StartAddress = AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR,
-    AesLoader_MD_BTLDB_ACTIVE_1);
+    uint32 app2StartAddress = AesLoader_GetMetadata(AesLoader_GET_BTLDB_ADDR, AesLoader_MD_BTLDB_ACTIVE_1);
 
     uint8     packetBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
     uint8     dataBuffer  [AesLoader_SIZEOF_COMMAND_BUFFER];
@@ -797,7 +764,6 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
             {
                 watchdog_clear();
             }
-
         }
         while ( (0u != timeOutCnt) && (readStat != CYRET_SUCCESS) );
 
@@ -1383,8 +1349,7 @@ void AesLoader_HostLink(uint8 timeOut) CYLARGE
 *
 * \endinternal
 *******************************************************************************/
-static cystatus AesLoader_WritePacket(uint8 status, uint8 buffer[], uint16 size) CYSMALL \
-
+static cystatus AesLoader_WritePacket(uint8 status, uint8 buffer[], uint16 size) CYSMALL
 {
     uint16 CYDATA checksum;
 
@@ -1545,5 +1510,3 @@ uint32 AesLoader_GetMetadata(uint8 field, uint8 appId)
 
     return (result);
 }
-
-/* @} [] END OF FILE */
