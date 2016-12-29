@@ -14,6 +14,7 @@
 #include "version.h"
 #include "OTAMandatory.h"
 #include "backbone.h"
+#include "bas.h"
 #include "debug.h"
 
 /* Value is from From the CYBLE-222005-00 Data Sheet.  Table 48 (Page 24).
@@ -138,6 +139,7 @@ void ble_app_event_handler(uint32 event, void* param)
             /* This event is received when device is connected over GATT level */
             m_connection = *(CYBLE_CONN_HANDLE_T*)param;
             m_is_connected = BLE_TRUE;
+            MeasureBattery(true);
             backbone_connected(&m_connection);
             backbone_set_accelerometer_notification(&m_connection, false);
             backbone_set_distance_notification(&m_connection, false);

@@ -14,6 +14,7 @@
 #define BAS_H_
 
 #include <project.h>
+#include <stdbool.h>
 
 /***************************************
 *          Constants
@@ -35,7 +36,7 @@
 *       Function Prototypes
 ***************************************/
 void BasCallBack(uint32 event, void *eventParam);
-void MeasureBattery(void);
+void MeasureBattery(bool immediate);
 void SimulateBattery(void);
 
 
