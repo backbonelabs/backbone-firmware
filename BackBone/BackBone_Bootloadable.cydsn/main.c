@@ -148,7 +148,7 @@ __inline void RunApplication()
     if (ble_is_connected())
     {
         ble_update_connection_parameters();
-        MeasureBattery();
+        MeasureBattery(false);
     }
 }
 

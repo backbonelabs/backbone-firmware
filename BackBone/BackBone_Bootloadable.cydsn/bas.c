@@ -18,7 +18,6 @@
 
 #include "bas.h"
 #include "common.h"
-#include <OTAMandatory.h>
 
 uint16 batterySimulationNotify = 0u;
 uint16 batteryMeasureNotify = 0u;
@@ -86,7 +85,7 @@ void BasCallBack(uint32 event, void *eventParam)
 *   This function measures the battery voltage and send it to the client.
 *
 *******************************************************************************/
-void MeasureBattery(void)
+void MeasureBattery(bool immediate)
 {
     int16 adcResult;
     int32 mvolts;
@@ -94,8 +93,7 @@ void MeasureBattery(void)
     CYBLE_API_RESULT_T apiResult;
 
     static uint32 batteryTimer = BATTERY_TIMEOUT;
-
-    if (--batteryTimer == 0u)
+    if (--batteryTimer == 0u || immediate)
     {
         batteryTimer = BATTERY_TIMEOUT;
 
