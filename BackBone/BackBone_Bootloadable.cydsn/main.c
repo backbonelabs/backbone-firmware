@@ -29,6 +29,19 @@
 
 extern void InitializeBootloaderSRAM();
 
+CY_ISR(reset_timeout)
+{
+    MotorTimer_ClearInterrupt(MotorTimer_INTR_MASK_TC);
+
+    DBG_PRINT_TEXT("BLE Stop\r\n");
+    CyBle_Stop();
+
+    DBG_PRINT_TEXT("Resetting to the bootloader...\r\n");
+    // Finally, switch to the bootloader / stack project
+    Bootloadable_SetActiveApplication(0);
+    Bootloadable_Load();
+}
+
 __inline void ManageSystemPower()
 {
     CYBLE_BLESS_STATE_T blePower;
@@ -149,6 +162,27 @@ __inline void RunApplication()
     {
         ble_update_connection_parameters();
         MeasureBattery(false);
+    }
+
+    if (backbone_is_reset_requested())
+    {
+        DBG_PRINT_TEXT("Resetting\r\n");
+        backbone_clear_reset_requested();
+
+        DBG_PRINT_TEXT("Posture Stop\r\n");
+        posture_stop();
+        DBG_PRINT_TEXT("Motor Stop\r\n");
+        motor_stop();
+        DBG_PRINT_TEXT("Disconnect\r\n");
+        CyBle_GapDisconnectWithReason(ble_get_connection()->bdHandle, 0x15);
+
+        // Now that the motor is stopped, we can reuse the motor timer to give
+        // a short delay before resetting into the bootloader.
+        MotorTimerInterrupt_StartEx(reset_timeout);
+        MotorTimer_WriteCounter(0);
+        MotorTimer_Start();
+        MotorTimer_SetOneShot(1);
+        MotorTimer_WritePeriod(1500);
     }
 }
 
