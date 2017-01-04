@@ -28,17 +28,15 @@ using namespace std;
 using namespace CryptoPP;
 
 namespace bb {
-// TODO: Need to find out tag size expected in firmware
-const int TAG_SIZE = 8;
+const int TAG_SIZE = 4;
 
 // TODO: Replace with something known but random
 byte key_bytes[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF,
                      0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF };
 
 // TODO: Replace with something known but random
-// TODO: Verify device expects a 12 byte IV block
 byte iv[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
-              0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b };
+              0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c };
 
 DataRecord encrypt_data_record(const DataRecord& in_rec)
 {
