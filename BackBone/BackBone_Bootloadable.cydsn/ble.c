@@ -101,6 +101,7 @@ void ble_app_event_handler(uint32 event, void* param)
         }
 
         case CYBLE_EVT_TIMEOUT:
+            DBG_PRINT_TEXT("CYBLE_EVT_TIMEOUT\r\n");
             /* Event Handling for Timeout  */
             break;
 
