@@ -127,6 +127,18 @@ uint8_t extract_8_bit_value(std::vector<uint8_t> line, int index);
  */
 uint8_t calculate_checksum(std::vector<uint8_t> data);
 
+/**
+ *  XOR two blocks together to yield an output block.  Intended to be
+ *  used for block chaining in a AES-CBC scheme, but will work with any two
+ *  equally sized blocks of bytes.
+ *
+ *  Outputs are NOT sanitized.  All three input points must point to valid
+ *  buffers of at least AES_BLOCK_SIZE bytes.
+ */
+void xor_blk(const uint8_t* a, const uint8_t* b, uint8_t* out);
+
+constexpr int AES_BLOCK_SIZE = 16;
+
 } // namespace bb
 
 #endif // _CYACD_MISC_HPP_

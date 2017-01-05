@@ -7,8 +7,14 @@
  *  @author bdgackle@gmail.com
  */
 
+// Module Header
+#include "cyacd_misc.hpp"
+
 // Local Headers
 #include "cyacd_byte.hpp"
+
+// External Headers
+#include <cryptopp/cryptlib.h>
 
 // C Standard Headers
 #include <cstddef>
@@ -150,6 +156,13 @@ uint8_t calculate_checksum(vector<uint8_t> data)
     }
 
     return ~sum + 1;
+}
+
+void xor_blk(const byte* a, const byte* b, byte* out)
+{
+    for (int i = 0; i < AES_BLOCK_SIZE; i++) {
+        out[i] = a[i] ^ b[i];
+    }
 }
 
 } // namespace bb

@@ -13,6 +13,9 @@
 // Local Headers
 #include "cyacd_misc.hpp"
 
+// External Headers
+#include <cryptopp/cryptlib.h>
+
 // C Standard Headers
 #include <cstddef>
 #include <cstdint>
@@ -120,15 +123,38 @@ const uint8_t* DataRecord::data() const
     return _data.data();
 }
 
-void DataRecord::data(const uint8_t* buf, size_t len)
+const byte* DataRecord::block(int block_num) const
+{
+    return _data.data() + block_num * AES_BLOCK_SIZE;
+}
+
+void DataRecord::data(const uint8_t* buf, int len)
 {
     _data.clear();
 
-    for (size_t i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
         _data.push_back(buf[i]);
     }
 
     _length = len;
+    _checksum = expected_checksum();
+}
+
+void DataRecord::block(const byte* buf, int block_num)
+{
+    size_t min_size = block_num * AES_BLOCK_SIZE + AES_BLOCK_SIZE;
+
+    if (_data.size() < min_size) {
+        for (size_t i = _data.size(); i < min_size; i++) {
+            _data.push_back(0);
+            _length++;
+        }
+    }
+    int base = block_num * AES_BLOCK_SIZE;
+    for (int i = 0; i < AES_BLOCK_SIZE; i++) {
+        _data.at(base + i) = buf[i];
+    }
+
     _checksum = expected_checksum();
 }
 
@@ -140,7 +166,7 @@ string DataRecord::ascii() const
     out += convert_16_bit_value(_row_number);
     out += convert_16_bit_value(_length);
 
-    for (size_t i = 0; i < _data.size(); i++) {
+    for (int i = 0; i < (int)_data.size(); i++) {
         out += convert_8_bit_value(_data.at(i));
     }
 

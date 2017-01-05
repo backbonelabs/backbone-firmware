@@ -10,6 +10,9 @@
 #ifndef _CYACD_DATA_RECORD_HPP_
 #define _CYACD_DATA_RECORD_HPP_
 
+// External Headers
+#include <cryptopp/cryptlib.h>
+
 // C Standard Headers
 #include <cstdint>
 
@@ -63,6 +66,9 @@ class DataRecord {
     /** Accessor for data field of Data Record */
     const uint8_t* data() const;
 
+    /** Access a single block of the data field */
+    const byte* block(int block_num) const;
+
     /** Accessor for checksum field of Data Record */
     uint8_t checksum() const;
 
@@ -73,7 +79,10 @@ class DataRecord {
     void row_number(uint16_t num);
 
     /** Mutator for data field fo Data Record */
-    void data(const uint8_t* buf, size_t len);
+    void data(const uint8_t* buf, int len);
+
+    /** Mutator for a given block of data */
+    void block(const byte* buf, int block_num);
 
     /** Generate string suitable for printing in cyacd file */
     std::string ascii() const;
