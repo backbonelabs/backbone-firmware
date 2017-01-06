@@ -1,0 +1,10 @@
+*.swp
+*.o
+*.d
+tags
+*.gcda
+*.gcno
+doc/lcov/*
+bin/test/*
+test_out.cyacd
+encrypt_cyacd
