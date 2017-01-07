@@ -139,14 +139,14 @@ __inline void RunApplication()
         {
             posture_stop();
 
-            if (ble_is_connected())
-            {
-                backbone_session_statistics_t session_statistics_data;
+            backbone_session_statistics_t session_statistics_data;
 
-                session_statistics_data.fields.flags = 0;
-                session_statistics_data.fields.total_time = posture_get_elapsed_time();
-                session_statistics_data.fields.slouch_time = posture_get_slouch_time();
-                backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+            session_statistics_data.fields.flags = 0;
+            session_statistics_data.fields.total_time = posture_get_elapsed_time();
+            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+
+            if (ble_is_connected()) {
                 backbone_notify_session_statistics(ble_get_connection());
             }
         }
