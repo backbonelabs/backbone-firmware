@@ -57,7 +57,15 @@ void DataRecord::parse(string line)
     _data = data;
 
     // TODO: Verify length and data length match
-    // TODO: Verify checksum is good
+    if (!is_checksum_good())
+    {
+        throw runtime_error("invalid checksum");
+    }
+}
+
+void DataRecord::update_checksum()
+{
+    _checksum = expected_checksum();
 }
 
 bool DataRecord::is_checksum_good() const
@@ -75,10 +83,10 @@ uint8_t DataRecord::expected_checksum() const
     vector<uint8_t> data_and_header;
 
     data_and_header.push_back(_array_id);
-    data_and_header.push_back(_row_number % 0x100);
     data_and_header.push_back(_row_number / 0x100);
-    data_and_header.push_back(_length % 0x100);
+    data_and_header.push_back(_row_number % 0x100);
     data_and_header.push_back(_length / 0x100);
+    data_and_header.push_back(_length % 0x100);
 
     // Yes, this wastes a few cycles.  Oh well.  It's a PC.  That's its job.
     for (size_t i = 0; i < _data.size(); i++) {
@@ -154,8 +162,6 @@ void DataRecord::block(const byte* buf, int block_num)
     for (int i = 0; i < AES_BLOCK_SIZE; i++) {
         _data.at(base + i) = buf[i];
     }
-
-    _checksum = expected_checksum();
 }
 
 string DataRecord::ascii() const

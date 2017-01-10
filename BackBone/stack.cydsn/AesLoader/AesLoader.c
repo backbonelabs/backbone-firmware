@@ -52,6 +52,7 @@
 #include "CyLFClk.h"
 // end
 #include <string.h>
+#include "options.h"
 #include "watchdog.h"
 
 #if (CY_BOOT_VERSION < CY_BOOT_5_0)
@@ -243,7 +244,7 @@ static void aes_clear_prev(void)
         prevBuffer[i] = 0;
     }
 }
-
+#ifdef ENABLE_ENCRYPTION
 static void aes_xor_blk(const uint8* a, const uint8* b, uint8* out)
 {
     int i;
@@ -251,9 +252,11 @@ static void aes_xor_blk(const uint8* a, const uint8* b, uint8* out)
         out[i] = a[i] ^ b[i];
     }
 }
+#endif
 
 static void aes_encrypt_block(const uint8* in, uint8* out)
 {
+#ifdef ENABLE_ENCRYPTION
     uint8 chained[AES_BLOCK_SIZE];
     uint8_t mic[4]; // Unused; throw-away
 
@@ -271,10 +274,14 @@ static void aes_encrypt_block(const uint8* in, uint8* out)
 
     // Save encrypted block for chaining with next block
     memcpy(prevBuffer, out, AES_BLOCK_SIZE);
+#else
+    memcpy(out, in, AES_BLOCK_SIZE);
+#endif
 }
 
 static void aes_decrypt_block(const uint8* in, uint8* out)
 {
+#ifdef ENABLE_ENCRYPTION
     uint8 unchained[AES_BLOCK_SIZE];
     uint8_t mic[4]; // Unused; throw-away
 
@@ -293,6 +300,9 @@ static void aes_decrypt_block(const uint8* in, uint8* out)
 
     // Save the encrypted block for chaining with next decrypted block
     memcpy(prevBuffer, in, AES_BLOCK_SIZE);
+#else
+    memcpy(out, in, AES_BLOCK_SIZE);
+#endif
 }
 
 static void aes_encrypt_row(const uint8* in, uint8* out)
@@ -449,6 +459,8 @@ void AesLoader_Initialize(void) CYSMALL \
 {
     if (AesLoader_BOOTLOADING_NOT_INITIALIZED ==AesLoader_initVar)
     {
+        aes_init();
+
         AesLoader_activeApp = AesLoader_GetActiveAppFromMetadata();
 
         /* Updating with number of active application */
@@ -2735,7 +2747,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
                         aes_encrypt_row((uint8*)(CY_FLASH_BASE + rowAddr), aes_buffer);
                         checksum = AesLoader_Calc8BitSum((uint32)aes_buffer, 0, CYDEV_FLS_ROW_SIZE);
-
 #endif  /* (!CY_PSOC4) */
 
 

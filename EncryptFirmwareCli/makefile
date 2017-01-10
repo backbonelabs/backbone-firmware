@@ -21,8 +21,8 @@ MAKE   := make
 CPP    := g++
 
 # Flags always used while compiling and linking
-CFLAGS += -std=c++11 -Wall -Werror
-LDFLAGS := $(CFLAGS) -lcryptopp
+CFLAGS += -std=c++11 -Wall -Werror -I$(CRYPTOPP_DIR)
+LDFLAGS := $(CFLAGS) -L$(CRYPTOPP_DIR)\cryptopp -lcryptopp
 
 # Additional flags used for unit tests
 UT_CFLAGS  := $(CFLAGS)

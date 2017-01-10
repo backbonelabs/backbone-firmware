@@ -45,6 +45,9 @@ class DataRecord {
     /** Load data into this object from a line of a cyacd file */
     void parse(std::string line);
 
+    /** Calculate the checksum after setting the last block */
+    void update_checksum();
+
     /** Verify checksum of current line */
     bool is_checksum_good() const;
 

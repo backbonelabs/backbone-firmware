@@ -150,7 +150,7 @@ uint8_t extract_8_bit_value(vector<uint8_t> line, int index)
 
 uint8_t calculate_checksum(vector<uint8_t> data)
 {
-    uint8_t sum;
+    uint8_t sum = 0;
     for (size_t i = 0; i < data.size(); i++) {
         sum += data.at(i);
     }
