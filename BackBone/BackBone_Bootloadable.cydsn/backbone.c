@@ -61,6 +61,23 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
                                    0,
                                    connection,
                                    CYBLE_GATT_DB_LOCALLY_INITIATED);
+
+    // Update session statistics in the GATT database incase a session finished
+    // while disconnected
+    if (posture_get_elapsed_time() >= posture_get_session_duration() &&
+        posture_get_session_duration() != 0)
+    {
+        if (ble_is_connected())
+        {
+            backbone_session_statistics_t session_statistics_data;
+
+            session_statistics_data.fields.flags = 0;
+            session_statistics_data.fields.total_time = posture_get_elapsed_time();
+            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+            backbone_notify_session_statistics(ble_get_connection());
+        }
+    }
 }
 
 void backbone_set_accelerometer_data(CYBLE_CONN_HANDLE_T* connection,
