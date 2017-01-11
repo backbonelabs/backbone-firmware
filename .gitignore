@@ -29,3 +29,4 @@ MTK_V_8/Firmware/PRoC_DUT/PRoC_DUT.cydsn/PRoC_DUT_timing.html
 MTK_V_8/Firmware/PRoC_DUT/PRoC_DUT.cydsn/codegentemp/
 MTK_V_8/Firmware/PRoC_DUT/PRoC_DUT.cywrk.khenderson
 *.orig
+EncryptFirmwareCli/encrypt_cyacd.exe

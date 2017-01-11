@@ -44,7 +44,6 @@ CYBLE_CONN_HANDLE_T connHandle;
     extern volatile uint32 CyReturnToBootloaddableAddress;
 #endif /*__ARMCC_VERSION*/
 
-
 /*******************************************************************************
 * Function Name: main
 ********************************************************************************
@@ -106,13 +105,7 @@ int main()
     }
     else
     {
-        apiResult = CyBle_GetStackLibraryVersion(&stackVersion);
-        if (apiResult != CYBLE_ERROR_OK)
-        {
-        }
-        else
-        {
-        }
+        CyBle_GetStackLibraryVersion(&stackVersion);
     }
 
     /* Start Bootloader component in non-blocking mode. */

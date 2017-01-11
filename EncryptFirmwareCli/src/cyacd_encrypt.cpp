@@ -97,6 +97,7 @@ DataRecord encrypt_data_record(const DataRecord& in_rec)
     // Assemble the new data record from encrypted data
     out_rec.array_id(in_rec.array_id());
     out_rec.row_number(in_rec.row_number());
+    out_rec.update_checksum();
 
     return out_rec;
 }

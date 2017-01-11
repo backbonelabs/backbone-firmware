@@ -73,10 +73,10 @@ void CyacdFile::save(string name)
         throw runtime_error("Could not open output file.");
     }
 
-    file << _header_record.ascii() << "\r\n";
+    file << _header_record.ascii() << "\n";
 
     for (size_t i = 0; i < _data_records.size(); i++) {
-        file << ":" << _data_records.at(i).ascii() << "\r\n";
+        file << ":" << _data_records.at(i).ascii() << "\n";
     }
 
     file.close();
