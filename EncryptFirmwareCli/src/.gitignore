@@ -1,0 +1,9 @@
+tags
+test_cyacd_byte
+test_cyacd_misc
+test_cyacd_header_record
+test_cyacd_data_record
+test_cyacd_file
+*.swp
+*.o
+*.gch

@@ -134,7 +134,7 @@ void DBG_PRINT_DEC(uint32 value)
         ++len;
     }
     while (value != 0);
-    for (i = 0; i < len; ++i)
+    for (i = 0; i < len/2; ++i)
     {
         char tmp = buf[len - i - 1];
         buf[len - i - 1] = buf[i];
@@ -147,24 +147,10 @@ void DBG_PRINT_DEC(uint32 value)
 
 void DBG_PRINT_HEX(uint32 a)
 {
-    int len = 0;
-    do
-    {
-        if ((a >> 24) != 0)
-        {
-            break;
-        }
-        a <<= 8u;
-        ++len;
-    }
-    while (len < 3);
-    len = 4 - len;
-
-    for ( ; len != 0; --len)
-    {
-        UART_PutHexByte(a >> 24);
-        a <<= 8;
-    }
+    UART_PutHexByte((a & 0xFF000000) >> 24);
+    UART_PutHexByte((a & 0x00FF0000) >> 16);
+    UART_PutHexByte((a & 0x0000FF00) >>  8);
+    UART_PutHexByte((a & 0x000000FF));
 }
 
 #endif /* DEBUG_UART_USE_PRINTF_FORMAT == NO */

@@ -52,6 +52,7 @@
 #include "CyLFClk.h"
 // end
 #include <string.h>
+#include "options.h"
 #include "watchdog.h"
 
 #if (CY_BOOT_VERSION < CY_BOOT_5_0)
@@ -205,6 +206,130 @@ static uint8 AesLoader_GetActiveAppFromMetadata(void) CYSMALL \
     #endif /*(0u != AesLoader_COPIER_AVAIL) && (CY_PSOC4)*/
 #endif /*(CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LAUNCHER)*/
 
+/*******************************************************************************
+********************************************************************************
+    START OF BACKBONE FIRMWARE DECRYPTION CODE
+********************************************************************************
+*******************************************************************************/
+#define AES_BLOCK_SIZE      (16)
+#define AES_KEY_SIZE        (16)
+#define AES_NONCE_SIZE      (13)
+#define AES_FLASH_ROW_SIZE (256)
+#define AES_BLOCKS_PER_ROW ((AES_FLASH_ROW_SIZE / AES_BLOCK_SIZE))
+
+/* Firmware encryption keys */
+static const uint8 keyBuffer[AES_KEY_SIZE]     = { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF,
+                                                   0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD, 0xBE, 0xEF };
+static const uint8 nonceBuffer[AES_NONCE_SIZE] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+                                                   0x08, 0x09, 0x0A, 0x0B, 0x0C };
+/* AES-CBC state data */
+static uint8 prevBuffer[AES_BLOCK_SIZE];
+static bool aes_init_done = false;
+
+/* Staging area for encrypted and decrypted data */
+static uint8 aes_buffer[AesLoader_SIZEOF_COMMAND_BUFFER];
+
+static void aes_init(void)
+{
+    if (!aes_init_done) {
+        CyBle_AesCcmInit();
+        aes_init_done = true;
+    }
+}
+
+static void aes_clear_prev(void)
+{
+    int i;
+    for (i = 0; i < AES_BLOCK_SIZE; i++) {
+        prevBuffer[i] = 0;
+    }
+}
+#ifdef ENABLE_ENCRYPTION
+static void aes_xor_blk(const uint8* a, const uint8* b, uint8* out)
+{
+    int i;
+    for (i = 0; i < AES_BLOCK_SIZE; i++) {
+        out[i] = a[i] ^ b[i];
+    }
+}
+#endif
+
+static void aes_encrypt_block(const uint8* in, uint8* out)
+{
+#ifdef ENABLE_ENCRYPTION
+    uint8 chained[AES_BLOCK_SIZE];
+    uint8_t mic[4]; // Unused; throw-away
+
+    // XOR clear text with previous encrypted block
+    aes_xor_blk(in, prevBuffer, chained);
+
+    // Encrypt the now chained clear text
+    aes_init();
+    CyBle_AesCcmEncrypt((uint8*)keyBuffer,
+                        (uint8*)nonceBuffer,
+                        chained,
+                        AES_BLOCK_SIZE,
+                        out,
+                        mic);
+
+    // Save encrypted block for chaining with next block
+    memcpy(prevBuffer, out, AES_BLOCK_SIZE);
+#else
+    memcpy(out, in, AES_BLOCK_SIZE);
+#endif
+}
+
+static void aes_decrypt_block(const uint8* in, uint8* out)
+{
+#ifdef ENABLE_ENCRYPTION
+    uint8 unchained[AES_BLOCK_SIZE];
+    uint8_t mic[4]; // Unused; throw-away
+
+    aes_xor_blk(in, prevBuffer, unchained);
+
+    aes_init();
+    CyBle_AesCcmEncrypt((uint8*)keyBuffer,
+                        (uint8*)nonceBuffer,
+                        (uint8*)in,
+                        AES_BLOCK_SIZE,
+                        unchained,
+                        mic);
+
+    // XOR the decrypted block with previous encrypted block to unchain
+    aes_xor_blk(unchained, prevBuffer, out);
+
+    // Save the encrypted block for chaining with next decrypted block
+    memcpy(prevBuffer, in, AES_BLOCK_SIZE);
+#else
+    memcpy(out, in, AES_BLOCK_SIZE);
+#endif
+}
+
+static void aes_encrypt_row(const uint8* in, uint8* out)
+{
+    int i;
+
+    // First chained block is all 0's
+    aes_clear_prev();
+    for (i = 0; i < AES_BLOCKS_PER_ROW; i++) {
+        aes_encrypt_block(in + AES_BLOCK_SIZE * i, out + AES_BLOCK_SIZE * i);
+    }
+}
+
+static void aes_decrypt_row(const uint8* in, uint8* out)
+{
+    int i;
+    // First chained block is all 0's
+    aes_clear_prev();
+    for (i = 0; i < AES_BLOCKS_PER_ROW; i++) {
+        aes_decrypt_block(in + AES_BLOCK_SIZE * i, out + AES_BLOCK_SIZE * i);
+    }
+}
+/*******************************************************************************
+********************************************************************************
+    END OF BACKBONE FIRMWARE DECRYPTION CODE
+********************************************************************************
+*******************************************************************************/
 
 /**
  \defgroup functions_group Functions
@@ -334,6 +459,8 @@ void AesLoader_Initialize(void) CYSMALL \
 {
     if (AesLoader_BOOTLOADING_NOT_INITIALIZED ==AesLoader_initVar)
     {
+        aes_init();
+
         AesLoader_activeApp = AesLoader_GetActiveAppFromMetadata();
 
         /* Updating with number of active application */
@@ -567,12 +694,6 @@ uint8 AesLoader_Calc8BitSum(uint32 baseAddr, uint32 start, uint32 size) \
 CYSMALL
 {
     uint8 CYDATA sum = 0u;
-
-#if(!CY_PSOC4)
-    CYASSERT((baseAddr == CY_EEPROM_BASE) || (baseAddr == CY_FLASH_BASE));
-#else
-    CYASSERT(baseAddr == CY_FLASH_BASE);
-#endif  /* (!CY_PSOC4) */
 
     while (size > 0u)
     {
@@ -1692,7 +1813,6 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
     uint8     packetBuffer[AesLoader_SIZEOF_COMMAND_BUFFER];
     uint8     dataBuffer  [AesLoader_SIZEOF_COMMAND_BUFFER];
 
-
 #if(!CY_PSOC4)
 #if(0u == AesLoader_FAST_APP_VALIDATION)
 #if !defined(CY_BOOT_VERSION)
@@ -1964,7 +2084,8 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                                 break;
                             }
 
-                            ackCode = AesLoader_VerifyRow(startAddr, dataBuffer, (uint16)CYDEV_FLS_ROW_SIZE);
+                            aes_encrypt_row(dataBuffer, aes_buffer);
+                            ackCode = AesLoader_VerifyRow(startAddr, aes_buffer, (uint16)CYDEV_FLS_ROW_SIZE);
                         }
                         else
                         {
@@ -2363,7 +2484,8 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
 
 
 #if(CY_PSOC4)
-                            ackCode = (CYRET_SUCCESS != CySysFlashWriteRow((uint32) row, dataBuffer)) \
+                            aes_decrypt_row(dataBuffer, aes_buffer);
+                            ackCode = (CYRET_SUCCESS != CySysFlashWriteRow((uint32) row, aes_buffer)) \
                                       ? AesLoader_ERR_ROW \
                                       : CYRET_SUCCESS;
 #else
@@ -2623,8 +2745,8 @@ static uint8 AesLoader_CheckImage(uint8 appNumber, uint8 arrayNumber, uint16 row
                             break;
                         }
 
-                        checksum = AesLoader_Calc8BitSum(CY_FLASH_BASE, rowAddr, CYDEV_FLS_ROW_SIZE);
-
+                        aes_encrypt_row((uint8*)(CY_FLASH_BASE + rowAddr), aes_buffer);
+                        checksum = AesLoader_Calc8BitSum((uint32)aes_buffer, 0, CYDEV_FLS_ROW_SIZE);
 #endif  /* (!CY_PSOC4) */
 
 
