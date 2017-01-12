@@ -37,7 +37,7 @@
  * e.g. DBG_PRINTF("message %d\r\n", i) will transform to UART_PutString("message %d\r\n") */
 #define DEBUG_UART_USE_PRINTF_FORMAT  (NO)
 
-//#define DISABLE_BOOTLOADER_FIRMWARE_UPGRADE
+#define DISABLE_BOOTLOADER_FIRMWARE_UPGRADE
 
 #endif /* Options_H */
 
