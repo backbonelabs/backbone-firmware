@@ -34,9 +34,11 @@
 silicon that has 256K Flash array. For example CY8C4248LQI-BL483."
 #endif
 
-static void SetApp0Active()
+__attribute__((noinline)) /* Workaround for GCC toolchain bug with inlining */
+__attribute__((naked))
+static void LaunchBootloadable(uint32 appAddr)
 {
-    Launcher_SetFlashByte((uint32) Launcher_MD_BTLDB_ACTIVE_OFFSET(0), (uint8)1);
+    __asm volatile("    BX  R0\n");
 }
 
 /*******************************************************************************
@@ -66,7 +68,7 @@ int main()
                                     Launcher_MD_BTLDB_ACTIVE_1);
     if (copyFlag)
     {
-        // If a bootloader / stack update was performed then do just do everything
+        // If a bootloader / stack update was performed then just do everything
         // the Launcher_Copier function does but without the actual copy.  Then
         // reset the system which will cause the launcher to load the bootloader
         Launcher_SetFlashByte(Launcher_MD_BTLDB_COPY_FLAG_OFFSET(Launcher_MD_BTLDB_ACTIVE_1),
@@ -82,9 +84,7 @@ int main()
     if (reason & CY_SYS_RESET_WDT || reason == 0)
     {
         // If watchdog or power on reset then load the bootloader
-        SetApp0Active();
-        Launcher_SET_RUN_TYPE(Launcher_SCHEDULE_BTLDR);
-        CySoftwareReset();
+        LaunchBootloadable(Launcher_GetMetadata(Launcher_GET_BTLDB_ADDR, 0));
     }
 
     Launcher_Start();
