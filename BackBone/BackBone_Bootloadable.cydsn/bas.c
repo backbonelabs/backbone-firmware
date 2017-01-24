@@ -108,12 +108,7 @@ void MeasureBattery(bool immediate)
         mvolts = (adcResult * VDD * 2) / ADC_MAX_COUNTS;
 
         /* Convert battery level voltage to percentage using linear approximation
-        *  divided into two sections according to typical performance of
-        *  CR2033 battery specification:
-        *  3V - 100%
-        *  2.8V - 29%
-        *  2.0V - 0%
-        */
+        *  divided into two sections. */
         if (mvolts < MEASURE_BATTERY_MIN)
         {
             batteryLevel = 0;
