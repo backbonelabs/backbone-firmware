@@ -23,7 +23,7 @@ uint16 batterySimulationNotify = 0u;
 uint16 batteryMeasureNotify = 0u;
 
 
-#define VDD                 (3100u)
+#define VDD                 (3160u)
 #define ADC_MAX_COUNTS      (2048u)
 
 /*******************************************************************************
