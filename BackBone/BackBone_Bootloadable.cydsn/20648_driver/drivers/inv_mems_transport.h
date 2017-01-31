@@ -16,7 +16,7 @@
 #ifndef INV_MEMS_TRANSPORT_H__
 #define INV_MEMS_TRANSPORT_H__
 
-#include ".\20648_driver\common\mltypes.h"
+#include "common/mltypes.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,12 +48,27 @@ inv_error_t inv_read_mems(unsigned short reg, unsigned int length, unsigned char
 */
 inv_error_t inv_write_mems_reg(uint16_t reg, unsigned int length, const unsigned char *data);
 
+/** @brief Writes a single byte of data from a register on mems with no power control
+* @param[in] reg    DMP memory address
+* @param[out] data  Data to be written
+* @return           0 in case of success, -1 for any error
+*/
+inv_error_t inv_write_single_mems_reg_core(uint16_t reg, const unsigned char data);
+
 /** @brief Writes a single byte of data from a register on mems.
 * @param[in] reg    DMP memory address
 * @param[out] data  Data to be written
 * @return           0 in case of success, -1 for any error
 */
 inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data);
+
+/** @brief Reads data from a register on mems with no power control
+* @param[in]    Register address
+* @param[in]    Length of data
+* @param[out]   output data from the register
+* @return       0 in case of success, -1 for any error
+*/
+inv_error_t inv_read_mems_reg_core(uint16_t reg, unsigned int length, unsigned char *data);
 
 /** @brief Reads data from a register on mems.
 * @param[in]    Register address

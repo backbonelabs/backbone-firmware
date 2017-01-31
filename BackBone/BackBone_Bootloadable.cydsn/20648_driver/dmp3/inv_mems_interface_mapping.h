@@ -16,7 +16,7 @@
 #ifndef INV_MEMS_INTERFACE_MAPPING_H__DSFJSD__
 #define INV_MEMS_INTERFACE_MAPPING_H__DSFJSD__
 
-#include ".\20648_driver\common\mltypes.h"
+#include "common/mltypes.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -245,11 +245,17 @@ inv_error_t inv_set_dmp_stepcounter_update_offset(unsigned long steps);
 */
 inv_error_t dmp_reset_pickup(void);
 
-/**
-* Clear BAC states when restarting BAC/SMD/Pedometer/Tilt.
+/** @brief  Clear BAC states when restarting BAC/SMD/Pedometer/Tilt to avoid false trigger
+* @return           0 on success, negative value on error.
 * This avoids false triggering of BAC-related modules.
 */
 inv_error_t dmp_reset_bac_states(void);
+
+/** @brief  Set BAC decimation rate when restarting BAC/SMD/Pedometer/Tilt
+* @param[in] accel_div      accel smplrt_div value
+* @return           0 on success, negative value on error.
+*/
+inv_error_t dmp_set_bac_rate(short accel_div);
 #ifdef __cplusplus
 }
 #endif

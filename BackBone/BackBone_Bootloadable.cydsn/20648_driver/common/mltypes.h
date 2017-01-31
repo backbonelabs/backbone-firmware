@@ -17,7 +17,7 @@
 #define MLTYPES_H
 
 
-# include ".\20648_driver\drivers\inv_mems_defines.h"
+# include "../drivers/inv_mems_defines.h"
 
 #ifndef REMOVE_INV_ERROR_T
     /*---------------------------

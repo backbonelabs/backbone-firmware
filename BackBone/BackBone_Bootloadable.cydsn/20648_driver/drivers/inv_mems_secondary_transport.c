@@ -10,18 +10,18 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\drivers\inv_mems_transport.h"
+#include "drivers/inv_mems_transport.h"
 
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
+#include "common/inv_mems_drv_hook.h"
+#include "drivers/inv_mems_defines.h"
 #ifndef MEMS_20609
-    #include ".\20648_driver\drivers\inv_mems_base_driver.h"
+    #include "drivers/inv_mems_base_driver.h"
 #else
-    #include "driver/inv_mems_base_driver_20609.h"
+    #include "drivers/inv_mems_base_driver_20609.h"
 #endif
-#include ".\20648_driver\invn\invn_types.h"
+#include "invn/invn_types.h"
 
-#include ".\20648_driver\drivers\inv_mems_secondary_transport.h"
+#include "drivers/inv_mems_secondary_transport.h"
 
 /**
  *  struct inv_secondary_reg - secondary registers data structure.

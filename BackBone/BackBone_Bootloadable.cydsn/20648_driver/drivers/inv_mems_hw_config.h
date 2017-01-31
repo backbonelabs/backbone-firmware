@@ -41,6 +41,7 @@
     #define MEMS_CHIP HW_ICM20609
 #endif
 
+extern const unsigned char ACCEL_GYRO_CHIP_ADDR;
 //#if defined MEMS_SECONDARY_DEVICE
 extern const unsigned char COMPASS_SLAVE_ID;
 extern const unsigned char COMPASS_CHIP_ADDR;
@@ -50,6 +51,5 @@ extern signed char ACCEL_GYRO_ORIENTATION[9];
 extern signed char COMPASS_ORIENTATION[9];
 extern long SOFT_IRON_MATRIX[9];
 
-#define IVORY_I2C_ADDRESS     0x69
 // _INV_MEMS_HW_CONFIG_H__
 #endif

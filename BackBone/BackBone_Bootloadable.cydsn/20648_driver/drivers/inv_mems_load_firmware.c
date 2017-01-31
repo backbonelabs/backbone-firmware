@@ -10,18 +10,18 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\drivers\inv_mems_load_firmware.h"
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
+#include "drivers/inv_mems_load_firmware.h"
+#include "drivers/inv_mems_hw_config.h"
+#include "drivers/inv_mems_defines.h"
 #ifndef MEMS_20609
-    #include ".\20648_driver\drivers\inv_mems_base_driver.h"
+    #include "drivers/inv_mems_base_driver.h"
 #else
     #include "driver/inv_mems_base_driver_20609.h"
 #endif
-#include ".\20648_driver\drivers\inv_mems_transport.h"
-#include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
+#include "drivers/inv_mems_transport.h"
+#include "dmp3/inv_mems_interface_mapping.h"
 
-#include ".\20648_driver\invn\invn_types.h"
+#include "invn/invn_types.h"
 
 
 inv_error_t inv_mems_firmware_load(const unsigned char *data_start, unsigned short size_start, unsigned short load_addr)

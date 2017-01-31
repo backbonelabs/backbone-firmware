@@ -10,19 +10,19 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\drivers\inv_mems_mpu_fifo_control.h"
+#include "drivers/inv_mems_mpu_fifo_control.h"
 
-#include ".\20648_driver\invn\mlmath.h"
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
+#include "invn/mlmath.h"
+#include "common/inv_mems_drv_hook.h"
+#include "drivers/inv_mems_defines.h"
 #if (MEMS_CHIP != HW_ICM20609)
-    #include ".\20648_driver\drivers\inv_mems_base_control.h"
+    #include "drivers/inv_mems_base_control.h"
 #else
-    #include ".\20648_driver\drivers\inv_mems_base_control_20609.h"
+    #include "driver/inv_mems_base_control_20609.h"
 #endif
-#include ".\20648_driver\drivers\inv_mems_data_converter.h"
-#include ".\20648_driver\drivers\inv_mems_transport.h"
-#include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
+#include "drivers/inv_mems_data_converter.h"
+#include "drivers/inv_mems_transport.h"
+#include "dmp3/inv_mems_interface_mapping.h"
 
 #if defined MEMS_SECONDARY_DEVICE
     #include "driver/inv_mems_slave_compass.h"
@@ -799,7 +799,11 @@ int inv_decode_one_ivory_fifo_packet(struct inv_fifo_decoded_t *fd, const unsign
 #if (MEMS_CHIP != HW_ICM30630)
     if (fd->header & PED_STEPDET_SET)
     {
+#if (MEMS_CHIP == HW_ICM20609)
+        fd->ped_step_det_ts = ((0xff & fifo_ptr[2]) << 24) | ((0xff & fifo_ptr[3]) << 16) | ((0xff & fifo_ptr[4]) << 8) | (0xff & fifo_ptr[5]);
+#else
         fd->ped_step_det_ts = ((0xff & fifo_ptr[0]) << 24) | ((0xff & fifo_ptr[1]) << 16) | ((0xff & fifo_ptr[2]) << 8) | (0xff & fifo_ptr[3]);
+#endif
         fifo_ptr += PED_STEPDET_TIMESTAMP_SZ;
     }
 #endif

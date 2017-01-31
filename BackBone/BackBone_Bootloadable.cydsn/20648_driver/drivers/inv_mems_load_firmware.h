@@ -13,7 +13,7 @@
 #ifndef INV_MEMS_LOAD_FIRMWARE_H__
 #define INV_MEMS_LOAD_FIRMWARE_H__
 
-#include ".\20648_driver\common\mltypes.h"
+#include "common/mltypes.h"
 
 /** @defgroup   mems_load_firmware  load_firmware
     @ingroup    Mems_driver

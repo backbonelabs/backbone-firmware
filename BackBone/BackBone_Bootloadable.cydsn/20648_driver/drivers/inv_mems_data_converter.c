@@ -10,11 +10,11 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\drivers\inv_mems_data_converter.h"
+#include "drivers/inv_mems_data_converter.h"
 
 #include <string.h>
 
-#include ".\20648_driver\invn\mlmath.h"
+#include "invn/mlmath.h"
 
 #define INV_TWO_POWER_NEG_30 9.313225746154785e-010f
 

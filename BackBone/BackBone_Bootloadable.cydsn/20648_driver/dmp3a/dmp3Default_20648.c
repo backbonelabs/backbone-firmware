@@ -23,9 +23,9 @@
 
 #if !defined MEMS_20609
 
-#include ".\20648_driver\dmp3a\dmp3Driver.h"
-#include ".\20648_driver\dmp3a\dmp3Default_20648.h"
-#include ".\20648_driver\invn\invn_types.h"
+#include "dmp3Driver.h"
+#include "dmp3Default_20648.h"
+#include "invn/invn_types.h"
 
 #define CFG_FIFO_SIZE                   (4184)
 
@@ -1070,6 +1070,7 @@ inv_error_t dmp_set_bac_rate_20648(short accel_odr)
     }
 
     result = inv_dmpdriver_write_mems(BAC_RATE, 2, inv_dmpdriver_int16_to_big8(odr,reg));
+    result |= inv_dmpdriver_write_mems(FP_RATE, 4, inv_dmpdriver_int32_to_big8((int)odr,reg));
 
     if (result)
     {

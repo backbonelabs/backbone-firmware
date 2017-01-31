@@ -10,11 +10,11 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
-#include ".\20648_driver\invn\invn_types.h"
+#include "dmp3/inv_mems_interface_mapping.h"
+#include "invn/invn_types.h"
 
 
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
+#include "drivers/inv_mems_hw_config.h"
 #if defined MEMS_20630
     #include "dmp3/dmp3Default_20630.h"
     #include "dmp3/dmp3Driver.h"
@@ -25,8 +25,8 @@
     #include "dmp3/dmp3Default_20645E.h"
     #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_20648
-    #include ".\20648_driver\dmp3a\dmp3Default_20648.h"
-    #include ".\20648_driver\dmp3a\dmp3Driver.h"
+    #include "dmp3a/dmp3Default_20648.h"
+    #include "dmp3a/dmp3Driver.h"
 #elif defined MEMS_20609
     #include "dmp3/dmp3Default_20608D.h"
     #include "dmp3a/dmp3Driver.h"
@@ -216,7 +216,7 @@ inv_error_t dmp_set_bias(int *bias)
 #elif defined MEMS_20648
     return dmp_set_bias_20648(bias);
 #elif defined MEMS_20609
-    return INV_SUCCESS;
+    return dmp_set_bias_20609(bias);
 #else
 #error "Unsupported configuration"
 #endif
@@ -233,7 +233,7 @@ inv_error_t dmp_get_bias(int *bias)
 #elif defined MEMS_20648
     return dmp_get_bias_20648(bias);
 #elif defined MEMS_20609
-    return INV_SUCCESS;
+    return dmp_get_bias_20609(bias);
 #else
 #error "Unsupported configuration"
 #endif
@@ -568,14 +568,38 @@ inv_error_t dmp_reset_bac_states(void)
 #endif
 }
 
+//Function to configure accel data decimation rate for BAC/Pickup
+inv_error_t dmp_set_bac_rate(short accel_div)
+{
+#if defined MEMS_30630
+    return INV_SUCCESS;
+#elif defined MEMS_20630
+    return INV_SUCCESS;
+#elif defined MEMS_20645E
+    return INV_SUCCESS;
+#elif defined MEMS_20648
+    short accel_odr = 0;
+    if (accel_div <= 4)         // 1125/(4+1) = 225Hz
+        accel_odr = 2;
+    else if (accel_div <= 10)   // 1125/(10+1) = 102Hz
+        accel_odr = 1;
+    else
+        accel_odr = 0;      // expect 56Hz as minimum rate
+    return dmp_set_bac_rate_20648(accel_odr);
+#elif defined MEMS_20609
+    return INV_SUCCESS;
+#else
+#error "Unsupported configuration"
+#endif
+}
 
 /* Map DMP API to DMP driver */
 // #include "common/inv_drv_hook.h"
 // #include "driver/data_converter.h"
-#include ".\20648_driver\drivers\inv_mems_load_firmware.h"
+#include "drivers/inv_mems_load_firmware.h"
 // #include "driver/inv_defines.h"
-#include ".\20648_driver\drivers\inv_mems_transport.h"
-#include ".\20648_driver\invn\ml_math_func.h"
+#include "drivers/inv_mems_transport.h"
+#include "invn/ml_math_func.h"
 
 inv_error_t inv_dmpdriver_write_mems(unsigned short reg, unsigned int length, const unsigned char *data)
 {

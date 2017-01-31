@@ -45,7 +45,7 @@ void watchdog_init()
     CySysWdtUnlock();
     self.seconds = 0;
 
-	/* Setup ISR for interrupts at WDT counter 0 events. */
+    /* Setup ISR for interrupts at WDT counter 0 events. */
     WdtIsr_StartEx(WdtIsrHandler);
 
     /* Set WDT counter 0 to generate interrupt on match */

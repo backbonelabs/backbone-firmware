@@ -11,13 +11,12 @@
 */
 #if !defined MEMS_20609
 
-#include ".\20648_driver\drivers\inv_mems_base_driver.h"
+#include "drivers/inv_mems_base_driver.h"
 
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
-#include ".\20648_driver\drivers\inv_mems_transport.h"
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
-#include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
-#include ".\20648_driver\drivers\inv_mems_base_control.h"
+#include "drivers/inv_mems_transport.h"
+#include "drivers/inv_mems_hw_config.h"
+#include "dmp3/inv_mems_interface_mapping.h"
+#include "drivers/inv_mems_base_control.h"
 
 #if defined MEMS_SECONDARY_DEVICE
     #include "driver/inv_mems_slave_compass.h"
@@ -25,7 +24,8 @@
     #include "driver/inv_mems_secondary_transport.h"
 #endif
 
-#include ".\20648_driver\invn\invn_types.h"
+#include "invn/invn_types.h"
+#include "debug.h"
 
 
 struct base_driver_t base_state;
@@ -71,7 +71,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                 if ((base_state.wake_state & CHIP_AWAKE) == 0) // undo sleep_en
                 {
                     base_state.pwr_mgmt_1 &= ~BIT_SLEEP;
-                    status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                    status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                     base_state.wake_state |= CHIP_AWAKE;
                     inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
                 }
@@ -81,7 +81,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                 if (base_state.wake_state & CHIP_AWAKE) // set sleep_en
                 {
                     base_state.pwr_mgmt_1 |= BIT_SLEEP;
-                    status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                    status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                     base_state.wake_state &= ~CHIP_AWAKE;
                     inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
                 }
@@ -96,7 +96,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                     if ( (inv_mems_get_lpen_control()) && ((base_state.wake_state & CHIP_LP_ENABLE) == 0))
                     {
                         base_state.pwr_mgmt_1 |= BIT_LP_EN; // lp_en ON
-                        status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                        status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                         base_state.wake_state |= CHIP_LP_ENABLE;
 #if (MEMS_CHIP != HW_ICM20648)
                         inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
@@ -108,7 +108,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                     if (base_state.wake_state & CHIP_LP_ENABLE)
                     {
                         base_state.pwr_mgmt_1 &= ~BIT_LP_EN; // lp_en off
-                        status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                        status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                         base_state.wake_state &= ~CHIP_LP_ENABLE;
                         inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
                     }
@@ -207,13 +207,14 @@ inv_error_t inv_set_secondary()
     if (lIsInited == 0)
     {
         r = inv_write_single_mems_reg(REG_I2C_MST_CTRL, BIT_I2C_MST_P_NSR);
-
         r |= inv_write_single_mems_reg(REG_I2C_MST_ODR_CONFIG, MIN_MST_ODR_CONFIG);
-
+        r |= inv_write_single_mems_reg(REG_I2C_MST_DELAY_CTRL, BIT_DELAY_ES_SHADOW);
         lIsInited = 1;
     }
     return r;
 }
+
+static const char WHO_AM_I_EXPECTED_VALUE = 0xE0;
 
 /** Should be called once on power up. Loads DMP3, initializes internal variables needed
 *   for other lower driver functions.
@@ -222,17 +223,25 @@ inv_error_t inv_initialize_lower_driver(enum MEMS_SERIAL_INTERFACE type, const u
 {
     inv_error_t result = 0;
     static unsigned char data;
-    unsigned char WhoAmI = 0;
+
+    /* Reset the chip */
+    result |= inv_write_single_mems_reg(REG_PWR_MGMT_1, BIT_H_RESET);
+    inv_sleep(POWER_UP_TIME);
 
     // Set varialbes to default values
     memset(&base_state, 0, sizeof(base_state));
     base_state.pwr_mgmt_1 = BIT_CLK_PLL;
     base_state.pwr_mgmt_2 = BIT_PWR_ACCEL_STBY | BIT_PWR_GYRO_STBY | BIT_PWR_PRESSURE_STBY;
     base_state.serial_interface = type;
-    result |= inv_read_mems_reg(REG_WHO_AM_I, 1, &WhoAmI);
     result |= inv_read_mems_reg(REG_USER_CTRL, 1, &base_state.user_ctrl);
 
     result |= inv_wakeup_mems();
+
+    result |= inv_read_mems_reg(REG_WHO_AM_I, 1, &data);
+    if (data != WHO_AM_I_EXPECTED_VALUE)
+    {
+        result |= INV_ERROR_SERIAL_READ;
+    }
 
 #if defined MEMS_SECONDARY_DEVICE
     /* secondary cycle mode should be set all the time */
@@ -252,16 +261,10 @@ inv_error_t inv_initialize_lower_driver(enum MEMS_SERIAL_INTERFACE type, const u
 
     //Setup Ivory DMP.
     result |= inv_load_firmware(dmp_image_sram);
-
     if (result)
-    {
         return result;
-    }
     else
-    {
         base_state.firmware_loaded = 1;
-    }
-
     result |= inv_set_dmp_address();
     // Turn off all sensors on DMP by default.
     //result |= dmp_set_data_output_control1(0);   // FIXME in DMP, these should be off by default.
@@ -819,4 +822,24 @@ inv_error_t inv_accel_read_hw_reg_data(short accel_hw_reg_data[3])
     return result;
 }
 
+/** @brief Reset ODR counters in DMP
+* @return   1 on success, 0 if not available.
+*/
+inv_error_t inv_reset_dmp_odr_counters(void)
+{
+    inv_error_t ret = 0;
+    unsigned char reg;
+
+    reg = base_state.user_ctrl;
+
+    reg &= ~BIT_DMP_EN;
+    reg &= ~BIT_FIFO_EN;
+    ret |= inv_write_single_mems_reg(REG_USER_CTRL, reg);
+    inv_sleep(MSEC_PER_SEC / MPU_DEFAULT_DMP_FREQ);
+    ret |= dmp_reset_odr_counters();
+    ret |= inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl);
+
+    return ret;
+}
 #endif
+

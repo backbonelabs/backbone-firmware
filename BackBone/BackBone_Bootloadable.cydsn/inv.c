@@ -13,7 +13,8 @@
 #include <project.h>
 #include <inv.h>
 #include <stdbool.h>
-#include ".\20648_driver\invn\inv_mems.h"
+#include "invn\inv_mems.h"
+#include "debug.h"
 
 static uint16 inv_flags = 0;
 
@@ -76,6 +77,7 @@ const unsigned char COMPASS_SLAVE_ID = HW_AK09912;
 /* Change COMPASS_CHIP_ADDR to 0x0E for other AKM 9912/9911/9913/8963*/
 const unsigned char COMPASS_CHIP_ADDR = 0x0E;
 const unsigned char PRESSURE_CHIP_ADDR = 0x00;
+const unsigned char ACCEL_GYRO_CHIP_ADDR = 0x69;
 
 signed char COMPASS_ORIENTATION[] = {0,-1,0,1,0,0,0,0,1};
 
@@ -94,21 +96,37 @@ CY_ISR(INVN_INT_InterruptHandler)
 
 void inv_enable_accelerometer()
 {
+    if (inv_flags != 0)
+    {
+        return;
+    }
+
+    I2C_Start();
     dmp_reset_fifo();
     hal.report |= PRINT_ACCEL;
     inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, true);
     dmp_reset_odr_counters();
     set_output_rates(5);
 
+    I2C_Stop();
+
     isr_INVN_INT_StartEx(INVN_INT_InterruptHandler);
 }
 
 void inv_disable_accelerometer()
 {
+    if (inv_flags != 0)
+    {
+        return;
+    }
+
+    I2C_Start();
     dmp_reset_fifo();
     hal.report &= ~PRINT_ACCEL;
     inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, false);
     dmp_reset_odr_counters();
+
+    I2C_Stop();
 
     isr_INVN_INT_Stop();
 }
@@ -144,6 +162,7 @@ inv_error_t inv_start(void)
         inv_flags |= INV_ERROR_SELF_TEST;
     }
 
+    I2C_Stop();
     return result;
 }
 
@@ -516,6 +535,12 @@ void fifo_handler()
     static mpu_time_t currentIrqTimeUs = 0;
     unsigned short sample_cnt_array[GENERAL_SENSORS_MAX] = { 0 };
 
+    if (inv_flags != 0)
+    {
+        return;
+    }
+
+    I2C_Start();
     // Process Incoming INT and Get/Pack FIFO Data
     inv_identify_interrupt(&int_read_back);
 #if (MEMS_CHIP != HW_ICM20609)
@@ -846,4 +871,5 @@ void fifo_handler()
         }
 #endif
     }
+    I2C_Stop();
 }
