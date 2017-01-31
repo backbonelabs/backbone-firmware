@@ -16,8 +16,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include ".\20648_driver\common\mltypes.h"
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
+#include "common/mltypes.h"
+#include "common/inv_mems_drv_hook.h"
 
 #if defined MEMS_20630
     #include "dmp3/dmp3Driver.h"
@@ -26,7 +26,7 @@
 #elif defined MEMS_20645E
     #include "dmp3/dmp3Driver.h"
 #elif defined MEMS_20648
-    #include ".\20648_driver\dmp3a\dmp3Driver.h"
+    #include "dmp3a/dmp3Driver.h"
 #elif defined MEMS_20609
     #include "dmp3a/dmp3Driver.h"
 #else
@@ -171,6 +171,10 @@ extern "C" {
 #define REG_MEM_BANK_SEL        (BANK_0 | 0x7E)
 
 /* bank 1 register map */
+#define REG_XA_OFFS_H                 (BANK_1 | 0x14)
+#define REG_YA_OFFS_H                 (BANK_1 | 0x17)
+#define REG_ZA_OFFS_H                 (BANK_1 | 0x1A)
+
 #define REG_TIMEBASE_CORRECTION_PLL   (BANK_1 | 0x28)
 #define REG_TIMEBASE_CORRECTION_RCOSC (BANK_1 | 0x29)
 #define REG_SELF_TEST1                (BANK_1 | 0x02)
@@ -189,6 +193,10 @@ extern "C" {
 
 #define REG_GYRO_CONFIG_2       (BANK_2 | 0x02)
 #define BIT_GYRO_CTEN                   0x38
+
+#define REG_XG_OFFS_USR_H       (BANK_2 | 0x03)
+#define REG_YG_OFFS_USR_H       (BANK_2 | 0x05)
+#define REG_ZG_OFFS_USR_H       (BANK_2 | 0x07)
 
 #define REG_ACCEL_SMPLRT_DIV_1  (BANK_2 | 0x10)
 #define REG_ACCEL_SMPLRT_DIV_2  (BANK_2 | 0x11)
@@ -216,6 +224,7 @@ extern "C" {
 #define BIT_SLV1_DLY_EN                 0x02
 #define BIT_SLV2_DLY_EN                 0x04
 #define BIT_SLV3_DLY_EN                 0x08
+#define BIT_DELAY_ES_SHADOW             0x80
 
 #define REG_I2C_SLV0_ADDR       (BANK_3 | 0x03)
 #define REG_I2C_SLV0_REG        (BANK_3 | 0x04)
@@ -309,6 +318,7 @@ extern "C" {
 #define OPERATE_GYRO_IN_DUTY_CYCLED_MODE       (1<<4)
 #define OPERATE_ACCEL_IN_DUTY_CYCLED_MODE      (1<<5)
 #define OPERATE_I2C_MASTER_IN_DUTY_CYCLED_MODE (1<<6)
+#define PED_BAC_RATE_HZ 56 // expected rate by BAC in DMP (Hz)
 
 #endif
 /* Register defines for ICM20608D/20609 */
@@ -379,7 +389,9 @@ extern "C" {
 #define BIT_DATA_RDY_EN             0x01
 
 #define REG_DMP_INT_STATUS      0x39
-#define BIT_DMP_INT_CI          0x01
+#define BIT_MSG_DMP_INT                 0x0002
+#define BIT_MSG_DMP_INT_2               0x0400  // CIM Command - SMD
+#define BIT_MSG_DMP_INT_3               0x0800  // CIM Command - Pedometer
 
 #define REG_INT_STATUS          0x3A
 #define BIT_WOM_INT                    0xE0

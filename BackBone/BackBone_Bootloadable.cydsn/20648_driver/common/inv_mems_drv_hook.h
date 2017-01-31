@@ -13,7 +13,7 @@
     @ingroup  Mems_common
     @{
 */
-#include ".\20648_driver\invn\int_types.h"
+#include "invn/int_types.h"
 
 #ifndef __INV_MEMS_DRV_HOOK_H
 #define __INV_MEMS_DRV_HOOK_H

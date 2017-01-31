@@ -24,8 +24,8 @@
 #ifndef _DMP_3_DRIVER_H__
 #define _DMP_3_DRIVER_H__
 
-#include ".\20648_driver\invn\int_types.h"
-#include ".\20648_driver\common\mltypes.h"
+#include "invn/int_types.h"
+//#include "../common/mltypes.h"
 
 #ifdef __cplusplus
 extern "C"

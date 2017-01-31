@@ -10,16 +10,16 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\drivers\inv_mems_augmented_sensors.h"
+#include "drivers/inv_mems_augmented_sensors.h"
 
 #ifndef MEMS_20609
-    #include ".\20648_driver\drivers\inv_mems_base_control.h"
+    #include "drivers/inv_mems_base_control.h"
 #else
     #include "driver/inv_mems_base_control_20609.h"
 #endif
 
-#include ".\20648_driver\invn\mlmath.h"
-#include ".\20648_driver\invn\ml_math_func.h"
+#include "invn/mlmath.h"
+#include "invn/ml_math_func.h"
 
 // ODR expected for gravity-based sensors
 static unsigned short sGravityOdrMs = 0xFFFF;

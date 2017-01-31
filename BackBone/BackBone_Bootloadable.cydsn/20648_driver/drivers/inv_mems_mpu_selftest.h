@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-#if (MEMS_CHIP == HW_ICM20648)
+#if (MEMS_CHIP == HW_ICM20648 || MEMS_CHIP == HW_ICM20609)
 /**
 *  @brief      Perform hardware self-test for Accel, Gyro and Compass.
 *  @param[in]  None

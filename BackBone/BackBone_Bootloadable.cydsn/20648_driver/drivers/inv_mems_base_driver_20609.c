@@ -13,7 +13,6 @@
 
 #include "driver/inv_mems_base_driver_20609.h"
 
-#include "common/inv_mems_drv_hook.h"
 #include "driver/inv_mems_transport.h"
 #include "driver/inv_mems_hw_config.h"
 #include "dmp3/inv_mems_interface_mapping.h"
@@ -71,7 +70,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                 if ((base_state.wake_state & CHIP_AWAKE) == 0) // undo sleep_en
                 {
                     base_state.pwr_mgmt_1 &= ~BIT_SLEEP;
-                    status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                    status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                     base_state.wake_state |= CHIP_AWAKE;
                     inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
                 }
@@ -81,7 +80,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                 if (base_state.wake_state & CHIP_AWAKE) // set sleep_en
                 {
                     base_state.pwr_mgmt_1 |= BIT_SLEEP;
-                    status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                    status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                     base_state.wake_state &= ~CHIP_AWAKE;
                     inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
                 }
@@ -96,7 +95,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                     if ( (inv_mems_get_lpen_control()) && ((base_state.wake_state & CHIP_LP_ENABLE) == 0))
                     {
                         base_state.pwr_mgmt_1 |= BIT_LP_EN; // lp_en ON
-                        status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                        status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                         base_state.wake_state |= CHIP_LP_ENABLE;
 #if (MEMS_CHIP != HW_ICM20648)
                         inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
@@ -108,7 +107,7 @@ inv_error_t inv_set_chip_power_state(unsigned char func, unsigned char on_off)
                     if (base_state.wake_state & CHIP_LP_ENABLE)
                     {
                         base_state.pwr_mgmt_1 &= ~BIT_LP_EN; // lp_en off
-                        status = inv_serial_interface_write_hook(REG_PWR_MGMT_1, 1, &base_state.pwr_mgmt_1);
+                        status = inv_write_single_mems_reg_core(REG_PWR_MGMT_1, base_state.pwr_mgmt_1);
                         base_state.wake_state &= ~CHIP_LP_ENABLE;
                         inv_sleep_100us(1); // after writing the bit wait 100 Micro Seconds
                     }
@@ -202,6 +201,10 @@ inv_error_t inv_initialize_lower_driver(enum MEMS_SERIAL_INTERFACE type, const u
 {
     inv_error_t result = 0;
     static unsigned char data;
+
+    /* Reset the chip */
+    result |= inv_write_single_mems_reg(REG_PWR_MGMT_1, BIT_H_RESET);
+    inv_sleep(POWER_UP_TIME);
 
     // Set varialbes to default values
     memset(&base_state, 0, sizeof(base_state));
@@ -724,6 +727,24 @@ inv_error_t inv_set_int1_assertion(int enable)
     return result;
 }
 
+/** @brief Reset ODR counters in DMP
+* @return   1 on success, 0 if not available.
+*/
+inv_error_t inv_reset_dmp_odr_counters(void)
+{
+    inv_error_t ret = 0;
+    unsigned char reg;
 
+    reg = base_state.user_ctrl;
+
+    reg &= ~BIT_DMP_EN;
+    reg &= ~BIT_FIFO_EN;
+    ret |= inv_write_single_mems_reg(REG_USER_CTRL, reg);
+    inv_sleep(MSEC_PER_SEC / MPU_DEFAULT_DMP_FREQ);
+    ret |= dmp_reset_odr_counters();
+    ret |= inv_write_single_mems_reg(REG_USER_CTRL, base_state.user_ctrl);
+
+    return ret;
+}
 
 #endif

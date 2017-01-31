@@ -11,15 +11,15 @@
 */
 #ifndef MEMS_20609
 
-#include ".\20648_driver\drivers\inv_mems_mpu_selftest.h"
+#include "drivers/inv_mems_mpu_selftest.h"
 
 #if (MEMS_CHIP == HW_ICM20648)
-#include ".\20648_driver\drivers\inv_mems_defines.h"
-#include ".\20648_driver\drivers\inv_mems_base_driver.h"
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
-#include ".\20648_driver\drivers\inv_mems_transport.h"
+#include "drivers/inv_mems_defines.h"
+#include "drivers/inv_mems_base_driver.h"
+#include "common/inv_mems_drv_hook.h"
+#include "drivers/inv_mems_transport.h"
 #if defined MEMS_SECONDARY_DEVICE
-    #include "driver/inv_mems_slave_compass.h"
+    #include "drivers/inv_mems_slave_compass.h"
 #endif
 
 ////
@@ -57,12 +57,14 @@ struct recover_regs
     uint8_t int_enable;         // REG_INT_ENABLE
     uint8_t int_enable_1;       // REG_INT_ENABLE_1
     uint8_t int_enable_2;       // REG_INT_ENABLE_2
-    uint8_t fifo_en;                // REG_FIFO_EN
+    uint8_t fifo_en;            // REG_FIFO_EN
     uint8_t fifo_en_2;          // REG_FIFO_EN_2
     uint8_t fifo_rst;           // REG_FIFO_RST
+    uint8_t pwr_mgmt_1;         // REG_PWR_MGMT_1
+    uint8_t pwr_mgmt_2;         // REG_PWR_MGMT_2
 
     // Bank#2
-    uint8_t gyro_smplrt_div;        // REG_GYRO_SMPLRT_DIV
+    uint8_t gyro_smplrt_div;    // REG_GYRO_SMPLRT_DIV
     uint8_t gyro_config_1;      // REG_GYRO_CONFIG_1
     uint8_t gyro_config_2;      // REG_GYRO_CONFIG_2
     uint8_t accel_smplrt_div_1; // REG_ACCEL_SMPLRT_DIV_1
@@ -121,37 +123,37 @@ static inv_error_t inv_save_setting()
 {
     inv_error_t result = 0;
 
-    result |= inv_read_mems_reg(REG_FIFO_CFG, 1, &saved_regs.fifo_cfg);
+    result |= inv_read_mems_reg_core(REG_FIFO_CFG, 1, &saved_regs.fifo_cfg);
 
-    result |= inv_read_mems_reg(REG_USER_CTRL, 1, &saved_regs.user_ctrl);
+    result |= inv_read_mems_reg_core(REG_USER_CTRL, 1, &saved_regs.user_ctrl);
 
-    result = inv_read_mems_reg(REG_LP_CONFIG, 1, &saved_regs.lp_config);
+    result |= inv_read_mems_reg_core(REG_LP_CONFIG, 1, &saved_regs.lp_config);
 
-    result |= inv_read_mems_reg(REG_INT_ENABLE, 1, &saved_regs.int_enable);
+    result |= inv_read_mems_reg_core(REG_INT_ENABLE, 1, &saved_regs.int_enable);
 
-    result |= inv_read_mems_reg(REG_INT_ENABLE_1, 1, &saved_regs.int_enable_1);
+    result |= inv_read_mems_reg_core(REG_INT_ENABLE_1, 1, &saved_regs.int_enable_1);
 
-    result |= inv_read_mems_reg(REG_INT_ENABLE_2, 1, &saved_regs.int_enable_2);
+    result |= inv_read_mems_reg_core(REG_INT_ENABLE_2, 1, &saved_regs.int_enable_2);
 
-    result |= inv_read_mems_reg(REG_FIFO_EN, 1, &saved_regs.fifo_en);
+    result |= inv_read_mems_reg_core(REG_FIFO_EN, 1, &saved_regs.fifo_en);
 
-    result |= inv_read_mems_reg(REG_FIFO_EN_2, 1, &saved_regs.fifo_en_2);
+    result |= inv_read_mems_reg_core(REG_FIFO_EN_2, 1, &saved_regs.fifo_en_2);
 
-    result |= inv_read_mems_reg(REG_FIFO_RST, 1, &saved_regs.fifo_rst);
+    result |= inv_read_mems_reg_core(REG_FIFO_RST, 1, &saved_regs.fifo_rst);
 
-    result |= inv_read_mems_reg(REG_GYRO_SMPLRT_DIV, 1, &saved_regs.gyro_smplrt_div);
+    result |= inv_read_mems_reg_core(REG_GYRO_SMPLRT_DIV, 1, &saved_regs.gyro_smplrt_div);
 
-    result |= inv_read_mems_reg(REG_GYRO_CONFIG_1, 1, &saved_regs.gyro_config_1);
+    result |= inv_read_mems_reg_core(REG_GYRO_CONFIG_1, 1, &saved_regs.gyro_config_1);
 
-    result |= inv_read_mems_reg(REG_GYRO_CONFIG_2, 1, &saved_regs.gyro_config_2);
+    result |= inv_read_mems_reg_core(REG_GYRO_CONFIG_2, 1, &saved_regs.gyro_config_2);
 
-    result |= inv_read_mems_reg(REG_ACCEL_SMPLRT_DIV_1, 1, &saved_regs.accel_smplrt_div_1);
+    result |= inv_read_mems_reg_core(REG_ACCEL_SMPLRT_DIV_1, 1, &saved_regs.accel_smplrt_div_1);
 
-    result |= inv_read_mems_reg(REG_ACCEL_SMPLRT_DIV_2, 1, &saved_regs.accel_smplrt_div_2);
+    result |= inv_read_mems_reg_core(REG_ACCEL_SMPLRT_DIV_2, 1, &saved_regs.accel_smplrt_div_2);
 
-    result |= inv_read_mems_reg(REG_ACCEL_CONFIG, 1, &saved_regs.accel_config);
+    result |= inv_read_mems_reg_core(REG_ACCEL_CONFIG, 1, &saved_regs.accel_config);
 
-    result |= inv_read_mems_reg(REG_ACCEL_CONFIG_2, 1, &saved_regs.accel_config_2);
+    result |= inv_read_mems_reg_core(REG_ACCEL_CONFIG_2, 1, &saved_regs.accel_config_2);
 
     return result;
 }
@@ -160,45 +162,48 @@ static inv_error_t inv_recover_setting()
 {
     inv_error_t result = 0;
 
+    // Wake up
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_1, BIT_CLK_PLL);
+
     // Stop sensors
-    result |= inv_write_single_mems_reg(REG_PWR_MGMT_2,
-                                        BIT_PWR_PRESSURE_STBY | BIT_PWR_ACCEL_STBY | BIT_PWR_GYRO_STBY);
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_2,
+                                             BIT_PWR_PRESSURE_STBY | BIT_PWR_ACCEL_STBY | BIT_PWR_GYRO_STBY);
 
     // Restore sensor configurations
-    result |= inv_write_single_mems_reg(REG_GYRO_SMPLRT_DIV, saved_regs.gyro_smplrt_div);
+    result |= inv_write_single_mems_reg_core(REG_GYRO_SMPLRT_DIV, saved_regs.gyro_smplrt_div);
 
-    result |= inv_write_single_mems_reg(REG_GYRO_CONFIG_1, saved_regs.gyro_config_1);
+    result |= inv_write_single_mems_reg_core(REG_GYRO_CONFIG_1, saved_regs.gyro_config_1);
 
-    result |= inv_write_single_mems_reg(REG_GYRO_CONFIG_2, saved_regs.gyro_config_2);
+    result |= inv_write_single_mems_reg_core(REG_GYRO_CONFIG_2, saved_regs.gyro_config_2);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_SMPLRT_DIV_1, saved_regs.accel_smplrt_div_1);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_SMPLRT_DIV_1, saved_regs.accel_smplrt_div_1);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_SMPLRT_DIV_2, saved_regs.accel_smplrt_div_2);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_SMPLRT_DIV_2, saved_regs.accel_smplrt_div_2);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_CONFIG, saved_regs.accel_config);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_CONFIG, saved_regs.accel_config);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_CONFIG_2, saved_regs.accel_config_2);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_CONFIG_2, saved_regs.accel_config_2);
 
     // Restore FIFO configurations
-    result |= inv_write_single_mems_reg(REG_FIFO_CFG, saved_regs.fifo_cfg);
+    result |= inv_write_single_mems_reg_core(REG_FIFO_CFG, saved_regs.fifo_cfg);
 
-    result |= inv_write_single_mems_reg(REG_LP_CONFIG, saved_regs.lp_config);
+    result |= inv_write_single_mems_reg_core(REG_LP_CONFIG, saved_regs.lp_config);
 
-    result |= inv_write_single_mems_reg(REG_INT_ENABLE, saved_regs.int_enable);
+    result |= inv_write_single_mems_reg_core(REG_INT_ENABLE, saved_regs.int_enable);
 
-    result |= inv_write_single_mems_reg(REG_INT_ENABLE_1, saved_regs.int_enable_1);
+    result |= inv_write_single_mems_reg_core(REG_INT_ENABLE_1, saved_regs.int_enable_1);
 
-    result |= inv_write_single_mems_reg(REG_FIFO_EN, saved_regs.fifo_en);
+    result |= inv_write_single_mems_reg_core(REG_FIFO_EN, saved_regs.fifo_en);
 
-    result |= inv_write_single_mems_reg(REG_FIFO_EN_2, saved_regs.fifo_en_2);
+    result |= inv_write_single_mems_reg_core(REG_FIFO_EN_2, saved_regs.fifo_en_2);
 
-    result |= inv_write_single_mems_reg(REG_FIFO_RST, MAX_5_BIT_VALUE);
+    result |= inv_write_single_mems_reg_core(REG_FIFO_RST, MAX_5_BIT_VALUE);
 
-    result |= inv_write_single_mems_reg(REG_FIFO_RST, saved_regs.fifo_rst);
+    result |= inv_write_single_mems_reg_core(REG_FIFO_RST, saved_regs.fifo_rst);
 
     // Reset DMP
-    result |= inv_write_single_mems_reg(REG_USER_CTRL,
-                                        (saved_regs.user_ctrl & (~BIT_FIFO_EN)) | BIT_DMP_RST);
+    result |= inv_write_single_mems_reg_core(REG_USER_CTRL,
+                                             (saved_regs.user_ctrl & (~BIT_FIFO_EN)) | BIT_DMP_RST);
     inv_sleep(DMP_RESET_TIME);
 
     result |=inv_set_dmp_address();
@@ -208,7 +213,10 @@ static inv_error_t inv_recover_setting()
 #if defined MEMS_SECONDARY_DEVICE
     result |=inv_setup_compass_akm();
 #endif
-    result |= inv_sleep_mems();
+    // Restore PWR_MGMT_1/PWR_MGMT_2
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_2, saved_regs.pwr_mgmt_2);
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_1, saved_regs.pwr_mgmt_1);
+
     return result;
 }
 
@@ -281,63 +289,56 @@ static inv_error_t inv_setup_selftest()
 {
     inv_error_t result = 0;
 
+    // Save PWR_MGMT_1 and PWR_MGMT_2
+    result |= inv_read_mems_reg_core(REG_PWR_MGMT_1, 1, &saved_regs.pwr_mgmt_1);
+    result |= inv_read_mems_reg_core(REG_PWR_MGMT_2, 1, &saved_regs.pwr_mgmt_2);
+
     // Wake up
-    result |= inv_write_single_mems_reg(REG_PWR_MGMT_1, BIT_CLK_PLL);
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_1, BIT_CLK_PLL);
 
     // Save the current settings
     result |= inv_save_setting();
 
     // Stop sensors
-    result |= inv_write_single_mems_reg(REG_PWR_MGMT_2,
-                                        BIT_PWR_PRESSURE_STBY | BIT_PWR_ACCEL_STBY | BIT_PWR_GYRO_STBY);
-
-    /*   Perform a soft-reset of the chip by setting the MSB of PWR_MGMT_1 register
-    * This will clear any prior states in the chip
-    */
-    result |= inv_write_single_mems_reg(REG_PWR_MGMT_1, BIT_H_RESET);
-    inv_sleep(100); //100ms delay after soft reset--yd
-
-    // Wake up
-    result |= inv_write_single_mems_reg(REG_PWR_MGMT_1, BIT_CLK_PLL);
-    if (result)
-        return result;
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_2,
+                                             BIT_PWR_PRESSURE_STBY | BIT_PWR_ACCEL_STBY | BIT_PWR_GYRO_STBY);
 
     // Set cycle mode
-    result |= inv_write_single_mems_reg(REG_LP_CONFIG,
-                                        BIT_I2C_MST_CYCLE | BIT_ACCEL_CYCLE | BIT_GYRO_CYCLE);
+    result |= inv_write_single_mems_reg_core(REG_LP_CONFIG,
+                                             BIT_I2C_MST_CYCLE | BIT_ACCEL_CYCLE | BIT_GYRO_CYCLE);
 
     // Configure FSR and DLPF for gyro
-    result |= inv_write_single_mems_reg(REG_GYRO_SMPLRT_DIV, SELFTEST_GYRO_SMPLRT_DIV);
+    result |= inv_write_single_mems_reg_core(REG_GYRO_SMPLRT_DIV, SELFTEST_GYRO_SMPLRT_DIV);
 
-    result |= inv_write_single_mems_reg(REG_GYRO_CONFIG_1, SELFTEST_GYRO_FS);
+    result |= inv_write_single_mems_reg_core(REG_GYRO_CONFIG_1, SELFTEST_GYRO_FS);
 
-    result |= inv_write_single_mems_reg(REG_GYRO_CONFIG_2, SELFTEST_GYRO_AVGCFG);
+    result |= inv_write_single_mems_reg_core(REG_GYRO_CONFIG_2, SELFTEST_GYRO_AVGCFG);
 
     // Configure FSR and DLPF for accel
-    result |= inv_write_single_mems_reg(REG_ACCEL_SMPLRT_DIV_1, 0);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_SMPLRT_DIV_1, 0);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_SMPLRT_DIV_2, SELFTEST_ACCEL_SMPLRT_DIV);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_SMPLRT_DIV_2, SELFTEST_ACCEL_SMPLRT_DIV);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_CONFIG, SELFTEST_ACCEL_FS);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_CONFIG, SELFTEST_ACCEL_FS);
 
-    result |= inv_write_single_mems_reg(REG_ACCEL_CONFIG_2, SELFTEST_ACCEL_DEC3_CFG);
+    result |= inv_write_single_mems_reg_core(REG_ACCEL_CONFIG_2, SELFTEST_ACCEL_DEC3_CFG);
 
     // Read selftest values
     // Retrieve factory Self-Test code (ST_Code) from SELF_TEST registers  (User Bank 1):
-    result |= inv_read_mems_reg(REG_SELF_TEST1, 1, &gyro_st_data[0]);
+    result |= inv_read_mems_reg_core(REG_SELF_TEST1, 1, &gyro_st_data[0]);
 
-    result |= inv_read_mems_reg(REG_SELF_TEST2, 1, &gyro_st_data[1]);
+    result |= inv_read_mems_reg_core(REG_SELF_TEST2, 1, &gyro_st_data[1]);
 
-    result |= inv_read_mems_reg(REG_SELF_TEST3, 1, &gyro_st_data[2]);
+    result |= inv_read_mems_reg_core(REG_SELF_TEST3, 1, &gyro_st_data[2]);
 
-    result |= inv_read_mems_reg(REG_SELF_TEST4, 1, &accel_st_data[0]);
+    result |= inv_read_mems_reg_core(REG_SELF_TEST4, 1, &accel_st_data[0]);
 
-    result |= inv_read_mems_reg(REG_SELF_TEST5, 1, &accel_st_data[1]);
+    result |= inv_read_mems_reg_core(REG_SELF_TEST5, 1, &accel_st_data[1]);
 
-    result |= inv_read_mems_reg(REG_SELF_TEST6, 1, &accel_st_data[2]);
+    result |= inv_read_mems_reg_core(REG_SELF_TEST6, 1, &accel_st_data[2]);
 
     // Restart sensors
-    result |= inv_write_single_mems_reg(REG_PWR_MGMT_2, BIT_PWR_PRESSURE_STBY);
+    result |= inv_write_single_mems_reg_core(REG_PWR_MGMT_2, BIT_PWR_PRESSURE_STBY);
     inv_sleep(GYRO_ENGINE_UP_TIME);
 
     return result;
@@ -366,7 +367,7 @@ static int inv_selftest_read_samples(enum INV_SENSORS type, int *sum_result, int
     while (*s < DEF_ST_SAMPLES)
     {
 
-        if (inv_read_mems_reg(w, BYTES_PER_SENSOR, d))
+        if (inv_read_mems_reg_core(w, BYTES_PER_SENSOR, d))
             return -1;
 
         for (j = 0; j < THREE_AXES; j++)
@@ -412,11 +413,11 @@ static int inv_do_test_accelgyro(enum INV_SENSORS sensorType, int *meanValue, in
     if (sensorType == INV_SENSOR_GYRO)
     {
         // Enable gyroscope Self-Test by setting register User Bank 2, Register Address 02 (02h) Bit [5:3] to b111
-        result = inv_write_single_mems_reg(REG_GYRO_CONFIG_2, BIT_GYRO_CTEN | SELFTEST_GYRO_AVGCFG);
+        result = inv_write_single_mems_reg_core(REG_GYRO_CONFIG_2, BIT_GYRO_CTEN | SELFTEST_GYRO_AVGCFG);
     }
     else
     {
-        result = inv_write_single_mems_reg(REG_ACCEL_CONFIG_2, BIT_ACCEL_CTEN | SELFTEST_ACCEL_DEC3_CFG);
+        result = inv_write_single_mems_reg_core(REG_ACCEL_CONFIG_2, BIT_ACCEL_CTEN | SELFTEST_ACCEL_DEC3_CFG);
     }
     if (result)
         return result;
