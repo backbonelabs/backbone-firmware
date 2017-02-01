@@ -96,6 +96,11 @@ void posture_resume(uint32_t resume_time,
 {
     if (self.start_time != 0)
     {
+        if (self.state == STATE_SLOUCH_EXCEED)
+        {
+            self.slouch_start_time = resume_time - self.slouch_elapsed_time;
+        }
+
         self.start_time = resume_time - self.elapsed_time;
         self.distance_threshold = distance_threshold;
         self.time_threshold = time_threshold;
