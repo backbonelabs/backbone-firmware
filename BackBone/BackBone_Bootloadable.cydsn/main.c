@@ -52,7 +52,31 @@ __inline void ManageSystemPower()
         if (blePower == CYBLE_BLESS_STATE_DEEPSLEEP ||
             blePower == CYBLE_BLESS_STATE_ECO_ON)
         {
+            VIN_Sleep();
+            ADC_Sleep();
+            MOTOR_PIN_Sleep();
+            MotorPWM_Sleep();
+            MotorTimer_Sleep();
+            I2C_Sleep();
+            I2C_sda_Sleep();
+            I2C_scl_Sleep();
+            INVN_INT_Sleep();
+            Timer1ms_Sleep();
+            Timer_Sleep();
+
             CySysPmDeepSleep();
+
+            Timer_Wakeup();
+            Timer1ms_Wakeup();
+            INVN_INT_Wakeup();
+            I2C_scl_Wakeup();
+            I2C_sda_Wakeup();
+            I2C_Wakeup();
+            MotorTimer_Wakeup();
+            MotorPWM_Wakeup();
+            MOTOR_PIN_Wakeup();
+            ADC_Wakeup();
+            VIN_Wakeup();
         }
         else if (blePower != CYBLE_BLESS_STATE_EVENT_CLOSE)
         {
