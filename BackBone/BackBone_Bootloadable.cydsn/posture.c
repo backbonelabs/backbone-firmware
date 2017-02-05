@@ -96,7 +96,7 @@ void posture_resume(uint32_t resume_time,
 {
     if (self.start_time != 0)
     {
-        if (self.state == STATE_SLOUCH_EXCEED)
+        if (self.state == STATE_SLOUCH_EXCEED || self.state == STATE_SLOUCH)
         {
             self.slouch_start_time = resume_time - self.slouch_elapsed_time;
         }
