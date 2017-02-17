@@ -18,12 +18,13 @@
 
 #include "bas.h"
 #include "common.h"
+#include "debug.h"
 
 uint16 batterySimulationNotify = 0u;
 uint16 batteryMeasureNotify = 0u;
 
 
-#define VDD                 (3100u)
+#define VDD                 (3160u)
 #define ADC_MAX_COUNTS      (2048u)
 
 /*******************************************************************************
@@ -106,6 +107,10 @@ void MeasureBattery(bool immediate)
         *  and ADC Full Scale counts.
         */
         mvolts = (adcResult * VDD * 2) / ADC_MAX_COUNTS;
+
+        /* Input into the ADC seems about 4% too low.  So add 4% back to it.
+        */
+        mvolts = (mvolts * 104) / 100;
 
         /* Convert battery level voltage to percentage using linear approximation
         *  divided into two sections. */
