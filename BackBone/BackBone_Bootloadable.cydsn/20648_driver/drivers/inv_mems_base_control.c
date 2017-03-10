@@ -12,10 +12,10 @@
 
 #ifndef MEMS_20609
 
-#include ".\20648_driver\drivers\inv_mems_base_control.h"
+#include "drivers/inv_mems_base_control.h"
 
-#include ".\20648_driver\invn\mlmath.h"
-#include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
+#include "invn/mlmath.h"
+#include "dmp3/inv_mems_interface_mapping.h"
 
 #if defined MEMS_SECONDARY_DEVICE
     #include "driver/inv_mems_slave_compass.h"
@@ -27,7 +27,7 @@
     #include "driver/inv_mems_augmented_sensors.h"
 #endif
 
-#include ".\20648_driver\invn\invn_types.h"
+#include "invn/invn_types.h"
 
 //#define INV_SENSOR_MULTIFIFO
 #define INV_ODR_MIN_DELAY   200     // Limited by 8-bit HW Gyro rate divider register "GYRO_SMPLRT_DIV"
@@ -447,6 +447,10 @@ static unsigned short getMinDlyAccel(void)
         In case power consumption is to be improved at the expense of performance, this setup should be commented out */
     if ( inv_androidSensor_enabled(ANDROID_SENSOR_WAKEUP_ROTATION_VECTOR) || inv_androidSensor_enabled(ANDROID_SENSOR_ROTATION_VECTOR) )
         lMinOdr =   min (   lMinOdr, 5   );
+    /** To have correct algorithm performance and quick convergence of GRV, it is advised to set accelerometer to 225Hz.
+        In case power consumption is to be improved at the expense of performance, this setup should be commented out */
+    if ( inv_androidSensor_enabled(ANDROID_SENSOR_WAKEUP_GAME_ROTATION_VECTOR) || inv_androidSensor_enabled(ANDROID_SENSOR_GAME_ROTATION_VECTOR) )
+        lMinOdr =   min (   lMinOdr, 5   );
 #endif
 
     return lMinOdr;
@@ -640,13 +644,24 @@ inv_error_t inv_set_hw_smplrt_dmp_odrs()
             result          |=  DividerRateSet  (MinDelayGen        (MinDelayGenPressure2List), hw_smplrt_divider, INV_SENSOR_PRESSURE);
     }
 #endif
-
+#if (MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648 )
+    result |= dmp_set_bac_rate(inv_get_accel_divider());
+#endif
     return result;
 }
 
 inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
 {
     inv_error_t result;
+    uint32_t fixed_ms;
+
+#if (MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648 )
+    fixed_ms = 1000 / PED_BAC_RATE_HZ; // minimum rate for BAC
+    if (1000 % PED_BAC_RATE_HZ)
+        fixed_ms += 1;
+#else
+    fixed_ms = delayInMs;
+#endif
 
 #if defined MEMS_SECONDARY_DEVICE
     if (sensor_needs_compass(androidSensor))
@@ -670,7 +685,7 @@ inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
 #if (MEMS_CHIP != HW_ICM30630)
         case ANDROID_SENSOR_STEP_DETECTOR:
         case ANDROID_SENSOR_STEP_COUNTER:
-            inv_dmp_odr_delays[INV_SENSOR_STEP_COUNTER] = delayInMs;
+            inv_dmp_odr_delays[INV_SENSOR_STEP_COUNTER] = fixed_ms;
             break;
 #endif
         case ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR:
@@ -680,7 +695,7 @@ inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
 
 #if (MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648)
         case ANDROID_SENSOR_ACTIVITY_CLASSIFICATON:
-            inv_dmp_odr_delays[INV_SENSOR_ACTIVITY_CLASSIFIER] = delayInMs;
+            inv_dmp_odr_delays[INV_SENSOR_ACTIVITY_CLASSIFIER] = fixed_ms;
             break;
 #endif
         case ANDROID_SENSOR_GYROSCOPE_UNCALIBRATED:
@@ -741,7 +756,7 @@ inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
         case ANDROID_SENSOR_WAKEUP_STEP_DETECTOR:
         case ANDROID_SENSOR_WAKEUP_STEP_COUNTER:
         case ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION:
-            inv_dmp_odr_delays[INV_SENSOR_WAKEUP_STEP_COUNTER] = delayInMs;
+            inv_dmp_odr_delays[INV_SENSOR_WAKEUP_STEP_COUNTER] = fixed_ms;
             break;
 #endif
         case ANDROID_SENSOR_WAKEUP_GEOMAGNETIC_ROTATION_VECTOR:
@@ -751,11 +766,11 @@ inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
 
 #if (MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648)
         case ANDROID_SENSOR_WAKEUP_TILT_DETECTOR:
-            inv_dmp_odr_delays[INV_SENSOR_WAKEUP_TILT_DETECTOR] = delayInMs;
+            inv_dmp_odr_delays[INV_SENSOR_WAKEUP_TILT_DETECTOR] = fixed_ms;
             break;
 #endif
         case ANDROID_SENSOR_B2S:
-            inv_dmp_odr_delays[INV_SENSOR_BRING_TO_SEE] = delayInMs;
+            inv_dmp_odr_delays[INV_SENSOR_BRING_TO_SEE] = fixed_ms;
             break;
 
         case ANDROID_SENSOR_WAKEUP_GYROSCOPE_UNCALIBRATED:
@@ -814,7 +829,7 @@ inv_error_t inv_set_odr(unsigned char androidSensor, unsigned short delayInMs)
             break;
 
         case ANDROID_SENSOR_FLIP_PICKUP:
-            inv_dmp_odr_delays[INV_SENSOR_FLIP_PICKUP] = delayInMs;
+            inv_dmp_odr_delays[INV_SENSOR_FLIP_PICKUP] = fixed_ms;
             break;
 
         // not support yet
@@ -1105,6 +1120,10 @@ static void inv_convert_androidSensor_to_control(unsigned char androidSensor, un
 
 #if (MEMS_CHIP == HW_ICM30630)
     if (flip_pickup_status)
+        *sensor_control |= HEADER2_SET;
+#endif
+#if (MEMS_CHIP == HW_ICM20645_E || MEMS_CHIP == HW_ICM20648)
+    if (bac_status || flip_pickup_status)
         *sensor_control |= HEADER2_SET;
 #endif
 

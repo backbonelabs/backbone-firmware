@@ -18,10 +18,10 @@
 #ifndef INV_MEMS_BASE_CONTROL_H__HWDFWQ__
 #define INV_MEMS_BASE_CONTROL_H__HWDFWQ__
 
-#include ".\20648_driver\common\mltypes.h"
-#include ".\20648_driver\drivers\inv_mems_base_driver.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
+#include "common/mltypes.h"
+#include "drivers/inv_mems_base_driver.h"
+#include "drivers/inv_mems_defines.h"
+#include "drivers/inv_mems_hw_config.h"
 
 #ifdef __cplusplus
 extern "C"

@@ -22,8 +22,8 @@ extern "C"
 {
 #endif
 
-#include ".\20648_driver\common\mltypes.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
+#include "common/mltypes.h"
+#include "drivers/inv_mems_defines.h"
 
 /** @brief Gets the 3 axis gravity value based on GRV quaternion
 * @param[out] gravity   3 components resulting gravity in Q16 in m/s2

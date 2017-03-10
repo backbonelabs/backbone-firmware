@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include ".\20648_driver\invn\ml_math_func.h"
+#include "invn/ml_math_func.h"
 
 /** @brief Sets the transformation used for chip to body frame
 * @param[in] quat   the quaternion used for the transformation

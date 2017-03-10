@@ -11,17 +11,16 @@
 */
 #ifndef MEMS_20609
 
-#include ".\20648_driver\drivers\inv_mems_slave_pressure.h"
+#include "drivers/inv_mems_slave_pressure.h"
 
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
-#include ".\20648_driver\drivers\inv_mems_data_converter.h"               // to get inv_q30_mult
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
-#include ".\20648_driver\drivers\inv_mems_transport.h"
-#include ".\20648_driver\drivers\inv_mems_secondary_transport.h"
-#include ".\20648_driver\drivers\inv_mems_slave_compass.h"
-#include ".\20648_driver\dmp3\inv_mems_interface_mapping.h"
-
+#include "common/inv_mems_drv_hook.h"
+#include "drivers/inv_mems_defines.h"
+#include "drivers/inv_mems_data_converter.h"               // to get inv_q30_mult
+#include "drivers/inv_mems_hw_config.h"
+#include "drivers/inv_mems_transport.h"
+#include "drivers/inv_mems_secondary_transport.h"
+#include "drivers/inv_mems_slave_compass.h"
+#include "dmp3/inv_mems_interface_mapping.h"
 
 #define REG_BMP280_ID           (0xD0)
 #define DATA_BMP_ID             (0x58)

@@ -16,9 +16,9 @@
 #ifndef INV_MEMS_MPU_FIFO_CONTROL_H__GQWDHE__
 #define INV_MEMS_MPU_FIFO_CONTROL_H__GQWDHE__
 
-#include ".\20648_driver\common\mltypes.h"
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
-#include ".\20648_driver\invn\invn_types.h"
+#include "common/mltypes.h"
+#include "drivers/inv_mems_hw_config.h"
+#include "invn/invn_types.h"
 
 /** @brief Struct for the fifo. this contains the sensor data */
 struct inv_fifo_decoded_t

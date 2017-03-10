@@ -25,7 +25,7 @@
 #ifndef _DMP_3_DEFAULT_20648_XFSD_H__
 #define _DMP_3_DEFAULT_20648_XFSD_H__
 
-#include ".\20648_driver\common\mltypes.h"
+#include "../common/mltypes.h"
 
 #ifdef __cplusplus
 extern "C"

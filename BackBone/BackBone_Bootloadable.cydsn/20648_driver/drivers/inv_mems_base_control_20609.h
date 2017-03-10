@@ -160,7 +160,11 @@ enum INV_HW_ENGINE
 #define GYRO_BIAS_DATA_SZ 12
 #endif
 #define CPASS_CALIBR_DATA_SZ    12
+#if (MEMS_CHIP == HW_ICM20609)
+#define PED_STEPDET_TIMESTAMP_SZ    (4 + HEADER_SZ)
+#else
 #define PED_STEPDET_TIMESTAMP_SZ    4
+#endif
 #if (MEMS_CHIP != HW_ICM20648)
 #define FOOTER_SZ           2
 #endif

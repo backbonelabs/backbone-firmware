@@ -2341,7 +2341,7 @@
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@Assembly@General@Join Data and Text Sections" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@Assembly@General@Suppress Warnings" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@Assembly@Command Line@Command Line" v="" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@C/C++@General@Additional Include Directories" v="..\..\MTK_V_8\Firmware\PRoC_DUT\PRoC_DUT.cydsn" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@C/C++@General@Additional Include Directories" v="..\..\MTK_V_8\Firmware\PRoC_DUT\PRoC_DUT.cydsn; .\20648_driver" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@C/C++@General@Create Listing File" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@C/C++@General@Default Char Unsigned" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0@C/C++@General@Generate Debugging Information" v="True" />
@@ -2375,7 +2375,7 @@
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@Assembly@General@Join Data and Text Sections" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@Assembly@General@Suppress Warnings" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@Assembly@Command Line@Command Line" v="" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@C/C++@General@Additional Include Directories" v="..\..\MTK_V_8\Firmware\PRoC_DUT\PRoC_DUT.cydsn" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@C/C++@General@Additional Include Directories" v="..\..\MTK_V_8\Firmware\PRoC_DUT\PRoC_DUT.cydsn; .\20648_driver" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@C/C++@General@Create Listing File" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@C/C++@General@Default Char Unsigned" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Release@CortexM0@C/C++@General@Generate Debugging Information" v="False" />
@@ -3505,7 +3505,7 @@
 <project_current_processor v="CortexM0" />
 <last_selected_tab v="Cypress" />
 <WriteAppVersionLastSavedWith v="4.0.0.432" />
-<WriteAppMarketingVersionLastSavedWith v=" 4.0" />
+<WriteAppMarketingVersionLastSavedWith v=" 4.0 Update 1" />
 <project_id v="98bd2b2b-0aef-40cb-acf8-544c5c129408" />
 <GenerateDescriptionFiles v="False" />
 </CyGuid_49cfd574-032a-4a64-b7be-d4eeeaf25e43>

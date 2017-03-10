@@ -16,8 +16,8 @@
 #ifndef INV_MEMS_BASE_DRIVER_H__HWDFWQ__
 #define INV_MEMS_BASE_DRIVER_H__HWDFWQ__
 
-#include ".\20648_driver\common\mltypes.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
+#include "common/mltypes.h"
+#include "driver/inv_mems_defines.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -233,6 +233,11 @@ int inv_mems_get_compass_availability(void);
 */
 int inv_mems_get_pressure_availability(void);
 #endif
+
+/** @brief Reset ODR counters in DMP
+* @return   1 on success, 0 if not available.
+*/
+inv_error_t inv_reset_dmp_odr_counters(void);
 
 #ifdef __cplusplus
 }

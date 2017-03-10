@@ -4042,9 +4042,9 @@
     <Data key="CYDEV_STACK_SIZE" value="0x0800" />
     <Data key="CYDEV_USE_BUNDLED_CMSIS" value="True" />
     <Data key="CYDEV_VARIABLE_VDDA" value="True" />
-    <Data key="CYDEV_VDD" value="3.1" />
+    <Data key="CYDEV_VDD" value="3.16" />
     <Data key="CYDEV_VDDA" value="3.3" />
     <Data key="CYDEV_VDDD" value="3.3" />
-    <Data key="CYDEV_VDDR" value="3.1" />
+    <Data key="CYDEV_VDDR" value="3.16" />
   </Group>
 </DesignWideResources>

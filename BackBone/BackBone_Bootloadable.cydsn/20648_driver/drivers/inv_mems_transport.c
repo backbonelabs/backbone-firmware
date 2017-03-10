@@ -10,19 +10,19 @@
 * ________________________________________________________________________________________________________
 */
 
-#include ".\20648_driver\drivers\inv_mems_transport.h"
+#include "drivers/inv_mems_transport.h"
 
-#include ".\20648_driver\common\inv_mems_drv_hook.h"
-#include ".\20648_driver\drivers\inv_mems_defines.h"
+#include "common/inv_mems_drv_hook.h"
+#include "drivers/inv_mems_defines.h"
 #ifndef MEMS_20609
-    #include ".\20648_driver\drivers\inv_mems_base_driver.h"
+    #include "drivers/inv_mems_base_driver.h"
 #else
-    #include "driver/inv_mems_base_driver_20609.h"
+    #include "drivers/inv_mems_base_driver_20609.h"
 #endif
-#include ".\20648_driver\drivers\inv_mems_hw_config.h"
+#include "drivers/inv_mems_hw_config.h"
 
 #if (MEMS_CHIP == HW_ICM20648)
-    #include ".\20648_driver\drivers\inv_mems_base_control.h"
+    #include "drivers/inv_mems_base_control.h"
 #endif
 static unsigned char lLastBankSelected=0xFF;
 
@@ -123,9 +123,26 @@ inv_error_t inv_write_mems_reg(uint16_t reg, unsigned int length, const unsigned
 
         bytesWrite += thisLen;
     }
-    result |= inv_set_bank(0); // Restore Bank to 0
+
     if (check_reg_access_lp_disable(reg))  //Enable LP_EN since we disabled it at begining of this function.
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
+
+    return result;
+}
+
+/**
+*  @brief      Write single byte of data to a register on MEMs with no power control
+*  @param[in]  Register address
+*  @param[in]  Data to be written
+*  @return     0 if successful.
+*/
+inv_error_t inv_write_single_mems_reg_core(uint16_t reg, const unsigned char data)
+{
+    inv_error_t result = 0;
+    unsigned char regOnly = (unsigned char)(reg & 0x7F);
+
+    result |= inv_set_bank(reg >> 7);
+    result |= inv_serial_interface_write_hook(regOnly, 1, &data);
 
     return result;
 }
@@ -139,8 +156,6 @@ inv_error_t inv_write_mems_reg(uint16_t reg, unsigned int length, const unsigned
 inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data)
 {
     inv_error_t result = 0;
-    unsigned char regOnly = (unsigned char)(reg & 0x7F);
-
 
     unsigned char power_state = inv_get_chip_power_state();
 
@@ -149,8 +164,8 @@ inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data)
 
     if (check_reg_access_lp_disable(reg))  // Check if register needs LP_EN to be disabled
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);  //Disable LP_EN
-    result |= inv_set_bank(reg >> 7);
-    result |= inv_serial_interface_write_hook(regOnly, 1, &data);
+
+    result |= inv_write_single_mems_reg_core(reg, data);
 
     if (check_reg_access_lp_disable(reg))  //Enable LP_EN since we disabled it at begining of this function.
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
@@ -159,27 +174,21 @@ inv_error_t inv_write_single_mems_reg(uint16_t reg, const unsigned char data)
 }
 
 /**
-*  @brief      Read data from a register on MEMs.
+*  @brief      Read data from a register on MEMs with no power control
 *  @param[in]  Register address
 *  @param[in]  Length of data
 *  @param[in]  Data to be written
 *  @return     0 if successful.
 */
-inv_error_t inv_read_mems_reg(uint16_t reg, unsigned int length, unsigned char *data)
+inv_error_t inv_read_mems_reg_core(uint16_t reg, unsigned int length, unsigned char *data)
 {
     inv_error_t result = 0;
     unsigned int bytesRead = 0;
     unsigned char regOnly = (unsigned char)(reg & 0x7F);
 #if (MEMS_CHIP != HW_ICM30630)
-    unsigned char i, dat[INV_MAX_SERIAL_READ+1];
+    unsigned char dat[INV_MAX_SERIAL_READ+1];
+    int i;
 #endif
-    unsigned char power_state = inv_get_chip_power_state();
-
-    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
-        result = inv_set_chip_power_state(CHIP_AWAKE, 1);
-
-    if (check_reg_access_lp_disable(reg))  // Check if register needs LP_EN to be disabled
-        result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);  //Disable LP_EN
 
     result |= inv_set_bank(reg >> 7);
 
@@ -214,6 +223,30 @@ inv_error_t inv_read_mems_reg(uint16_t reg, unsigned int length, unsigned char *
         }
     }
 #endif
+
+    return result;
+}
+
+/**
+*  @brief      Read data from a register on MEMs.
+*  @param[in]  Register address
+*  @param[in]  Length of data
+*  @param[in]  Data to be written
+*  @return     0 if successful.
+*/
+inv_error_t inv_read_mems_reg(uint16_t reg, unsigned int length, unsigned char *data)
+{
+    inv_error_t result = 0;
+
+    unsigned char power_state = inv_get_chip_power_state();
+
+    if ((power_state & CHIP_AWAKE) == 0)  // Wake up chip since it is asleep
+        result = inv_set_chip_power_state(CHIP_AWAKE, 1);
+
+    if (check_reg_access_lp_disable(reg))  // Check if register needs LP_EN to be disabled
+        result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 0);  //Disable LP_EN
+
+    result = inv_read_mems_reg_core(reg, length, data);
 
     if (check_reg_access_lp_disable(reg))  //Enable LP_EN since we disabled it at begining of this function.
         result |= inv_set_chip_power_state(CHIP_LP_ENABLE, 1);
