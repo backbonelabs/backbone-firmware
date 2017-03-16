@@ -240,7 +240,7 @@ inv_error_t inv_initialize_lower_driver(enum MEMS_SERIAL_INTERFACE type, const u
     result |= inv_read_mems_reg(REG_WHO_AM_I, 1, &data);
     if (data != WHO_AM_I_EXPECTED_VALUE)
     {
-        result |= INV_ERROR_SERIAL_READ;
+        result |= INV_ERROR_INVALID_WHOAMI;
     }
 
 #if defined MEMS_SECONDARY_DEVICE

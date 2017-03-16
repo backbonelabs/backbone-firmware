@@ -69,6 +69,7 @@ typedef unsigned char inv_i2c_addr_t;
 #define INV_ERROR_FILE_READ                     (INV_ERROR_BASE + 15)
 #define INV_ERROR_FILE_WRITE                    (INV_ERROR_BASE + 16)
 #define INV_ERROR_INVALID_CONFIGURATION         (INV_ERROR_BASE + 17)
+#define INV_ERROR_INVALID_WHOAMI                (INV_ERROR_BASE + 18)
 /* Serial Communication */
 #define INV_ERROR_SERIAL_OPEN_ERROR             (INV_ERROR_BASE + 21)
 #define INV_ERROR_SERIAL_READ                   (INV_ERROR_BASE + 22)

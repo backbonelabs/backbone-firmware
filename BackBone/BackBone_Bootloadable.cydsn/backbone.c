@@ -20,6 +20,7 @@
 #include "version.h"
 #include "debug.h"
 #include "watchdog.h"
+#include "inv.h"
 
 static uint8 accelerometer_cccd[2];
 static uint8 distance_cccd[2];
@@ -52,6 +53,7 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
 {
     CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
     uint8_t data[] = {HW_MAJOR_VERSION, HW_MINOR_VERSION, FW_MAJOR_VERSION, FW_MINOR_VERSION};
+    backbone_status_t status;
 
     characteristic.attrHandle = CYBLE_BACKBONE_VERSION_CHAR_HANDLE;
     characteristic.value.val = data;
@@ -61,6 +63,12 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
                                    0,
                                    connection,
                                    CYBLE_GATT_DB_LOCALLY_INITIATED);
+
+    status.fields.inv_init = inv_get_init_status();
+    status.fields.inv_selftest = inv_get_selftest_status();
+    status.fields.reserved1 = 0;
+    status.fields.reserved2 = 0;
+    backbone_set_status_data(connection, &status);
 
     // Update session statistics in the GATT database incase a session finished
     // while disconnected
@@ -239,6 +247,21 @@ void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection)
         notification.value.len = BACKBONE_SLOUCH_DATA_LEN;
         CyBle_GattsNotification(*connection, &notification);
     }
+}
+
+void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
+                              backbone_status_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+
+    characteristic.attrHandle = CYBLE_BACKBONE_STATUS_CHAR_HANDLE;
+    characteristic.value.val = data->raw_data;
+    characteristic.value.len = BACKBONE_STATUS_DATA_LEN;
+
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
 }
 
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
