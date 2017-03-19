@@ -21,6 +21,7 @@
 #include "debug.h"
 #include "watchdog.h"
 #include "inv.h"
+#include "bas.h"
 
 static uint8 accelerometer_cccd[2];
 static uint8 distance_cccd[2];
@@ -64,9 +65,10 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
                                    connection,
                                    CYBLE_GATT_DB_LOCALLY_INITIATED);
 
+    int32 mvolts = MeasureBattery(true);
     status.fields.inv_init = inv_get_init_status();
     status.fields.inv_selftest = inv_get_selftest_status();
-    status.fields.reserved1 = 0;
+    status.fields.reserved1 = mvolts;
     status.fields.reserved2 = 0;
     backbone_set_status_data(connection, &status);
 
