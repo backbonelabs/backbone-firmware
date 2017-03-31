@@ -21,7 +21,7 @@
 ***************************************/
 
 /* Counts depend on connection parameters */
-#define BATTERY_TIMEOUT             (3000u)
+#define BATTERY_TIMEOUT             (6000u)
 
 #define ADC_VREF_MASK               (0x000000F0Lu)
 
