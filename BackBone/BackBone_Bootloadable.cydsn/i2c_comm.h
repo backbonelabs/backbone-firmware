@@ -56,9 +56,6 @@ use the first byte as the sub-address for EzI2C write operations */
 
 
 /* Function prototypes */
-void I2CComm_SetI2CTimeout(uint16 Timeout);
-void I2CComm_Timeout_Start(uint16 Timeout);
-void I2CComm_Timeout_Stop(void);
 int Sensors_I2C_WriteRegister(unsigned char slave_addr, unsigned char reg_addr, unsigned short len, unsigned char *data_ptr);
 int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, unsigned short len, unsigned char *data_ptr);
 

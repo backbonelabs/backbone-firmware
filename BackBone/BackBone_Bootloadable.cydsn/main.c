@@ -62,11 +62,9 @@ __inline void ManageSystemPower()
             I2C_scl_Sleep();
             INVN_INT_Sleep();
             Timer1ms_Sleep();
-            Timer_Sleep();
 
             CySysPmDeepSleep();
 
-            Timer_Wakeup();
             Timer1ms_Wakeup();
             INVN_INT_Wakeup();
             I2C_scl_Wakeup();

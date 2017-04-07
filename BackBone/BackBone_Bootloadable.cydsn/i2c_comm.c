@@ -21,11 +21,6 @@ uint8 BrixCommErrorCount = 0;
 uint8 KeypadCommErrorCount = 0;
 uint8 CyFiCommErrorCount = 0;
 
-void I2CComm_Init(void)
-{
-    I2C_Start();
-}
-
 /******************************************************************************
 * Function Name: I2CComm_WriteBuffer
 *******************************************************************************
@@ -54,9 +49,7 @@ int16 I2CComm_WriteBuffer(uint8 SlaveAddr, uint8* SourceBuffer, uint8 DataCount,
     int16 Status = COMM_ERROR;
 
     /* Enable the I2C timeout */
-    Timeout_Start();
-    I2CCommTimeout_Enable(Timeout);
-    I2CCommTimeout_ClearFlag();
+    Timeout_Start(Timeout);
 
     /* Initialize I2C Write */
     I2C_I2CMasterWriteBuf(SlaveAddr, SourceBuffer, DataCount, Mode);
@@ -73,7 +66,6 @@ int16 I2CComm_WriteBuffer(uint8 SlaveAddr, uint8* SourceBuffer, uint8 DataCount,
 
     /* Disable I2C Timeout counter and clear the master status bits */
     Timeout_Stop();
-    I2CCommTimeout_Disable();
     I2C_I2CMasterClearStatus();
 
     /* Check what caused us to exit the while loop before */
@@ -92,7 +84,6 @@ int16 I2CComm_WriteBuffer(uint8 SlaveAddr, uint8* SourceBuffer, uint8 DataCount,
     else if (TimeoutErrorFlags & I2C_TIMEOUT)
     {
         Status = COMM_ERROR;
-        I2CCommTimeout_ClearFlag();
     }
 
     return Status;
@@ -126,9 +117,7 @@ int16 I2CComm_ReadBuffer(uint8 SlaveAddr, uint8* DestinationBuffer, uint8 DataCo
     int16 Status = COMM_ERROR;
 
     /* Enable I2C timeout */
-    Timeout_Start();
-    I2CCommTimeout_Enable(Timeout);
-    I2CCommTimeout_ClearFlag();
+    Timeout_Start(Timeout);
 
     /* Initialize I2C Read */
     I2C_I2CMasterReadBuf(SlaveAddr, DestinationBuffer, DataCount, Mode);
@@ -145,7 +134,6 @@ int16 I2CComm_ReadBuffer(uint8 SlaveAddr, uint8* DestinationBuffer, uint8 DataCo
 
     /* Stop the timeout counter and clear the I2C status flags */
     Timeout_Stop();
-    I2CCommTimeout_Disable();
     I2C_I2CMasterClearStatus();
 
     /* Check what caused us to exit the while loop before */
@@ -164,13 +152,11 @@ int16 I2CComm_ReadBuffer(uint8 SlaveAddr, uint8* DestinationBuffer, uint8 DataCo
     else if (TimeoutErrorFlags & I2C_TIMEOUT)
     {
         Status = COMM_ERROR;
-        I2CCommTimeout_ClearFlag();
     }
 
     /* Return the status */
     return Status;
 }
-
 
 int Sensors_I2C_WriteRegister(unsigned char slave_addr, unsigned char reg_addr, unsigned short len, unsigned char *data_ptr)
 {
@@ -190,19 +176,11 @@ int Sensors_I2C_WriteRegister(unsigned char slave_addr, unsigned char reg_addr, 
     /* Write the register address and data to the ICM20648 device */
     Status = I2CComm_WriteBuffer(slave_addr, I2CBuffer, (len+1), 25, I2C_I2C_MODE_COMPLETE_XFER);
 
-//  /* Write the register address and data to the ICM20648 device */
-//  Status = I2CComm_WriteBuffer(slave_addr, &reg_addr, 1, 25, I2C_I2C_MODE_COMPLETE_XFER);
-//
-//  /* Check if register address write is success. If yes write the data */
-//  if(Status == COMM_SUCCESS)
-//  {
-//      Status = I2CComm_WriteBuffer(slave_addr, data_ptr, len, 20, I2C_I2C_MODE_COMPLETE_XFER);
-//  }
-//
     return Status;
 }
 
-int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, unsigned short len, unsigned char *data_ptr)
+int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, 
+                             unsigned short len, unsigned char *data_ptr)
 {
     int Status = COMM_ERROR;
 
@@ -213,10 +191,6 @@ int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, u
     if (Status == COMM_SUCCESS)
     {
         Status = I2CComm_ReadBuffer(slave_addr, data_ptr, len, 20, I2C_I2C_MODE_REPEAT_START);
-    }
-    else
-    {
-        I2C_I2CMasterSendStop();
     }
 
     return Status;
