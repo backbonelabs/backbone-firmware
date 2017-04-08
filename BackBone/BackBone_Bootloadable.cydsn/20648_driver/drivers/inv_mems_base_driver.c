@@ -307,6 +307,12 @@ inv_error_t inv_initialize_lower_driver(enum MEMS_SERIAL_INTERFACE type, const u
     result |= inv_write_single_mems_reg(REG_FIFO_EN, 0x0); // Slave FIFO turned off.
     result |= inv_write_single_mems_reg(REG_FIFO_EN_2, 0x0); // Hardware FIFO turned off.
 
+    //Unset bit 2 and bit 6 in the INT_PIN_CFG register to
+    //match the Backbone hardware configuration
+    result |= inv_read_mems_reg(REG_INT_PIN_CFG, 1, &data);
+    data &= 0xBB;
+    result |= inv_write_single_mems_reg(REG_INT_PIN_CFG, data);
+    
     result |= inv_read_mems(MPU_SOFT_UPDT_ADDR, 1, &data);
 #if (MEMS_CHIP == HW_ICM20648)
     // Check board version
