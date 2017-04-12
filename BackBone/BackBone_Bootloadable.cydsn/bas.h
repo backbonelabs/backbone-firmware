@@ -21,14 +21,7 @@
 ***************************************/
 
 /* Counts depend on connection parameters */
-#define BATTERY_TIMEOUT             (3000u)
-
-/* Various thresholds for battery voltage measurement */
-#define MEASURE_BATTERY_MAX         (4114)
-#define MEASURE_BATTERY_MID         (3450)
-#define MEASURE_BATTERY_MID_PERCENT (40)
-#define MEASURE_BATTERY_MIN         (3000)
-#define LOW_BATTERY_LIMIT           (10)
+#define BATTERY_TIMEOUT             (6000u)
 
 #define ADC_VREF_MASK               (0x000000F0Lu)
 
@@ -36,7 +29,7 @@
 *       Function Prototypes
 ***************************************/
 void BasCallBack(uint32 event, void *eventParam);
-void MeasureBattery(bool immediate);
+int32 MeasureBattery(bool immediate);
 void SimulateBattery(void);
 
 

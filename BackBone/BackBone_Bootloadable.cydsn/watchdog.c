@@ -15,7 +15,7 @@
 #include "debug.h"
 
 #define WDT_COUNT0_MATCH    (0x8000u) // 32768 -  1 second
-#define WDT_COUNT1_MATCH    (0x0014u) //    20 - 20 seconds
+#define WDT_COUNT1_MATCH    (0x003Cu) //    60 - 60 seconds
 
 typedef struct
 {
@@ -37,8 +37,8 @@ CY_ISR(WdtIsrHandler)
  * Configures watchdog timer 0 to generate an interrupt once per second.
  * Cascades watchdog timer 1 to watchdog timer 0 so that the watchdog timer 1
  * counter increments once per second.  If watchdog timer 1 ever reaches its
- * match value (20) then a reset is generated.  This will happen if the main
- * loop does not call watchdog_clear() for 20 seconds.
+ * match value (60) then a reset is generated.  This will happen if the main
+ * loop does not call watchdog_clear() for 60 seconds.
  */
 void watchdog_init()
 {
