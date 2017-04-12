@@ -61,12 +61,27 @@ typedef union
 } backbone_slouch_t;
 #define BACKBONE_SLOUCH_DATA_LEN (1u)
 
+typedef union
+{
+    struct
+    {
+        uint32_t inv_init;
+        uint32_t inv_selftest;
+        uint32_t reserved1;
+        uint32_t reserved2;
+    } fields;
+    uint8_t raw_data[16];
+} backbone_status_t;
+#define BACKBONE_STATUS_DATA_LEN (16u)
+
 void backbone_init(void);
 bool backbone_is_reset_pending(void);
 bool backbone_is_reset_requested(void);
 void backbone_clear_reset_requested(void);
 
 void backbone_connected(CYBLE_CONN_HANDLE_T* connection);
+
+
 
 void backbone_set_accelerometer_data(CYBLE_CONN_HANDLE_T* connection,
                                      backbone_accelerometer_t* data);
@@ -89,6 +104,11 @@ void backbone_set_slouch_data(CYBLE_CONN_HANDLE_T* connection,
 void backbone_set_slouch_notification(CYBLE_CONN_HANDLE_T* connection,
                                       bool enable);
 void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection);
+
+
+
+void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
+                              backbone_status_t* data);
 
 
 

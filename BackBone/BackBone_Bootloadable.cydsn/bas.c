@@ -76,6 +76,19 @@ void BasCallBack(uint32 event, void *eventParam)
     }
 }
 
+#define CURVE_SIZE (4)
+
+static struct
+{
+    int32 mvolts;
+    int32 capacity;
+} curve[CURVE_SIZE] = 
+{
+    {3227,   0},
+    {3608,   5},
+    {4017,  86},
+    {4150, 100},
+};
 
 /*******************************************************************************
 * Function Name: MeasureBattery()
@@ -85,10 +98,10 @@ void BasCallBack(uint32 event, void *eventParam)
 *   This function measures the battery voltage and send it to the client.
 *
 *******************************************************************************/
-void MeasureBattery(bool immediate)
+int32 MeasureBattery(bool immediate)
 {
     int16 adcResult;
-    int32 mvolts;
+    int32 mvolts = 0;
     uint8 batteryLevel;
     CYBLE_API_RESULT_T apiResult;
 
@@ -103,30 +116,31 @@ void MeasureBattery(bool immediate)
         adcResult = ADC_GetResult16(ADC_BATTERY_CHANNEL);
 
         /* Calculate input voltage by using ratio of ADC counts from reference
-        *  and ADC Full Scale counts.
-        */
+         * and ADC Full Scale counts. */
         mvolts = (adcResult * VDD * 2) / ADC_MAX_COUNTS;
 
-        /* Convert battery level voltage to percentage using linear approximation
-        *  divided into two sections. */
-        if (mvolts < MEASURE_BATTERY_MIN)
+        if (mvolts <= curve[0].mvolts)
         {
-            batteryLevel = 0;
+            batteryLevel = curve[0].capacity;
         }
-        else if (mvolts < MEASURE_BATTERY_MID)
+        else if (mvolts >= curve[CURVE_SIZE-1].mvolts)
         {
-            batteryLevel = (mvolts - MEASURE_BATTERY_MIN) * MEASURE_BATTERY_MID_PERCENT /
-                           (MEASURE_BATTERY_MID - MEASURE_BATTERY_MIN);
-        }
-        else if (mvolts < MEASURE_BATTERY_MAX)
-        {
-            batteryLevel = MEASURE_BATTERY_MID_PERCENT +
-                           (mvolts - MEASURE_BATTERY_MID) * (100 - MEASURE_BATTERY_MID_PERCENT) /
-                           (MEASURE_BATTERY_MAX - MEASURE_BATTERY_MID);
+            batteryLevel = curve[CURVE_SIZE-1].capacity;
         }
         else
         {
-            batteryLevel = CYBLE_BAS_MAX_BATTERY_LEVEL_VALUE;
+            int i;
+            for (i = 1; i < CURVE_SIZE; i++)
+            {
+                if (mvolts < curve[i].mvolts)
+                {
+                    /* Linear interpolation for this section of the curve */
+                    batteryLevel = curve[i-1].capacity +
+                                   ((curve[i].capacity - curve[i-1].capacity) * (mvolts - curve[i-1].mvolts)) / 
+                                       (curve[i].mvolts - curve[i-1].mvolts);
+                    break;
+                }
+            }
         }
 
         if (batteryMeasureNotify == ENABLED)
@@ -147,4 +161,6 @@ void MeasureBattery(bool immediate)
             batteryMeasureNotify = DISABLED;
         }
     }
+
+    return mvolts;
 }

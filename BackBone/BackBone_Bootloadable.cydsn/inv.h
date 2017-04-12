@@ -90,6 +90,8 @@ enum packet_type_e
 extern struct hal_s_ hal;
 
 inv_error_t inv_start(void);
+uint32_t inv_get_init_status(void);
+uint32_t inv_get_selftest_status(void);
 void inv_enable_accelerometer(void);
 void inv_disable_accelerometer(void);
 float inv_get_accelerometer_x(void);

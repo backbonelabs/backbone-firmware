@@ -41,7 +41,7 @@ extern int g_average[3];
 /* wait time in ms after sensor self-test enabling for oscillations to stabilize */
 #define DEF_ST_STABLE_TIME              20 //ms
 /* number of times self test reading should be done until abord */
-#define DEF_ST_TRY_TIMES                2
+#define DEF_ST_TRY_TIMES                6
 /* number of samples to be read to be averaged */
 #define DEF_ST_SAMPLES                  200
 

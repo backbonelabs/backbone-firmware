@@ -17,6 +17,9 @@
 #include "debug.h"
 
 static uint16 inv_flags = 0;
+static inv_error_t inv_init_status = 0;
+static inv_error_t inv_selftest_status = 0;
+
 
 struct hal_s_ hal = { 0, 0, 0, 0 };
 
@@ -133,15 +136,13 @@ void inv_disable_accelerometer()
 
 inv_error_t inv_start(void)
 {
-    inv_error_t result;
-
     /* Start I2C Master */
     I2C_Start();
 
-    /* Initialize the 60248 device */
+    /* Initialize the 20648 device */
     // inv_set_chip_to_body_axis_quaternion(ACCEL_GYRO_ORIENTATION, 0.0);
-    result = inv_initialize_lower_driver(SERIAL_INTERFACE_I2C, 0);
-    if (result == 0)
+    inv_init_status = inv_initialize_lower_driver(SERIAL_INTERFACE_I2C, 0);
+    if (inv_init_status == 0)
     {
         inv_flags &= ~INV_ERROR_INIT;
     }
@@ -152,8 +153,8 @@ inv_error_t inv_start(void)
 
 
     /* Perform 60248 self test and update bias values */
-    result = inv_perform_selftest();
-    if (result == 0)
+    inv_selftest_status = inv_perform_selftest();
+    if (inv_selftest_status == 0)
     {
         inv_flags &= ~INV_ERROR_SELF_TEST;
     }
@@ -163,12 +164,22 @@ inv_error_t inv_start(void)
     }
 
     I2C_Stop();
-    return result;
+    return inv_selftest_status;
 }
 
 uint16 inv_get_status(void)
 {
     return inv_flags;
+}
+
+uint32_t inv_get_init_status(void)
+{
+    return inv_init_status;
+}
+
+uint32_t inv_get_selftest_status(void)
+{
+    return inv_selftest_status;
 }
 
 inv_error_t set_output_rates(float rate)
