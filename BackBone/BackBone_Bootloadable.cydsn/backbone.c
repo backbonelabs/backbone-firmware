@@ -365,6 +365,19 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
         case BACKBONE_START_SESSION:
             if (len == 12)
             {
+                if (inv_get_selftest_status() != 0)
+                {
+                    int32 mvolts = MeasureBattery(true);
+                    backbone_status_t status;
+                    inv_rerun_selftest();
+                    status.fields.inv_init = inv_get_init_status();
+                    status.fields.inv_selftest = inv_get_selftest_status();
+                    status.fields.reserved1 = mvolts;
+                    status.fields.reserved2 = 0;
+                    backbone_set_status_data(ble_get_connection(), &status);
+                    CyDelay(1000);
+                }
+
                 uint32_t duration = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
                 float distance_threshold = (float)((data[5] << 8 | data[6])) / 10000.0;
                 uint16_t time_threshold = data[7] << 8 | data[8];
@@ -413,6 +426,19 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
                                pattern,
                                duty_cycle,
                                motor_on_time);
+            }
+            break;
+
+        case BACKBONE_RUN_ACCEL_SELFTEST:
+            {
+                int32 mvolts = MeasureBattery(true);
+                backbone_status_t status;
+                inv_rerun_selftest();
+                status.fields.inv_init = inv_get_init_status();
+                status.fields.inv_selftest = inv_get_selftest_status();
+                status.fields.reserved1 = mvolts;
+                status.fields.reserved2 = 0;
+                backbone_set_status_data(ble_get_connection(), &status);
             }
             break;
     }
