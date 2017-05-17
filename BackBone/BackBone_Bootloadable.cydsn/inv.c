@@ -167,6 +167,27 @@ inv_error_t inv_start(void)
     return inv_selftest_status;
 }
 
+inv_error_t inv_rerun_selftest(void)
+{
+    /* Start I2C Master */
+    I2C_Start();
+
+    /* Perform 60248 self test and update bias values */
+    inv_selftest_status = inv_perform_selftest();
+    if (inv_selftest_status == 0)
+    {
+        inv_flags &= ~INV_ERROR_SELF_TEST;
+    }
+    else
+    {
+        inv_flags |= INV_ERROR_SELF_TEST;
+    }
+
+    I2C_Stop();
+
+    return inv_selftest_status;
+}
+
 uint16 inv_get_status(void)
 {
     return inv_flags;
