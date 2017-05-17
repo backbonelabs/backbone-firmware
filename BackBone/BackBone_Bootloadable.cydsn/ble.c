@@ -144,6 +144,7 @@ void ble_app_event_handler(uint32 event, void* param)
             backbone_set_distance_notification(&m_connection, false);
             backbone_set_session_statistics_notification(&m_connection, false);
             backbone_set_slouch_notification(&m_connection, false);
+            backbone_set_status_notification(&m_connection, false);
             
             indicate_services_changed();
             break;
@@ -179,6 +180,11 @@ void ble_app_event_handler(uint32 event, void* param)
             {
                 backbone_set_slouch_notification(&m_connection,
                                                  request->handleValPair.value.val[CYBLE_BACKBONE_SLOUCH_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
+            }
+            else if (CYBLE_BACKBONE_STATUS_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == request->handleValPair.attrHandle)
+            {
+                backbone_set_status_notification(&m_connection,
+                                                 request->handleValPair.value.val[CYBLE_BACKBONE_ACCELEROMETER_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
             }
             else if (CYBLE_BACKBONE_ENTER_BOOTLOADER_CHAR_HANDLE == request->handleValPair.attrHandle)
             {

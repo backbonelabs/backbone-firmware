@@ -21,7 +21,8 @@ typedef enum
     BACKBONE_START_SESSION,
     BACKBONE_RESUME_SESSION,
     BACKBONE_PAUSE_SESSION,
-    BACKBONE_STOP_SESSION
+    BACKBONE_STOP_SESSION,
+    BACKBONE_RUN_ACCEL_SELFTEST
 } backbone_session_control_t;
 
 typedef union
@@ -60,6 +61,13 @@ typedef union
     uint8_t raw_data[1];
 } backbone_slouch_t;
 #define BACKBONE_SLOUCH_DATA_LEN (1u)
+
+typedef union
+{
+    uint32_t fields[5];
+    uint8_t raw_data[20];
+} backbone_controlsession_t;
+#define BACKBONE_CONTROLSESSION_DATA_LEN (20u)
 
 typedef union
 {
@@ -109,6 +117,9 @@ void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection);
 
 void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
                               backbone_status_t* data);
+void backbone_set_status_notification(CYBLE_CONN_HANDLE_T* connection,
+                                             bool enable);
+void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection);
 
 
 
