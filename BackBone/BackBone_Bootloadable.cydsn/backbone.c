@@ -27,6 +27,7 @@ static uint8 accelerometer_cccd[2];
 static uint8 distance_cccd[2];
 static uint8 slouch_cccd[2];
 static uint8 session_statistics_cccd[2];
+static uint8 controlsession_cccd[2];
 static bool m_reset_pending;
 static bool m_reset_requested;
 
@@ -353,11 +354,18 @@ void backbone_notify_session_statistics(CYBLE_CONN_HANDLE_T* connection)
 
 void backbone_controlsession(uint8_t* data, uint16_t len)
 {
+    backbone_controlsession_t result;
     if (len < 1)
     {
         return;
     }
 
+    result.fields[0] = 0;
+    result.fields[1] = 0;
+    result.fields[2] = 0;
+    result.fields[3] = 0;
+    result.fields[4] = 0;
+    
     switch (data[0])
     {
         // cmd  duration(s)  distance_threshold  time_threshold  pattern  duty_cycle  motor_on_time
@@ -365,19 +373,6 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
         case BACKBONE_START_SESSION:
             if (len == 12)
             {
-                if (inv_get_selftest_status() != 0)
-                {
-                    int32 mvolts = MeasureBattery(true);
-                    backbone_status_t status;
-                    inv_rerun_selftest();
-                    status.fields.inv_init = inv_get_init_status();
-                    status.fields.inv_selftest = inv_get_selftest_status();
-                    status.fields.reserved1 = mvolts;
-                    status.fields.reserved2 = 0;
-                    backbone_set_status_data(ble_get_connection(), &status);
-                    CyDelay(1000);
-                }
-
                 uint32_t duration = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
                 float distance_threshold = (float)((data[5] << 8 | data[6])) / 10000.0;
                 uint16_t time_threshold = data[7] << 8 | data[8];
@@ -391,6 +386,9 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
                               pattern,
                               duty_cycle,
                               motor_on_time);
+                result.fields[0] = BACKBONE_START_SESSION;
+                result.fields[1] = 0;
+                backbone_set_controlsession_data(ble_get_connection(), &result);
             }
             break;
 
@@ -404,10 +402,16 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
             session_statistics_data.fields.slouch_time = posture_get_slouch_time();
             backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
             backbone_notify_session_statistics(ble_get_connection());
+            result.fields[0] = BACKBONE_STOP_SESSION;
+            result.fields[1] = 0;
+            backbone_set_controlsession_data(ble_get_connection(), &result);
             break;
 
         case BACKBONE_PAUSE_SESSION:
             posture_pause();
+            result.fields[0] = BACKBONE_PAUSE_SESSION;
+            result.fields[1] = 0;
+            backbone_set_controlsession_data(ble_get_connection(), &result);
             break;
 
         // cmd  distance_threshold  time_threshold  pattern  duty_cycle  motor_on_time
@@ -426,6 +430,9 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
                                pattern,
                                duty_cycle,
                                motor_on_time);
+                result.fields[0] = BACKBONE_RESUME_SESSION;
+                result.fields[1] = 0;
+                backbone_set_controlsession_data(ble_get_connection(), &result);
             }
             break;
 
@@ -439,8 +446,66 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
                 status.fields.reserved1 = mvolts;
                 status.fields.reserved2 = 0;
                 backbone_set_status_data(ble_get_connection(), &status);
+                
+                result.fields[0] = BACKBONE_RUN_ACCEL_SELFTEST;
+                result.fields[1] = inv_get_selftest_status();
+                backbone_set_controlsession_data(ble_get_connection(), &result);
+                backbone_notify_controlsession(ble_get_connection());
             }
             break;
+    }
+}
+
+void backbone_set_controlsession_notification(CYBLE_CONN_HANDLE_T* connection,
+                                              bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+
+    controlsession_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+    controlsession_cccd[1] = 0x00;
+
+    attribute.attrHandle = CYBLE_BACKBONE_CONTROL_SESSION_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+    attribute.value.val = controlsession_cccd;
+    attribute.value.len = sizeof(controlsession_cccd);
+
+    CyBle_GattsWriteAttributeValue(&attribute,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_set_controlsession_data(CYBLE_CONN_HANDLE_T* connection,
+                                      backbone_controlsession_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+
+    characteristic.attrHandle = CYBLE_BACKBONE_CONTROL_SESSION_CHAR_HANDLE;
+    characteristic.value.val = data->raw_data;
+    characteristic.value.len = BACKBONE_CONTROLSESSION_DATA_LEN;
+
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
+}
+
+void backbone_notify_controlsession(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_accelerometer_t data;
+
+    if (controlsession_cccd[0] == BLE_TRUE)
+    {
+        characteristic.attrHandle = CYBLE_BACKBONE_CONTROL_SESSION_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_CONTROLSESSION_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+        notification.attrHandle = CYBLE_BACKBONE_CONTROL_SESSION_CHAR_HANDLE;
+        notification.value.val = data.raw_data;
+        notification.value.len = BACKBONE_CONTROLSESSION_DATA_LEN;
+        CyBle_GattsNotification(*connection, &notification);
     }
 }
 

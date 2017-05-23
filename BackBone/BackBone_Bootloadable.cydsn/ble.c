@@ -144,6 +144,7 @@ void ble_app_event_handler(uint32 event, void* param)
             backbone_set_distance_notification(&m_connection, false);
             backbone_set_session_statistics_notification(&m_connection, false);
             backbone_set_slouch_notification(&m_connection, false);
+            backbone_set_controlsession_notification(&m_connection, false);
             
             indicate_services_changed();
             break;

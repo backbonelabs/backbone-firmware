@@ -64,6 +64,13 @@ typedef union
 
 typedef union
 {
+    uint32_t fields[5];
+    uint8_t raw_data[20];
+} backbone_controlsession_t;
+#define BACKBONE_CONTROLSESSION_DATA_LEN (20u)
+
+typedef union
+{
     struct
     {
         uint32_t inv_init;
@@ -118,6 +125,12 @@ void backbone_enterbootloader(uint8_t* data, uint16_t len);
 
 
 void backbone_controlsession(uint8_t* data, uint16_t len);
+
+void backbone_set_controlsession_data(CYBLE_CONN_HANDLE_T* connection,
+                                      backbone_controlsession_t* data);
+void backbone_set_controlsession_notification(CYBLE_CONN_HANDLE_T* connection,
+                                              bool enable);
+void backbone_notify_controlsession(CYBLE_CONN_HANDLE_T* connection);
 
 
 
