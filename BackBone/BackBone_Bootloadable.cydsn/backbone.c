@@ -27,12 +27,16 @@ static uint8 accelerometer_cccd[2];
 static uint8 distance_cccd[2];
 static uint8 slouch_cccd[2];
 static uint8 session_statistics_cccd[2];
+static uint8 status_cccd[2];
 static bool m_reset_pending;
 static bool m_reset_requested;
+static bool m_self_test_requested;
 
 void backbone_init()
 {
     m_reset_pending = false;
+    m_reset_requested = false;
+    m_self_test_requested = false;
 }
 
 bool backbone_is_reset_pending()
@@ -48,6 +52,16 @@ bool backbone_is_reset_requested()
 void backbone_clear_reset_requested()
 {
     m_reset_requested = false;
+}
+
+bool backbone_is_selftest_requested()
+{
+    return m_self_test_requested;
+}
+
+void backbone_clear_selftest_requested()
+{
+    m_self_test_requested = false;
 }
 
 void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
@@ -266,6 +280,46 @@ void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
                                    CYBLE_GATT_DB_LOCALLY_INITIATED);
 }
 
+void backbone_set_status_notification(CYBLE_CONN_HANDLE_T* connection,
+                                      bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+
+    status_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+    status_cccd[1] = 0x00;
+
+    attribute.attrHandle = CYBLE_BACKBONE_STATUS_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+    attribute.value.val = status_cccd;
+    attribute.value.len = sizeof(status_cccd);
+
+    CyBle_GattsWriteAttributeValue(&attribute,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_status_t data;
+
+    if (status_cccd[0] == BLE_TRUE)
+    {
+        characteristic.attrHandle = CYBLE_BACKBONE_STATUS_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_STATUS_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+        notification.attrHandle = CYBLE_BACKBONE_STATUS_CHAR_HANDLE;
+        notification.value.val = data.raw_data;
+        notification.value.len = BACKBONE_STATUS_DATA_LEN;
+        CyBle_GattsNotification(*connection, &notification);
+    }
+}
+
+
+
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
 {
     static const uint8 ENTER_BOOTLOADER_KEY[8] =
@@ -414,6 +468,10 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
                                duty_cycle,
                                motor_on_time);
             }
+            break;
+
+        case BACKBONE_RUN_ACCEL_SELFTEST:
+            m_self_test_requested = true;
             break;
     }
 }

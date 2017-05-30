@@ -178,6 +178,20 @@ __inline void RunApplication()
     {
         ble_update_connection_parameters();
         MeasureBattery(false);
+
+        if (backbone_is_selftest_requested())
+        {
+            backbone_clear_selftest_requested();
+            int32 mvolts = MeasureBattery(true);
+            backbone_status_t status;
+            inv_rerun_selftest();
+            status.fields.inv_init = inv_get_init_status();
+            status.fields.inv_selftest = inv_get_selftest_status();
+            status.fields.reserved1 = mvolts;
+            status.fields.reserved2 = 0;
+            backbone_set_status_data(ble_get_connection(), &status);
+            backbone_notify_status(ble_get_connection());
+        }
     }
 
     if (backbone_is_reset_requested())

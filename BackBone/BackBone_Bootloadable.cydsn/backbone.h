@@ -21,7 +21,8 @@ typedef enum
     BACKBONE_START_SESSION,
     BACKBONE_RESUME_SESSION,
     BACKBONE_PAUSE_SESSION,
-    BACKBONE_STOP_SESSION
+    BACKBONE_STOP_SESSION,
+    BACKBONE_RUN_ACCEL_SELFTEST
 } backbone_session_control_t;
 
 typedef union
@@ -78,6 +79,8 @@ void backbone_init(void);
 bool backbone_is_reset_pending(void);
 bool backbone_is_reset_requested(void);
 void backbone_clear_reset_requested(void);
+bool backbone_is_selftest_requested();
+void backbone_clear_selftest_requested();
 
 void backbone_connected(CYBLE_CONN_HANDLE_T* connection);
 
@@ -109,6 +112,9 @@ void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection);
 
 void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
                               backbone_status_t* data);
+void backbone_set_status_notification(CYBLE_CONN_HANDLE_T* connection,
+                                             bool enable);
+void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection);
 
 
 

@@ -344,6 +344,8 @@ static inv_error_t inv_setup_selftest()
     return result;
 }
 
+#include <project.h>
+
 static int inv_selftest_read_samples(enum INV_SENSORS type, int *sum_result, int *s)
 {
     uint8_t w;
@@ -379,6 +381,10 @@ static int inv_selftest_read_samples(enum INV_SENSORS type, int *sum_result, int
         (*s)++;
 
         inv_sleep(WAIT_TIME_BTW_2_SAMPLESREAD);
+        
+        // Something more generic would be better.  But for now this is quick
+        // and easy just to get it working.
+        CyBle_ProcessEvents();
     }
     return 0;
 }
