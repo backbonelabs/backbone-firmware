@@ -21,7 +21,7 @@
 
 uint16 batterySimulationNotify = 0u;
 uint16 batteryMeasureNotify = 0u;
-
+int32 cachedVoltage = 0u;
 
 #define VDD                 (3100u)
 #define ADC_MAX_COUNTS      (2048u)
@@ -90,6 +90,11 @@ static struct
     {4150, 100},
 };
 
+int32 BasGetCachedVoltage()
+{
+    return cachedVoltage;
+}
+
 /*******************************************************************************
 * Function Name: MeasureBattery()
 ********************************************************************************
@@ -118,6 +123,7 @@ int32 MeasureBattery(bool immediate)
         /* Calculate input voltage by using ratio of ADC counts from reference
          * and ADC Full Scale counts. */
         mvolts = (adcResult * VDD * 2) / ADC_MAX_COUNTS;
+        cachedVoltage = mvolts;
 
         if (mvolts <= curve[0].mvolts)
         {

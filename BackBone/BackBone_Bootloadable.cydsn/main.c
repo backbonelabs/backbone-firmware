@@ -27,9 +27,15 @@
     #include "CyBLE_MTK.h"
 #endif
 
+// 3608 is battery voltage in millivolts where approximately 5% of battery life
+// is remaining.  79 is battery voltage drop observed in millivolts when running
+// the motor for an extended duration
+#define MOTOR_MIN_BATTERY_VOLTAGE (3608 + 79)
+
 extern void InitializeBootloaderSRAM();
 
 static bool m_stop_and_reset;
+
 CY_ISR(reset_timeout)
 {
     MotorTimer_ClearInterrupt(MotorTimer_INTR_MASK_TC);
@@ -107,15 +113,18 @@ __inline void RunApplication()
     if (hal.new_gyro == 1)
     {
         hal.new_gyro = 0;
-        CyDelay(10);
         fifo_handler();
 
-        posture_update(inv_get_accelerometer_x(),
-                       inv_get_accelerometer_y(),
-                       inv_get_accelerometer_z(),
-                       watchdog_get_time());
+        if (!motor_is_running())
+        {
+            posture_update(inv_get_accelerometer_x(),
+                           inv_get_accelerometer_y(),
+                           inv_get_accelerometer_z(),
+                           watchdog_get_time());
+        }
 
-        if (posture_is_notify_slouch())
+        if (posture_is_notify_slouch() && 
+            BasGetCachedVoltage() > MOTOR_MIN_BATTERY_VOLTAGE)
         {
             motor_start(posture_get_duty_cycle(),
                         posture_get_motor_on_time(),

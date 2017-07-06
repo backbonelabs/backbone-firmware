@@ -31,7 +31,7 @@
 void BasCallBack(uint32 event, void *eventParam);
 int32 MeasureBattery(bool immediate);
 void SimulateBattery(void);
-
+int32 BasGetCachedVoltage();
 
 /***************************************
 * External data references
