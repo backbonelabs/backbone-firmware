@@ -113,13 +113,15 @@ __inline void RunApplication()
     if (hal.new_gyro == 1)
     {
         hal.new_gyro = 0;
-        CyDelay(10);
         fifo_handler();
 
-        posture_update(inv_get_accelerometer_x(),
-                       inv_get_accelerometer_y(),
-                       inv_get_accelerometer_z(),
-                       watchdog_get_time());
+        if (!motor_is_running())
+        {
+            posture_update(inv_get_accelerometer_x(),
+                           inv_get_accelerometer_y(),
+                           inv_get_accelerometer_z(),
+                           watchdog_get_time());
+        }
 
         if (posture_is_notify_slouch() && 
             BasGetCachedVoltage() > MOTOR_MIN_BATTERY_VOLTAGE)
