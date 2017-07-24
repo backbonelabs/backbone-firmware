@@ -473,6 +473,14 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
         case BACKBONE_RUN_ACCEL_SELFTEST:
             m_self_test_requested = true;
             break;
+
+        case BACKBONE_START_STEPS:
+            inv_enable_steps();
+            break;
+
+        case BACKBONE_STOP_STEPS:
+            inv_disable_steps();
+            break;
     }
 }
 

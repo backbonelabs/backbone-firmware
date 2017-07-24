@@ -106,20 +106,23 @@ __inline void RunApplication()
     // then go to deep sleep.
     if (hal.new_gyro == 1)
     {
+        DBG_PRINT_TEXT(".");
         hal.new_gyro = 0;
-        CyDelay(10);
         fifo_handler();
 
-        posture_update(inv_get_accelerometer_x(),
-                       inv_get_accelerometer_y(),
-                       inv_get_accelerometer_z(),
-                       watchdog_get_time());
-
-        if (posture_is_notify_slouch())
+        if (posture_is_monitoring())
         {
-            motor_start(posture_get_duty_cycle(),
-                        posture_get_motor_on_time(),
-                        posture_get_vibration_pattern());
+            posture_update(inv_get_accelerometer_x(),
+                           inv_get_accelerometer_y(),
+                           inv_get_accelerometer_z(),
+                           watchdog_get_time());        
+
+            if (posture_is_notify_slouch())
+            {
+                motor_start(posture_get_duty_cycle(),
+                            posture_get_motor_on_time(),
+                            posture_get_vibration_pattern());
+            }
         }
 
         if (ble_is_connected())
@@ -137,6 +140,7 @@ __inline void RunApplication()
 
             distance_data.fields.distance = posture_get_distance();
             distance_data.fields.elapsed_time = posture_get_elapsed_time();
+            distance_data.fields.steps = inv_get_step_count();
             backbone_set_distance_data(ble_get_connection(), &distance_data);
 
             session_statistics_data.fields.flags = 1;
@@ -156,20 +160,23 @@ __inline void RunApplication()
             }
         }
 
-        if (posture_get_elapsed_time() >= posture_get_session_duration() &&
-            posture_get_session_duration() != 0)
+        if (posture_is_monitoring())
         {
-            posture_stop();
-
-            if (ble_is_connected())
+            if (posture_get_elapsed_time() >= posture_get_session_duration() &&
+                posture_get_session_duration() != 0)
             {
-                backbone_session_statistics_t session_statistics_data;
+                posture_stop();
 
-                session_statistics_data.fields.flags = 0;
-                session_statistics_data.fields.total_time = posture_get_elapsed_time();
-                session_statistics_data.fields.slouch_time = posture_get_slouch_time();
-                backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
-                backbone_notify_session_statistics(ble_get_connection());
+                if (ble_is_connected())
+                {
+                    backbone_session_statistics_t session_statistics_data;
+
+                    session_statistics_data.fields.flags = 0;
+                    session_statistics_data.fields.total_time = posture_get_elapsed_time();
+                    session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+                    backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+                    backbone_notify_session_statistics(ble_get_connection());
+                }
             }
         }
     }
@@ -295,7 +302,7 @@ int main()
     {
         CyBle_ProcessEvents();
     }
-
+    
     while (1)
     {
         RunBle();

@@ -18,11 +18,13 @@
 
 typedef enum
 {
-    BACKBONE_START_SESSION,
-    BACKBONE_RESUME_SESSION,
-    BACKBONE_PAUSE_SESSION,
-    BACKBONE_STOP_SESSION,
-    BACKBONE_RUN_ACCEL_SELFTEST
+    BACKBONE_START_SESSION,         // 0x00
+    BACKBONE_RESUME_SESSION,        // 0x01
+    BACKBONE_PAUSE_SESSION,         // 0x02
+    BACKBONE_STOP_SESSION,          // 0x03
+    BACKBONE_RUN_ACCEL_SELFTEST,    // 0x04
+    BACKBONE_START_STEPS,           // 0x05
+    BACKBONE_STOP_STEPS             // 0x06
 } backbone_session_control_t;
 
 typedef union
@@ -38,10 +40,11 @@ typedef union
     {
         float distance;
         uint32_t elapsed_time;
+        uint32_t steps;
     } fields;
     uint8 raw_data[8];
 } backbone_distance_t;
-#define BACKBONE_DISTANCE_DATA_LEN (8u)
+#define BACKBONE_DISTANCE_DATA_LEN (12u)
 
 typedef union
 {
