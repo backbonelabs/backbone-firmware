@@ -20,6 +20,8 @@
 typedef struct
 {
     volatile uint32_t seconds;
+    volatile uint32_t day_time;
+    volatile bool day_time_set;
     volatile bool clear_requested;
 } watchdog_t;
 
@@ -28,6 +30,10 @@ static volatile watchdog_t self;
 CY_ISR(WdtIsrHandler)
 {
     self.seconds += 1;
+    if (self.day_time_set)
+    {
+        self.day_time += 1;
+    }
     self.clear_requested = true;
     CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
     WdtIsr_ClearPending();
@@ -40,10 +46,20 @@ CY_ISR(WdtIsrHandler)
  * match value (60) then a reset is generated.  This will happen if the main
  * loop does not call watchdog_clear() for 60 seconds.
  */
-void watchdog_init()
+void watchdog_init(uint32_t day_time)
 {
-    CySysWdtUnlock();
     self.seconds = 0;
+    self.day_time = day_time;
+    if (day_time > 0 && day_time <= WATCHDOG_SECONDS_PER_DAY)
+    {
+        self.day_time_set = true;
+    }
+    else
+    {
+        self.day_time_set = false;
+    }
+
+    CySysWdtUnlock();
 
     /* Setup ISR for interrupts at WDT counter 0 events. */
     WdtIsr_StartEx(WdtIsrHandler);
@@ -84,4 +100,15 @@ void watchdog_clear()
 uint32_t watchdog_get_time()
 {
     return self.seconds;
+}
+
+uint32_t watchdog_get_day_time()
+{
+    return self.day_time;
+}
+
+void watchdog_set_day_time(uint32_t day_time)
+{
+    self.day_time = day_time;
+    self.day_time_set = true;
 }

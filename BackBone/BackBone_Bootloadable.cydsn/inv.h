@@ -13,6 +13,7 @@
 #ifndef INV_H_
 #define INV_H_
 
+#include <stdbool.h>
 #include ".\20648_driver\invn\inv_mems.h"
 
 struct hal_s_
@@ -102,12 +103,12 @@ uint32_t inv_get_init_status(void);
 uint32_t inv_get_selftest_status(void);
 void inv_enable_accelerometer(void);
 void inv_disable_accelerometer(void);
-void inv_enable_steps(void);
-void inv_disable_steps(void);
+bool inv_is_accelerometer_enabled(void);
 float inv_get_accelerometer_x(void);
 float inv_get_accelerometer_y(void);
 float inv_get_accelerometer_z(void);
 uint32_t inv_get_step_count(void);
+void inv_reset_step_count(void);
 void fifo_handler(void);
 
 #endif /* INV_H_ */

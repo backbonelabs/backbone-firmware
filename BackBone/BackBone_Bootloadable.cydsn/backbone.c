@@ -28,15 +28,18 @@ static uint8 distance_cccd[2];
 static uint8 slouch_cccd[2];
 static uint8 session_statistics_cccd[2];
 static uint8 status_cccd[2];
+static uint8 step_count_cccd[2];
 static bool m_reset_pending;
 static bool m_reset_requested;
 static bool m_self_test_requested;
+static bool m_step_count_dirty;
 
 void backbone_init()
 {
     m_reset_pending = false;
     m_reset_requested = false;
     m_self_test_requested = false;
+    m_step_count_dirty = false;
 }
 
 bool backbone_is_reset_pending()
@@ -200,6 +203,7 @@ void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection)
 
     if (distance_cccd[0] == BLE_TRUE)
     {
+        DBG_PRINT_TEXT("notify distance\r\n");
         characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_DISTANCE_DATA_LEN;
@@ -318,6 +322,69 @@ void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection)
     }
 }
 
+void backbone_set_step_count_data(CYBLE_CONN_HANDLE_T* connection,
+                                  backbone_step_count_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    backbone_step_count_t old_value;
+
+    characteristic.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
+    characteristic.value.val = old_value.raw_data;    
+    characteristic.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
+    CyBle_GattsReadAttributeValue(&characteristic, connection, CYBLE_GATT_DB_LOCALLY_INITIATED);
+
+    if (old_value.fields.step_count != data->fields.step_count)
+    {
+        m_step_count_dirty = true;
+    }
+    
+    characteristic.value.val = data->raw_data;
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
+}
+
+void backbone_set_step_count_notification(CYBLE_CONN_HANDLE_T* connection,
+                                          bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+
+    step_count_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+    step_count_cccd[1] = 0x00;
+
+    attribute.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+    attribute.value.val = status_cccd;
+    attribute.value.len = sizeof(status_cccd);
+
+    CyBle_GattsWriteAttributeValue(&attribute,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_notify_step_count(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_step_count_t data;
+
+    if (step_count_cccd[0] == BLE_TRUE && m_step_count_dirty)
+    {
+        m_step_count_dirty = false;
+        
+        characteristic.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+        notification.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
+        notification.value.val = data.raw_data;
+        notification.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
+        CyBle_GattsNotification(*connection, &notification);
+    }
+}
+
 
 
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
@@ -417,8 +484,10 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
         // cmd  duration(s)  distance_threshold  time_threshold  pattern  duty_cycle  motor_on_time
         //  00  00 00 00 3C               03 E8           00 05       01          50             32
         case BACKBONE_START_SESSION:
+            DBG_PRINT_TEXT("Start Session\r\n");
             if (len == 12)
             {
+                DBG_PRINT_TEXT("Start Session, len = 12\r\n");
                 uint32_t duration = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
                 float distance_threshold = (float)((data[5] << 8 | data[6])) / 10000.0;
                 uint16_t time_threshold = data[7] << 8 | data[8];
@@ -474,12 +543,20 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
             m_self_test_requested = true;
             break;
 
-        case BACKBONE_START_STEPS:
-            inv_enable_steps();
+        case BACKBONE_START_ACCELEROMETER:
+            inv_enable_accelerometer();
             break;
 
-        case BACKBONE_STOP_STEPS:
-            inv_disable_steps();
+        case BACKBONE_STOP_ACCELEROMETER:
+            inv_disable_accelerometer();
+            break;
+
+        case BACKBONE_SET_TIME:
+            if (len == 5)
+            {
+                uint32_t day_time = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
+                watchdog_set_day_time(day_time);
+            }
             break;
     }
 }

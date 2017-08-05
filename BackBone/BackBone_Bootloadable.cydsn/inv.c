@@ -75,6 +75,7 @@ uint16_t flip_pickup = 0;
 uint8_t step_detected = 0;
 float current_output_rate = 5;
 uint32_t step_count;
+uint32_t step_count_offset;
 
 signed char ACCEL_GYRO_ORIENTATION[] = {0,-1,0,1,0,0,0,0,1};
 
@@ -112,33 +113,15 @@ void inv_enable_accelerometer()
     I2C_Start();
     dmp_reset_fifo();
     hal.report |= PRINT_ACCEL;
+    hal.report |= PRINT_STEP_DETECTOR;
+    hal.report |= PRINT_STEP_COUNTER;
     inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, true);
-    dmp_reset_odr_counters();
+    inv_enable_sensor(ANDROID_SENSOR_STEP_DETECTOR, true);
+    inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, true);
+    inv_reset_dmp_odr_counters();
+    // pedometer always runs at half the rate of BAC, to run pedometer at 56Hz, run BAC at 112Hz as pedometer divider is always 2
     set_output_rates(5);
-	current_output_rate = 5;
-    I2C_Stop();
-
-    isr_INVN_INT_StartEx(INVN_INT_InterruptHandler);
-}
-
-void inv_enable_steps(void)
-{
-    if (inv_flags != 0)
-    {
-        return;
-    }
-
-    I2C_Start();
-	dmp_reset_fifo();
-	hal.report |= PRINT_STEP_DETECTOR;
-	hal.report |= PRINT_STEP_COUNTER;
-    inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, true);
-	inv_enable_sensor(ANDROID_SENSOR_STEP_DETECTOR, true);
-	inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, true);
-	inv_reset_dmp_odr_counters();
-	// pedometer always runs at half the rate of BAC, to run pedometer at 56Hz, run BAC at 112Hz as pedometer divider is always 2
-	set_output_rates(5);
-	current_output_rate = 5;
+    current_output_rate = 5;
     I2C_Stop();
 
     isr_INVN_INT_StartEx(INVN_INT_InterruptHandler);
@@ -154,7 +137,11 @@ void inv_disable_accelerometer()
     I2C_Start();
     dmp_reset_fifo();
     hal.report &= ~PRINT_ACCEL;
+    hal.report &= ~PRINT_STEP_DETECTOR;
+    hal.report &= ~PRINT_STEP_COUNTER;
     inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, false);
+    inv_enable_sensor(ANDROID_SENSOR_STEP_DETECTOR, false);
+    inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, false);
     dmp_reset_odr_counters();
 
     I2C_Stop();
@@ -162,24 +149,9 @@ void inv_disable_accelerometer()
     isr_INVN_INT_Stop();
 }
 
-void inv_disable_steps()
+bool inv_is_accelerometer_enabled(void)
 {
-    if (inv_flags != 0)
-    {
-        return;
-    }
-
-    I2C_Start();
-    dmp_reset_fifo();
-    hal.report &= ~PRINT_ACCEL;
-    inv_enable_sensor(ANDROID_SENSOR_ACCELEROMETER, false);
-	inv_enable_sensor(ANDROID_SENSOR_STEP_DETECTOR, false);
-	inv_enable_sensor(ANDROID_SENSOR_STEP_COUNTER, false);
-    dmp_reset_odr_counters();
-
-    I2C_Stop();
-
-    isr_INVN_INT_Stop();
+    return hal.report & PRINT_ACCEL;
 }
 
 inv_error_t inv_start(void)
@@ -212,6 +184,10 @@ inv_error_t inv_start(void)
     }
 
     I2C_Stop();
+
+    step_count = 0;
+    step_count_offset = 0;
+
     return inv_selftest_status;
 }
 
@@ -250,9 +226,6 @@ uint32_t inv_get_selftest_status(void)
 {
     return inv_selftest_status;
 }
-
-
-
 
 inv_error_t set_output_rates(float rate)
 {
@@ -720,7 +693,12 @@ float inv_get_accelerometer_z()
 
 uint32_t inv_get_step_count(void)
 {
-    return step_count;
+    return step_count - step_count_offset;
+}
+
+void inv_reset_step_count(void)
+{
+    step_count_offset = step_count;
 }
 
 void fifo_handler()

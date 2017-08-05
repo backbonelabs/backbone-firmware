@@ -80,14 +80,17 @@ void posture_start(uint32_t start_time,
     self.motor_on_time = motor_on_time;
     self.state = STATE_CALIBRATE;
     self.active = true;
-
-    inv_enable_accelerometer();
+    
+    if (!inv_is_accelerometer_enabled())
+    {
+        DBG_PRINT_TEXT("Enabling Accelerometer\r\n");
+        inv_enable_accelerometer();
+    }
 }
 
 void posture_pause(void)
 {
     self.active = false;
-    inv_disable_accelerometer();
 }
 
 void posture_resume(uint32_t resume_time,
@@ -112,14 +115,12 @@ void posture_resume(uint32_t resume_time,
         self.motor_on_time = motor_on_time;
 
         self.active = true;
-        inv_enable_accelerometer();
     }
 }
 
 void posture_stop(void)
 {
     self.active = false;
-    inv_disable_accelerometer();
     self.start_time = 0;
     if (self.slouch_elapsed_time != 0)
     {
