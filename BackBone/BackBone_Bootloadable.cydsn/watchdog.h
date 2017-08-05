@@ -17,7 +17,7 @@
 #include <stdbool.h>
 
 #define WATCHDOG_SECONDS_PER_DAY (60*60*24) // 86,400
-    
+
 void watchdog_init(uint32_t day_time);
 uint32_t watchdog_get_time();
 uint32_t watchdog_get_day_time();

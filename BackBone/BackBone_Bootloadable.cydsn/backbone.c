@@ -329,7 +329,7 @@ void backbone_set_step_count_data(CYBLE_CONN_HANDLE_T* connection,
     backbone_step_count_t old_value;
 
     characteristic.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
-    characteristic.value.val = old_value.raw_data;    
+    characteristic.value.val = old_value.raw_data;
     characteristic.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
     CyBle_GattsReadAttributeValue(&characteristic, connection, CYBLE_GATT_DB_LOCALLY_INITIATED);
 
@@ -337,7 +337,7 @@ void backbone_set_step_count_data(CYBLE_CONN_HANDLE_T* connection,
     {
         m_step_count_dirty = true;
     }
-    
+
     characteristic.value.val = data->raw_data;
     CyBle_GattsWriteAttributeValue(&characteristic,
                                    0,
@@ -372,7 +372,7 @@ void backbone_notify_step_count(CYBLE_CONN_HANDLE_T* connection)
     if (step_count_cccd[0] == BLE_TRUE && m_step_count_dirty)
     {
         m_step_count_dirty = false;
-        
+
         characteristic.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_STEP_COUNT_DATA_LEN;

@@ -126,7 +126,7 @@ void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection);
 void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
                               backbone_status_t* data);
 void backbone_set_status_notification(CYBLE_CONN_HANDLE_T* connection,
-                                             bool enable);
+                                      bool enable);
 void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection);
 
 

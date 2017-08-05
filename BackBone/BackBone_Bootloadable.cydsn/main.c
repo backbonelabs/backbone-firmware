@@ -103,7 +103,7 @@ __inline void ManageApplicationPower()
 __inline void RunApplication()
 {
     char tst[100];
-    
+
     // If there is data to read from the accelerometer, read it
     // then go to deep sleep.
     if (hal.new_gyro == 1)
@@ -119,7 +119,7 @@ __inline void RunApplication()
                            inv_get_accelerometer_y(),
                            inv_get_accelerometer_z(),
                            watchdog_get_time());
-    		sprintf(tst, "Distance = %f\r\n", posture_get_distance());
+            sprintf(tst, "Distance = %f\r\n", posture_get_distance());
             DBG_PRINT_TEXT(tst);
 
             if (posture_is_notify_slouch())
@@ -128,7 +128,7 @@ __inline void RunApplication()
                             posture_get_motor_on_time(),
                             posture_get_vibration_pattern());
             }
-            
+
             if (ble_is_connected())
             {
                 DBG_PRINT_TEXT("o");
@@ -229,7 +229,7 @@ __inline void RunApplication()
         MotorTimer_SetOneShot(1);
         MotorTimer_WritePeriod(1500);
     }
-    
+
     if (watchdog_get_day_time() >= WATCHDOG_SECONDS_PER_DAY)
     {
         inv_reset_step_count();
@@ -319,7 +319,7 @@ int main()
     {
         CyBle_ProcessEvents();
     }
-    
+
     while (1)
     {
         RunBle();

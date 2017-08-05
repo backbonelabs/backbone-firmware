@@ -80,7 +80,7 @@ void posture_start(uint32_t start_time,
     self.motor_on_time = motor_on_time;
     self.state = STATE_CALIBRATE;
     self.active = true;
-    
+
     if (!inv_is_accelerometer_enabled())
     {
         DBG_PRINT_TEXT("Enabling Accelerometer\r\n");
@@ -131,7 +131,7 @@ void posture_stop(void)
 
 bool posture_is_monitoring(void)
 {
-    return self.active;    
+    return self.active;
 }
 
 static float low_pass_filter(float current, float input)

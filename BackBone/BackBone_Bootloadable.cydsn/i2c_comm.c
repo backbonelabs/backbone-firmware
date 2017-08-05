@@ -179,7 +179,7 @@ int Sensors_I2C_WriteRegister(unsigned char slave_addr, unsigned char reg_addr, 
     return Status;
 }
 
-int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr, 
+int Sensors_I2C_ReadRegister(unsigned char slave_addr, unsigned char reg_addr,
                              unsigned short len, unsigned char *data_ptr)
 {
     int Status = COMM_ERROR;

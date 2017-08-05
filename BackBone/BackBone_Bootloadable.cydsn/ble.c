@@ -146,7 +146,7 @@ void ble_app_event_handler(uint32 event, void* param)
             backbone_set_slouch_notification(&m_connection, false);
             backbone_set_status_notification(&m_connection, false);
             backbone_set_step_count_notification(&m_connection, false);
-            
+
             indicate_services_changed();
             break;
 

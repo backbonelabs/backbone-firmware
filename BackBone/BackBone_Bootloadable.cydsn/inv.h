@@ -43,21 +43,21 @@ struct hal_s_
 #define PRINT_CUBE_GRV      (0x10000)
 #define PRINT_CUBE_RV       (0x20000)
 #define PRINT_CUBE_GEOMAG   (0x40000)
-#define PRINT_LPQ           (0x80000)           
-#define PRINT_BAC			(0x100000)
-#define PRINT_FLIP_PICKUP	(0x200000)
-#define PRINT_TILT			(0x400000)
-#define PRINT_PROXIMITY		(0x800000)
-#define PRINT_HRM			(0x1000000)
-#define PRINT_SHAKE			(0x2000000)
-#define PRINT_B2S			(0x4000000)
+#define PRINT_LPQ           (0x80000)
+#define PRINT_BAC           (0x100000)
+#define PRINT_FLIP_PICKUP   (0x200000)
+#define PRINT_TILT          (0x400000)
+#define PRINT_PROXIMITY     (0x800000)
+#define PRINT_HRM           (0x1000000)
+#define PRINT_SHAKE         (0x2000000)
+#define PRINT_B2S           (0x4000000)
 
-#define PRINT_GES_GROUP	(PRINT_STEP_COUNTER | \
-							PRINT_STEP_DETECTOR | \
-							PRINT_SMD | \
-							PRINT_BAC | \
-							PRINT_FLIP_PICKUP | \
-							PRINT_TILT)
+#define PRINT_GES_GROUP (PRINT_STEP_COUNTER | \
+                            PRINT_STEP_DETECTOR | \
+                            PRINT_SMD | \
+                            PRINT_BAC | \
+                            PRINT_FLIP_PICKUP | \
+                            PRINT_TILT)
 
 #ifdef MEMS_20609
     #define DMP_INT_SMD     0x0400
