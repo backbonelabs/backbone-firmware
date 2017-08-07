@@ -83,7 +83,6 @@ void posture_start(uint32_t start_time,
 
     if (!inv_is_accelerometer_enabled())
     {
-        DBG_PRINT_TEXT("Enabling Accelerometer\r\n");
         inv_enable_accelerometer();
     }
 }

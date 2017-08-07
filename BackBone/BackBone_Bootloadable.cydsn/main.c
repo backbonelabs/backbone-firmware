@@ -108,19 +108,15 @@ __inline void RunApplication()
     // then go to deep sleep.
     if (hal.new_gyro == 1)
     {
-        DBG_PRINT_TEXT(".");
         hal.new_gyro = 0;
         fifo_handler();
 
         if (posture_is_monitoring())
         {
-            DBG_PRINT_TEXT("-");
             posture_update(inv_get_accelerometer_x(),
                            inv_get_accelerometer_y(),
                            inv_get_accelerometer_z(),
                            watchdog_get_time());
-            sprintf(tst, "Distance = %f\r\n", posture_get_distance());
-            DBG_PRINT_TEXT(tst);
 
             if (posture_is_notify_slouch())
             {
@@ -131,7 +127,6 @@ __inline void RunApplication()
 
             if (ble_is_connected())
             {
-                DBG_PRINT_TEXT("o");
                 backbone_distance_t distance_data;
                 backbone_slouch_t slouch_data;
                 backbone_session_statistics_t session_statistics_data;
@@ -233,6 +228,7 @@ __inline void RunApplication()
     if (watchdog_get_day_time() >= WATCHDOG_SECONDS_PER_DAY)
     {
         inv_reset_step_count();
+        watchdog_set_day_time(0);
     }
 }
 

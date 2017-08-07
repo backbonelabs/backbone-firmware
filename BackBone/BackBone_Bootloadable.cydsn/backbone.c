@@ -203,7 +203,6 @@ void backbone_notify_distance(CYBLE_CONN_HANDLE_T* connection)
 
     if (distance_cccd[0] == BLE_TRUE)
     {
-        DBG_PRINT_TEXT("notify distance\r\n");
         characteristic.attrHandle = CYBLE_BACKBONE_DISTANCE_CHAR_HANDLE;
         characteristic.value.val = data.raw_data;
         characteristic.value.len = BACKBONE_DISTANCE_DATA_LEN;
@@ -484,10 +483,8 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
         // cmd  duration(s)  distance_threshold  time_threshold  pattern  duty_cycle  motor_on_time
         //  00  00 00 00 3C               03 E8           00 05       01          50             32
         case BACKBONE_START_SESSION:
-            DBG_PRINT_TEXT("Start Session\r\n");
             if (len == 12)
             {
-                DBG_PRINT_TEXT("Start Session, len = 12\r\n");
                 uint32_t duration = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
                 float distance_threshold = (float)((data[5] << 8 | data[6])) / 10000.0;
                 uint16_t time_threshold = data[7] << 8 | data[8];

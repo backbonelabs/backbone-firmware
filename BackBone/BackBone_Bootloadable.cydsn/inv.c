@@ -244,45 +244,104 @@ inv_error_t set_output_rates(float rate)
     }
 
     if (hal.report & PRINT_ACCEL)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_ACCELEROMETER, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_GYRO)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GYROSCOPE, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_RAW_GYRO)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GYROSCOPE_UNCALIBRATED, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_GRV)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GAME_ROTATION_VECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_CUBE_GRV)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GAME_ROTATION_VECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_STEP_DETECTOR)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_STEP_DETECTOR, (unsigned short)(base_rate / rate));
+    }
+
     if (hal.report & PRINT_SMD)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_WAKEUP_SIGNIFICANT_MOTION, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_STEP_COUNTER)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_STEP_COUNTER, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_LINEAR_ACCEL)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_LINEAR_ACCELERATION, (unsigned short)(base_rate / rate));
+    }
+
     if (hal.report & PRINT_GRAVITY)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GRAVITY, (unsigned short)(base_rate / rate));
+    }
+    
     if ((hal.report & PRINT_COMPASS) || (hal.report & PRINT_RAW_COMPASS))
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GEOMAGNETIC_FIELD, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_RAW_COMPASS)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_MAGNETIC_FIELD_UNCALIBRATED, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_RV)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_ROTATION_VECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_GEOMAG)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_BAC)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_ACTIVITY_CLASSIFICATON, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_TILT)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_WAKEUP_TILT_DETECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_FLIP_PICKUP)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_FLIP_PICKUP, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_CUBE_RV)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_ROTATION_VECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_CUBE_GEOMAG)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_GEOMAGNETIC_ROTATION_VECTOR, (unsigned short)(base_rate / rate));
+    }
+    
     if (hal.report & PRINT_ORIENT)
+    {
         result |= inv_set_odr(ANDROID_SENSOR_ORIENTATION, (unsigned short)(base_rate / rate));
+    }
 
     inv_reset_dmp_odr_counters();
     dmp_reset_fifo();
@@ -823,7 +882,7 @@ void fifo_handler()
                     dmp_get_accel(long_data);
                     accel_accuracy = inv_get_accel_accuracy();
                     scale = (1 << inv_get_accel_fullscale()) * 2.f / (1L << 30); // Convert from raw units to g's
-                    scale *= 9.80665f; // Convert to m/s^2
+                    //scale *= 9.80665f; // Convert to m/s^2
                     inv_convert_dmp3_to_body(long_data, scale, accel_float);
                 } // header & ACCEL_SET
 
