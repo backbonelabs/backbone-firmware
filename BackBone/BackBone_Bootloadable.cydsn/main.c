@@ -102,12 +102,11 @@ __inline void ManageApplicationPower()
 
 __inline void RunApplication()
 {
-    char tst[100];
-
     // If there is data to read from the accelerometer, read it
     // then go to deep sleep.
     if (hal.new_gyro == 1)
     {
+        DBG_PRINT_TEXT(".");
         hal.new_gyro = 0;
         fifo_handler();
 
@@ -181,6 +180,9 @@ __inline void RunApplication()
             backbone_set_accelerometer_data(ble_get_connection(), &accelerometer_data);
 
             step_count_data.fields.step_count = inv_get_step_count();
+            DBG_PRINT_TEXT("fifo_handler(), step_count = ");
+            DBG_PRINT_DEC(step_count_data.fields.step_count);
+            DBG_PRINT_TEXT("\r\n");
             backbone_set_step_count_data(ble_get_connection(), &step_count_data);
 
             backbone_notify_accelerometer(ble_get_connection());
@@ -257,6 +259,27 @@ void RunBle()
 #endif
 }
 
+void ReadPersistentData()
+{
+    uint8_t* flash_row = (uint8_t*)((CY_FLASH_BASE + CY_FLASH_SIZE) -
+                                    (3 * CY_FLASH_SIZEOF_ROW));
+    uint32_t step_count;
+    memcpy(&step_count, flash_row, sizeof(step_count));
+    DBG_PRINT_TEXT("ReadPersistentData, step_count = ");
+    DBG_PRINT_DEC(step_count);
+    DBG_PRINT_TEXT("\r\n");
+    inv_set_step_count(step_count);
+}
+
+void SavePersistentData()
+{
+    uint8_t flash_row[CY_FLASH_SIZEOF_ROW];
+    
+    uint32_t step_count = inv_get_step_count();
+    memcpy(flash_row, &step_count, sizeof(step_count));
+    CySysFlashWriteRow(1021, flash_row);
+}
+
 /**
  * Main function of BackBone firmware.
  *
@@ -316,6 +339,8 @@ int main()
         CyBle_ProcessEvents();
     }
 
+    ReadPersistentData();
+    
     while (1)
     {
         RunBle();
@@ -333,6 +358,7 @@ int main()
 
         if (m_stop_and_reset)
         {
+            SavePersistentData();
             CyBle_Stop();
 
             // Finally, switch to the bootloader / stack project

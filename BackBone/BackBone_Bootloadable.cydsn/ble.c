@@ -190,7 +190,7 @@ void ble_app_event_handler(uint32 event, void* param)
             else if (CYBLE_BACKBONE_STEP_COUNT_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE == request->handleValPair.attrHandle)
             {
                 backbone_set_step_count_notification(&m_connection,
-                                                     request->handleValPair.value.val[CYBLE_BACKBONE_STATUS_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
+                                                     request->handleValPair.value.val[CYBLE_BACKBONE_STEP_COUNT_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_INDEX] == BLE_TRUE);
             }
             else if (CYBLE_BACKBONE_ENTER_BOOTLOADER_CHAR_HANDLE == request->handleValPair.attrHandle)
             {

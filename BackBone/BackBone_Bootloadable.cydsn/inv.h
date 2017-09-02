@@ -109,6 +109,7 @@ float inv_get_accelerometer_y(void);
 float inv_get_accelerometer_z(void);
 uint32_t inv_get_step_count(void);
 void inv_reset_step_count(void);
+void inv_set_step_count(uint32_t steps);
 void fifo_handler(void);
 
 #endif /* INV_H_ */

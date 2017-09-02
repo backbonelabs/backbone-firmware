@@ -72,6 +72,7 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
     CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
     uint8_t data[] = {HW_MAJOR_VERSION, HW_MINOR_VERSION, FW_MAJOR_VERSION, FW_MINOR_VERSION};
     backbone_status_t status;
+    backbone_step_count_t step_count;
 
     characteristic.attrHandle = CYBLE_BACKBONE_VERSION_CHAR_HANDLE;
     characteristic.value.val = data;
@@ -89,21 +90,23 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
     status.fields.reserved2 = 0;
     backbone_set_status_data(connection, &status);
 
+    step_count.fields.step_count = inv_get_step_count();
+    DBG_PRINT_TEXT("backbone_connected, step_count = ");
+    DBG_PRINT_DEC(step_count.fields.step_count);
+    DBG_PRINT_TEXT("\r\n");
+    backbone_set_step_count_data(connection, &step_count);
     // Update session statistics in the GATT database incase a session finished
     // while disconnected
     if (posture_get_elapsed_time() >= posture_get_session_duration() &&
         posture_get_session_duration() != 0)
     {
-        if (ble_is_connected())
-        {
-            backbone_session_statistics_t session_statistics_data;
+        backbone_session_statistics_t session_statistics_data;
 
-            session_statistics_data.fields.flags = 0;
-            session_statistics_data.fields.total_time = posture_get_elapsed_time();
-            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
-            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
-            backbone_notify_session_statistics(ble_get_connection());
-        }
+        session_statistics_data.fields.flags = 0;
+        session_statistics_data.fields.total_time = posture_get_elapsed_time();
+        session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+        backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+        backbone_notify_session_statistics(ble_get_connection());
     }
 }
 

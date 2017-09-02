@@ -75,7 +75,7 @@ uint16_t flip_pickup = 0;
 uint8_t step_detected = 0;
 float current_output_rate = 5;
 uint32_t step_count;
-uint32_t step_count_offset;
+int32_t step_count_offset;
 
 signed char ACCEL_GYRO_ORIENTATION[] = {0,-1,0,1,0,0,0,0,1};
 
@@ -183,10 +183,10 @@ inv_error_t inv_start(void)
         inv_flags |= INV_ERROR_SELF_TEST;
     }
 
-    I2C_Stop();
-
     step_count = 0;
     step_count_offset = 0;
+
+    I2C_Stop();
 
     return inv_selftest_status;
 }
@@ -806,12 +806,39 @@ float inv_get_accelerometer_z()
 
 uint32_t inv_get_step_count(void)
 {
+    DBG_PRINT_TEXT("inv_get_step_count(), step_count = ");
+    DBG_PRINT_DEC(step_count);
+    DBG_PRINT_TEXT(", step_count_offset = ");
+    DBG_PRINT_DEC(step_count_offset);
+    DBG_PRINT_TEXT("\r\n");
     return step_count - step_count_offset;
 }
 
 void inv_reset_step_count(void)
 {
+    DBG_PRINT_TEXT("inv_RESET_step_count(), step_count = ");
+    DBG_PRINT_DEC(step_count);
+    DBG_PRINT_TEXT(", step_count_offset = ");
+    DBG_PRINT_DEC(step_count_offset);
+    DBG_PRINT_TEXT("\r\n");
     step_count_offset = step_count;
+}
+
+void inv_set_step_count(uint32_t steps)
+{
+    unsigned long pedometer_steps = 0;
+    dmp_get_pedometer_num_of_steps(&pedometer_steps);
+
+    DBG_PRINT_TEXT("inv_set_step_count, pedometer_steps = ");
+    DBG_PRINT_DEC(pedometer_steps);
+    DBG_PRINT_TEXT("\r\n");
+
+    step_count = steps;
+    step_count_offset = pedometer_steps - steps;
+
+    DBG_PRINT_TEXT("inv_set_step_count, step_count_offset = ");
+    DBG_PRINT_DEC(step_count_offset);
+    DBG_PRINT_TEXT("\r\n");
 }
 
 void fifo_handler()
@@ -1144,7 +1171,7 @@ void fifo_handler()
                 dmp_get_pedometer_num_of_steps(&steps);
                 if (steps != old_steps)
                 {
-                    INV_SPRINTF(tst, INV_TST_LEN, "\tStep Counter %u\r\n", steps);
+                    INV_SPRINTF(tst, INV_TST_LEN, "\tStep Counter %lu\r\n", steps);
                     print_command_console(tst);
                     old_steps = steps;
                     step_count = steps;
