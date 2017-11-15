@@ -82,7 +82,7 @@ static struct
 {
     int32 mvolts;
     int32 capacity;
-} curve[CURVE_SIZE] = 
+} curve[CURVE_SIZE] =
 {
     {3227,   0},
     {3608,   5},
@@ -136,8 +136,8 @@ int32 MeasureBattery(bool immediate)
                 {
                     /* Linear interpolation for this section of the curve */
                     batteryLevel = curve[i-1].capacity +
-                                   ((curve[i].capacity - curve[i-1].capacity) * (mvolts - curve[i-1].mvolts)) / 
-                                       (curve[i].mvolts - curve[i-1].mvolts);
+                                   ((curve[i].capacity - curve[i-1].capacity) * (mvolts - curve[i-1].mvolts)) /
+                                   (curve[i].mvolts - curve[i-1].mvolts);
                     break;
                 }
             }

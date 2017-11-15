@@ -28,15 +28,18 @@ static uint8 distance_cccd[2];
 static uint8 slouch_cccd[2];
 static uint8 session_statistics_cccd[2];
 static uint8 status_cccd[2];
+static uint8 step_count_cccd[2];
 static bool m_reset_pending;
 static bool m_reset_requested;
 static bool m_self_test_requested;
+static bool m_step_count_dirty;
 
 void backbone_init()
 {
     m_reset_pending = false;
     m_reset_requested = false;
     m_self_test_requested = false;
+    m_step_count_dirty = false;
 }
 
 bool backbone_is_reset_pending()
@@ -69,6 +72,7 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
     CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
     uint8_t data[] = {HW_MAJOR_VERSION, HW_MINOR_VERSION, FW_MAJOR_VERSION, FW_MINOR_VERSION};
     backbone_status_t status;
+    backbone_step_count_t step_count;
 
     characteristic.attrHandle = CYBLE_BACKBONE_VERSION_CHAR_HANDLE;
     characteristic.value.val = data;
@@ -86,21 +90,20 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
     status.fields.reserved2 = 0;
     backbone_set_status_data(connection, &status);
 
+    step_count.fields.step_count = inv_get_step_count();
+    backbone_set_step_count_data(connection, &step_count);
     // Update session statistics in the GATT database incase a session finished
     // while disconnected
     if (posture_get_elapsed_time() >= posture_get_session_duration() &&
         posture_get_session_duration() != 0)
     {
-        if (ble_is_connected())
-        {
-            backbone_session_statistics_t session_statistics_data;
+        backbone_session_statistics_t session_statistics_data;
 
-            session_statistics_data.fields.flags = 0;
-            session_statistics_data.fields.total_time = posture_get_elapsed_time();
-            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
-            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
-            backbone_notify_session_statistics(ble_get_connection());
-        }
+        session_statistics_data.fields.flags = 0;
+        session_statistics_data.fields.total_time = posture_get_elapsed_time();
+        session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+        backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+        backbone_notify_session_statistics(ble_get_connection());
     }
 }
 
@@ -318,6 +321,69 @@ void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection)
     }
 }
 
+void backbone_set_step_count_data(CYBLE_CONN_HANDLE_T* connection,
+                                  backbone_step_count_t* data)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    backbone_step_count_t old_value;
+
+    characteristic.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
+    characteristic.value.val = old_value.raw_data;
+    characteristic.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
+    CyBle_GattsReadAttributeValue(&characteristic, connection, CYBLE_GATT_DB_LOCALLY_INITIATED);
+
+    if (old_value.fields.step_count != data->fields.step_count)
+    {
+        m_step_count_dirty = true;
+    }
+
+    characteristic.value.val = data->raw_data;
+    CyBle_GattsWriteAttributeValue(&characteristic,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_LOCALLY_INITIATED);
+}
+
+void backbone_set_step_count_notification(CYBLE_CONN_HANDLE_T* connection,
+                                          bool enable)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T attribute;
+
+    step_count_cccd[0] = enable ? BLE_TRUE : BLE_FALSE;
+    step_count_cccd[1] = 0x00;
+
+    attribute.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CLIENT_CHARACTERISTIC_CONFIGURATION_DESC_HANDLE;
+    attribute.value.val = status_cccd;
+    attribute.value.len = sizeof(status_cccd);
+
+    CyBle_GattsWriteAttributeValue(&attribute,
+                                   0,
+                                   connection,
+                                   CYBLE_GATT_DB_PEER_INITIATED);
+}
+
+void backbone_notify_step_count(CYBLE_CONN_HANDLE_T* connection)
+{
+    CYBLE_GATT_HANDLE_VALUE_PAIR_T characteristic;
+    CYBLE_GATTS_HANDLE_VALUE_NTF_T notification;
+    backbone_step_count_t data;
+
+    if (step_count_cccd[0] == BLE_TRUE && m_step_count_dirty)
+    {
+        m_step_count_dirty = false;
+
+        characteristic.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
+        characteristic.value.val = data.raw_data;
+        characteristic.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
+        CyBle_GattsReadAttributeValue(&characteristic, connection, 0);
+
+        notification.attrHandle = CYBLE_BACKBONE_STEP_COUNT_CHAR_HANDLE;
+        notification.value.val = data.raw_data;
+        notification.value.len = BACKBONE_STEP_COUNT_DATA_LEN;
+        CyBle_GattsNotification(*connection, &notification);
+    }
+}
+
 
 
 void backbone_enterbootloader(uint8_t* data, uint16_t len)
@@ -472,6 +538,22 @@ void backbone_controlsession(uint8_t* data, uint16_t len)
 
         case BACKBONE_RUN_ACCEL_SELFTEST:
             m_self_test_requested = true;
+            break;
+
+        case BACKBONE_START_ACCELEROMETER:
+            inv_enable_accelerometer();
+            break;
+
+        case BACKBONE_STOP_ACCELEROMETER:
+            inv_disable_accelerometer();
+            break;
+
+        case BACKBONE_SET_TIME:
+            if (len == 5)
+            {
+                uint32_t day_time = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
+                watchdog_set_day_time(day_time);
+            }
             break;
     }
 }

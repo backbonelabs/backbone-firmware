@@ -106,28 +106,72 @@ __inline void RunApplication()
     // then go to deep sleep.
     if (hal.new_gyro == 1)
     {
+        DBG_PRINT_TEXT(".");
         hal.new_gyro = 0;
-        CyDelay(10);
         fifo_handler();
 
-        posture_update(inv_get_accelerometer_x(),
-                       inv_get_accelerometer_y(),
-                       inv_get_accelerometer_z(),
-                       watchdog_get_time());
-
-        if (posture_is_notify_slouch())
+        if (posture_is_monitoring())
         {
-            motor_start(posture_get_duty_cycle(),
-                        posture_get_motor_on_time(),
-                        posture_get_vibration_pattern());
+            posture_update(inv_get_accelerometer_x(),
+                           inv_get_accelerometer_y(),
+                           inv_get_accelerometer_z(),
+                           watchdog_get_time());
+
+            if (posture_is_notify_slouch())
+            {
+                motor_start(posture_get_duty_cycle(),
+                            posture_get_motor_on_time(),
+                            posture_get_vibration_pattern());
+            }
+
+            if (ble_is_connected())
+            {
+                backbone_distance_t distance_data;
+                backbone_slouch_t slouch_data;
+                backbone_session_statistics_t session_statistics_data;
+
+                distance_data.fields.distance = posture_get_distance();
+                distance_data.fields.elapsed_time = posture_get_elapsed_time();
+                backbone_set_distance_data(ble_get_connection(), &distance_data);
+
+                session_statistics_data.fields.flags = 1;
+                session_statistics_data.fields.total_time = posture_get_elapsed_time();
+                session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+                backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+
+                slouch_data.slouch[0] = posture_is_slouch() ? 1 : 0;
+                backbone_set_slouch_data(ble_get_connection(), &slouch_data);
+
+                backbone_notify_distance(ble_get_connection());
+                if (posture_is_notify_slouch())
+                {
+                    backbone_notify_slouch(ble_get_connection());
+                }
+            }
+
+            // Check for end of session
+            if (posture_get_elapsed_time() >= posture_get_session_duration() &&
+                posture_get_session_duration() != 0)
+            {
+                posture_stop();
+
+                if (ble_is_connected())
+                {
+                    backbone_session_statistics_t session_statistics_data;
+
+                    session_statistics_data.fields.flags = 0;
+                    session_statistics_data.fields.total_time = posture_get_elapsed_time();
+                    session_statistics_data.fields.slouch_time = posture_get_slouch_time();
+                    backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
+                    backbone_notify_session_statistics(ble_get_connection());
+                }
+            }
         }
 
         if (ble_is_connected())
         {
             backbone_accelerometer_t accelerometer_data;
-            backbone_distance_t distance_data;
-            backbone_slouch_t slouch_data;
-            backbone_session_statistics_t session_statistics_data;
+            backbone_step_count_t step_count_data;
 
             accelerometer_data.axis[0] = inv_get_accelerometer_x();
             accelerometer_data.axis[1] = inv_get_accelerometer_y();
@@ -135,42 +179,11 @@ __inline void RunApplication()
             accelerometer_data.axis[3] = 0;
             backbone_set_accelerometer_data(ble_get_connection(), &accelerometer_data);
 
-            distance_data.fields.distance = posture_get_distance();
-            distance_data.fields.elapsed_time = posture_get_elapsed_time();
-            backbone_set_distance_data(ble_get_connection(), &distance_data);
-
-            session_statistics_data.fields.flags = 1;
-            session_statistics_data.fields.total_time = posture_get_elapsed_time();
-            session_statistics_data.fields.slouch_time = posture_get_slouch_time();
-            backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
-
-            slouch_data.slouch[0] = posture_is_slouch() ? 1 : 0;
-            backbone_set_slouch_data(ble_get_connection(), &slouch_data);
+            step_count_data.fields.step_count = inv_get_step_count();
+            backbone_set_step_count_data(ble_get_connection(), &step_count_data);
 
             backbone_notify_accelerometer(ble_get_connection());
-            backbone_notify_distance(ble_get_connection());
-
-            if (posture_is_notify_slouch())
-            {
-                backbone_notify_slouch(ble_get_connection());
-            }
-        }
-
-        if (posture_get_elapsed_time() >= posture_get_session_duration() &&
-            posture_get_session_duration() != 0)
-        {
-            posture_stop();
-
-            if (ble_is_connected())
-            {
-                backbone_session_statistics_t session_statistics_data;
-
-                session_statistics_data.fields.flags = 0;
-                session_statistics_data.fields.total_time = posture_get_elapsed_time();
-                session_statistics_data.fields.slouch_time = posture_get_slouch_time();
-                backbone_set_session_statistics_data(ble_get_connection(), &session_statistics_data);
-                backbone_notify_session_statistics(ble_get_connection());
-            }
+            backbone_notify_step_count(ble_get_connection());
         }
     }
 
@@ -210,6 +223,12 @@ __inline void RunApplication()
         MotorTimer_SetOneShot(1);
         MotorTimer_WritePeriod(1500);
     }
+
+    if (watchdog_get_day_time() >= WATCHDOG_SECONDS_PER_DAY)
+    {
+        inv_reset_step_count();
+        watchdog_set_day_time(0);
+    }
 }
 
 __inline void ManageBlePower()
@@ -237,6 +256,24 @@ void RunBle()
 #endif
 }
 
+void ReadPersistentData()
+{
+    uint8_t* flash_row = (uint8_t*)((CY_FLASH_BASE + CY_FLASH_SIZE) -
+                                    (3 * CY_FLASH_SIZEOF_ROW));
+    uint32_t step_count;
+    memcpy(&step_count, flash_row, sizeof(step_count));
+    inv_set_step_count(step_count);
+}
+
+void SavePersistentData()
+{
+    uint8_t flash_row[CY_FLASH_SIZEOF_ROW];
+    
+    uint32_t step_count = inv_get_step_count();
+    memcpy(flash_row, &step_count, sizeof(step_count));
+    CySysFlashWriteRow(1021, flash_row);
+}
+
 /**
  * Main function of BackBone firmware.
  *
@@ -251,7 +288,7 @@ void RunBle()
 int main()
 {
     m_stop_and_reset = false;
-    watchdog_init();
+    watchdog_init(0);
     CyGlobalIntEnable;
 #if !defined(__ARMCC_VERSION)
     InitializeBootloaderSRAM();
@@ -296,6 +333,8 @@ int main()
         CyBle_ProcessEvents();
     }
 
+    ReadPersistentData();
+    
     while (1)
     {
         RunBle();
@@ -313,6 +352,7 @@ int main()
 
         if (m_stop_and_reset)
         {
+            SavePersistentData();
             CyBle_Stop();
 
             // Finally, switch to the bootloader / stack project

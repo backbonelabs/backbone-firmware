@@ -32,6 +32,7 @@ void posture_resume(uint32_t resume_time,
 void posture_update(float x, float y, float z, uint32_t time);
 void posture_pause(void);
 void posture_stop(void);
+bool posture_is_monitoring(void);
 uint32_t posture_get_elapsed_time(void);
 uint32_t posture_get_slouch_time(void);
 uint32_t posture_get_session_duration(void);

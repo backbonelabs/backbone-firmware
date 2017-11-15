@@ -13,6 +13,7 @@
 #ifndef INV_H_
 #define INV_H_
 
+#include <stdbool.h>
 #include ".\20648_driver\invn\inv_mems.h"
 
 struct hal_s_
@@ -50,6 +51,13 @@ struct hal_s_
 #define PRINT_HRM           (0x1000000)
 #define PRINT_SHAKE         (0x2000000)
 #define PRINT_B2S           (0x4000000)
+
+#define PRINT_GES_GROUP (PRINT_STEP_COUNTER | \
+                            PRINT_STEP_DETECTOR | \
+                            PRINT_SMD | \
+                            PRINT_BAC | \
+                            PRINT_FLIP_PICKUP | \
+                            PRINT_TILT)
 
 #ifdef MEMS_20609
     #define DMP_INT_SMD     0x0400
@@ -95,9 +103,13 @@ uint32_t inv_get_init_status(void);
 uint32_t inv_get_selftest_status(void);
 void inv_enable_accelerometer(void);
 void inv_disable_accelerometer(void);
+bool inv_is_accelerometer_enabled(void);
 float inv_get_accelerometer_x(void);
 float inv_get_accelerometer_y(void);
 float inv_get_accelerometer_z(void);
+uint32_t inv_get_step_count(void);
+void inv_reset_step_count(void);
+void inv_set_step_count(uint32_t steps);
 void fifo_handler(void);
 
 #endif /* INV_H_ */

@@ -18,11 +18,14 @@
 
 typedef enum
 {
-    BACKBONE_START_SESSION,
-    BACKBONE_RESUME_SESSION,
-    BACKBONE_PAUSE_SESSION,
-    BACKBONE_STOP_SESSION,
-    BACKBONE_RUN_ACCEL_SELFTEST
+    BACKBONE_START_SESSION,         // 0x00
+    BACKBONE_RESUME_SESSION,        // 0x01
+    BACKBONE_PAUSE_SESSION,         // 0x02
+    BACKBONE_STOP_SESSION,          // 0x03
+    BACKBONE_RUN_ACCEL_SELFTEST,    // 0x04
+    BACKBONE_START_ACCELEROMETER,   // 0x05
+    BACKBONE_STOP_ACCELEROMETER,    // 0x06
+    BACKBONE_SET_TIME,              // 0x07
 } backbone_session_control_t;
 
 typedef union
@@ -54,6 +57,16 @@ typedef union
     uint8_t raw_data[12];
 } backbone_session_statistics_t;
 #define BACKBONE_SESSION_STATISTICS_DATA_LEN (12u)
+
+typedef union
+{
+    struct
+    {
+        uint32_t step_count;
+    } fields;
+    uint8 raw_data[4];
+} backbone_step_count_t;
+#define BACKBONE_STEP_COUNT_DATA_LEN (4u)
 
 typedef union
 {
@@ -113,8 +126,16 @@ void backbone_notify_slouch(CYBLE_CONN_HANDLE_T* connection);
 void backbone_set_status_data(CYBLE_CONN_HANDLE_T* connection,
                               backbone_status_t* data);
 void backbone_set_status_notification(CYBLE_CONN_HANDLE_T* connection,
-                                             bool enable);
+                                      bool enable);
 void backbone_notify_status(CYBLE_CONN_HANDLE_T* connection);
+
+
+
+void backbone_set_step_count_data(CYBLE_CONN_HANDLE_T* connection,
+                                  backbone_step_count_t* data);
+void backbone_set_step_count_notification(CYBLE_CONN_HANDLE_T* connection,
+                                          bool enable);
+void backbone_notify_step_count(CYBLE_CONN_HANDLE_T* connection);
 
 
 

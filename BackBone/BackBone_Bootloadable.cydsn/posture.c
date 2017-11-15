@@ -47,6 +47,7 @@ typedef struct
     uint8_t duty_cycle;
     uint16_t motor_on_time;
     state_t state;
+    bool active;
 } posture_t;
 
 static posture_t self;
@@ -78,13 +79,17 @@ void posture_start(uint32_t start_time,
     self.duty_cycle = duty_cycle;
     self.motor_on_time = motor_on_time;
     self.state = STATE_CALIBRATE;
+    self.active = true;
 
-    inv_enable_accelerometer();
+    if (!inv_is_accelerometer_enabled())
+    {
+        inv_enable_accelerometer();
+    }
 }
 
 void posture_pause(void)
 {
-    inv_disable_accelerometer();
+    self.active = false;
 }
 
 void posture_resume(uint32_t resume_time,
@@ -108,19 +113,24 @@ void posture_resume(uint32_t resume_time,
         self.duty_cycle = duty_cycle;
         self.motor_on_time = motor_on_time;
 
-        inv_enable_accelerometer();
+        self.active = true;
     }
 }
 
 void posture_stop(void)
 {
-    inv_disable_accelerometer();
+    self.active = false;
     self.start_time = 0;
     if (self.slouch_elapsed_time != 0)
     {
         self.total_slouch_elapsed_time += self.slouch_elapsed_time;
         self.slouch_elapsed_time = 0;
     }
+}
+
+bool posture_is_monitoring(void)
+{
+    return self.active;
 }
 
 static float low_pass_filter(float current, float input)
