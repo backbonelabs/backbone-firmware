@@ -91,9 +91,6 @@ void backbone_connected(CYBLE_CONN_HANDLE_T* connection)
     backbone_set_status_data(connection, &status);
 
     step_count.fields.step_count = inv_get_step_count();
-    DBG_PRINT_TEXT("backbone_connected, step_count = ");
-    DBG_PRINT_DEC(step_count.fields.step_count);
-    DBG_PRINT_TEXT("\r\n");
     backbone_set_step_count_data(connection, &step_count);
     // Update session statistics in the GATT database incase a session finished
     // while disconnected

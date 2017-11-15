@@ -806,39 +806,18 @@ float inv_get_accelerometer_z()
 
 uint32_t inv_get_step_count(void)
 {
-    DBG_PRINT_TEXT("inv_get_step_count(), step_count = ");
-    DBG_PRINT_DEC(step_count);
-    DBG_PRINT_TEXT(", step_count_offset = ");
-    DBG_PRINT_DEC(step_count_offset);
-    DBG_PRINT_TEXT("\r\n");
-    return step_count - step_count_offset;
+    return step_count + step_count_offset;
 }
 
 void inv_reset_step_count(void)
 {
-    DBG_PRINT_TEXT("inv_RESET_step_count(), step_count = ");
-    DBG_PRINT_DEC(step_count);
-    DBG_PRINT_TEXT(", step_count_offset = ");
-    DBG_PRINT_DEC(step_count_offset);
-    DBG_PRINT_TEXT("\r\n");
-    step_count_offset = step_count;
+    step_count_offset = -step_count;
 }
 
 void inv_set_step_count(uint32_t steps)
 {
-    unsigned long pedometer_steps = 0;
-    dmp_get_pedometer_num_of_steps(&pedometer_steps);
-
-    DBG_PRINT_TEXT("inv_set_step_count, pedometer_steps = ");
-    DBG_PRINT_DEC(pedometer_steps);
-    DBG_PRINT_TEXT("\r\n");
-
-    step_count = steps;
-    step_count_offset = pedometer_steps - steps;
-
-    DBG_PRINT_TEXT("inv_set_step_count, step_count_offset = ");
-    DBG_PRINT_DEC(step_count_offset);
-    DBG_PRINT_TEXT("\r\n");
+    step_count_offset = steps;
+    step_count = 0;
 }
 
 void fifo_handler()

@@ -180,9 +180,6 @@ __inline void RunApplication()
             backbone_set_accelerometer_data(ble_get_connection(), &accelerometer_data);
 
             step_count_data.fields.step_count = inv_get_step_count();
-            DBG_PRINT_TEXT("fifo_handler(), step_count = ");
-            DBG_PRINT_DEC(step_count_data.fields.step_count);
-            DBG_PRINT_TEXT("\r\n");
             backbone_set_step_count_data(ble_get_connection(), &step_count_data);
 
             backbone_notify_accelerometer(ble_get_connection());
@@ -265,9 +262,6 @@ void ReadPersistentData()
                                     (3 * CY_FLASH_SIZEOF_ROW));
     uint32_t step_count;
     memcpy(&step_count, flash_row, sizeof(step_count));
-    DBG_PRINT_TEXT("ReadPersistentData, step_count = ");
-    DBG_PRINT_DEC(step_count);
-    DBG_PRINT_TEXT("\r\n");
     inv_set_step_count(step_count);
 }
 
